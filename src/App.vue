@@ -43,11 +43,14 @@ export default {
 .header {
   height: 100px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   padding-top: 10px;
-  padding-left: 40px;
-  padding-right: 40px;
+
+  @include sm {
+    flex-direction: row;
+  }
 
   &__logo {
     .logo__title {

@@ -10,8 +10,8 @@
           <ul class="skill__list">
             <li
               class="skill__list__item"
-              v-for="skill in project.skills"
-              :key="skill"
+              v-for="(skill, i) in project.skills"
+              :key="i"
             >
               {{ skill }}
             </li>
@@ -73,6 +73,7 @@ export default {
 $card_color: #202020;
 
 .project_card {
+  margin-bottom: 1rem;
   &__title {
     font-size: calc(32px + 28 * (100vw - 320px) / 1120);
     margin-bottom: 4rem;
