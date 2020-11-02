@@ -1,8 +1,14 @@
 <template>
   <div>
-    <header class="header">
+    <header class="header container">
       <div class="header__logo">
-        <router-link to="/" v-html="logo" />
+        <router-link to="/">
+          <h1 class="logo__title">
+            <span class="colored"><</span>
+            <span class="main">Alekhin</span>
+            <span class="colored">/></span>
+          </h1>
+        </router-link>
       </div>
 
       <nav class="header__nav">
@@ -22,42 +28,17 @@
 </template>
 
 <script>
+import './scss/style.scss'
+
 export default {
   data() {
-    return {
-      logo: /*html*/ `
-        <h1 class="logo__title">
-          <span class="colored left"><</span>
-          <span class="main">Alekhin</span>  
-          <span class="colored right">/></span>
-        </h1>
-        `,
-    }
+    return {}
   },
 }
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
-
-$gray_text: #8a8b8d;
-$accent_color: #64c1af;
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  color: #fff;
-}
-
-a {
-  text-decoration: none;
-}
-
-body {
-  background: #25272c;
-  font-family: 'Roboto Mono', monospace;
-}
+@import './scss/style.scss';
 
 .header {
   height: 100px;
@@ -75,13 +56,6 @@ body {
 
       .colored {
         color: $accent_color;
-      }
-
-      .left {
-        margin-right: -15px;
-      }
-      .right {
-        margin-left: -15px;
       }
     }
   }
