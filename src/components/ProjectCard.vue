@@ -105,6 +105,7 @@ $card_color: #202020;
 
         &__list {
           display: flex;
+          flex-wrap: wrap;
           margin-top: 1rem;
           &__item {
             border-radius: 10px;
