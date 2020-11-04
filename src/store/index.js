@@ -8,7 +8,8 @@ export default new Vuex.Store({
     projects: [
       {
         title: 'Ника Дмитриева NEW',
-        description: 'На данный момент это мой самый новый проект',
+        description:
+          'Этой мой самый свежий проект. Состоит из сервера и двух клиентов, один для администрирования, другой уже для посетителей. Сейчас готовы формы регистрации и добавления новой серии. Демо версию можно увидеть по ссылке внизу. Вместо взаимодействия с сервером стоят setTimeout обернутые в Promise. Логин и пароль любые.',
         skills: [
           'Vue',
           'Vuex',
@@ -20,18 +21,17 @@ export default new Vuex.Store({
           'Docker',
         ],
         images: [
-          require('../images/nikadmitrieva/1.jpg'),
-          require('../images/nikadmitrieva/2.jpg'),
-          require('../images/nikadmitrieva/3.jpg'),
-          require('../images/nikadmitrieva/4.jpg'),
+          require('../images/nika-new/1.jpg'),
+          require('../images/nika-new/2.jpg'),
+          require('../images/nika-new/3.jpg'),
         ],
-        code: 'https://github.com/ValentinAlekhin/nikadmitrieva-client',
-        site: 'http://95.217.163.118/',
+        code: 'https://github.com/ValentinAlekhin/nikadmitrieva-new',
+        site: 'https://valentinalekhin.github.io/nikadmitrieva-new/',
       },
       {
         title: 'Ника Дмитриева',
         description:
-          'Это сайт портфолио для моей девушки. React и Redux явно избыточны для него, но мне хотелось попрактиковаться. К тому же это не просто статитческое приложение, его можно редактировать, нажав дважды в футере на надпись "© 2020 НИКА ДМИТРИЕВА". Откроется модальное окно регистрации адмимнистратора, после входа станут доступны элементы интерфейса для редактирования контента.',
+          'Это сайт-портфолио для моей девушки, она фотограф. React и Redux явно избыточны для него, но мне хотелось попрактиковаться. К тому же это не просто статический сайт, его можно редактировать, нажав дважды в футере на надпись "© 2020 НИКА ДМИТРИЕВА". Откроется модальное окно регистрации администратора, после входа станут доступны элементы интерфейса для редактирования контента.',
         skills: [
           'React',
           'Redux',

@@ -35,7 +35,7 @@
         />
       </div>
       <div class="slider_warapper">
-        <Hooper style="height: 300px">
+        <Hooper :style="{ height }">
           <Slide v-for="(img, i) in project.images" :key="i">
             <div class="img_container">
               <img :src="img" :alt="project.title" class="slider_img" />
@@ -62,7 +62,38 @@ export default {
   props: ['project'],
 
   data() {
-    return {}
+    return {
+      height: '',
+    }
+  },
+
+  methods: {
+    setHeight() {
+      const width = window.innerWidth
+      switch (true) {
+        case width < 400:
+          this.height = '150px'
+          break
+        case width < 500:
+          this.height = '200px'
+          break
+        case width < 600:
+          this.height = '250px'
+          break
+        default:
+          this.height = '300px'
+          break
+      }
+    },
+  },
+
+  created() {
+    this.setHeight()
+    window.addEventListener('resize', this.setHeight)
+  },
+
+  destroyed() {
+    window.removeEventListener('resize', this.myEventHandler)
   },
 }
 </script>
@@ -93,7 +124,11 @@ $card_color: #202020;
     }
 
     .about_wrapper {
-      padding-top: 4rem;
+      padding-top: 2rem;
+
+      @include sm {
+        padding-top: 4rem;
+      }
 
       .skill {
         margin-top: 3rem;
