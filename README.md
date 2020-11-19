@@ -17,17 +17,3 @@ yarn serve
 ```
 yarn build
 ```
-
-## Docker setup
-
-### Build image
-
-```
-docker build -t my_portfolio .
-```
-
-### Run container
-
-```
-docker container run -p 80:80 -p 443:443 -d --rm --name my_portfolio my_portfolio
-```
