@@ -4,7 +4,7 @@
       <div class="header__logo">
         <router-link to="/">
           <h1 class="logo__title">
-            <span class="colored"><</span>
+            <span class="colored">&#60;</span>
             <span class="main">Alekhin</span>
             <span class="colored">/></span>
           </h1>

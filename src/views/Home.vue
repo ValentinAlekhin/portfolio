@@ -6,7 +6,7 @@
         <div class="line" />
       </div>
       <h2 class="name">Valentin</h2>
-      <p class="job">Juniore Frontend Developer</p>
+      <p class="job">Junior Frontend Developer</p>
     </div>
     <div class="social">
       <SocialLink v-for="(link, i) in links" :key="i" :social="link" />
