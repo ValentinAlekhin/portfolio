@@ -7,12 +7,12 @@
       <stop offset="1" stop-color="#0D121C" />
     </linearGradient>
     <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="translate(1042 72) rotate(133.5) scale(513 470)" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#5B7CFA" stop-opacity="0.22" />
-      <stop offset="1" stop-color="#5B7CFA" stop-opacity="0" />
+      <stop stop-color="#2563EB" stop-opacity="0.22" />
+      <stop offset="1" stop-color="#2563EB" stop-opacity="0" />
     </radialGradient>
     <linearGradient id="accent-line" x1="706" y1="146" x2="1040" y2="490" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#7892FF" />
-      <stop offset="1" stop-color="#5B7CFA" />
+      <stop stop-color="#60A5FA" />
+      <stop offset="1" stop-color="#2563EB" />
     </linearGradient>
     <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%">
       <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#030712" flood-opacity="0.34" />
@@ -26,13 +26,13 @@
   <rect x="32" y="32" width="1136" height="566" rx="28" fill="url(#background)" />
   <g clip-path="url(#frame-clip)">
     <rect x="32" y="32" width="1136" height="566" fill="url(#glow)" />
-    <path d="M780 32H1168V420L780 32Z" fill="#5B7CFA" fill-opacity="0.025" />
-    <path d="M912 32H1168V286L912 32Z" fill="#5B7CFA" fill-opacity="0.035" />
+    <path d="M780 32H1168V420L780 32Z" fill="#2563EB" fill-opacity="0.025" />
+    <path d="M912 32H1168V286L912 32Z" fill="#2563EB" fill-opacity="0.035" />
   </g>
   <rect x="32.75" y="32.75" width="1134.5" height="564.5" rx="27.25" fill="none" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="1.5" />
 
   <g transform="translate(88 84)">
-    <rect width="42" height="42" rx="13" fill="#5B7CFA" />
+    <rect width="42" height="42" rx="13" fill="#2563EB" />
     <path d="M13.5 27.5L21 13.5L28.5 27.5" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
     <circle cx="21" cy="28.5" r="2" fill="#FFFFFF" />
     <text x="58" y="27" fill="#E9ECF2" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" letter-spacing="2.8">ALEKHIN.DEV</text>
@@ -44,30 +44,30 @@
   </g>
 
   <g transform="translate(88 474)" font-family="Arial, Helvetica, sans-serif">
-    <circle cx="6" cy="6" r="6" fill="#5B7CFA" />
+    <circle cx="6" cy="6" r="6" fill="#2563EB" />
     <text x="26" y="13" fill="#F1F3F7" font-size="22" font-weight="600" letter-spacing="0.4">alekhin.dev</text>
   </g>
 
   <g transform="translate(728 130)" filter="url(#shadow)">
     <rect width="350" height="358" rx="28" fill="#161F2F" stroke="#FFFFFF" stroke-opacity="0.12" />
     <g transform="translate(28 28)">
-      <circle cx="5" cy="5" r="5" fill="#5B7CFA" />
+      <circle cx="5" cy="5" r="5" fill="#2563EB" />
       <circle cx="23" cy="5" r="5" fill="#FFFFFF" fill-opacity="0.18" />
       <circle cx="41" cy="5" r="5" fill="#FFFFFF" fill-opacity="0.10" />
       <path d="M0 33H294" stroke="#FFFFFF" stroke-opacity="0.09" />
     </g>
 
     <g transform="translate(28 92)">
-      <rect width="122" height="58" rx="15" fill="#5B7CFA" fill-opacity="0.13" stroke="#5B7CFA" stroke-opacity="0.38" />
+      <rect width="122" height="58" rx="15" fill="#2563EB" fill-opacity="0.13" stroke="#2563EB" stroke-opacity="0.38" />
       <rect x="172" width="122" height="58" rx="15" fill="#FFFFFF" fill-opacity="0.035" stroke="#FFFFFF" stroke-opacity="0.11" />
       <rect y="120" width="122" height="58" rx="15" fill="#FFFFFF" fill-opacity="0.035" stroke="#FFFFFF" stroke-opacity="0.11" />
-      <rect x="172" y="120" width="122" height="58" rx="15" fill="#5B7CFA" fill-opacity="0.08" stroke="#5B7CFA" stroke-opacity="0.26" />
+      <rect x="172" y="120" width="122" height="58" rx="15" fill="#2563EB" fill-opacity="0.08" stroke="#2563EB" stroke-opacity="0.26" />
 
       <path d="M122 29H172M61 58V120M233 58V120M122 149H172" fill="none" stroke="url(#accent-line)" stroke-width="2" stroke-linecap="round" stroke-dasharray="5 7" />
-      <circle cx="147" cy="29" r="4" fill="#5B7CFA" />
-      <circle cx="61" cy="89" r="4" fill="#5B7CFA" />
-      <circle cx="233" cy="89" r="4" fill="#5B7CFA" />
-      <circle cx="147" cy="149" r="4" fill="#5B7CFA" />
+      <circle cx="147" cy="29" r="4" fill="#2563EB" />
+      <circle cx="61" cy="89" r="4" fill="#2563EB" />
+      <circle cx="233" cy="89" r="4" fill="#2563EB" />
+      <circle cx="147" cy="149" r="4" fill="#2563EB" />
 
       <g fill="#E9ECF2">
         <rect x="18" y="16" width="55" height="7" rx="3.5" />
@@ -83,11 +83,11 @@
 
     <g transform="translate(28 304)">
       <rect width="294" height="26" rx="8" fill="#FFFFFF" fill-opacity="0.035" />
-      <rect x="10" y="9" width="176" height="8" rx="4" fill="#5B7CFA" />
-      <rect x="10" y="9" width="232" height="8" rx="4" fill="#5B7CFA" fill-opacity="0.18" />
+      <rect x="10" y="9" width="176" height="8" rx="4" fill="#2563EB" />
+      <rect x="10" y="9" width="232" height="8" rx="4" fill="#2563EB" fill-opacity="0.18" />
     </g>
   </g>
 
-  <path d="M1088 516V542H1062" fill="none" stroke="#5B7CFA" stroke-width="2" stroke-linecap="round" />
-  <path d="M704 104H678V130" fill="none" stroke="#5B7CFA" stroke-opacity="0.55" stroke-width="2" stroke-linecap="round" />
+  <path d="M1088 516V542H1062" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" />
+  <path d="M704 104H678V130" fill="none" stroke="#2563EB" stroke-opacity="0.55" stroke-width="2" stroke-linecap="round" />
 </svg>

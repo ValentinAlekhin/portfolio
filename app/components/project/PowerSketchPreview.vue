@@ -302,7 +302,7 @@ withDefaults(defineProps<{
   width: 1.45rem;
   height: 1.45rem;
   border-radius: 0.38rem;
-  background: #5569d9;
+  background: var(--ui-accent);
   color: #fff;
   font-size: 0.68rem;
   font-weight: 800;
@@ -353,7 +353,7 @@ withDefaults(defineProps<{
   width: 3rem;
   height: 1.35rem;
   border-radius: 0.38rem;
-  background: #5569d9;
+  background: var(--ui-accent);
 }
 
 .powersketch-preview__workspace {
@@ -437,7 +437,7 @@ withDefaults(defineProps<{
   @apply absolute;
   width: 0.55rem;
   height: 1px;
-  background: #5569d9;
+  background: var(--ui-accent);
   content: "";
   inset: 0.55rem auto auto 0.23rem;
   transform: rotate(-45deg);
@@ -491,7 +491,7 @@ withDefaults(defineProps<{
 }
 
 .diagram-wire--primary path {
-  stroke: #5569d9;
+  stroke: var(--ui-accent);
 }
 
 .diagram-wire--neutral path {
@@ -513,7 +513,7 @@ withDefaults(defineProps<{
 }
 
 .diagram-device circle {
-  fill: #5569d9;
+  fill: var(--ui-accent);
 }
 
 .diagram-device text,

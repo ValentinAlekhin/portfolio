@@ -42,7 +42,7 @@ const year = useState('copyright-year', () => new Date().getUTCFullYear())
 .site-footer {
   @apply border-t;
 
-  padding-block: 2.2rem;
+  padding-block: 1.75rem;
   border-color: var(--ui-border);
 }
 
@@ -67,7 +67,7 @@ const year = useState('copyright-year', () => new Date().getUTCFullYear())
 .site-footer__role,
 .site-footer__copyright {
   color: var(--ui-text-muted);
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
 }
 
 .site-footer__copyright {
@@ -78,7 +78,7 @@ const year = useState('copyright-year', () => new Date().getUTCFullYear())
   @apply inline-flex items-center justify-self-end no-underline;
   gap: 0.45rem;
   color: var(--ui-text-muted);
-  font-size: 0.74rem;
+  font-size: 0.8125rem;
   font-weight: 620;
 }
 

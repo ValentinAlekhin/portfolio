@@ -8,12 +8,13 @@
   --ui-surface-muted: #ebeae5;
   --ui-surface-subtle: #f8f7f3;
   --ui-text: #1b1c20;
-  --ui-text-muted: #6c6d73;
+  --ui-text-muted: #5f6269;
   --ui-border: #d9d8d2;
   --ui-border-soft: #e7e5df;
-  --ui-accent: #5569d9;
-  --ui-accent-hover: #4659c4;
-  --ui-accent-soft: #e8eafe;
+  --ui-accent: #2563eb;
+  --ui-accent-hover: #1d4ed8;
+  --ui-accent-soft: #eff6ff;
+  --ui-focus: #93c5fd;
   --ui-accent-contrast: #ffffff;
   --ui-shadow-card: 0 22px 65px rgb(31 33 43 / 8%);
   --ui-bg: var(--ui-background);
@@ -22,7 +23,7 @@
   --ui-bg-accented: #e4e3de;
   --ui-text-highlighted: #111216;
   --ui-text-toned: #404147;
-  --ui-text-dimmed: #8a8b91;
+  --ui-text-dimmed: #74777f;
   --ui-primary: var(--ui-accent);
   --ui-success: #2e865e;
   --ui-contact-background: #202229;
@@ -36,12 +37,13 @@
   --ui-surface-muted: #20242b;
   --ui-surface-subtle: #181a1f;
   --ui-text: #efeee9;
-  --ui-text-muted: #a5a6ac;
+  --ui-text-muted: #b4b7be;
   --ui-border: #30343c;
   --ui-border-soft: #272b32;
-  --ui-accent: #8d9bf2;
-  --ui-accent-hover: #a0acf8;
-  --ui-accent-soft: #292e4b;
+  --ui-accent: #60a5fa;
+  --ui-accent-hover: #93c5fd;
+  --ui-accent-soft: rgb(96 165 250 / 10%);
+  --ui-focus: #60a5fa;
   --ui-accent-contrast: #171922;
   --ui-shadow-card: 0 24px 70px rgb(0 0 0 / 18%);
   --ui-bg: var(--ui-background);
@@ -50,7 +52,7 @@
   --ui-bg-accented: #292d35;
   --ui-text-highlighted: #f8f7f2;
   --ui-text-toned: #d1d1d5;
-  --ui-text-dimmed: #7f828a;
+  --ui-text-dimmed: #969aa3;
   --ui-primary: var(--ui-accent);
   --ui-success: #65ad83;
   --ui-contact-background: #101216;
@@ -81,7 +83,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid color-mix(in srgb, var(--ui-accent) 82%, transparent);
+    outline: 2px solid var(--ui-focus);
     outline-offset: 4px;
   }
 
@@ -102,19 +104,19 @@
 
 .site-container {
   @apply mx-auto;
-  width: min(100% - 5rem, 1360px);
+  width: min(100% - 5rem, 1520px);
 }
 
 .page-section {
   @apply relative;
-  padding-block: clamp(5.5rem, 8vw, 8.5rem);
+  padding-block: clamp(4.25rem, 6vw, 6.25rem);
   scroll-margin-top: calc(var(--header-height) + 1.25rem);
 }
 
 .eyebrow {
   @apply mt-0 mb-4;
   color: var(--ui-accent);
-  font-size: 0.78rem;
+  font-size: 0.8125rem;
   font-weight: 680;
   letter-spacing: 0.035em;
   line-height: 1.4;
@@ -122,7 +124,7 @@
 
 @media (max-width: 1024px) {
   .site-container {
-    width: min(100% - 3rem, 1360px);
+    width: min(100% - 3rem, 1520px);
   }
 }
 
@@ -132,17 +134,17 @@
   }
 
   .site-container {
-    width: min(100% - 2rem, 1360px);
+    width: min(100% - 2rem, 1520px);
   }
 
   .page-section {
-    padding-block: 4.75rem;
+    padding-block: 3.75rem;
   }
 }
 
 @media (max-width: 360px) {
   .site-container {
-    width: min(100% - 1.5rem, 1360px);
+    width: min(100% - 1.5rem, 1520px);
   }
 }
 

@@ -55,8 +55,8 @@ defineProps<{
 .services-section__intro {
   @apply grid items-end;
   grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.65fr);
-  gap: clamp(2rem, 7vw, 7rem);
-  margin-bottom: clamp(3rem, 6vw, 5rem);
+  gap: clamp(2rem, 5vw, 5rem);
+  margin-bottom: clamp(2.25rem, 4vw, 3.5rem);
 }
 
 .services-section :deep(.section-heading) {
@@ -66,27 +66,27 @@ defineProps<{
 .services-section__intro > p {
   margin: 0 0 0.2rem;
   color: var(--ui-text-muted);
-  font-size: 0.98rem;
-  line-height: 1.68;
+  font-size: 1rem;
+  line-height: 1.62;
 }
 
 .services-list {
   @apply grid grid-cols-2;
-  column-gap: clamp(2rem, 6vw, 6rem);
+  column-gap: clamp(2rem, 5vw, 5rem);
 }
 
 .service-item {
   @apply grid;
   grid-template-columns: 2rem 1fr;
   gap: 1rem;
-  padding: 2rem 0 2.2rem;
+  padding: 1.5rem 0 1.7rem;
   border-top: 1px solid var(--ui-border);
 }
 
 .service-item__number {
   padding-top: 0.25rem;
   color: var(--ui-accent);
-  font-size: 0.68rem;
+  font-size: 0.8125rem;
   font-weight: 680;
   font-variant-numeric: tabular-nums;
 }
@@ -103,16 +103,16 @@ defineProps<{
 .service-item p {
   margin: 0.9rem 0 0;
   color: var(--ui-text-muted);
-  font-size: 0.9rem;
-  line-height: 1.68;
+  font-size: 1rem;
+  line-height: 1.62;
 }
 
 .service-item ul {
   @apply flex list-none flex-wrap p-0;
-  margin: 1rem 0 0;
+  margin: 0.85rem 0 0;
   color: var(--ui-text-dimmed);
-  font-size: 0.7rem;
-  line-height: 1.55;
+  font-size: 0.8125rem;
+  line-height: 1.5;
 }
 
 .service-item li + li::before {

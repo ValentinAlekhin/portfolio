@@ -38,7 +38,7 @@ withDefaults(defineProps<{
 .section-heading {
   @apply w-full;
   max-width: 780px;
-  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
 }
 
 .section-heading--center {
@@ -59,7 +59,7 @@ withDefaults(defineProps<{
   max-width: 680px;
   color: var(--ui-text-muted);
   font-size: clamp(1rem, 1.5vw, 1.15rem);
-  line-height: 1.75;
+  line-height: 1.62;
 }
 
 .section-heading--center .section-heading__description {
@@ -68,11 +68,11 @@ withDefaults(defineProps<{
 
 @media (max-width: 640px) {
   .section-heading {
-    @apply mb-9;
+    @apply mb-8;
   }
 
   .section-heading h2 {
-    font-size: clamp(2.15rem, 12vw, 3.2rem);
+    font-size: clamp(2rem, 9.5vw, 2.5rem);
   }
 }
 </style>

@@ -18,8 +18,8 @@ defineProps<{
         :key="image.src"
         :src="image.src"
         :alt="image.alt"
-        width="1400"
-        height="900"
+        width="1600"
+        height="1000"
         loading="lazy"
         decoding="async"
       >
@@ -49,8 +49,9 @@ defineProps<{
 }
 
 .project-preview__images img {
-  @apply w-full object-cover;
-  aspect-ratio: 1.58;
+  @apply w-full border object-cover;
+  aspect-ratio: 1.6;
+  border-color: var(--ui-border-soft);
   border-radius: 1rem;
 }
 

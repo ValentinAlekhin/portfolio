@@ -52,7 +52,7 @@ defineProps<{
   @apply grid;
 
   grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-  gap: clamp(3rem, 8vw, 8rem);
+  gap: clamp(2.5rem, 6vw, 6rem);
 }
 
 .about-section :deep(.section-heading) {
@@ -62,32 +62,32 @@ defineProps<{
 .about-section__copy {
   @apply grid;
 
-  gap: 1.05rem;
-  padding-top: 2.1rem;
+  gap: 0.9rem;
+  padding-top: 1.5rem;
 }
 
 .about-section__copy p {
   @apply m-0;
 
   color: var(--ui-text-muted);
-  font-size: 0.96rem;
-  line-height: 1.72;
+  font-size: 1rem;
+  line-height: 1.65;
 }
 
 .about-section__copy p:first-child {
   color: var(--ui-text-toned);
-  font-size: 1.14rem;
+  font-size: 1.125rem;
 }
 
 .about-facts {
   @apply grid grid-cols-3;
 
-  margin: clamp(3rem, 7vw, 6rem) 0 0;
+  margin: clamp(2.25rem, 4.5vw, 4rem) 0 0;
   border-top: 1px solid var(--ui-border);
 }
 
 .about-facts div {
-  padding: 1.5rem clamp(1rem, 3vw, 2.5rem) 0 0;
+  padding: 1.25rem clamp(1rem, 3vw, 2.5rem) 0 0;
 }
 
 .about-facts div:first-child {
@@ -105,7 +105,7 @@ defineProps<{
 .about-facts dd {
   margin: 0.55rem 0 0;
   color: var(--ui-text-muted);
-  font-size: 0.78rem;
+  font-size: 0.875rem;
   line-height: 1.5;
 }
 

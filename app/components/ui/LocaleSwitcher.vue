@@ -36,7 +36,7 @@ async function switchLocale() {
   padding-inline: 0.45rem;
   border-radius: 0.55rem;
   color: var(--ui-text-muted);
-  font-size: 0.68rem;
+  font-size: 0.8125rem;
   font-weight: 760;
   letter-spacing: 0.05em;
   transition: background-color 180ms ease, color 180ms ease;

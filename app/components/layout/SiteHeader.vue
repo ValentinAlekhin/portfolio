@@ -119,7 +119,7 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
   padding-right: 0.7rem;
   border-right: 1px solid var(--ui-border);
   color: var(--ui-accent);
-  font-size: 0.68rem;
+  font-size: 0.8125rem;
   font-weight: 780;
   letter-spacing: -0.035em;
 }
@@ -145,7 +145,7 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
   position: relative;
   min-height: 2.75rem;
   color: var(--ui-text-muted);
-  font-size: 0.78rem;
+  font-size: 0.8125rem;
   font-weight: 620;
   transition: color 180ms ease;
 }
@@ -185,20 +185,20 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
   gap: 0.45rem;
   padding: 0.48rem 0.72rem;
   border-radius: 0.55rem;
-  background: var(--ui-text-highlighted);
-  color: var(--ui-background);
-  font-size: 0.72rem;
+  background: var(--ui-accent);
+  color: var(--ui-accent-contrast);
+  font-size: 0.8125rem;
   font-weight: 680;
   transition: background-color 180ms ease, color 180ms ease;
 }
 
 .site-header__contact span {
-  color: var(--ui-accent);
+  color: inherit;
   transition: transform 180ms ease;
 }
 
 .site-header__contact:hover {
-  background: var(--ui-accent);
+  background: var(--ui-accent-hover);
   color: var(--ui-accent-contrast);
 }
 

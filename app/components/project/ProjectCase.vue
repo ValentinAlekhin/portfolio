@@ -37,9 +37,6 @@ defineProps<{
       <p class="project-case__lead">
         {{ project.shortDescription }}
       </p>
-      <p class="project-case__description">
-        {{ project.fullDescription }}
-      </p>
 
       <a
         v-if="project.url"
@@ -52,15 +49,13 @@ defineProps<{
         <span aria-hidden="true">↗</span>
       </a>
 
-      <dl class="project-case__details">
-        <div v-if="project.role?.length">
+      <dl
+        v-if="project.role?.length"
+        class="project-case__details"
+      >
+        <div>
           <dt>{{ labels.role }}</dt>
           <dd>{{ project.role.map(role => role.item).join(' · ') }}</dd>
-        </div>
-
-        <div v-if="project.responsibilities?.length">
-          <dt>{{ labels.responsibilities }}</dt>
-          <dd>{{ project.responsibilities.map(item => item.item).join(' · ') }}</dd>
         </div>
       </dl>
 
@@ -105,7 +100,7 @@ defineProps<{
 .project-case {
   @apply grid items-start;
   grid-template-columns: minmax(0, 1.28fr) minmax(340px, 0.72fr);
-  gap: clamp(2.5rem, 5.5vw, 6rem);
+  gap: clamp(2.25rem, 4.5vw, 4.75rem);
 }
 
 .project-case__visual {
@@ -134,7 +129,7 @@ a.project-case__visual:hover :deep(.powersketch-preview) {
   gap: 0.65rem;
   margin: 0 0 1.2rem;
   color: var(--ui-text-muted);
-  font-size: 0.73rem;
+  font-size: 0.8125rem;
   font-weight: 620;
 }
 
@@ -159,21 +154,14 @@ a.project-case__visual:hover :deep(.powersketch-preview) {
   line-height: 1.52;
 }
 
-.project-case__description {
-  margin: 1rem 0 0;
-  color: var(--ui-text-muted);
-  font-size: 0.94rem;
-  line-height: 1.68;
-}
-
 .project-case__link {
   @apply inline-flex items-center no-underline;
   gap: 0.55rem;
-  margin-top: 1.35rem;
+  margin-top: 1.2rem;
   padding-bottom: 0.2rem;
   border-bottom: 1px solid color-mix(in srgb, var(--ui-accent) 42%, transparent);
   color: var(--ui-text-highlighted);
-  font-size: 0.84rem;
+  font-size: 0.9375rem;
   font-weight: 680;
 }
 
@@ -188,9 +176,9 @@ a.project-case__visual:hover :deep(.powersketch-preview) {
 
 .project-case__details {
   @apply grid;
-  gap: 1.1rem;
-  margin: 2.1rem 0 0;
-  padding-top: 1.6rem;
+  gap: 0.9rem;
+  margin: 1.65rem 0 0;
+  padding-top: 1.25rem;
   border-top: 1px solid var(--ui-border-soft);
 }
 
@@ -203,7 +191,7 @@ a.project-case__visual:hover :deep(.powersketch-preview) {
 .project-case__details dt,
 .project-case h4 {
   color: var(--ui-text-dimmed);
-  font-size: 0.68rem;
+  font-size: 0.8125rem;
   font-weight: 680;
   letter-spacing: 0.035em;
 }
@@ -211,12 +199,12 @@ a.project-case__visual:hover :deep(.powersketch-preview) {
 .project-case__details dd {
   margin: 0;
   color: var(--ui-text-muted);
-  font-size: 0.78rem;
-  line-height: 1.6;
+  font-size: 0.875rem;
+  line-height: 1.55;
 }
 
 .project-case__features {
-  margin-top: 1.7rem;
+  margin-top: 1.4rem;
 }
 
 .project-case h4 {
@@ -232,8 +220,8 @@ a.project-case__visual:hover :deep(.powersketch-preview) {
   @apply grid;
   grid-template-columns: 1rem 1fr;
   color: var(--ui-text-toned);
-  font-size: 0.84rem;
-  line-height: 1.5;
+  font-size: 1rem;
+  line-height: 1.55;
 }
 
 .project-case__features li span {
@@ -242,9 +230,9 @@ a.project-case__visual:hover :deep(.powersketch-preview) {
 
 .project-case__technologies {
   @apply flex flex-wrap;
-  margin: 1.5rem 0 0;
+  margin: 1.25rem 0 0;
   color: var(--ui-text-muted);
-  font-size: 0.73rem;
+  font-size: 0.8125rem;
   font-weight: 620;
 }
 
@@ -255,22 +243,22 @@ a.project-case__visual:hover :deep(.powersketch-preview) {
 }
 
 .project-case__result {
-  margin-top: 1.8rem;
-  padding-top: 1.5rem;
+  margin-top: 1.4rem;
+  padding-top: 1.2rem;
   border-top: 1px solid var(--ui-border-soft);
 }
 
 .project-case__result p {
   margin: 0;
   color: var(--ui-text-muted);
-  font-size: 0.82rem;
-  line-height: 1.65;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 @media (max-width: 1050px) {
   .project-case {
     grid-template-columns: 1fr;
-    gap: 2.75rem;
+    gap: 2.25rem;
   }
 
   .project-case__content {
@@ -286,7 +274,7 @@ a.project-case__visual:hover :deep(.powersketch-preview) {
   }
 
   .project-case h3 {
-    font-size: clamp(2.6rem, 15vw, 3.5rem);
+    font-size: clamp(2.5rem, 11vw, 3rem);
   }
 
   .project-case__details div {

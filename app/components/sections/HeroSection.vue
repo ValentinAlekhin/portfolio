@@ -105,13 +105,13 @@ function words(line: string) {
 
 .hero-section {
   @apply relative;
-  padding: calc(var(--header-height) + clamp(4rem, 7vw, 6.5rem)) 0 clamp(4.75rem, 7vw, 7rem);
+  padding: calc(var(--header-height) + clamp(3.5rem, 5.5vw, 5rem)) 0 clamp(3.75rem, 5vw, 5.25rem);
 }
 
 .hero-section__grid {
   @apply grid items-center;
-  grid-template-columns: minmax(0, 1.03fr) minmax(0, 0.97fr);
-  gap: clamp(2.5rem, 4.5vw, 4.75rem);
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: clamp(2.25rem, 4vw, 4rem);
 }
 
 .hero-section__content {
@@ -130,7 +130,7 @@ function words(line: string) {
 .hero-section h1 {
   @apply m-0;
   color: var(--ui-text-highlighted);
-  font-size: clamp(3.85rem, 4.9vw, 5.25rem);
+  font-size: clamp(3.6rem, 4.35vw, 4.25rem);
   font-weight: 690;
   hyphens: none;
   letter-spacing: -0.064em;
@@ -168,7 +168,7 @@ function words(line: string) {
   gap: 0.65rem;
   padding: 0.7rem 1.05rem;
   border-radius: 0.65rem;
-  font-size: 0.88rem;
+  font-size: 0.9375rem;
   font-weight: 680;
   line-height: 1.2;
   transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
@@ -179,12 +179,12 @@ function words(line: string) {
 }
 
 .hero-action--primary {
-  background: var(--ui-text-highlighted);
-  color: var(--ui-background);
+  background: var(--ui-accent);
+  color: var(--ui-accent-contrast);
 }
 
 .hero-action--primary:hover {
-  background: var(--ui-accent);
+  background: var(--ui-accent-hover);
   color: var(--ui-accent-contrast);
 }
 
@@ -212,7 +212,7 @@ function words(line: string) {
   gap: 0.45rem;
   margin: 1.7rem 0 0;
   color: var(--ui-text-muted);
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   font-weight: 570;
 }
 
@@ -237,7 +237,7 @@ function words(line: string) {
   gap: 0;
   margin: 0.8rem 0 0;
   color: var(--ui-text-dimmed);
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 580;
 }
 
@@ -251,9 +251,15 @@ function words(line: string) {
   min-width: 0;
 }
 
-@media (max-width: 1180px) {
+@media (min-width: 1600px) {
+  .hero-section h1 {
+    font-size: clamp(4.5rem, 4vw, 4.75rem);
+  }
+}
+
+@media (max-width: 1240px) {
   .hero-section {
-    padding-top: calc(var(--header-height) + 4rem);
+    padding-top: calc(var(--header-height) + 3.25rem);
   }
 
   .hero-section__grid {
@@ -266,7 +272,7 @@ function words(line: string) {
   }
 
   .hero-section h1 {
-    font-size: clamp(3.55rem, 8vw, 5rem);
+    font-size: clamp(3.55rem, 6.5vw, 4.75rem);
   }
 
   .hero-section__project {
@@ -276,21 +282,21 @@ function words(line: string) {
 
 @media (max-width: 640px) {
   .hero-section {
-    padding-top: calc(var(--header-height) + 2.8rem);
-    padding-bottom: 4.5rem;
+    padding-top: calc(var(--header-height) + 2.4rem);
+    padding-bottom: 3.75rem;
   }
 
   .hero-section__grid {
-    gap: 2.8rem;
+    gap: 2.4rem;
   }
 
   .hero-section__eyebrow {
     margin-bottom: 1.15rem;
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
   }
 
   .hero-section h1 {
-    font-size: clamp(2.65rem, 12vw, 3.25rem);
+    font-size: clamp(2.5rem, 11vw, 3rem);
     letter-spacing: -0.058em;
     line-height: 1;
   }
@@ -301,7 +307,7 @@ function words(line: string) {
 
   .hero-section__description {
     margin-top: 1.35rem;
-    font-size: 0.96rem;
+    font-size: 1rem;
     line-height: 1.58;
   }
 
@@ -316,7 +322,7 @@ function words(line: string) {
 
 @media (max-width: 350px) {
   .hero-section h1 {
-    font-size: 2.55rem;
+    font-size: 2.5rem;
   }
 
   .hero-section__actions {

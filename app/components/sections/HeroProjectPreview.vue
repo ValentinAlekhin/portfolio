@@ -53,12 +53,12 @@ defineProps<{
   gap: 0.65rem 1rem;
   padding: 1rem 0.2rem 0;
   color: var(--ui-text-muted);
-  font-size: 0.76rem;
+  font-size: 0.8125rem;
 }
 
 .hero-project-preview__caption strong {
   color: var(--ui-text-highlighted);
-  font-size: 0.88rem;
+  font-size: 0.9375rem;
   font-weight: 720;
   letter-spacing: -0.025em;
 }

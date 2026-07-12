@@ -113,11 +113,6 @@ useHead(() => {
       <ServicesSection :services="content.services" />
       <ProcessSection :process="content.process" />
       <AboutSection :about="content.about" />
-      <AvailabilitySection
-        :availability="content.availability"
-        :contact-href="contactHref"
-        :contact-label="content.navigation.contactLabel"
-      />
       <ContactsSection :contacts="content.contacts" />
     </main>
 

@@ -78,11 +78,11 @@ const hasContacts = computed(() => Boolean(props.contacts.telegram.url || props.
 .contacts-section__grid {
   @apply grid items-end;
   grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.55fr);
-  gap: clamp(3rem, 9vw, 9rem);
+  gap: clamp(2.5rem, 7vw, 7rem);
 }
 
 .contacts-section .eyebrow {
-  color: #9eabfa;
+  color: var(--ui-accent);
 }
 
 .contacts-section h2 {
@@ -98,14 +98,14 @@ const hasContacts = computed(() => Boolean(props.contacts.telegram.url || props.
 .contacts-section__aside > p:first-child {
   margin: 0;
   color: #b8bac2;
-  font-size: 0.96rem;
-  line-height: 1.7;
+  font-size: 1rem;
+  line-height: 1.62;
 }
 
 .contacts-section__actions {
   @apply flex flex-wrap;
   gap: 0.75rem 1.5rem;
-  margin-top: 2rem;
+  margin-top: 1.6rem;
 }
 
 .contacts-section__actions a {
@@ -119,7 +119,7 @@ const hasContacts = computed(() => Boolean(props.contacts.telegram.url || props.
 }
 
 .contacts-section__actions a span {
-  color: #9eabfa;
+  color: var(--ui-accent);
   transition: transform 180ms ease;
 }
 
@@ -132,13 +132,13 @@ const hasContacts = computed(() => Boolean(props.contacts.telegram.url || props.
   padding-top: 1.1rem;
   border-top: 1px solid #3a3e48;
   color: #d0d1d6;
-  font-size: 0.88rem;
+  font-size: 0.9375rem;
 }
 
 .contacts-section__note {
   margin: 1rem 0 0;
   color: #898d99;
-  font-size: 0.74rem;
+  font-size: 0.8125rem;
 }
 
 @media (max-width: 860px) {
@@ -154,7 +154,7 @@ const hasContacts = computed(() => Boolean(props.contacts.telegram.url || props.
 
 @media (max-width: 640px) {
   .contacts-section h2 {
-    font-size: clamp(2.65rem, 14vw, 3.8rem);
+    font-size: clamp(2.25rem, 10vw, 2.75rem);
   }
 }
 

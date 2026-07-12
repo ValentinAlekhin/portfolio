@@ -50,23 +50,23 @@ defineProps<{
 }
 
 .process-step {
-  padding: 1.7rem clamp(1.2rem, 2.5vw, 2.2rem) 0 0;
+  padding: 1.4rem clamp(1.1rem, 2.25vw, 2rem) 0 0;
 }
 
 .process-step + .process-step {
-  padding-left: clamp(1.2rem, 2.5vw, 2.2rem);
+  padding-left: clamp(1.1rem, 2.25vw, 2rem);
   border-left: 1px solid var(--ui-border-soft);
 }
 
 .process-step > span {
   color: var(--ui-accent);
-  font-size: 0.68rem;
+  font-size: 0.8125rem;
   font-weight: 680;
   font-variant-numeric: tabular-nums;
 }
 
 .process-step h3 {
-  margin: 2.4rem 0 0;
+  margin: 1.8rem 0 0;
   color: var(--ui-text-highlighted);
   font-size: clamp(1.2rem, 1.8vw, 1.55rem);
   font-weight: 670;
@@ -77,8 +77,8 @@ defineProps<{
 .process-step p {
   margin: 0.85rem 0 0;
   color: var(--ui-text-muted);
-  font-size: 0.85rem;
-  line-height: 1.68;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 @media (max-width: 940px) {
@@ -92,8 +92,8 @@ defineProps<{
   }
 
   .process-step:nth-child(n + 3) {
-    margin-top: 2.5rem;
-    padding-top: 1.7rem;
+    margin-top: 2rem;
+    padding-top: 1.4rem;
     border-top: 1px solid var(--ui-border);
   }
 }

@@ -172,14 +172,14 @@ function closeMenu() {
   @apply flex min-h-12 items-center justify-center no-underline;
   gap: 0.55rem;
   border-radius: 0.65rem;
-  background: var(--ui-text-highlighted);
-  color: var(--ui-background);
-  font-size: 0.88rem;
+  background: var(--ui-accent);
+  color: var(--ui-accent-contrast);
+  font-size: 0.9375rem;
   font-weight: 680;
 }
 
 .mobile-navigation__contact span {
-  color: var(--ui-accent);
+  color: inherit;
 }
 
 .mobile-navigation__controls {

@@ -137,14 +137,15 @@ projects:
       shortDescription: A browser-based service for designing electrical distribution boards.
       fullDescription: A complete SaaS product with an interactive graphical editor, an electrical device library, project storage, diagram exports and a subscription model.
       url: https://powersketch.ru
+      images:
+        - src: https://placehold.co/1600x1000/F3F6FA/111827?text=PowerSketch+Case+Screenshot
+          alt: PowerSketch case screenshot placeholder.
       role:
         - item: Product design
         - item: UI/UX
         - item: Frontend
         - item: Backend
         - item: Architecture
-        - item: Infrastructure
-        - item: Product development
       responsibilities:
         - item: Product architecture
         - item: Interactive editor
@@ -162,7 +163,7 @@ projects:
         - label: TypeScript
         - label: Node.js
         - label: SVG
-      result: A complete browser-based product that lets users create electrical diagrams without installing specialized desktop software.
+      result: A browser-based product for creating electrical diagrams without specialized desktop software.
 
 process:
   eyebrow: Collaboration

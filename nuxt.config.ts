@@ -20,8 +20,8 @@ export default defineNuxtConfig({
     head: {
       meta: [
         { name: 'color-scheme', content: 'light dark' },
-        { name: 'theme-color', content: '#f7f6f2', media: '(prefers-color-scheme: light)' },
-        { name: 'theme-color', content: '#111318', media: '(prefers-color-scheme: dark)' },
+        { name: 'theme-color', content: '#f4f3ef', media: '(prefers-color-scheme: light)' },
+        { name: 'theme-color', content: '#15171b', media: '(prefers-color-scheme: dark)' },
       ],
       link: [
         { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },

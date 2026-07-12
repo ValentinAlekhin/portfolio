@@ -59,7 +59,7 @@ const publishedProjects = computed(() => props.projects.items
 
 .projects-list {
   @apply grid;
-  gap: clamp(5rem, 9vw, 9rem);
+  gap: clamp(3.75rem, 7vw, 6.5rem);
 }
 
 .projects-empty {
