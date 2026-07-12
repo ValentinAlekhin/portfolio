@@ -1,0 +1,264 @@
+locale: ru
+
+seo:
+  title: Валентин Алёхин — Senior Full-stack разработчик
+  description: Независимый senior full-stack разработчик. Разработка MVP, SaaS-продуктов, веб-приложений, интеграций и Telegram-ботов от идеи до запуска.
+  ogTitle: Веб-продукты от идеи до запуска
+  ogDescription: Интерфейс, frontend, backend, интеграции и запуск — у одного senior full-stack разработчика.
+  ogImage: https://alekhin.dev/og/portfolio-ru.png
+  canonicalUrl: https://alekhin.dev/ru
+  ogLocale: ru_RU
+  ogAlternateLocale: en_US
+
+site:
+  name: Валентин Алёхин
+  schemaName: Valentin Alyokhin
+  shortName: VA
+  role: Независимый full-stack разработчик
+  schemaRole: Senior Full-stack Developer
+  knowsAbout:
+    - TypeScript
+    - Vue
+    - Nuxt
+    - Node.js
+    - Go
+    - SaaS Development
+    - Web Application Development
+  domain: alekhin.dev
+  url: https://alekhin.dev
+
+navigation:
+  items:
+    - id: projects
+      label: Проекты
+    - id: services
+      label: Услуги
+    - id: process
+      label: Процесс
+    - id: about
+      label: Обо мне
+    - id: contacts
+      label: Контакты
+  contactLabel: Обсудить проект
+  menuOpenLabel: Открыть навигацию
+  menuCloseLabel: Закрыть навигацию
+  menuTitle: Навигация
+  themeLabel: Выбрать цветовую тему
+  languageLabel: Сменить язык
+  skipLabel: Перейти к содержимому
+
+hero:
+  eyebrow: Независимый senior full-stack разработчик
+  title: Разрабатываю веб-продукты от идеи до запуска
+  description: Я Валентин Алёхин, senior full-stack разработчик с 6-летним опытом. Создаю MVP, SaaS-сервисы, веб-приложения, интеграции и Telegram-ботов — от интерфейса и архитектуры до backend и запуска.
+  experience: 6 лет продуктовой разработки
+  availability: Доступен для новых проектов
+  primaryAction:
+    label: Обсудить проект
+    href: "#contacts"
+  secondaryAction:
+    label: Посмотреть проекты
+    href: "#projects"
+  technologiesLabel: Основные технологии
+  technologies:
+    - label: TypeScript
+    - label: Vue / Nuxt
+    - label: Node.js
+    - label: Go
+  portrait:
+    src:
+    alt:
+  visual:
+    monogram: VA
+    label: Разработка продукта целиком
+    cards:
+      - title: Full-stack разработка
+        description: Цельный продукт на уровне интерфейса, frontend и backend.
+      - title: MVP и SaaS
+        description: От определения первой версии до готового к запуску продукта.
+      - title: Frontend + Backend
+        description: Архитектура, интеграции и технический запуск включены.
+
+services:
+  eyebrow: Услуги
+  title: Чем я могу помочь
+  description: Могу отвечать за продукт целиком или за чётко определённую часть существующей системы — с прямым общением на всех этапах.
+  items:
+    - id: mvp-saas
+      title: MVP и SaaS-продукты
+      description: Помогу превратить идею в работающий продукт с понятным объёмом первой версии, удобным интерфейсом, архитектурой и планом запуска.
+      icon: launch
+      details:
+        - item: Требования и состав продукта
+        - item: Интерфейс и архитектура
+        - item: Frontend и backend
+        - item: Подготовка к запуску
+    - id: web-applications
+      title: Веб-приложения
+      description: Разрабатываю личные кабинеты, внутренние системы, редакторы, административные панели и сложные приложения с пользовательской логикой.
+      icon: application
+      details:
+        - item: Личные кабинеты и панели
+        - item: Внутренние и административные системы
+        - item: Редакторы и сложные интерфейсы
+        - item: Пользовательские сценарии
+    - id: integrations-automation
+      title: Интеграции и автоматизация
+      description: Подключаю внешние API, платежи, CRM, авторизацию и уведомления, а повторяющиеся ручные процессы превращаю в надёжные сценарии.
+      icon: integration
+      details:
+        - item: Внешние и внутренние API
+        - item: Платежи и авторизация
+        - item: CRM и уведомления
+        - item: Автоматизация бизнес-процессов
+    - id: telegram-bots
+      title: Telegram-боты
+      description: Создаю ботов для приёма заявок, уведомлений, внутренних процессов, клиентских сервисов и интеграций с существующими системами.
+      icon: telegram
+      details:
+        - item: Приём заявок
+        - item: Уведомления и оповещения
+        - item: Внутренние процессы
+        - item: Интеграции с сервисами
+    - id: product-development
+      title: Развитие существующего продукта
+      description: Добавляю функции, исправляю архитектурные проблемы, рефакторю критичные части и готовлю приложение к следующему этапу развития.
+      icon: improve
+      details:
+        - item: Разработка новых функций
+        - item: Рефакторинг и модернизация
+        - item: Ускорение интерфейса
+        - item: Улучшение архитектуры
+
+projects:
+  eyebrow: Избранная работа
+  title: Продукты для реальных рабочих процессов
+  description: Подробный пример продуктового подхода, работы с интерфейсом и full-stack реализации в настоящем браузерном сервисе.
+  emptyLabel: Информация о проектах скоро появится здесь.
+  labels:
+    featured: Избранный проект
+    role: Моя роль
+    responsibilities: Зона ответственности
+    features: Основные функции
+    result: Результат
+    visit: Открыть проект
+    repository: Открыть репозиторий
+    technologies: Технологии
+  items:
+    - id: powersketch
+      published: true
+      featured: true
+      title: PowerSketch
+      shortDescription: Веб-сервис для проектирования электрических щитов прямо в браузере.
+      fullDescription: Полноценный SaaS-продукт с интерактивным графическим редактором, библиотекой электротехнических устройств, хранением проектов, экспортом схем и подписочной моделью.
+      url: https://powersketch.ru
+      repositoryUrl:
+      images: []
+      role:
+        - item: Проектирование продукта
+        - item: UI/UX
+        - item: Frontend
+        - item: Backend
+        - item: Архитектура
+        - item: Инфраструктура
+        - item: Развитие продукта
+      responsibilities:
+        - item: Архитектура продукта
+        - item: Интерактивный редактор
+        - item: Библиотека устройств
+        - item: Хранение проектов
+      features:
+        - item: Интерактивный графический редактор
+        - item: Слои, провода и аннотации
+        - item: Хранение, копирование проектов и пользовательские устройства
+        - item: Экспорт в SVG, PNG и PDF
+        - item: Подписки и платные функции
+      technologies:
+        - label: Vue
+        - label: Nuxt
+        - label: TypeScript
+        - label: Node.js
+        - label: SVG
+      result: Полноценный браузерный продукт, позволяющий пользователям создавать электрические схемы без установки специализированного настольного программного обеспечения.
+      metrics: []
+
+process:
+  eyebrow: Сотрудничество
+  title: Как проходит работа
+  description: Прозрачный процесс из четырёх этапов помогает держать продуктовые решения, объём работ и прогресс в поле зрения — от первого разговора до запуска.
+  items:
+    - number: "01"
+      title: Обсуждение
+      description: Вы рассказываете о задаче, пользователях, текущем состоянии, необходимых функциях и ожидаемом результате.
+      details:
+        - item: Контекст продукта и пользователи
+        - item: Текущий этап и ограничения
+        - item: Необходимый результат
+    - number: "02"
+      title: Предложение
+      description: Я уточняю требования, предлагаю техническое решение, определяю состав работ, сроки и подходящий формат оплаты.
+      details:
+        - item: Технический подход
+        - item: Состав и приоритеты
+        - item: Сроки и формат работы
+    - number: "03"
+      title: Разработка
+      description: Работа идёт поэтапно с регулярными демонстрациями, поэтому вы видите прогресс и можете корректировать интерфейс до завершения.
+      details:
+        - item: Поэтапная реализация
+        - item: Регулярные демонстрации
+        - item: Ранняя обратная связь
+    - number: "04"
+      title: Запуск
+      description: Я готовлю production-сборку, разворачиваю продукт, проверяю основные сценарии, исправляю проблемы запуска и передаю инструкции.
+      details:
+        - item: Подготовка production
+        - item: Развёртывание и проверка
+        - item: Передача и следующие шаги
+
+about:
+  eyebrow: Совместная работа
+  title: Один разработчик вместо нескольких разрозненных исполнителей
+  paragraphs:
+    - text: Я специализируюсь на разработке веб-продуктов и могу самостоятельно отвечать за большую часть проекта — интерфейс, frontend, backend, интеграции и запуск.
+    - text: Мне необязательно передавать полностью готовое техническое задание. Я могу помочь проработать идею, определить основные пользовательские сценарии и предложить практичные варианты реализации.
+    - text: Интерфейс также не обязательно готовить заранее. Я могу собрать первый рабочий вариант, показать его в контексте продукта и улучшить в несколько итераций.
+    - text: Общение ведётся напрямую, без дополнительного слоя менеджеров. Возможна работа с фиксированным объёмом проекта или почасовое подключение к развитию продукта.
+  facts:
+    - value: 6 лет
+      label: в разработке
+    - value: Full-stack
+      label: frontend и backend
+    - value: Напрямую
+      label: общение без посредников
+    - value: Гибко
+      label: проектная или почасовая работа
+
+availability:
+  visible: true
+  available: true
+  label: Доступен для новых проектов
+  title: Готов обсудить новый продукт или следующий этап существующего
+  description: Расскажите, что хотите создать, что уже сделано и где нужна техническая помощь. Начнём с короткого разговора и определим разумный следующий шаг.
+  location:
+  timezone:
+  locationLabel: Местоположение
+  timezoneLabel: Часовой пояс
+
+contacts:
+  eyebrow: Контакты
+  title: Есть задача или идея продукта?
+  description: Напишите несколько предложений о проекте, его текущем состоянии и о том, что необходимо разработать.
+  telegram:
+    label: Telegram
+    url:
+  email:
+    label: Email
+    value:
+  placeholder: Контактные данные будут добавлены здесь.
+  responseNote: Короткого описания достаточно, чтобы начать разговор.
+
+footer:
+  role: Независимый full-stack разработчик
+  copyright: Все права защищены.
+  backToTopLabel: Наверх

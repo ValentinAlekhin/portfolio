@@ -1,18 +1,118 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
+    '@nuxt/ui',
     '@nuxt/content',
-    '@nuxt/eslint',
-    '@nuxt/fonts',
-    '@nuxt/icon',
-    '@nuxt/image',
-    '@nuxtjs/color-mode',
     '@nuxtjs/i18n',
-    '@nuxtjs/robots',
-    '@nuxtjs/sitemap',
-    '@nuxtjs/tailwindcss',
     '@vueuse/nuxt',
+    '@nuxt/eslint',
   ],
-  devtools: { enabled: true },
-  compatibilityDate: '2024-04-03',
+
+  components: [
+    {
+      path: '~/components',
+      pathPrefix: false,
+    },
+  ],
+
+  devtools: { enabled: false },
+
+  app: {
+    head: {
+      meta: [
+        { name: 'color-scheme', content: 'light dark' },
+        { name: 'theme-color', content: '#f7f6f2', media: '(prefers-color-scheme: light)' },
+        { name: 'theme-color', content: '#111318', media: '(prefers-color-scheme: dark)' },
+      ],
+      link: [
+        { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
+        { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
+        { rel: 'manifest', href: '/site.webmanifest' },
+      ],
+    },
+  },
+
+  css: ['~/assets/css/main.css'],
+
+  colorMode: {
+    preference: 'system',
+    fallback: 'light',
+    classSuffix: '',
+  },
+
+  ui: {
+    fonts: false,
+    colorMode: true,
+    experimental: {
+      componentDetection: true,
+    },
+  },
+
+  routeRules: {
+    '/': { prerender: true },
+    '/ru': { prerender: true },
+  },
+  compatibilityDate: '2026-07-12',
+
+  nitro: {
+    prerender: {
+      crawlLinks: true,
+      failOnError: true,
+      routes: ['/', '/ru'],
+    },
+  },
+
+  typescript: {
+    strict: true,
+  },
+
+  eslint: {
+    config: {
+      stylistic: {
+        quotes: 'single',
+        semi: false,
+        commaDangle: 'always-multiline',
+      },
+    },
+  },
+
+  i18n: {
+    baseUrl: 'https://alekhin.dev',
+    defaultLocale: 'en',
+    strategy: 'prefix_except_default',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      redirectOn: 'root',
+      fallbackLocale: 'en',
+    },
+    locales: [
+      {
+        code: 'en',
+        language: 'en-US',
+        name: 'English',
+      },
+      {
+        code: 'ru',
+        language: 'ru-RU',
+        name: 'Русский',
+      },
+    ],
+  },
+
+  icon: {
+    provider: 'none',
+    fallbackToApi: false,
+    clientBundle: {
+      icons: [
+        'lucide:arrow-up-right',
+        'lucide:check',
+        'lucide:chevron-down',
+        'lucide:loader-circle',
+        'lucide:monitor',
+        'lucide:moon',
+        'lucide:sun',
+        'lucide:x',
+      ],
+    },
+  },
 })

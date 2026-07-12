@@ -1,0 +1,24 @@
+{
+  "name": "Valentin Alyokhin — Senior Full-stack Developer",
+  "short_name": "Alyokhin",
+  "description": "Independent senior full-stack developer building MVPs, SaaS products, web applications, integrations and automation.",
+  "lang": "en",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f7f6f2",
+  "theme_color": "#5b7cfa",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}
