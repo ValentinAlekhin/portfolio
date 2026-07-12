@@ -49,10 +49,12 @@ navigation:
 
 hero:
   eyebrow: Independent senior full-stack developer
-  title: I build web products from idea to launch
-  description: I’m Valentin Alyokhin, a senior full-stack developer with 6 years of experience. I create MVPs, SaaS products, web applications, integrations and Telegram bots — from interface and architecture to backend and deployment.
-  experience: 6 years of product development
-  availability: Available for projects
+  titleLines:
+    - I build web products
+    - from idea to launch
+  description: I’m Valentin Alyokhin, a senior full-stack developer with 6 years of experience. I create MVPs, SaaS products, web applications, integrations and Telegram bots — from interface to backend and launch.
+  experience: 6 years of experience
+  availability: Available for new projects
   primaryAction:
     label: Discuss a project
     href: "#contacts"
@@ -65,19 +67,7 @@ hero:
     - label: Vue / Nuxt
     - label: Node.js
     - label: Go
-  portrait:
-    src:
-    alt:
-  visual:
-    monogram: VA
-    label: Product development, end to end
-    cards:
-      - title: Full-stack development
-        description: One coherent product across interface, frontend and backend.
-      - title: MVP & SaaS
-        description: From first scope and prototype to a production-ready release.
-      - title: Frontend + Backend
-        description: Architecture, integrations and technical launch included.
+  projectCaption: SaaS · Product design · Full-stack development
 
 services:
   eyebrow: Services
@@ -87,7 +77,6 @@ services:
     - id: mvp-saas
       title: MVP and SaaS products
       description: Turn an idea into a working product with a focused scope, usable interface, sound architecture and a clear path to launch.
-      icon: launch
       details:
         - item: Requirements and product scope
         - item: Interface and architecture
@@ -96,7 +85,6 @@ services:
     - id: web-applications
       title: Web applications
       description: Build customer accounts, internal systems, editors, admin panels and interaction-heavy applications with custom business logic.
-      icon: application
       details:
         - item: Personal accounts and dashboards
         - item: Internal tools and admin panels
@@ -105,7 +93,6 @@ services:
     - id: integrations-automation
       title: Integrations and automation
       description: Connect external APIs, payments, CRM, authentication and notifications while replacing repetitive manual processes with reliable workflows.
-      icon: integration
       details:
         - item: External and internal APIs
         - item: Payments and authentication
@@ -114,7 +101,6 @@ services:
     - id: telegram-bots
       title: Telegram bots
       description: Create bots for requests, notifications, internal operations, customer services and integrations with the systems you already use.
-      icon: telegram
       details:
         - item: Request intake
         - item: Alerts and notifications
@@ -123,7 +109,6 @@ services:
     - id: product-development
       title: Existing product development
       description: Add features, resolve architectural issues, refactor critical areas and prepare an existing application for its next stage of growth.
-      icon: improve
       details:
         - item: Feature development
         - item: Refactoring and modernization
@@ -152,8 +137,6 @@ projects:
       shortDescription: A browser-based service for designing electrical distribution boards.
       fullDescription: A complete SaaS product with an interactive graphical editor, an electrical device library, project storage, diagram exports and a subscription model.
       url: https://powersketch.ru
-      repositoryUrl:
-      images: []
       role:
         - item: Product design
         - item: UI/UX
@@ -180,7 +163,6 @@ projects:
         - label: Node.js
         - label: SVG
       result: A complete browser-based product that lets users create electrical diagrams without installing specialized desktop software.
-      metrics: []
 
 process:
   eyebrow: Collaboration
@@ -190,31 +172,15 @@ process:
     - number: "01"
       title: Discussion
       description: You describe the task, its users, current state, required functions and the outcome you need.
-      details:
-        - item: Product context and users
-        - item: Current stage and constraints
-        - item: Required outcome
     - number: "02"
       title: Proposal
       description: I clarify the requirements, suggest a technical solution, define the scope and propose timing and payment format.
-      details:
-        - item: Technical approach
-        - item: Scope and priorities
-        - item: Timeline and work format
     - number: "03"
       title: Development
       description: Work moves in stages with regular demonstrations, so you can see progress and adjust the interface before completion.
-      details:
-        - item: Iterative implementation
-        - item: Regular progress reviews
-        - item: Early feedback
     - number: "04"
       title: Launch
       description: I prepare the production build, deploy it, verify core scenarios, resolve launch issues and hand over instructions.
-      details:
-        - item: Production preparation
-        - item: Deployment and verification
-        - item: Handover and next steps
 
 about:
   eyebrow: Working together
@@ -225,8 +191,6 @@ about:
     - text: The interface does not have to be designed in advance either. I can prepare the first working version, show it in the product context and improve it over several iterations.
     - text: Communication is direct, without an extra management layer. I can work on a fixed project scope or join ongoing development on an hourly basis.
   facts:
-    - value: 6 years
-      label: in development
     - value: Full-stack
       label: frontend and backend
     - value: Direct

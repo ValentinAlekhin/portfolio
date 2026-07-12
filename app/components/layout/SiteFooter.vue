@@ -25,17 +25,13 @@ const year = useState('copyright-year', () => new Date().getUTCFullYear())
         © {{ year }} {{ footer.copyright }}
       </p>
 
-      <UButton
-        to="#top"
-        :locale="false"
-        color="neutral"
-        variant="ghost"
-        size="sm"
+      <a
+        href="#top"
         class="site-footer__top"
       >
         {{ footer.backToTopLabel }}
         <span aria-hidden="true">↑</span>
-      </UButton>
+      </a>
     </div>
   </footer>
 </template>
@@ -79,7 +75,20 @@ const year = useState('copyright-year', () => new Date().getUTCFullYear())
 }
 
 .site-footer__top {
-  @apply justify-self-end;
+  @apply inline-flex items-center justify-self-end no-underline;
+  gap: 0.45rem;
+  color: var(--ui-text-muted);
+  font-size: 0.74rem;
+  font-weight: 620;
+}
+
+.site-footer__top span {
+  color: var(--ui-accent);
+  transition: transform 180ms ease;
+}
+
+.site-footer__top:hover span {
+  transform: translateY(-2px);
 }
 
 @media (max-width: 640px) {

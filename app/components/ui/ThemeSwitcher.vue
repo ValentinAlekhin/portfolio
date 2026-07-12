@@ -8,11 +8,18 @@ defineProps<{
   <UTooltip :text="label">
     <UColorModeSelect
       :aria-label="label"
-      size="sm"
+      :search-input="false"
       color="neutral"
       variant="ghost"
-      :search-input="false"
+      size="sm"
       class="theme-switcher"
+      :ui="{
+        base: 'theme-switcher__base',
+        value: 'sr-only',
+        placeholder: 'sr-only',
+        leading: 'static',
+        trailing: 'hidden',
+      }"
     />
   </UTooltip>
 </template>
@@ -21,6 +28,11 @@ defineProps<{
 @reference "tailwindcss";
 
 .theme-switcher {
-  @apply w-[8.1rem];
+  @apply size-9 justify-center p-0;
+  border-radius: 0.55rem;
+}
+
+.theme-switcher:hover {
+  background: var(--ui-surface-muted);
 }
 </style>

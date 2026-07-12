@@ -3,59 +3,64 @@
 
 :root {
   color-scheme: light;
-  --ui-background: #f7f6f2;
-  --ui-surface: #fffefa;
-  --ui-surface-muted: #efeee9;
-  --ui-text: #191b20;
-  --ui-text-muted: #676a73;
-  --ui-border: #deddd7;
-  --ui-accent: #5b7cfa;
-  --ui-accent-hover: #4968e7;
-  --ui-accent-soft: #e9edff;
+  --ui-background: #f4f3ef;
+  --ui-surface: #fffefb;
+  --ui-surface-muted: #ebeae5;
+  --ui-surface-subtle: #f8f7f3;
+  --ui-text: #1b1c20;
+  --ui-text-muted: #6c6d73;
+  --ui-border: #d9d8d2;
+  --ui-border-soft: #e7e5df;
+  --ui-accent: #5569d9;
+  --ui-accent-hover: #4659c4;
+  --ui-accent-soft: #e8eafe;
   --ui-accent-contrast: #ffffff;
-  --ui-shadow-card: 0 24px 70px rgb(29 32 43 / 8%);
-  --ui-radius-card: 1.5rem;
+  --ui-shadow-card: 0 22px 65px rgb(31 33 43 / 8%);
   --ui-bg: var(--ui-background);
   --ui-bg-muted: var(--ui-surface-muted);
   --ui-bg-elevated: var(--ui-surface);
-  --ui-bg-accented: #e8e7e2;
-  --ui-text-highlighted: #111318;
-  --ui-text-toned: #3e4149;
-  --ui-text-dimmed: #858891;
+  --ui-bg-accented: #e4e3de;
+  --ui-text-highlighted: #111216;
+  --ui-text-toned: #404147;
+  --ui-text-dimmed: #8a8b91;
   --ui-primary: var(--ui-accent);
-  --ui-success: #208a5d;
-  --header-height: 4.75rem;
+  --ui-success: #2e865e;
+  --ui-contact-background: #202229;
+  --header-height: 4.25rem;
 }
 
 .dark {
   color-scheme: dark;
-  --ui-background: #111318;
-  --ui-surface: #181b22;
-  --ui-surface-muted: #20232b;
-  --ui-text: #f2f1ed;
-  --ui-text-muted: #aaadb7;
-  --ui-border: #2d313b;
-  --ui-accent: #7893ff;
-  --ui-accent-hover: #8ca3ff;
-  --ui-accent-soft: #232d50;
-  --ui-accent-contrast: #10131d;
-  --ui-shadow-card: 0 28px 80px rgb(0 0 0 / 24%);
+  --ui-background: #15171b;
+  --ui-surface: #1b1e24;
+  --ui-surface-muted: #20242b;
+  --ui-surface-subtle: #181a1f;
+  --ui-text: #efeee9;
+  --ui-text-muted: #a5a6ac;
+  --ui-border: #30343c;
+  --ui-border-soft: #272b32;
+  --ui-accent: #8d9bf2;
+  --ui-accent-hover: #a0acf8;
+  --ui-accent-soft: #292e4b;
+  --ui-accent-contrast: #171922;
+  --ui-shadow-card: 0 24px 70px rgb(0 0 0 / 18%);
   --ui-bg: var(--ui-background);
   --ui-bg-muted: var(--ui-surface-muted);
   --ui-bg-elevated: var(--ui-surface);
-  --ui-bg-accented: #292d36;
-  --ui-text-highlighted: #ffffff;
-  --ui-text-toned: #d1d3da;
-  --ui-text-dimmed: #858995;
+  --ui-bg-accented: #292d35;
+  --ui-text-highlighted: #f8f7f2;
+  --ui-text-toned: #d1d1d5;
+  --ui-text-dimmed: #7f828a;
   --ui-primary: var(--ui-accent);
-  --ui-success: #56bd8b;
+  --ui-success: #65ad83;
+  --ui-contact-background: #101216;
 }
 
 @layer base {
   html {
     min-width: 320px;
     scroll-behavior: smooth;
-    scroll-padding-top: calc(var(--header-height) + 1rem);
+    scroll-padding-top: calc(var(--header-height) + 1.25rem);
     background: var(--ui-background);
   }
 
@@ -65,7 +70,7 @@
     background: var(--ui-background);
     color: var(--ui-text);
     font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    line-height: 1.65;
+    line-height: 1.58;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
   }
@@ -76,8 +81,8 @@
   }
 
   :focus-visible {
-    outline: 3px solid color-mix(in srgb, var(--ui-accent) 78%, transparent);
-    outline-offset: 3px;
+    outline: 2px solid color-mix(in srgb, var(--ui-accent) 82%, transparent);
+    outline-offset: 4px;
   }
 
   a,
@@ -95,42 +100,49 @@
   }
 }
 
-/* Shared layout primitives used by several component owners. */
 .site-container {
   @apply mx-auto;
-  width: min(100% - 3rem, 1240px);
+  width: min(100% - 5rem, 1360px);
 }
 
 .page-section {
   @apply relative;
-  padding-block: clamp(5rem, 9vw, 8rem);
-  scroll-margin-top: calc(var(--header-height) + 1rem);
+  padding-block: clamp(5.5rem, 8vw, 8.5rem);
+  scroll-margin-top: calc(var(--header-height) + 1.25rem);
 }
 
 .eyebrow {
-  @apply mt-0 mb-4 text-xs font-extrabold uppercase;
+  @apply mt-0 mb-4;
   color: var(--ui-accent);
-  letter-spacing: 0.14em;
+  font-size: 0.78rem;
+  font-weight: 680;
+  letter-spacing: 0.035em;
   line-height: 1.4;
+}
+
+@media (max-width: 1024px) {
+  .site-container {
+    width: min(100% - 3rem, 1360px);
+  }
 }
 
 @media (max-width: 640px) {
   :root {
-    --header-height: 4.25rem;
+    --header-height: 4rem;
   }
 
   .site-container {
-    width: min(100% - 2rem, 1240px);
+    width: min(100% - 2rem, 1360px);
   }
 
   .page-section {
-    padding-block: 5rem;
+    padding-block: 4.75rem;
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 360px) {
   .site-container {
-    width: min(100% - 1.5rem, 1240px);
+    width: min(100% - 1.5rem, 1360px);
   }
 }
 

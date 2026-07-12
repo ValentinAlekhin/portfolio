@@ -29,11 +29,12 @@ const publishedProjects = computed(() => props.projects.items
           v-auto-animate="{ duration: 240, easing: 'ease-out' }"
           class="projects-list"
         >
-          <ProjectCard
-            v-for="project in publishedProjects"
+          <ProjectCase
+            v-for="(project, index) in publishedProjects"
             :key="project.id"
             :project="project"
             :labels="projects.labels"
+            :index="index"
           />
         </div>
 
@@ -52,11 +53,13 @@ const publishedProjects = computed(() => props.projects.items
 @reference "tailwindcss";
 
 .projects-section {
-  background: var(--ui-background);
+  border-top: 1px solid var(--ui-border-soft);
+  background: var(--ui-surface-subtle);
 }
 
 .projects-list {
-  @apply grid gap-8;
+  @apply grid;
+  gap: clamp(5rem, 9vw, 9rem);
 }
 
 .projects-empty {

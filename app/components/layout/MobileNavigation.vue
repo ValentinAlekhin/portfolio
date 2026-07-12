@@ -81,20 +81,16 @@ function closeMenu() {
         </ul>
       </nav>
 
-      <UButton
-        :to="contactHref"
-        :locale="false"
+      <a
+        :href="contactHref"
         :target="isExternalContact ? '_blank' : undefined"
         :rel="isExternalContact ? 'noopener noreferrer' : undefined"
-        color="primary"
-        variant="solid"
-        size="lg"
-        block
         class="mobile-navigation__contact"
         @click="closeMenu"
       >
         {{ contactLabel }}
-      </UButton>
+        <span aria-hidden="true">↗</span>
+      </a>
 
       <div class="mobile-navigation__controls">
         <ThemeSwitcher :label="themeLabel" />
@@ -154,8 +150,8 @@ function closeMenu() {
   @apply flex items-center no-underline;
 
   min-height: 3.4rem;
-  padding-inline: 1rem;
-  border-radius: 0.85rem;
+  padding-inline: 0;
+  border-bottom: 1px solid var(--ui-border-soft);
   color: var(--ui-text-muted);
   font-size: 1.05rem;
   font-weight: 680;
@@ -163,8 +159,27 @@ function closeMenu() {
 
 .mobile-navigation__list a:hover,
 .mobile-navigation__list a[aria-current="location"] {
-  background: var(--ui-surface-muted);
   color: var(--ui-text-highlighted);
+}
+
+.mobile-navigation__list a[aria-current="location"]::after {
+  margin-left: auto;
+  color: var(--ui-accent);
+  content: "—";
+}
+
+.mobile-navigation__contact {
+  @apply flex min-h-12 items-center justify-center no-underline;
+  gap: 0.55rem;
+  border-radius: 0.65rem;
+  background: var(--ui-text-highlighted);
+  color: var(--ui-background);
+  font-size: 0.88rem;
+  font-weight: 680;
+}
+
+.mobile-navigation__contact span {
+  color: var(--ui-accent);
 }
 
 .mobile-navigation__controls {

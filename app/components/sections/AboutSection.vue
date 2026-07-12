@@ -62,7 +62,7 @@ defineProps<{
 .about-section__copy {
   @apply grid;
 
-  gap: 1.25rem;
+  gap: 1.05rem;
   padding-top: 2.1rem;
 }
 
@@ -70,33 +70,28 @@ defineProps<{
   @apply m-0;
 
   color: var(--ui-text-muted);
-  font-size: 1.03rem;
-  line-height: 1.82;
+  font-size: 0.96rem;
+  line-height: 1.72;
 }
 
 .about-section__copy p:first-child {
   color: var(--ui-text-toned);
-  font-size: 1.18rem;
+  font-size: 1.14rem;
 }
 
 .about-facts {
-  @apply grid grid-cols-4;
+  @apply grid grid-cols-3;
 
   margin: clamp(3rem, 7vw, 6rem) 0 0;
-  border-block: 1px solid var(--ui-border);
+  border-top: 1px solid var(--ui-border);
 }
 
 .about-facts div {
-  padding: 1.7rem clamp(0.8rem, 2.5vw, 1.8rem);
-  border-right: 1px solid var(--ui-border);
+  padding: 1.5rem clamp(1rem, 3vw, 2.5rem) 0 0;
 }
 
 .about-facts div:first-child {
   padding-left: 0;
-}
-
-.about-facts div:last-child {
-  border-right: 0;
 }
 
 .about-facts dt {
@@ -124,19 +119,7 @@ defineProps<{
   }
 
   .about-facts {
-    @apply grid-cols-2;
-  }
-
-  .about-facts div:nth-child(2) {
-    border-right: 0;
-  }
-
-  .about-facts div:nth-child(-n + 2) {
-    border-bottom: 1px solid var(--ui-border);
-  }
-
-  .about-facts div:nth-child(3) {
-    padding-left: 0;
+    @apply grid-cols-3;
   }
 }
 
@@ -148,9 +131,8 @@ defineProps<{
   .about-facts div,
   .about-facts div:first-child,
   .about-facts div:nth-child(3) {
-    padding-inline: 0;
-    border-right: 0;
-    border-bottom: 1px solid var(--ui-border);
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--ui-border-soft);
   }
 
   .about-facts div:last-child {

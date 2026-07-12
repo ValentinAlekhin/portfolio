@@ -1,6 +1,19 @@
 <script setup lang="ts">
 const { content } = await usePortfolioContent()
 const contactHref = useContactLink(() => content.value.contacts)
+const heroProject = computed(() => {
+  const project = content.value.projects.items.find(item => item.published && item.featured)
+    ?? content.value.projects.items.find(item => item.published)
+
+  if (!project) {
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'A published project is required for the portfolio hero.',
+    })
+  }
+
+  return project
+})
 const i18nHead = useLocaleHead({
   dir: true,
   lang: true,
@@ -92,11 +105,12 @@ useHead(() => {
     >
       <HeroSection
         :hero="content.hero"
+        :project="heroProject"
         :contact-href="contactHref"
         :available="content.availability.available"
       />
-      <ServicesSection :services="content.services" />
       <ProjectsSection :projects="content.projects" />
+      <ServicesSection :services="content.services" />
       <ProcessSection :process="content.process" />
       <AboutSection :about="content.about" />
       <AvailabilitySection

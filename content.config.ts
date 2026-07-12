@@ -45,7 +45,7 @@ const portfolioSchema = z.object({
   }),
   hero: z.object({
     eyebrow: requiredText,
-    title: requiredText,
+    titleLines: z.array(requiredText).min(2).max(3),
     description: requiredText,
     experience: requiredText,
     availability: requiredText,
@@ -59,24 +59,7 @@ const portfolioSchema = z.object({
     }),
     technologiesLabel: requiredText,
     technologies: z.array(technology).min(1),
-    portrait: z.union([
-      z.object({
-        src: requiredText,
-        alt: requiredText,
-      }),
-      z.object({
-        src: z.union([z.literal(''), z.null()]).optional(),
-        alt: optionalText,
-      }),
-    ]).optional(),
-    visual: z.object({
-      monogram: requiredText,
-      label: requiredText,
-      cards: z.array(z.object({
-        title: requiredText,
-        description: requiredText,
-      })).min(1),
-    }),
+    projectCaption: requiredText,
   }),
   services: z.object({
     eyebrow: requiredText,
@@ -86,7 +69,6 @@ const portfolioSchema = z.object({
       id: requiredText,
       title: requiredText,
       description: requiredText,
-      icon: optionalText,
       details: z.array(labeledItem).optional(),
     })).min(1),
   }),
@@ -137,7 +119,6 @@ const portfolioSchema = z.object({
       number: requiredText,
       title: requiredText,
       description: requiredText,
-      details: z.array(labeledItem).optional(),
     })).min(1),
   }),
   about: z.object({

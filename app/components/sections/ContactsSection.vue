@@ -16,52 +16,48 @@ const hasContacts = computed(() => Boolean(props.contacts.telegram.url || props.
   >
     <div class="site-container">
       <RevealContent>
-        <div class="contacts-panel">
-          <div class="contacts-panel__copy">
+        <div class="contacts-section__grid">
+          <div class="contacts-section__copy">
             <p class="eyebrow">
               {{ contacts.eyebrow }}
             </p>
             <h2 id="contacts-title">
               {{ contacts.title }}
             </h2>
-            <p>{{ contacts.description }}</p>
           </div>
 
-          <div
-            v-auto-animate="{ duration: 240, easing: 'ease-out' }"
-            class="contacts-panel__actions"
-          >
-            <template v-if="hasContacts">
-              <UButton
-                v-if="contacts.telegram.url"
-                :to="contacts.telegram.url"
-                target="_blank"
-                rel="noopener noreferrer"
-                color="primary"
-                variant="solid"
-                size="xl"
-              >
-                {{ contacts.telegram.label }}
-                <span aria-hidden="true">↗</span>
-              </UButton>
-              <UButton
-                v-if="contacts.email.value"
-                :to="`mailto:${contacts.email.value}`"
-                color="neutral"
-                variant="outline"
-                size="xl"
-              >
-                {{ contacts.email.label }}
-              </UButton>
-            </template>
+          <div class="contacts-section__aside">
+            <p>{{ contacts.description }}</p>
 
-            <p
-              v-else
-              class="contacts-panel__placeholder"
-            >
-              {{ contacts.placeholder }}
-            </p>
-            <p class="contacts-panel__note">
+            <div class="contacts-section__actions">
+              <template v-if="hasContacts">
+                <a
+                  v-if="contacts.telegram.url"
+                  :href="contacts.telegram.url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {{ contacts.telegram.label }}
+                  <span aria-hidden="true">↗</span>
+                </a>
+                <a
+                  v-if="contacts.email.value"
+                  :href="`mailto:${contacts.email.value}`"
+                >
+                  {{ contacts.email.label }}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </template>
+
+              <p
+                v-else
+                class="contacts-section__placeholder"
+              >
+                {{ contacts.placeholder }}
+              </p>
+            </div>
+
+            <p class="contacts-section__note">
               {{ contacts.responseNote }}
             </p>
           </div>
@@ -75,108 +71,96 @@ const hasContacts = computed(() => Boolean(props.contacts.telegram.url || props.
 @reference "tailwindcss";
 
 .contacts-section {
-  padding-top: 0;
+  background: var(--ui-contact-background);
+  color: #f3f1eb;
 }
 
-.contacts-panel {
-  @apply relative grid items-end overflow-hidden;
-
-  grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
-  gap: clamp(2.5rem, 8vw, 8rem);
-  padding: clamp(2.2rem, 6vw, 5rem);
-  border-radius: clamp(1.5rem, 3.5vw, 2.5rem);
-  background: #171b25;
-  color: #f5f4ef;
-  box-shadow: 0 30px 90px rgb(17 20 29 / 18%);
+.contacts-section__grid {
+  @apply grid items-end;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.55fr);
+  gap: clamp(3rem, 9vw, 9rem);
 }
 
-.contacts-panel::before {
-  @apply pointer-events-none absolute rounded-full;
-
-  width: 30rem;
-  height: 30rem;
-  background: radial-gradient(circle, rgb(91 124 250 / 34%), transparent 66%);
-  content: "";
-  filter: blur(12px);
-  inset: -16rem -10rem auto auto;
+.contacts-section .eyebrow {
+  color: #9eabfa;
 }
 
-.contacts-panel__copy,
-.contacts-panel__actions {
-  @apply relative z-1;
-}
-
-.eyebrow {
-  margin: 0 0 1rem;
-  color: var(--ui-accent);
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  line-height: 1.4;
-  text-transform: uppercase;
-}
-
-.contacts-panel h2 {
-  max-width: 720px;
+.contacts-section h2 {
+  max-width: 830px;
   margin: 0;
-  color: #ffffff;
-  font-size: clamp(2.25rem, 5vw, 4.3rem);
-  font-weight: 720;
-  letter-spacing: -0.055em;
-  line-height: 1.03;
+  color: #f7f5ef;
+  font-size: clamp(2.75rem, 5.5vw, 5.5rem);
+  font-weight: 670;
+  letter-spacing: -0.062em;
+  line-height: 0.98;
 }
 
-.contacts-panel__copy > p:last-child {
-  max-width: 680px;
-  margin: 1.4rem 0 0;
-  color: #b9bdc8;
-  font-size: 1.05rem;
-  line-height: 1.75;
+.contacts-section__aside > p:first-child {
+  margin: 0;
+  color: #b8bac2;
+  font-size: 0.96rem;
+  line-height: 1.7;
 }
 
-.contacts-panel__actions {
+.contacts-section__actions {
   @apply flex flex-wrap;
-
-  gap: 0.75rem;
+  gap: 0.75rem 1.5rem;
+  margin-top: 2rem;
 }
 
-.contacts-panel__placeholder {
-  @apply m-0 w-full;
-
-  padding: 1rem 1.15rem;
-  border: 1px solid #343b4c;
-  border-radius: 0.9rem;
-  background: #1e2430;
-  color: #d7dae2;
-  line-height: 1.5;
+.contacts-section__actions a {
+  @apply inline-flex items-center no-underline;
+  gap: 0.6rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid #515765;
+  color: #f7f5ef;
+  font-size: 1rem;
+  font-weight: 660;
 }
 
-.contacts-panel__note {
-  @apply w-full;
+.contacts-section__actions a span {
+  color: #9eabfa;
+  transition: transform 180ms ease;
+}
 
-  margin: 0.4rem 0 0;
-  color: #9298a8;
-  font-size: 0.78rem;
+.contacts-section__actions a:hover span {
+  transform: translate(3px, -3px);
+}
+
+.contacts-section__placeholder {
+  margin: 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid #3a3e48;
+  color: #d0d1d6;
+  font-size: 0.88rem;
+}
+
+.contacts-section__note {
+  margin: 1rem 0 0;
+  color: #898d99;
+  font-size: 0.74rem;
 }
 
 @media (max-width: 860px) {
-  .contacts-panel {
-    @apply grid-cols-1;
+  .contacts-section__grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .contacts-section__aside {
+    max-width: 620px;
   }
 }
 
 @media (max-width: 640px) {
-  .contacts-panel h2 {
-    font-size: clamp(2.15rem, 12vw, 3.2rem);
+  .contacts-section h2 {
+    font-size: clamp(2.65rem, 14vw, 3.8rem);
   }
+}
 
-  .contacts-panel__actions {
-    @apply grid;
-  }
-
-  .contacts-panel__actions > a,
-  .contacts-panel__actions > button {
-    @apply w-full justify-center;
+@media (prefers-reduced-motion: reduce) {
+  .contacts-section__actions a:hover span {
+    transform: none;
   }
 }
 </style>

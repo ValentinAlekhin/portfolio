@@ -57,17 +57,15 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
         <div class="site-header__desktop-controls">
           <ThemeSwitcher :label="navigation.themeLabel" />
           <LocaleSwitcher :label="navigation.languageLabel" />
-          <UButton
-            :to="contactHref"
-            :locale="false"
+          <a
+            :href="contactHref"
             :target="isExternalContact ? '_blank' : undefined"
             :rel="isExternalContact ? 'noopener noreferrer' : undefined"
-            color="primary"
-            variant="solid"
-            size="sm"
+            class="site-header__contact"
           >
             {{ navigation.contactLabel }}
-          </UButton>
+            <span aria-hidden="true">↗</span>
+          </a>
         </div>
 
         <MobileNavigation
@@ -97,10 +95,10 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
 }
 
 .site-header--scrolled {
-  border-color: color-mix(in srgb, var(--ui-border) 82%, transparent);
-  background: color-mix(in srgb, var(--ui-background) 88%, transparent);
-  box-shadow: 0 8px 32px rgb(20 23 31 / 5%);
-  backdrop-filter: blur(18px) saturate(130%);
+  border-color: color-mix(in srgb, var(--ui-border) 68%, transparent);
+  background: color-mix(in srgb, var(--ui-background) 91%, transparent);
+  box-shadow: 0 6px 24px rgb(20 23 31 / 4%);
+  backdrop-filter: blur(16px) saturate(120%);
 }
 
 .site-header__inner {
@@ -112,59 +110,67 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
 .brand {
   @apply inline-flex w-fit items-center no-underline;
 
-  gap: 0.72rem;
+  gap: 0.7rem;
 }
 
 .brand__mark {
-  @apply grid place-items-center border;
-
-  width: 2.35rem;
-  height: 2.35rem;
-  border-color: var(--ui-border);
-  border-radius: 0.7rem;
-  background: var(--ui-surface);
-  color: var(--ui-text-highlighted);
-  box-shadow: 0 8px 22px rgb(25 28 38 / 7%);
-  font-size: 0.72rem;
-  font-weight: 850;
-  letter-spacing: -0.02em;
+  @apply inline-flex items-center;
+  height: 1.55rem;
+  padding-right: 0.7rem;
+  border-right: 1px solid var(--ui-border);
+  color: var(--ui-accent);
+  font-size: 0.68rem;
+  font-weight: 780;
+  letter-spacing: -0.035em;
 }
 
 .brand__name {
   @apply whitespace-nowrap;
 
   color: var(--ui-text-highlighted);
-  font-size: 0.92rem;
-  font-weight: 740;
+  font-size: 0.88rem;
+  font-weight: 690;
   letter-spacing: -0.02em;
 }
 
 .desktop-navigation ul {
   @apply m-0 flex list-none items-center p-0;
 
-  gap: 0.12rem;
+  gap: 1.35rem;
 }
 
 .desktop-navigation a {
   @apply inline-flex items-center no-underline;
 
+  position: relative;
   min-height: 2.75rem;
-  padding-inline: 0.78rem;
-  border-radius: 0.75rem;
   color: var(--ui-text-muted);
-  font-size: 0.86rem;
-  font-weight: 650;
-  transition: color 180ms ease, background-color 180ms ease;
+  font-size: 0.78rem;
+  font-weight: 620;
+  transition: color 180ms ease;
 }
 
 .desktop-navigation a:hover,
 .desktop-navigation a[aria-current="location"] {
-  background: color-mix(in srgb, var(--ui-accent) 9%, transparent);
   color: var(--ui-text-highlighted);
 }
 
-.desktop-navigation a[aria-current="location"] {
-  box-shadow: inset 0 -2px var(--ui-accent);
+.desktop-navigation a::after {
+  @apply absolute rounded-full;
+  right: 0;
+  bottom: 0.25rem;
+  left: 0;
+  height: 1px;
+  background: var(--ui-accent);
+  content: "";
+  opacity: 0;
+  transform: scaleX(0.45);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.desktop-navigation a[aria-current="location"]::after {
+  opacity: 1;
+  transform: scaleX(1);
 }
 
 .site-header__actions,
@@ -172,6 +178,33 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
   @apply flex items-center justify-end;
 
   gap: 0.45rem;
+}
+
+.site-header__contact {
+  @apply inline-flex min-h-9 items-center no-underline;
+  gap: 0.45rem;
+  padding: 0.48rem 0.72rem;
+  border-radius: 0.55rem;
+  background: var(--ui-text-highlighted);
+  color: var(--ui-background);
+  font-size: 0.72rem;
+  font-weight: 680;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.site-header__contact span {
+  color: var(--ui-accent);
+  transition: transform 180ms ease;
+}
+
+.site-header__contact:hover {
+  background: var(--ui-accent);
+  color: var(--ui-accent-contrast);
+}
+
+.site-header__contact:hover span {
+  color: inherit;
+  transform: translate(2px, -2px);
 }
 
 @media (max-width: 1120px) {
@@ -186,8 +219,28 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
 }
 
 @media (max-width: 640px) {
+  .brand {
+    gap: 0.55rem;
+  }
+
+  .brand__mark {
+    padding-right: 0.55rem;
+  }
+
+  .brand__name {
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 360px) {
   .brand__name {
     @apply hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header__contact:hover span {
+    transform: none;
   }
 }
 </style>

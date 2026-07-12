@@ -14,30 +14,34 @@ defineProps<{
   >
     <div class="site-container">
       <RevealContent>
-        <SectionHeading
-          :eyebrow="services.eyebrow"
-          :title="services.title"
-          :description="services.description"
-          title-id="services-title"
-        />
+        <div class="services-section__intro">
+          <SectionHeading
+            :eyebrow="services.eyebrow"
+            :title="services.title"
+            title-id="services-title"
+          />
+          <p>{{ services.description }}</p>
+        </div>
 
-        <div class="services-grid">
+        <div class="services-list">
           <article
             v-for="(service, index) in services.items"
             :key="service.id"
-            class="service-card"
+            class="service-item"
           >
-            <span class="service-card__number">0{{ index + 1 }}</span>
-            <h3>{{ service.title }}</h3>
-            <p>{{ service.description }}</p>
-            <ul v-if="service.details?.length">
-              <li
-                v-for="detail in service.details"
-                :key="detail.item"
-              >
-                {{ detail.item }}
-              </li>
-            </ul>
+            <span class="service-item__number">{{ String(index + 1).padStart(2, '0') }}</span>
+            <div>
+              <h3>{{ service.title }}</h3>
+              <p>{{ service.description }}</p>
+              <ul v-if="service.details?.length">
+                <li
+                  v-for="detail in service.details"
+                  :key="detail.item"
+                >
+                  {{ detail.item }}
+                </li>
+              </ul>
+            </div>
           </article>
         </div>
       </RevealContent>
@@ -48,117 +52,94 @@ defineProps<{
 <style scoped>
 @reference "tailwindcss";
 
-.services-section {
-  @apply border-y;
-
-  border-color: var(--ui-border);
-  background: var(--ui-surface-muted);
+.services-section__intro {
+  @apply grid items-end;
+  grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.65fr);
+  gap: clamp(2rem, 7vw, 7rem);
+  margin-bottom: clamp(3rem, 6vw, 5rem);
 }
 
-.services-grid {
-  @apply grid grid-cols-12 gap-4;
+.services-section :deep(.section-heading) {
+  margin-bottom: 0;
 }
 
-.service-card {
-  @apply relative col-span-4 border;
-
-  min-height: 22rem;
-  padding: clamp(1.5rem, 3vw, 2.2rem);
-  border-color: var(--ui-border);
-  border-radius: var(--ui-radius-card);
-  background: var(--ui-surface);
-  box-shadow: 0 1px 0 rgb(255 255 255 / 30%);
-  transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+.services-section__intro > p {
+  margin: 0 0 0.2rem;
+  color: var(--ui-text-muted);
+  font-size: 0.98rem;
+  line-height: 1.68;
 }
 
-.service-card:nth-child(-n + 2) {
-  @apply col-span-6;
+.services-list {
+  @apply grid grid-cols-2;
+  column-gap: clamp(2rem, 6vw, 6rem);
 }
 
-.service-card:hover {
-  border-color: color-mix(in srgb, var(--ui-accent) 45%, var(--ui-border));
-  box-shadow: var(--ui-shadow-card);
-  transform: translateY(-5px);
+.service-item {
+  @apply grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 1rem;
+  padding: 2rem 0 2.2rem;
+  border-top: 1px solid var(--ui-border);
 }
 
-.service-card__number {
-  @apply inline-flex items-center justify-center;
-
-  min-width: 2.2rem;
-  height: 2.2rem;
-  border-radius: 0.65rem;
-  background: var(--ui-accent-soft);
+.service-item__number {
+  padding-top: 0.25rem;
   color: var(--ui-accent);
   font-size: 0.68rem;
-  font-weight: 850;
-  letter-spacing: 0.08em;
+  font-weight: 680;
+  font-variant-numeric: tabular-nums;
 }
 
-.service-card h3 {
-  margin: 2.4rem 0 0;
+.service-item h3 {
+  margin: 0;
   color: var(--ui-text-highlighted);
-  font-size: clamp(1.35rem, 2.4vw, 1.8rem);
-  font-weight: 720;
+  font-size: clamp(1.35rem, 2.1vw, 1.8rem);
+  font-weight: 670;
   letter-spacing: -0.04em;
   line-height: 1.12;
 }
 
-.service-card > p {
-  margin: 1rem 0 0;
+.service-item p {
+  margin: 0.9rem 0 0;
   color: var(--ui-text-muted);
+  font-size: 0.9rem;
   line-height: 1.68;
 }
 
-.service-card ul {
-  @apply flex list-none flex-wrap;
-
-  gap: 0.45rem;
-  margin: 1.5rem 0 0;
-  padding: 0;
+.service-item ul {
+  @apply flex list-none flex-wrap p-0;
+  margin: 1rem 0 0;
+  color: var(--ui-text-dimmed);
+  font-size: 0.7rem;
+  line-height: 1.55;
 }
 
-.service-card li {
-  padding: 0.28rem 0.58rem;
-  border-radius: 999px;
-  background: var(--ui-surface-muted);
-  color: var(--ui-text-muted);
-  font-size: 0.71rem;
-  font-weight: 650;
+.service-item li + li::before {
+  margin-inline: 0.42rem;
+  color: var(--ui-border);
+  content: "·";
 }
 
-@media (max-width: 1120px) {
-  .service-card,
-  .service-card:nth-child(-n + 2) {
-    @apply col-span-6;
+@media (max-width: 860px) {
+  .services-section__intro {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
-  .service-card:last-child {
-    @apply col-span-12;
-
-    min-height: 18rem;
+  .services-section__intro > p {
+    max-width: 660px;
   }
-}
 
-@media (max-width: 640px) {
-  .services-grid {
+  .services-list {
     @apply grid-cols-1;
   }
-
-  .service-card,
-  .service-card:nth-child(-n + 2),
-  .service-card:last-child {
-    grid-column: auto;
-    min-height: 0;
-  }
-
-  .service-card h3 {
-    margin-top: 1.8rem;
-  }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .service-card:hover {
-    transform: none;
+@media (max-width: 380px) {
+  .service-item {
+    grid-template-columns: 1.65rem 1fr;
+    gap: 0.65rem;
   }
 }
 </style>

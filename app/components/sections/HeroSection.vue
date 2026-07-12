@@ -1,13 +1,18 @@
 <script setup lang="ts">
-import type { PortfolioContent } from '~/types/portfolio'
+import type { PortfolioContent, ProjectItem } from '~/types/portfolio'
 
 const props = defineProps<{
   hero: PortfolioContent['hero']
+  project: ProjectItem
   contactHref: string
   available: boolean
 }>()
 
 const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
+
+function words(line: string) {
+  return line.split(' ')
+}
 </script>
 
 <template>
@@ -18,48 +23,59 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
   >
     <div class="site-container hero-section__grid">
       <div class="hero-section__content">
-        <p class="eyebrow hero-section__eyebrow">
-          <span aria-hidden="true" />
+        <p class="hero-section__eyebrow">
           {{ hero.eyebrow }}
         </p>
+
         <h1 id="hero-title">
-          {{ hero.title }}
+          <span
+            v-for="line in hero.titleLines"
+            :key="line"
+            class="hero-section__title-line"
+          >
+            <template
+              v-for="(word, index) in words(line)"
+              :key="`${line}-${word}-${index}`"
+            >
+              <span class="hero-section__title-word">{{ word }}</span>{{ index < words(line).length - 1 ? ' ' : '' }}
+            </template>
+          </span>
         </h1>
+
         <p class="hero-section__description">
           {{ hero.description }}
         </p>
 
         <div class="hero-section__actions">
-          <UButton
-            :to="contactHref"
-            :locale="false"
+          <a
+            :href="contactHref"
             :target="isExternalContact ? '_blank' : undefined"
             :rel="isExternalContact ? 'noopener noreferrer' : undefined"
-            color="primary"
-            variant="solid"
-            size="xl"
+            class="hero-action hero-action--primary"
           >
             {{ hero.primaryAction.label }}
-          </UButton>
-          <UButton
-            :to="hero.secondaryAction.href"
-            :locale="false"
-            color="neutral"
-            variant="outline"
-            size="xl"
+            <span aria-hidden="true">↗</span>
+          </a>
+          <a
+            :href="hero.secondaryAction.href"
+            class="hero-action hero-action--secondary"
           >
             {{ hero.secondaryAction.label }}
             <span aria-hidden="true">↓</span>
-          </UButton>
+          </a>
         </div>
 
-        <div class="hero-section__meta">
-          <AvailabilityBadge
-            :available="available"
-            :label="hero.availability"
-          />
-          <span class="hero-section__experience">{{ hero.experience }}</span>
-        </div>
+        <p class="hero-section__meta">
+          <span class="hero-section__availability">
+            <i
+              :class="{ 'is-available': available }"
+              aria-hidden="true"
+            />
+            {{ hero.availability }}
+          </span>
+          <span aria-hidden="true">·</span>
+          <span>{{ hero.experience }}</span>
+        </p>
 
         <ul
           class="hero-section__technologies"
@@ -74,48 +90,11 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
         </ul>
       </div>
 
-      <div class="hero-visual">
-        <img
-          v-if="hero.portrait?.src"
-          :src="hero.portrait.src"
-          :alt="hero.portrait.alt || ''"
-          width="720"
-          height="860"
-          fetchpriority="high"
-          class="hero-visual__portrait"
-        >
-
-        <div
-          v-else
-          class="hero-composition"
-          aria-hidden="true"
-        >
-          <div class="hero-composition__glow" />
-          <div class="hero-composition__grid" />
-          <div class="hero-composition__monogram">
-            <span>{{ hero.visual.monogram }}</span>
-            <small>{{ hero.visual.label }}</small>
-          </div>
-          <div class="hero-composition__orbit" />
-          <div class="hero-composition__cards">
-            <article
-              v-for="(card, index) in hero.visual.cards"
-              :key="card.title"
-              class="hero-composition__card"
-              :class="`hero-composition__card--${index + 1}`"
-            >
-              <span class="hero-composition__card-index">0{{ index + 1 }}</span>
-              <h2>{{ card.title }}</h2>
-              <p>{{ card.description }}</p>
-            </article>
-          </div>
-          <div class="hero-composition__status">
-            <span
-              :class="{ 'hero-composition__status-dot--available': available }"
-            />
-            {{ hero.availability }}
-          </div>
-        </div>
+      <div class="hero-section__project">
+        <HeroProjectPreview
+          :hero="hero"
+          :project="project"
+        />
       </div>
     </div>
   </section>
@@ -125,361 +104,233 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
 @reference "tailwindcss";
 
 .hero-section {
-  @apply relative flex items-center overflow-hidden;
-  min-height: min(920px, 100svh);
-  padding: calc(var(--header-height) + 3.5rem) 0 4rem;
-}
-
-.hero-section::before {
-  @apply pointer-events-none absolute -z-10 rounded-full;
-  width: min(70vw, 880px);
-  height: min(70vw, 880px);
-  background: radial-gradient(circle, color-mix(in srgb, var(--ui-accent) 12%, transparent), transparent 67%);
-  content: "";
-  filter: blur(20px);
-  inset: -26rem auto auto -22rem;
+  @apply relative;
+  padding: calc(var(--header-height) + clamp(4rem, 7vw, 6.5rem)) 0 clamp(4.75rem, 7vw, 7rem);
 }
 
 .hero-section__grid {
   @apply grid items-center;
-  grid-template-columns: minmax(0, 1.08fr) minmax(430px, 0.92fr);
-  gap: clamp(3rem, 7vw, 7rem);
+  grid-template-columns: minmax(0, 1.03fr) minmax(0, 0.97fr);
+  gap: clamp(2.5rem, 4.5vw, 4.75rem);
 }
 
 .hero-section__content {
-  @apply relative z-2;
-  max-width: 720px;
+  @apply relative z-1;
+  min-width: 0;
 }
 
 .hero-section__eyebrow {
-  @apply flex items-center gap-3;
-}
-
-.hero-section__eyebrow span {
-  @apply h-px w-10;
-  background: var(--ui-accent);
+  margin: 0 0 1.45rem;
+  color: var(--ui-text-muted);
+  font-size: 0.82rem;
+  font-weight: 630;
+  letter-spacing: 0.015em;
 }
 
 .hero-section h1 {
   @apply m-0;
-  max-width: 760px;
   color: var(--ui-text-highlighted);
-  font-size: clamp(3.4rem, 6.8vw, 6.3rem);
-  font-weight: 730;
-  letter-spacing: -0.072em;
-  line-height: 0.94;
+  font-size: clamp(3.85rem, 4.9vw, 5.25rem);
+  font-weight: 690;
+  hyphens: none;
+  letter-spacing: -0.064em;
+  line-height: 0.98;
+  overflow-wrap: normal;
   text-wrap: balance;
+  word-break: normal;
+}
+
+.hero-section__title-line {
+  @apply block whitespace-nowrap;
+}
+
+.hero-section__title-word {
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .hero-section__description {
-  @apply mb-0;
-  max-width: 670px;
-  margin-top: 1.7rem;
+  max-width: 630px;
+  margin: 1.7rem 0 0;
   color: var(--ui-text-muted);
-  font-size: clamp(1.05rem, 1.55vw, 1.22rem);
-  line-height: 1.72;
+  font-size: clamp(1rem, 1.25vw, 1.13rem);
+  line-height: 1.62;
 }
 
 .hero-section__actions {
-  @apply mt-9 flex flex-wrap gap-3;
+  @apply mt-8 flex flex-wrap items-center;
+  gap: 0.6rem;
+}
+
+.hero-action {
+  @apply inline-flex items-center justify-center no-underline;
+  min-height: 2.9rem;
+  gap: 0.65rem;
+  padding: 0.7rem 1.05rem;
+  border-radius: 0.65rem;
+  font-size: 0.88rem;
+  font-weight: 680;
+  line-height: 1.2;
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.hero-action span {
+  transition: transform 180ms ease;
+}
+
+.hero-action--primary {
+  background: var(--ui-text-highlighted);
+  color: var(--ui-background);
+}
+
+.hero-action--primary:hover {
+  background: var(--ui-accent);
+  color: var(--ui-accent-contrast);
+}
+
+.hero-action--primary:hover span {
+  transform: translate(3px, -3px);
+}
+
+.hero-action--secondary {
+  border: 1px solid var(--ui-border);
+  color: var(--ui-text-toned);
+}
+
+.hero-action--secondary:hover {
+  border-color: color-mix(in srgb, var(--ui-accent) 45%, var(--ui-border));
+  background: color-mix(in srgb, var(--ui-accent) 6%, transparent);
+  color: var(--ui-text-highlighted);
+}
+
+.hero-action--secondary:hover span {
+  transform: translateY(3px);
 }
 
 .hero-section__meta {
-  @apply mt-8 flex flex-wrap items-center;
-  gap: 0.8rem 1.2rem;
-}
-
-.hero-section__experience {
+  @apply flex flex-wrap items-center;
+  gap: 0.45rem;
+  margin: 1.7rem 0 0;
   color: var(--ui-text-muted);
-  font-size: 0.85rem;
-  font-weight: 630;
+  font-size: 0.8rem;
+  font-weight: 570;
 }
 
-.hero-section__technologies {
-  @apply mt-5 flex list-none flex-wrap gap-2 p-0;
+.hero-section__availability {
+  @apply inline-flex items-center;
+  gap: 0.48rem;
 }
 
-.hero-section__technologies li {
-  @apply rounded-full border px-3 py-1 text-xs font-bold;
-  border-color: var(--ui-border);
-  color: var(--ui-text-muted);
-  letter-spacing: 0.01em;
-  line-height: 1.35;
-}
-
-.hero-visual {
-  @apply relative w-full;
-}
-
-.hero-visual__portrait,
-.hero-composition {
-  @apply w-full border;
-  aspect-ratio: 0.84;
-  border-color: var(--ui-border);
-  border-radius: clamp(1.5rem, 3vw, 2.4rem);
-  background: var(--ui-surface-muted);
-  box-shadow: var(--ui-shadow-card);
-}
-
-.hero-visual__portrait {
-  @apply object-cover;
-}
-
-.hero-composition {
-  @apply relative isolate overflow-hidden;
-  min-height: 680px;
-}
-
-.hero-composition__glow {
-  @apply absolute -z-10 size-100 rounded-full;
-  background: radial-gradient(circle, color-mix(in srgb, var(--ui-accent) 36%, transparent), transparent 67%);
-  filter: blur(12px);
-  inset: -7rem -8rem auto auto;
-  animation: composition-drift 9s ease-in-out infinite alternate;
-}
-
-.hero-composition__grid {
-  @apply absolute -z-10 inset-0 opacity-60;
-  background-image:
-    linear-gradient(color-mix(in srgb, var(--ui-border) 45%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--ui-border) 45%, transparent) 1px, transparent 1px);
-  background-size: 2.25rem 2.25rem;
-  mask-image: linear-gradient(to bottom right, #000 10%, transparent 78%);
-}
-
-.hero-composition__monogram {
-  @apply absolute flex flex-col;
-  top: 9%;
-  left: 8%;
-}
-
-.hero-composition__monogram > span {
-  color: var(--ui-text-highlighted);
-  font-size: clamp(5rem, 11vw, 8rem);
-  font-weight: 780;
-  letter-spacing: -0.1em;
-  line-height: 0.85;
-}
-
-.hero-composition__monogram small {
-  @apply mt-4 uppercase;
-  max-width: 14rem;
-  color: var(--ui-text-muted);
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  line-height: 1.45;
-}
-
-.hero-composition__orbit {
-  @apply absolute rounded-full border;
-  top: 7%;
-  right: -14%;
-  width: 58%;
-  aspect-ratio: 1;
-  border-color: color-mix(in srgb, var(--ui-accent) 45%, transparent);
-}
-
-.hero-composition__orbit::after {
-  @apply absolute rounded-full;
-  width: 0.72rem;
-  height: 0.72rem;
-  border: 3px solid var(--ui-surface-muted);
-  background: var(--ui-accent);
-  content: "";
-  inset: 15% auto auto 11%;
-}
-
-.hero-composition__cards {
-  @apply absolute flex flex-col justify-between;
-  gap: 0.75rem;
-  inset: 34% 7% 9%;
-}
-
-.hero-composition__card {
-  @apply relative m-0 shrink-0 border;
-  width: min(74%, 21rem);
-  padding: 1.1rem 1.2rem 1.2rem;
-  border-color: color-mix(in srgb, var(--ui-border) 88%, transparent);
-  border-radius: 1rem;
-  background: color-mix(in srgb, var(--ui-surface) 88%, transparent);
-  box-shadow: 0 18px 45px rgb(20 23 31 / 10%);
-  backdrop-filter: blur(12px);
-}
-
-.hero-composition__card--1 {
-  @apply self-end;
-}
-
-.hero-composition__card--2 {
-  @apply self-start;
-}
-
-.hero-composition__card--3 {
-  @apply self-end;
-}
-
-.hero-composition__card-index {
-  @apply mb-2 block;
-  color: var(--ui-accent);
-  font-size: 0.64rem;
-  font-weight: 850;
-  letter-spacing: 0.1em;
-}
-
-.hero-composition__card h2 {
-  @apply m-0;
-  color: var(--ui-text-highlighted);
-  font-size: 0.95rem;
-  font-weight: 740;
-  letter-spacing: -0.02em;
-  line-height: 1.25;
-}
-
-.hero-composition__card p {
-  @apply mb-0 mt-1.5;
-  color: var(--ui-text-muted);
-  font-size: 0.72rem;
-  line-height: 1.5;
-}
-
-.hero-composition__status {
-  @apply absolute flex items-center gap-2;
-  bottom: 2.5%;
-  left: 7%;
-  color: var(--ui-text-muted);
-  font-size: 0.67rem;
-  font-weight: 750;
-}
-
-.hero-composition__status span {
-  @apply rounded-full;
-  width: 0.45rem;
-  height: 0.45rem;
+.hero-section__availability i {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
   background: var(--ui-text-dimmed);
 }
 
-.hero-composition__status .hero-composition__status-dot--available {
+.hero-section__availability i.is-available {
   background: var(--ui-success);
 }
 
-@keyframes composition-drift {
-  from {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-
-  to {
-    transform: translate3d(-1.8rem, 1.4rem, 0) scale(1.06);
-  }
+.hero-section__technologies {
+  @apply flex list-none flex-wrap p-0;
+  gap: 0;
+  margin: 0.8rem 0 0;
+  color: var(--ui-text-dimmed);
+  font-size: 0.75rem;
+  font-weight: 580;
 }
 
-@media (max-width: 1120px) {
+.hero-section__technologies li + li::before {
+  margin-inline: 0.48rem;
+  color: var(--ui-border);
+  content: "·";
+}
+
+.hero-section__project {
+  min-width: 0;
+}
+
+@media (max-width: 1180px) {
   .hero-section {
-    min-height: auto;
-    padding-top: calc(var(--header-height) + 5rem);
-    padding-bottom: 6rem;
+    padding-top: calc(var(--header-height) + 4rem);
   }
 
   .hero-section__grid {
-    grid-template-columns: minmax(0, 1fr) minmax(360px, 0.72fr);
-    gap: 3rem;
-  }
-
-  .hero-section h1 {
-    font-size: clamp(3.2rem, 7vw, 5rem);
-  }
-
-  .hero-composition {
-    min-height: 680px;
-  }
-
-  .hero-composition__card {
-    width: min(82%, 21rem);
-  }
-}
-
-@media (max-width: 860px) {
-  .hero-section {
-    padding-top: calc(var(--header-height) + 3rem);
-  }
-
-  .hero-section__grid {
-    @apply grid-cols-1;
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
   }
 
   .hero-section__content {
-    max-width: 760px;
+    max-width: 900px;
   }
 
-  .hero-visual {
-    @apply mx-auto;
-    width: min(100%, 620px);
+  .hero-section h1 {
+    font-size: clamp(3.55rem, 8vw, 5rem);
   }
 
-  .hero-composition__monogram > span {
-    font-size: 7rem;
+  .hero-section__project {
+    width: min(100%, 860px);
   }
 }
 
 @media (max-width: 640px) {
   .hero-section {
-    padding-top: calc(var(--header-height) + 2.5rem);
+    padding-top: calc(var(--header-height) + 2.8rem);
     padding-bottom: 4.5rem;
   }
 
+  .hero-section__grid {
+    gap: 2.8rem;
+  }
+
+  .hero-section__eyebrow {
+    margin-bottom: 1.15rem;
+    font-size: 0.75rem;
+  }
+
   .hero-section h1 {
-    font-size: clamp(2.8rem, 14vw, 4rem);
-    letter-spacing: -0.065em;
+    font-size: clamp(2.65rem, 12vw, 3.25rem);
+    letter-spacing: -0.058em;
+    line-height: 1;
+  }
+
+  .hero-section__title-line {
+    white-space: normal;
   }
 
   .hero-section__description {
-    @apply text-base;
+    margin-top: 1.35rem;
+    font-size: 0.96rem;
+    line-height: 1.58;
+  }
+
+  .hero-section__actions {
+    margin-top: 1.6rem;
+  }
+
+  .hero-section__meta {
+    margin-top: 1.45rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .hero-section h1 {
+    font-size: 2.55rem;
   }
 
   .hero-section__actions {
     @apply grid grid-cols-1;
   }
 
-  .hero-section__actions > * {
-    @apply w-full justify-center;
-  }
-
-  .hero-section__meta {
-    @apply flex-col items-start;
-  }
-
-  .hero-composition {
-    min-height: 640px;
-  }
-
-  .hero-composition__monogram > span {
-    font-size: 5.6rem;
-  }
-
-  .hero-composition__card {
-    width: min(82%, 21rem);
-  }
-
-  .hero-composition__cards {
-    top: 30%;
+  .hero-action {
+    @apply w-full;
   }
 }
 
-@media (max-width: 380px) {
-  .hero-section h1 {
-    font-size: 2.65rem;
-  }
-
-  .hero-composition {
-    min-height: 600px;
-  }
-
-  .hero-composition__card {
-    padding: 0.85rem;
-  }
-
-  .hero-composition__card p {
-    font-size: 0.66rem;
+@media (prefers-reduced-motion: reduce) {
+  .hero-action:hover span {
+    transform: none;
   }
 }
 </style>
