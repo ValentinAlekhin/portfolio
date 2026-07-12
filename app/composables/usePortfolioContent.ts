@@ -5,41 +5,20 @@ export async function usePortfolioContent() {
   const contentLocale = computed<'en' | 'ru'>(() => locale.value === 'ru' ? 'ru' : 'en')
 
   const { data, error, status } = await useAsyncData(
-    () => `portfolio-${contentLocale.value}`,
-    async () => {
-      const result = await queryCollection('portfolio')
-        .where('locale', '=', contentLocale.value)
-        .first()
-
-      if (!result) {
-        throw createError({
-          statusCode: 404,
-          statusMessage: `Portfolio content for locale "${contentLocale.value}" was not found.`,
-        })
-      }
-
-      return result
-    },
+    'portfolio-content',
+    () => queryCollection('portfolio').all(),
   )
 
   if (error.value) {
     throw createError({
       statusCode: 500,
-      statusMessage: `Unable to load portfolio content for locale "${contentLocale.value}".`,
+      statusMessage: 'Unable to load portfolio content.',
       cause: error.value,
     })
   }
 
-  const previousContent = shallowRef<PortfolioContent | null>(data.value ?? null)
-
-  watch(data, (value) => {
-    if (value) {
-      previousContent.value = value
-    }
-  })
-
   const content = computed<PortfolioContent>(() => {
-    const resolvedContent = data.value ?? previousContent.value
+    const resolvedContent = data.value?.find(item => item.locale === contentLocale.value)
 
     if (!resolvedContent) {
       throw createError({
