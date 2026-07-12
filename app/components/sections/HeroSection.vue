@@ -32,6 +32,7 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
         <div class="hero-section__actions">
           <UButton
             :to="contactHref"
+            :locale="false"
             :target="isExternalContact ? '_blank' : undefined"
             :rel="isExternalContact ? 'noopener noreferrer' : undefined"
             color="primary"
@@ -42,6 +43,7 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
           </UButton>
           <UButton
             :to="hero.secondaryAction.href"
+            :locale="false"
             color="neutral"
             variant="outline"
             size="xl"
@@ -95,16 +97,18 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
             <small>{{ hero.visual.label }}</small>
           </div>
           <div class="hero-composition__orbit" />
-          <article
-            v-for="(card, index) in hero.visual.cards"
-            :key="card.title"
-            class="hero-composition__card"
-            :class="`hero-composition__card--${index + 1}`"
-          >
-            <span class="hero-composition__card-index">0{{ index + 1 }}</span>
-            <h2>{{ card.title }}</h2>
-            <p>{{ card.description }}</p>
-          </article>
+          <div class="hero-composition__cards">
+            <article
+              v-for="(card, index) in hero.visual.cards"
+              :key="card.title"
+              class="hero-composition__card"
+              :class="`hero-composition__card--${index + 1}`"
+            >
+              <span class="hero-composition__card-index">0{{ index + 1 }}</span>
+              <h2>{{ card.title }}</h2>
+              <p>{{ card.description }}</p>
+            </article>
+          </div>
           <div class="hero-composition__status">
             <span
               :class="{ 'hero-composition__status-dot--available': available }"
@@ -223,7 +227,7 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
 
 .hero-composition {
   @apply relative isolate overflow-hidden;
-  min-height: 600px;
+  min-height: 680px;
 }
 
 .hero-composition__glow {
@@ -286,8 +290,14 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
   inset: 15% auto auto 11%;
 }
 
+.hero-composition__cards {
+  @apply absolute flex flex-col justify-between;
+  gap: 0.75rem;
+  inset: 34% 7% 9%;
+}
+
 .hero-composition__card {
-  @apply absolute m-0 border;
+  @apply relative m-0 shrink-0 border;
   width: min(74%, 21rem);
   padding: 1.1rem 1.2rem 1.2rem;
   border-color: color-mix(in srgb, var(--ui-border) 88%, transparent);
@@ -298,18 +308,15 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
 }
 
 .hero-composition__card--1 {
-  top: 38%;
-  right: 8%;
+  @apply self-end;
 }
 
 .hero-composition__card--2 {
-  top: 59%;
-  left: 7%;
+  @apply self-start;
 }
 
 .hero-composition__card--3 {
-  right: 8%;
-  bottom: 6.5%;
+  @apply self-end;
 }
 
 .hero-composition__card-index {
@@ -338,7 +345,7 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
 
 .hero-composition__status {
   @apply absolute flex items-center gap-2;
-  bottom: 5%;
+  bottom: 2.5%;
   left: 7%;
   color: var(--ui-text-muted);
   font-size: 0.67rem;
@@ -383,7 +390,11 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
   }
 
   .hero-composition {
-    min-height: 540px;
+    min-height: 680px;
+  }
+
+  .hero-composition__card {
+    width: min(82%, 21rem);
   }
 }
 
@@ -438,7 +449,7 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
   }
 
   .hero-composition {
-    min-height: 520px;
+    min-height: 640px;
   }
 
   .hero-composition__monogram > span {
@@ -446,7 +457,11 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
   }
 
   .hero-composition__card {
-    width: 82%;
+    width: min(82%, 21rem);
+  }
+
+  .hero-composition__cards {
+    top: 30%;
   }
 }
 
@@ -456,7 +471,7 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
   }
 
   .hero-composition {
-    min-height: 470px;
+    min-height: 600px;
   }
 
   .hero-composition__card {

@@ -46,6 +46,7 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
 
           <UButton
             :to="contactHref"
+            :locale="false"
             :target="isExternalContact ? '_blank' : undefined"
             :rel="isExternalContact ? 'noopener noreferrer' : undefined"
             color="primary"

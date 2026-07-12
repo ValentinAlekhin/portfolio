@@ -27,6 +27,7 @@ const year = useState('copyright-year', () => new Date().getUTCFullYear())
 
       <UButton
         to="#top"
+        :locale="false"
         color="neutral"
         variant="ghost"
         size="sm"
