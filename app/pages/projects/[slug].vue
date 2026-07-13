@@ -11,7 +11,7 @@ interface InteractionItem {
 const route = useRoute()
 const localePath = useLocalePath()
 const { localeCode, projects } = usePortfolio()
-const { t, tm } = useI18n()
+const { t } = useI18n()
 const project = computed(() => projects.find(item => item.slug === route.params.slug))
 
 if (!project.value) {
@@ -31,8 +31,9 @@ const content = computed<ProjectContent>(() => {
     constraints: t(`${key}.constraints`),
   }
 })
-const roles = computed(() => tm(`${project.value!.translationKey}.roles`) as unknown as string[])
-const interactionItems = computed(() => tm('case.interactionItems') as unknown as InteractionItem[])
+const rolesKey = computed(() => `${project.value!.translationKey}.roles`)
+const roles = useTranslatedMessages<string[]>(rolesKey)
+const interactionItems = useTranslatedMessages<InteractionItem[]>('case.interactionItems')
 const canonical = computed(() => `https://alekhin.dev/${localeCode.value}/projects/${project.value!.slug}/`)
 const i18nHead = useLocaleHead({ dir: true, lang: true, seo: true })
 const homeProjects = computed(() => `${localePath('/')}#projects`)

@@ -1,10 +1,5 @@
 export type ThemeName = 'system' | 'phosphor'
 
-export interface NavigationItem {
-  id: 'projects' | 'services' | 'process' | 'about'
-  label: string
-}
-
 export interface CapabilityItem {
   id: string
   title: string

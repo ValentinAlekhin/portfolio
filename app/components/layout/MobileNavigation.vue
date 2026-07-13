@@ -9,10 +9,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from 'reka-ui'
-import type { NavigationItem } from '~/types/content'
+import { navigationItems } from '~/data/navigation'
 
-const { t, tm } = useI18n()
-const navItems = computed(() => tm('nav.items') as unknown as NavigationItem[])
+const { t } = useI18n()
 const localePath = useLocalePath()
 const open = ref(false)
 const homePath = computed(() => localePath('/'))
@@ -60,13 +59,13 @@ function openContact() {
         <nav :aria-label="t('nav.label')">
           <ul class="mobile-nav-list">
             <li
-              v-for="(item, index) in navItems"
+              v-for="(item, index) in navigationItems"
               :key="item.id"
             >
               <DialogClose as-child>
                 <a :href="`${homePath}#${item.id}`">
                   <span class="system-label">0{{ index + 1 }}</span>
-                  {{ item.label }}
+                  {{ t(item.labelKey) }}
                 </a>
               </DialogClose>
             </li>

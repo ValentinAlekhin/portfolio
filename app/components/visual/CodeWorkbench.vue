@@ -1,14 +1,14 @@
 <script setup lang="ts">
 type WorkbenchTab = 'portfolio.ts' | 'runtime.log' | 'ascii.va'
 
-const { t, tm } = useI18n()
+const { t } = useI18n()
 const activeTab = ref<WorkbenchTab>('portfolio.ts')
 const buildState = ref<'ready' | 'building' | 'passed'>('ready')
 const buildProgress = ref(100)
 let buildTimer: ReturnType<typeof setInterval> | undefined
 
 const tabs: WorkbenchTab[] = ['portfolio.ts', 'runtime.log', 'ascii.va']
-const logs = computed(() => tm('workbench.logs') as unknown as string[])
+const logs = useTranslatedMessages<string[]>('workbench.logs')
 
 const buildLabel = computed(() => {
   if (buildState.value === 'building') return `${t('workbench.building')} ${buildProgress.value}%`

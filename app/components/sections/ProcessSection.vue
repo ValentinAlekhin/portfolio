@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { ProcessItem } from '~/types/content'
 
-const { t, tm } = useI18n()
-const items = computed(() => tm('process.items') as unknown as ProcessItem[])
+const { t } = useI18n()
+const items = useTranslatedMessages<ProcessItem[]>('process.items')
 const root = ref<HTMLElement | null>(null)
 const progress = ref<HTMLElement | null>(null)
 const { motionAllowed } = useMotionPreference()

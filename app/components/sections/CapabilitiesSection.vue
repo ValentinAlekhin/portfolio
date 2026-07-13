@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { CapabilityItem } from '~/types/content'
 
-const { t, tm } = useI18n()
-const items = computed(() => tm('capabilities.items') as unknown as CapabilityItem[])
+const { t } = useI18n()
+const items = useTranslatedMessages<CapabilityItem[]>('capabilities.items')
 const activeId = ref(items.value[0]?.id ?? '')
 const active = computed(() => items.value.find(item => item.id === activeId.value) ?? items.value[0])
 </script>

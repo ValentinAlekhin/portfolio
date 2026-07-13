@@ -21,12 +21,12 @@
   },
   "nav": {
     "label": "Main navigation",
-    "items": [
-      { "id": "projects", "label": "Projects" },
-      { "id": "services", "label": "Capabilities" },
-      { "id": "process", "label": "Process" },
-      { "id": "about", "label": "About" }
-    ],
+    "sections": {
+      "projects": "Projects",
+      "services": "Capabilities",
+      "process": "Process",
+      "about": "About"
+    },
     "contact": "Discuss a project",
     "open": "Open menu",
     "close": "Close menu",
@@ -111,11 +111,11 @@
       "I automate anything I have to do twice.",
       "A product is only finished after launch."
     ],
-    "now": [
-      { "label": "Currently building", "value": "PowerSketch" },
-      { "label": "Currently exploring", "value": "SVG product interfaces" },
-      { "label": "Available for", "value": "SaaS / tools / internal systems" }
-    ]
+    "now": {
+      "building": { "label": "Currently building", "value": "PowerSketch" },
+      "exploring": { "label": "Currently exploring", "value": "SVG product interfaces" },
+      "available": { "label": "Available for", "value": "SaaS / tools / internal systems" }
+    }
   },
   "contact": {
     "eyebrow": "Open channel",

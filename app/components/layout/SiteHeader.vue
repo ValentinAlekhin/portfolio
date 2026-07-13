@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { profile } from '~/data/profile'
-import type { NavigationItem } from '~/types/content'
+import { navigationItems } from '~/data/navigation'
 
-const { t, tm } = useI18n()
-const navItems = computed(() => tm('nav.items') as unknown as NavigationItem[])
+const { t } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
 const { time } = useLocalTime(profile.timeZone)
@@ -30,7 +29,7 @@ onMounted(() => {
   onScroll()
   window.addEventListener('scroll', onScroll, { passive: true })
 
-  const sections = navItems.value
+  const sections = navigationItems
     .map(item => document.getElementById(item.id))
     .filter((element): element is HTMLElement => Boolean(element))
   observer = new IntersectionObserver((entries) => {
@@ -71,11 +70,11 @@ onBeforeUnmount(() => {
         :aria-label="t('nav.label')"
       >
         <a
-          v-for="item in navItems"
+          v-for="item in navigationItems"
           :key="item.id"
           :href="sectionHref(item.id)"
           :aria-current="activeSection === item.id ? 'location' : undefined"
-        ><span>/</span>{{ item.label.toLowerCase().replaceAll(' ', '-') }}</a>
+        ><span>/</span>{{ t(item.labelKey).toLowerCase().replaceAll(' ', '-') }}</a>
       </nav>
 
       <div class="site-header__actions">

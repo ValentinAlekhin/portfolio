@@ -1,13 +1,12 @@
 <script setup lang="ts">
-interface NowItem {
-  label: string
-  value: string
-}
-
-const { t, tm } = useI18n()
-const paragraphs = computed(() => tm('about.paragraphs') as unknown as string[])
-const principles = computed(() => tm('about.principles') as unknown as string[])
-const now = computed(() => tm('about.now') as unknown as NowItem[])
+const { t } = useI18n()
+const paragraphs = useTranslatedMessages<string[]>('about.paragraphs')
+const principles = useTranslatedMessages<string[]>('about.principles')
+const nowItems = [
+  { id: 'building', labelKey: 'about.now.building.label', valueKey: 'about.now.building.value' },
+  { id: 'exploring', labelKey: 'about.now.exploring.label', valueKey: 'about.now.exploring.value' },
+  { id: 'available', labelKey: 'about.now.available.label', valueKey: 'about.now.available.value' },
+] as const
 </script>
 
 <template>
@@ -63,12 +62,12 @@ const now = computed(() => tm('about.now') as unknown as NowItem[])
 
       <MotionReveal class="now-board">
         <div
-          v-for="item in now"
-          :key="item.label"
+          v-for="item in nowItems"
+          :key="item.id"
           class="now-board__item"
         >
-          <span class="system-label">"{{ item.label.toLowerCase() }}":</span>
-          <strong>"{{ item.value }}"</strong>
+          <span class="system-label">"{{ t(item.labelKey).toLowerCase() }}":</span>
+          <strong>"{{ t(item.valueKey) }}"</strong>
         </div>
       </MotionReveal>
     </div>
