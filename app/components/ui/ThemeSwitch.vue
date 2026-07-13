@@ -7,11 +7,19 @@ const target = ref<HTMLButtonElement | null>(null)
 const cells = Array.from({ length: 32 }, (_, index) => index)
 const { scramble } = useScrambleText(locale)
 const { motionAllowed } = useMotionPreference()
+const localizedLabel = computed(() => {
+  if (locale.value === 'ru') {
+    return theme.value === 'phosphor' ? 'ФОСФОР' : 'СИСТЕМА'
+  }
+
+  return theme.value.toUpperCase()
+})
+const displayPrefix = computed(() => locale.value === 'ru' ? 'ЭКРАН' : 'DISPLAY')
 
 useMagnetic(target)
 
-watch(theme, (value) => {
-  visibleLabel.value = value.toUpperCase()
+watch([theme, locale], () => {
+  visibleLabel.value = localizedLabel.value
 }, { immediate: true })
 
 async function toggle(event: MouseEvent) {
@@ -22,9 +30,12 @@ async function toggle(event: MouseEvent) {
   }
 
   const next = theme.value === 'system' ? 'phosphor' : 'system'
+  const nextLabel = locale.value === 'ru'
+    ? next === 'phosphor' ? 'ФОСФОР' : 'СИСТЕМА'
+    : next.toUpperCase()
   if (!motionAllowed.value) {
     toggleTheme()
-    visibleLabel.value = next.toUpperCase()
+    visibleLabel.value = nextLabel
     return
   }
 
@@ -38,7 +49,7 @@ async function toggle(event: MouseEvent) {
   await new Promise<void>((resolve) => {
     $gsap.delayedCall(0.18, () => {
       toggleTheme()
-      scramble(visibleLabel, next.toUpperCase(), 320)
+      scramble(visibleLabel, nextLabel, 320)
       resolve()
     })
   })
@@ -70,10 +81,18 @@ async function toggle(event: MouseEvent) {
       />
     </span>
     <span
-      class="theme-switch__dot"
-      data-flip
+      class="theme-switch__prefix"
       aria-hidden="true"
-    />
+    >{{ displayPrefix }}</span>
+    <span
+      class="theme-switch__rail"
+      aria-hidden="true"
+    >
+      <i
+        class="theme-switch__dot"
+        data-flip
+      />
+    </span>
     <span
       class="theme-switch__label"
       data-flip
@@ -87,18 +106,38 @@ async function toggle(event: MouseEvent) {
 .theme-switch {
   position: relative;
   display: inline-flex;
-  min-width: 7.8rem;
+  min-width: 11.6rem;
   min-height: 2.75rem;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;
-  padding: 0.65rem 0.8rem;
+  gap: 0.55rem;
+  padding: 0.45rem 0.65rem;
   overflow: hidden;
-  border: 1px solid var(--color-line);
-  border-radius: 6px;
+  border: 0;
   background: transparent;
   color: var(--color-text);
   cursor: pointer;
+}
+
+.theme-switch::before,
+.theme-switch::after {
+  z-index: 1;
+  color: var(--color-accent);
+  font-size: 0.7rem;
+}
+
+.theme-switch::before { content: '['; }
+.theme-switch::after { content: ']'; }
+
+.theme-switch__prefix { z-index: 1; color: var(--color-text-muted); font-size: 0.52rem; }
+
+.theme-switch__rail {
+  position: relative;
+  z-index: 1;
+  width: 1.9rem;
+  height: 0.78rem;
+  border: 1px solid var(--color-line);
+  background: var(--color-bg);
 }
 
 .theme-switch__matrix {
@@ -121,15 +160,23 @@ async function toggle(event: MouseEvent) {
 }
 
 .theme-switch__dot {
-  z-index: 1;
-  width: 0.42rem;
-  height: 0.42rem;
-  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 0.38rem;
+  height: 0.38rem;
   background: var(--color-accent);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--color-accent) 55%, transparent);
+  transition: transform var(--duration-ui) var(--ease-out);
 }
+
+.theme-switch[aria-pressed='true'] .theme-switch__dot { transform: translateX(1.08rem); }
 
 .theme-switch__label {
   z-index: 1;
+  min-width: 3.8rem;
+  color: var(--color-accent);
+  text-align: left;
 }
 
 @keyframes matrix-cell {

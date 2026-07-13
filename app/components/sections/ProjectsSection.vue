@@ -82,6 +82,11 @@ onBeforeUnmount(() => {
       </MotionReveal>
 
       <div class="project-list">
+        <div class="project-list__head system-label">
+          <span><i /> <i /> <i /></span>
+          <span>git://portfolio/projects.log</span>
+          <span>{{ localeCode === 'ru' ? '1 запись' : '1 result' }}</span>
+        </div>
         <MotionReveal
           v-for="project in projects"
           :key="project.slug"
@@ -97,20 +102,20 @@ onBeforeUnmount(() => {
               @blur="hidePreview"
               @click.prevent="followProject($event, project)"
             >
-              <span class="project-row__index system-label">{{ project.index }}</span>
+              <span class="project-row__index system-label">+{{ project.index }}</span>
               <span class="project-row__main">
-                <span class="project-row__title">{{ project.title }}</span>
-                <span class="project-row__summary">{{ project.content[localeCode].summary }}</span>
+                <span class="project-row__title"><b>openProject</b>(<q>{{ project.title }}</q>)</span>
+                <span class="project-row__summary">// {{ project.content[localeCode].summary }}</span>
               </span>
               <span class="project-row__meta">
-                <span class="system-label">{{ project.period }}</span>
-                <span class="system-label">{{ copy.projects.roleLabel }}</span>
-                <span class="project-row__stack">{{ project.stack.join(' · ') }}</span>
+                <span class="system-label"><b>period:</b> '{{ project.period }}'</span>
+                <span class="system-label"><b>scope:</b> '{{ copy.projects.roleLabel }}'</span>
+                <span class="project-row__stack"><b>stack:</b> [{{ project.stack.map(item => `'${item}'`).join(', ') }}]</span>
               </span>
               <span
                 class="project-row__arrow"
                 aria-hidden="true"
-              >↗</span>
+              >[ENTER]</span>
             </NuxtLink>
 
             <div class="project-row__mobile-preview">
@@ -136,13 +141,19 @@ onBeforeUnmount(() => {
 
 <style scoped lang="scss">
 .projects-section { background: color-mix(in srgb, var(--color-surface) 55%, var(--color-bg)); }
-.project-list { border-top: 1px solid var(--color-line); }
+.project-list { border: 1px solid var(--color-control-border); background: color-mix(in srgb, var(--color-bg) 92%, #000); box-shadow: 0 30px 80px rgb(0 0 0 / 12%); }
+.project-list__head { display: grid; min-height: 2.6rem; grid-template-columns: 1fr auto 1fr; align-items: center; padding-inline: 0.8rem; border-bottom: 1px solid var(--color-line); color: var(--color-text-muted); }
+.project-list__head > span:last-child { justify-self: end; color: var(--color-accent); }
+.project-list__head > span:first-child { display: flex; gap: 0.3rem; }
+.project-list__head i { width: 0.42rem; height: 0.42rem; border: 1px solid var(--color-control-border); border-radius: 50%; }
+.project-list__head i:first-child { background: var(--color-accent); }
 .project-row { border-bottom: 1px solid var(--color-line); }
+.project-row:last-child { border-bottom: 0; }
 
 .project-row__link {
   position: relative;
   display: grid;
-  min-height: 14rem;
+  min-height: 15rem;
   grid-template-columns: 0.65fr 4.2fr 2fr auto;
   align-items: start;
   gap: 1.5rem;
@@ -153,7 +164,8 @@ onBeforeUnmount(() => {
 .project-row__link::before {
   position: absolute;
   z-index: 0;
-  background: var(--color-phosphor);
+  border-left: 2px solid var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 11%, var(--color-surface));
   content: '';
   inset: 0;
   transform: scaleY(0);
@@ -164,18 +176,21 @@ onBeforeUnmount(() => {
 .project-row__link:hover::before,
 .project-row__link:focus-visible::before { transform: scaleY(1); }
 .project-row__link:hover,
-.project-row__link:focus-visible { color: var(--color-accent-ink); }
+.project-row__link:focus-visible { color: var(--color-text); }
 .project-row__link > span { position: relative; z-index: 1; }
 .project-row__index { color: var(--color-accent); }
 .project-row__main { display: grid; gap: 1rem; }
-.project-row__title { font-size: clamp(2.6rem, 6vw, 6.5rem); font-weight: 570; letter-spacing: -0.07em; line-height: 0.88; }
-.project-row__summary { max-width: 35ch; color: var(--color-text-muted); font-size: 1rem; line-height: 1.5; }
+.project-row__title { color: var(--color-text); font-family: var(--font-mono); font-size: clamp(1.65rem, 3.7vw, 4rem); font-weight: 480; letter-spacing: -0.055em; line-height: 1; }
+.project-row__title b { color: #62b7e8; font-weight: 500; }
+.project-row__title q { color: #d5b767; quotes: '"' '"'; }
+.project-row__summary { max-width: 44ch; color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.76rem; line-height: 1.6; }
 .project-row__link:hover .project-row__summary,
-.project-row__link:focus-visible .project-row__summary { color: color-mix(in srgb, var(--color-accent-ink) 72%, transparent); }
+.project-row__link:focus-visible .project-row__summary { color: var(--color-text-muted); }
 .project-row__meta { display: grid; gap: 0.75rem; color: var(--color-text-muted); }
-.project-row__stack { max-width: 24ch; font-size: 0.82rem; }
-.project-row__arrow { font-size: 2rem; transition: transform var(--duration-ui) var(--ease-out); }
-.project-row__link:hover .project-row__arrow { transform: translate(5px, -5px); }
+.project-row__meta b { color: var(--color-accent); font-weight: 500; }
+.project-row__stack { max-width: 30ch; font-family: var(--font-mono); font-size: 0.68rem; }
+.project-row__arrow { color: var(--color-accent); font-family: var(--font-mono); font-size: 0.65rem; transition: letter-spacing var(--duration-ui) var(--ease-out); }
+.project-row__link:hover .project-row__arrow { letter-spacing: 0.1em; }
 .project-row__mobile-preview { display: none; padding-bottom: 1.5rem; }
 
 .project-cursor-preview {
@@ -201,7 +216,7 @@ onBeforeUnmount(() => {
 
 @media (max-width: 600px) {
   .project-row__link { grid-template-columns: auto 1fr; gap: 1rem; }
-  .project-row__arrow { position: absolute !important; right: 0; }
+  .project-row__arrow { position: absolute !important; right: 0.75rem; }
   .project-row__meta { grid-column: 1 / -1; }
   .project-row__title { font-size: clamp(2.7rem, 14vw, 4.2rem); }
 }

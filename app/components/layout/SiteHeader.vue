@@ -60,8 +60,8 @@ onBeforeUnmount(() => {
         class="site-brand"
         :aria-label="profile.displayName[localeCode]"
       >
-        <span class="site-brand__mark">VA</span>
-        <span>{{ profile.displayName[localeCode] }}</span>
+        <span class="site-brand__mark">&gt;_</span>
+        <span>alekhin.dev</span>
       </NuxtLink>
 
       <nav
@@ -73,20 +73,20 @@ onBeforeUnmount(() => {
           :key="item.id"
           :href="sectionHref(item.id)"
           :aria-current="activeSection === item.id ? 'location' : undefined"
-        >{{ item.label }}</a>
+        ><span>/</span>{{ item.label.toLowerCase().replaceAll(' ', '-') }}</a>
       </nav>
 
       <div class="site-header__actions">
         <div class="site-header__desktop-actions">
           <LocaleSwitcher :label="copy.nav.language" />
           <ThemeSwitch :label="copy.nav.theme" />
-          <span class="availability system-label"><i /> AVAILABLE</span>
+          <span class="availability system-label"><i /> {{ localeCode === 'ru' ? 'В СЕТИ' : 'ONLINE' }}</span>
           <button
             type="button"
             class="header-contact system-label"
             @click="contactOpen = true"
           >
-            {{ copy.nav.contact }} <span aria-hidden="true">↗</span>
+            [ {{ copy.nav.contact }} ]
           </button>
         </div>
         <button
@@ -94,8 +94,7 @@ onBeforeUnmount(() => {
           class="header-contact header-contact--mobile system-label"
           @click="contactOpen = true"
         >
-          {{ localeCode === 'ru' ? 'Связаться' : 'Contact' }}
-          <span aria-hidden="true">↗</span>
+          [ {{ localeCode === 'ru' ? 'Связаться' : 'Contact' }} ]
         </button>
         <MobileNavigation />
       </div>
@@ -104,7 +103,7 @@ onBeforeUnmount(() => {
     <div class="site-container site-header__telemetry system-label">
       <span>LOCAL {{ time }}</span>
       <span class="pointer-coordinates">X {{ formatCoordinate(hud.x) }} Y {{ formatCoordinate(hud.y) }}</span>
-      <span>BUILD 02</span>
+      <span>TTY / PORT 3000 / BUILD 03</span>
     </div>
   </header>
 </template>
@@ -117,14 +116,14 @@ onBeforeUnmount(() => {
   right: 0;
   left: 0;
   height: var(--header-height);
-  border-bottom: 1px solid transparent;
-  background: transparent;
+  border-bottom: 1px solid var(--color-line);
+  background: color-mix(in srgb, var(--color-bg) 88%, #000);
   transition: background var(--duration-ui) ease, border-color var(--duration-ui) ease;
 }
 
 .site-header--scrolled {
-  border-color: var(--color-line);
-  background: color-mix(in srgb, var(--color-bg) 94%, transparent);
+  background: color-mix(in srgb, var(--color-bg) 97%, #000);
+  box-shadow: 0 14px 44px rgb(0 0 0 / 14%);
 }
 
 .site-header__main {
@@ -140,23 +139,22 @@ onBeforeUnmount(() => {
   width: fit-content;
   align-items: center;
   gap: 0.75rem;
+  color: var(--color-text);
+  font-family: var(--font-mono);
   font-size: 0.82rem;
-  font-weight: 650;
+  font-weight: 600;
   text-decoration: none;
 }
 
 .site-brand__mark {
-  padding-right: 0.75rem;
-  border-right: 1px solid var(--color-line);
   color: var(--color-accent);
-  font-family: var(--font-mono);
   font-weight: 800;
 }
 
 .site-nav {
   display: flex;
   align-items: center;
-  gap: 1.35rem;
+  gap: 1rem;
 }
 
 .site-nav a {
@@ -165,15 +163,18 @@ onBeforeUnmount(() => {
   min-height: 2.75rem;
   align-items: center;
   color: var(--color-text-muted);
-  font-size: 0.76rem;
-  font-weight: 620;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 520;
   text-decoration: none;
 }
+
+.site-nav a > span { color: var(--color-accent); }
 
 .site-nav a::after {
   position: absolute;
   right: 0;
-  bottom: 0.2rem;
+  bottom: 0.3rem;
   left: 0;
   height: 1px;
   background: var(--color-accent);
@@ -203,6 +204,7 @@ onBeforeUnmount(() => {
   gap: 0.45rem;
   padding-inline: 0.55rem;
   color: var(--color-text-muted);
+  white-space: nowrap;
 }
 
 .availability i {
@@ -215,17 +217,15 @@ onBeforeUnmount(() => {
 
 .header-contact {
   min-height: 2.75rem;
-  padding: 0.6rem 0.75rem;
-  border: 1px solid var(--color-accent);
-  border-radius: 6px;
-  background: var(--color-accent);
-  color: var(--color-accent-ink);
+  padding: 0.6rem 0.45rem;
+  border: 0;
+  background: transparent;
+  color: var(--color-accent);
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .header-contact--mobile { display: none; }
-
-html:not([data-theme='phosphor']) .header-contact { color: #fff; }
 
 .site-header__telemetry {
   display: flex;

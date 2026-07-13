@@ -41,7 +41,7 @@ useHead(() => ({
           'url': 'https://alekhin.dev',
           'jobTitle': profile.role,
           'email': `mailto:${profile.email}`,
-          'sameAs': [profile.github],
+          'sameAs': [profile.github, profile.telegram],
           'knowsAbout': ['TypeScript', 'Vue', 'Nuxt', 'Node.js', 'Go', 'SaaS'],
         },
         {

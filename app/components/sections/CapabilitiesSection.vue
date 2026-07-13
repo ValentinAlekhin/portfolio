@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { copy } = usePortfolio()
+const { copy, localeCode } = usePortfolio()
 const activeId = ref(copy.value.capabilities.items[0]?.id ?? '')
 const active = computed(() => copy.value.capabilities.items.find(item => item.id === activeId.value) ?? copy.value.capabilities.items[0])
 </script>
@@ -22,6 +22,10 @@ const active = computed(() => copy.value.capabilities.items.find(item => item.id
       </MotionReveal>
 
       <MotionReveal>
+        <div class="capabilities__window-head system-label">
+          <span>src/product_pipeline/</span>
+          <span>{{ localeCode === 'ru' ? 'РЕЖИМ ПРОСМОТРА / НАВЕДИТЕ ИЛИ ВЫБЕРИТЕ' : 'INSPECT MODE / HOVER OR FOCUS' }}</span>
+        </div>
         <div class="capabilities__desktop">
           <div
             class="capabilities__pipeline"
@@ -37,9 +41,9 @@ const active = computed(() => copy.value.capabilities.items.find(item => item.id
               @focus="activeId = item.id"
               @click="activeId = item.id"
             >
-              <span class="system-label">0{{ index + 1 }}</span>
-              <strong>{{ item.title }}</strong>
-              <i aria-hidden="true" />
+              <span class="system-label">{{ index + 12 }}</span>
+              <strong><i aria-hidden="true">├─</i> {{ item.id }}.ts</strong>
+              <em aria-hidden="true">{{ activeId === item.id ? '●' : '○' }}</em>
             </button>
           </div>
 
@@ -49,16 +53,16 @@ const active = computed(() => copy.value.capabilities.items.find(item => item.id
             aria-live="polite"
           >
             <p class="system-label">
-              ACTIVE LAYER / {{ active.id }}
+              <b>import</b> &#123; {{ active.id }} &#125; <b>from</b> './pipeline'
             </p>
-            <h3>{{ active.title }}</h3>
-            <p>{{ active.description }}</p>
+            <h3><span>async function</span> {{ active.title }}()</h3>
+            <p>/* {{ active.description }} */</p>
             <ul>
               <li
                 v-for="detail in active.details"
                 :key="detail"
               >
-                <span>→</span>{{ detail }}
+                <span>await</span> {{ detail }}<i>();</i>
               </li>
             </ul>
           </div>
@@ -93,21 +97,26 @@ const active = computed(() => copy.value.capabilities.items.find(item => item.id
 .capabilities__desktop {
   display: grid;
   grid-template-columns: minmax(18rem, 5fr) minmax(22rem, 7fr);
-  gap: clamp(3rem, 8vw, 8rem);
+  gap: 0;
+  border: 1px solid var(--color-control-border);
+  background: var(--color-surface);
+  box-shadow: 0 30px 80px rgb(0 0 0 / 12%);
 }
 
-.capabilities__pipeline { position: relative; }
-.capabilities__pipeline::before { position: absolute; top: 2rem; bottom: 2rem; left: 2.1rem; width: 1px; background: var(--color-line); content: ''; }
+.capabilities__window-head { display: flex; min-height: 2.6rem; align-items: center; justify-content: space-between; padding-inline: 0.9rem; border: 1px solid var(--color-control-border); border-bottom: 0; color: var(--color-text-muted); }
+.capabilities__window-head span:last-child { color: var(--color-accent); }
+
+.capabilities__pipeline { position: relative; padding: 1rem 0; border-right: 1px solid var(--color-line); background: color-mix(in srgb, var(--color-bg) 65%, var(--color-surface)); }
 
 .capabilities__pipeline button {
   position: relative;
   display: grid;
   width: 100%;
-  min-height: 5.6rem;
-  grid-template-columns: 3.2rem 1fr auto;
+  min-height: 4.2rem;
+  grid-template-columns: 2.4rem 1fr auto;
   align-items: center;
   gap: 1rem;
-  padding: 0.6rem 0;
+  padding: 0.6rem 1rem;
   border: 0;
   border-bottom: 1px solid var(--color-line);
   background: transparent;
@@ -116,24 +125,30 @@ const active = computed(() => copy.value.capabilities.items.find(item => item.id
   text-align: left;
 }
 
-.capabilities__pipeline button > span { z-index: 1; display: grid; width: 2.2rem; height: 2.2rem; border: 1px solid var(--color-line); border-radius: 50%; background: var(--color-bg); place-items: center; }
-.capabilities__pipeline strong { font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 560; }
-.capabilities__pipeline i { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--color-line); }
+.capabilities__pipeline button > span { z-index: 1; color: var(--color-text-muted); text-align: right; }
+.capabilities__pipeline strong { overflow: hidden; font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+.capabilities__pipeline strong i { color: var(--color-text-muted); font-style: normal; }
+.capabilities__pipeline em { color: var(--color-line); font-size: 0.65rem; font-style: normal; }
 .capabilities__pipeline button.active { color: var(--color-text); }
-.capabilities__pipeline button.active > span { border-color: var(--color-accent); color: var(--color-accent); }
-.capabilities__pipeline button.active i { background: var(--color-accent); box-shadow: 0 0 14px var(--color-accent); }
+.capabilities__pipeline button.active { background: color-mix(in srgb, var(--color-accent) 10%, transparent); }
+.capabilities__pipeline button.active > span,
+.capabilities__pipeline button.active em { color: var(--color-accent); }
 
-.capabilities__detail { position: sticky; top: calc(var(--header-height) + 2rem); align-self: start; min-height: 29rem; padding: clamp(2rem, 5vw, 4rem); border: 1px solid var(--color-line); background: var(--color-surface); }
-.capabilities__detail > p:first-child { margin: 0; color: var(--color-accent); }
-.capabilities__detail h3 { max-width: 10ch; margin: 4rem 0 0; font-size: clamp(2.8rem, 5vw, 5.2rem); font-weight: 540; letter-spacing: -0.065em; line-height: 0.92; }
-.capabilities__detail h3 + p { max-width: 52ch; margin: 1.5rem 0 0; color: var(--color-text-muted); }
+.capabilities__detail { position: sticky; top: calc(var(--header-height) + 2rem); align-self: start; min-height: 31rem; padding: clamp(2rem, 5vw, 4rem); background: var(--color-surface); }
+.capabilities__detail > p:first-child { margin: 0; color: var(--color-text); font-family: var(--font-mono); text-transform: none; }
+.capabilities__detail > p:first-child b { color: #c67be5; font-weight: 500; }
+.capabilities__detail h3 { max-width: 12ch; margin: 4rem 0 0; font-family: var(--font-mono); font-size: clamp(2rem, 4vw, 4.4rem); font-weight: 480; letter-spacing: -0.055em; line-height: 1; }
+.capabilities__detail h3 span { display: block; margin-bottom: 0.6rem; color: #62b7e8; font-size: 0.23em; letter-spacing: 0; }
+.capabilities__detail h3 + p { max-width: 52ch; margin: 1.5rem 0 0; color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.78rem; }
 .capabilities__detail ul { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 2rem 0 0; list-style: none; }
-.capabilities__detail li { padding: 0.5rem 0.7rem; border: 1px solid var(--color-line); border-radius: 6px; font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; }
-.capabilities__detail li span { margin-right: 0.4rem; color: var(--color-accent); }
+.capabilities__detail li { padding: 0.5rem 0; font-family: var(--font-mono); font-size: 0.68rem; }
+.capabilities__detail li span { margin-right: 0.4rem; color: #c67be5; }
+.capabilities__detail li i { color: var(--color-accent); font-style: normal; }
 .capabilities__mobile { display: none; }
 
 @media (max-width: 820px) {
   .capabilities__desktop { display: none; }
+  .capabilities__window-head { display: none; }
   .capabilities__mobile { display: block; border-top: 1px solid var(--color-line); }
   .capabilities__mobile details { border-bottom: 1px solid var(--color-line); }
   .capabilities__mobile summary { display: grid; min-height: 4.8rem; grid-template-columns: 3rem 1fr auto; align-items: center; cursor: pointer; font-size: 1.2rem; font-weight: 600; list-style: none; }

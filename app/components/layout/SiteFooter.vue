@@ -11,7 +11,7 @@ const year = new Date().getUTCFullYear()
   <footer class="site-footer">
     <div class="site-container site-footer__grid">
       <div class="site-footer__brand">
-        <strong>VA / ALEKHIN.DEV</strong>
+        <strong>&gt;_ alekhin.dev</strong>
         <span class="system-label">{{ copy.footer.role }}</span>
       </div>
       <div class="site-footer__links system-label">
@@ -22,6 +22,11 @@ const year = new Date().getUTCFullYear()
           target="_blank"
           rel="noopener noreferrer"
         >GITHUB</a>
+        <a
+          :href="profile.telegram"
+          target="_blank"
+          rel="noopener noreferrer"
+        >TELEGRAM</a>
       </div>
       <div class="site-footer__meta system-label">
         <span>LOCAL {{ time }}</span>
@@ -31,7 +36,7 @@ const year = new Date().getUTCFullYear()
       <a
         :href="`${localePath('/')}#top`"
         class="site-footer__top system-label"
-      >{{ copy.footer.backToTop }} ↑</a>
+      >cd /top</a>
     </div>
   </footer>
 </template>

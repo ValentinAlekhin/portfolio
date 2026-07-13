@@ -18,8 +18,15 @@ const { copy } = usePortfolio()
         />
       </MotionReveal>
 
+      <div class="about-file system-label">
+        <span>README.md</span>
+        <span>UTF-8 / LF</span>
+      </div>
       <div class="about-grid">
         <MotionReveal class="about-copy">
+          <p class="about-copy__prompt">
+            ## valentin-alekhin / product-developer
+          </p>
           <p
             v-for="paragraph in copy.about.paragraphs"
             :key="paragraph"
@@ -33,14 +40,14 @@ const { copy } = usePortfolio()
           class="about-principles"
         >
           <p class="system-label">
-            {{ copy.about.principlesLabel }}
+            <span>const</span> {{ copy.about.principlesLabel.toLowerCase().replace(/\s+/g, '_') }} = [
           </p>
           <ol>
             <li
               v-for="(principle, index) in copy.about.principles"
               :key="principle"
             >
-              <span class="system-label">0{{ index + 1 }}</span>{{ principle }}
+              <span class="system-label">{{ index + 1 }}:</span><q>{{ principle }}</q><i>,</i>
             </li>
           </ol>
         </MotionReveal>
@@ -52,8 +59,8 @@ const { copy } = usePortfolio()
           :key="item.label"
           class="now-board__item"
         >
-          <span class="system-label">{{ item.label }}</span>
-          <strong>{{ item.value }}</strong>
+          <span class="system-label">"{{ item.label.toLowerCase() }}":</span>
+          <strong>"{{ item.value }}"</strong>
         </div>
       </MotionReveal>
     </div>
@@ -61,19 +68,27 @@ const { copy } = usePortfolio()
 </template>
 
 <style scoped lang="scss">
-.about-grid { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(3rem, 9vw, 9rem); }
+.about-file { display: flex; min-height: 2.6rem; align-items: center; justify-content: space-between; padding-inline: 0.9rem; border: 1px solid var(--color-control-border); border-bottom: 0; color: var(--color-text-muted); }
+.about-file span:first-child { color: var(--color-accent); }
+.about-grid { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(3rem, 9vw, 9rem); padding: clamp(1.5rem, 4vw, 3.5rem); border: 1px solid var(--color-control-border); background: color-mix(in srgb, var(--color-bg) 92%, #000); }
 .about-copy { font-size: clamp(1.2rem, 2vw, 1.65rem); line-height: 1.48; }
 .about-copy p { margin: 0; }
 .about-copy p + p { margin-top: 1.5rem; color: var(--color-text-muted); }
+.about-copy .about-copy__prompt { margin-bottom: 2rem; color: var(--color-accent); font-family: var(--font-mono); font-size: 0.72rem; }
 .about-principles > p { margin: 0 0 1rem; color: var(--color-text-muted); }
+.about-principles > p span { color: #c67be5; }
 .about-principles ol { margin: 0; list-style: none; border-top: 1px solid var(--color-line); }
 .about-principles li { display: grid; min-height: 4.7rem; grid-template-columns: 3rem 1fr; align-items: center; border-bottom: 1px solid var(--color-line); }
 .about-principles li span { color: var(--color-accent); }
-.now-board { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: clamp(4rem, 8vw, 8rem); border: 1px solid var(--color-line); }
+.about-principles li q { color: #d5b767; quotes: '"' '"'; }
+.about-principles li i { color: var(--color-text-muted); font-style: normal; }
+.now-board { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 1rem; border: 1px solid var(--color-line); }
+.now-board::before { position: absolute; top: -2.1rem; left: 0; color: var(--color-accent); content: 'runtime = {'; font-family: var(--font-mono); font-size: 0.7rem; }
+.now-board::after { position: absolute; right: 0; bottom: -1.8rem; color: var(--color-accent); content: '}'; font-family: var(--font-mono); font-size: 0.7rem; }
 .now-board__item { min-height: 10rem; padding: 1.3rem; border-right: 1px solid var(--color-line); background: var(--color-surface); }
 .now-board__item:last-child { border-right: 0; }
 .now-board__item span { display: block; color: var(--color-text-muted); }
-.now-board__item strong { display: block; margin-top: 3rem; font-size: clamp(1.15rem, 2vw, 1.7rem); font-weight: 560; line-height: 1.15; }
+.now-board__item strong { display: block; margin-top: 3rem; color: #d5b767; font-family: var(--font-mono); font-size: clamp(0.9rem, 1.6vw, 1.25rem); font-weight: 500; line-height: 1.35; }
 
 @media (max-width: 820px) {
   .about-grid { grid-template-columns: 1fr; }

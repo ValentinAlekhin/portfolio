@@ -9,19 +9,19 @@ export function formatLocalTime(timeZone: string, locale: string, date = new Dat
 
 export function useLocalTime(timeZone: string) {
   const { locale } = useI18n()
-  const now = ref(new Date())
+  const now = useState('local-time-now', () => new Date().toISOString())
   let timer: ReturnType<typeof setInterval> | undefined
 
   const time = computed(() => formatLocalTime(
     timeZone,
     locale.value === 'ru' ? 'ru-RU' : 'en-GB',
-    now.value,
+    new Date(now.value),
   ))
 
   onMounted(() => {
-    now.value = new Date()
+    now.value = new Date().toISOString()
     timer = setInterval(() => {
-      now.value = new Date()
+      now.value = new Date().toISOString()
     }, 60_000)
   })
 

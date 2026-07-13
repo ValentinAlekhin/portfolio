@@ -42,7 +42,7 @@ onBeforeUnmount(() => {
       <DialogContent class="contact-dialog">
         <div class="contact-dialog__top">
           <p class="system-label">
-            <span>●</span> OPEN CHANNEL
+            <span>●</span> {{ copy.contact.eyebrow }}
           </p>
           <DialogClose as-child>
             <button
@@ -62,8 +62,18 @@ onBeforeUnmount(() => {
         </DialogDescription>
 
         <div class="contact-dialog__address">
-          <span class="system-label">EMAIL</span>
-          <a :href="`mailto:${profile.email}`">{{ profile.email }}</a>
+          <div class="contact-dialog__address-row">
+            <span class="system-label">EMAIL</span>
+            <a :href="`mailto:${profile.email}`">{{ profile.email }}</a>
+          </div>
+          <div class="contact-dialog__address-row">
+            <span class="system-label">TELEGRAM</span>
+            <a
+              :href="profile.telegram"
+              target="_blank"
+              rel="noopener noreferrer"
+            >{{ profile.telegramHandle }}</a>
+          </div>
         </div>
 
         <div class="contact-dialog__actions">
@@ -78,6 +88,13 @@ onBeforeUnmount(() => {
             @click="copyEmail"
           >
             {{ copy.contact.copy }}
+          </BaseButton>
+          <BaseButton
+            :href="profile.telegram"
+            external
+            variant="secondary"
+          >
+            Telegram {{ profile.telegramHandle }}
           </BaseButton>
         </div>
 
@@ -141,16 +158,13 @@ onBeforeUnmount(() => {
 }
 
 .contact-dialog__address {
-  display: grid;
-  gap: 0.4rem;
   margin-top: 2.2rem;
-  padding: 1.2rem 0;
   border-top: 1px solid var(--color-line);
-  border-bottom: 1px solid var(--color-line);
 }
 
+.contact-dialog__address-row { display: grid; grid-template-columns: 7rem 1fr; align-items: center; padding: 1rem 0; border-bottom: 1px solid var(--color-line); }
 .contact-dialog__address span { color: var(--color-text-muted); }
-.contact-dialog__address a { width: fit-content; font-size: clamp(1.1rem, 3vw, 1.5rem); }
+.contact-dialog__address a { width: fit-content; font-size: clamp(1rem, 3vw, 1.35rem); }
 .contact-dialog__actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
 .contact-dialog__github { display: inline-block; margin-top: 1.6rem; color: var(--color-text-muted); }
 .contact-dialog__feedback { min-height: 1.2rem; margin: 1rem 0 0; color: var(--color-accent); }

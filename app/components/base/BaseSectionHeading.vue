@@ -11,17 +11,25 @@ defineProps<{
 <template>
   <header class="section-heading">
     <p class="section-heading__meta system-label">
-      <span>{{ index }}</span>
-      {{ eyebrow }}
+      <span>// {{ index }}</span>
+      {{ eyebrow }}.section
     </p>
-    <h2 :id="titleId">
-      {{ title }}
-    </h2>
+    <div class="section-heading__declaration">
+      <p class="section-heading__code system-label">
+        <b>export const</b> section_{{ index }} = &#123;
+      </p>
+      <h2 :id="titleId">
+        <span>title:</span> '{{ title }}',
+      </h2>
+      <p class="section-heading__close system-label">
+        &#125; satisfies PortfolioSection
+      </p>
+    </div>
     <p
       v-if="description"
       class="section-heading__description"
     >
-      {{ description }}
+      /* {{ description }} */
     </p>
   </header>
 </template>
@@ -45,14 +53,33 @@ defineProps<{
   color: var(--color-accent);
 }
 
-.section-heading h2 {
+.section-heading__declaration {
   grid-column: 4 / -1;
+}
+
+.section-heading__code,
+.section-heading__close { margin: 0; color: var(--color-text-muted); }
+.section-heading__code b { color: #c67be5; font-weight: 500; }
+.section-heading__close { margin-top: 1rem; }
+
+.section-heading h2 {
   max-width: 12ch;
-  margin: 0;
+  margin: 0.65rem 0 0 1.5rem;
   font-size: clamp(2.75rem, 5vw, 5.5rem);
   font-weight: 560;
   letter-spacing: -0.065em;
   line-height: 0.92;
+}
+
+.section-heading h2 span {
+  display: block;
+  margin: 0 0 0.35rem -1.5rem;
+  color: #62b7e8;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1;
 }
 
 .section-heading__description {
@@ -60,6 +87,8 @@ defineProps<{
   max-width: 60ch;
   margin: 0.8rem 0 0;
   color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
 }
 
 @media (max-width: 900px) {
@@ -69,7 +98,7 @@ defineProps<{
   }
 
   .section-heading__meta,
-  .section-heading h2,
+  .section-heading__declaration,
   .section-heading__description {
     grid-column: 1 / -1;
   }

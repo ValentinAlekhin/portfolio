@@ -2,7 +2,7 @@ export const profile = {
   name: 'Valentin Alekhin',
   displayName: {
     ru: 'Валентин Алёхин',
-    en: 'Valentin Alyokhin',
+    en: 'Valentin Alekhin',
   },
   role: 'Independent senior full-stack developer',
   experienceYears: 6,
@@ -10,5 +10,7 @@ export const profile = {
   timeZone: 'Europe/Moscow',
   email: 'alekhin.v99@gmail.com',
   github: 'https://github.com/ValentinAlekhin',
+  telegram: 'https://t.me/alekhin_vv',
+  telegramHandle: '@alekhin_vv',
   domain: 'alekhin.dev',
 } as const

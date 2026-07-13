@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
-  <title id="title">Valentin Alyokhin — Senior Full-stack Developer</title>
+  <title id="title">Valentin Alekhin — Senior Full-stack Developer</title>
   <desc id="description">Open Graph card for alekhin.dev</desc>
   <defs>
     <linearGradient id="background" x1="80" y1="28" x2="1120" y2="602" gradientUnits="userSpaceOnUse">
@@ -39,7 +39,7 @@
   </g>
 
   <g font-family="Arial, Helvetica, sans-serif">
-    <text x="88" y="279" fill="#F8F7F3" font-size="67" font-weight="700" letter-spacing="-2.1">Valentin Alyokhin</text>
+    <text x="88" y="279" fill="#F8F7F3" font-size="67" font-weight="700" letter-spacing="-2.1">Valentin Alekhin</text>
     <text x="88" y="340" fill="#B7BFCC" font-size="31" font-weight="400" letter-spacing="-0.35">Senior Full-stack Developer</text>
   </g>
 

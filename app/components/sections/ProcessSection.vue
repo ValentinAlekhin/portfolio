@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { copy } = usePortfolio()
+const { copy, localeCode } = usePortfolio()
 const root = ref<HTMLElement | null>(null)
 const progress = ref<HTMLElement | null>(null)
 const { motionAllowed } = useMotionPreference()
@@ -50,6 +50,10 @@ onBeforeUnmount(() => context?.revert())
       />
 
       <div class="protocol">
+        <div class="protocol__head system-label">
+          <span>ship.ts</span>
+          <span>{{ localeCode === 'ru' ? 'ВЫПОЛНЯЕТСЯ / PID 2048' : 'RUNNING / PID 2048' }}</span>
+        </div>
         <span
           ref="progress"
           class="protocol__progress"
@@ -60,9 +64,9 @@ onBeforeUnmount(() => context?.revert())
           :key="item.number"
           class="protocol-step"
         >
-          <span class="protocol-step__marker system-label">{{ item.number }}</span>
-          <h3>{{ item.title }}</h3>
-          <p>{{ item.description }}</p>
+          <span class="protocol-step__marker system-label">{{ Number(item.number) * 4 + 8 }}</span>
+          <h3><span>await</span> {{ item.title }}<i>();</i></h3>
+          <p>// {{ item.description }}</p>
         </article>
       </div>
     </div>
@@ -71,20 +75,25 @@ onBeforeUnmount(() => context?.revert())
 
 <style scoped lang="scss">
 .process-section { background: var(--color-surface); }
-.protocol { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--color-line); }
+.protocol { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--color-control-border); background: color-mix(in srgb, var(--color-bg) 91%, #000); }
+.protocol__head { grid-column: 1 / -1; display: flex; min-height: 2.6rem; align-items: center; justify-content: space-between; padding-inline: 0.9rem; border-bottom: 1px solid var(--color-line); color: var(--color-text-muted); }
+.protocol__head span:last-child { color: var(--color-accent); }
 .protocol::before,
-.protocol__progress { position: absolute; top: -1px; right: 0; left: 0; height: 2px; content: ''; transform-origin: left; }
+.protocol__progress { position: absolute; top: 2.55rem; right: 0; left: 0; height: 2px; content: ''; transform-origin: left; }
 .protocol::before { background: var(--color-line); }
 .protocol__progress { z-index: 1; background: var(--color-accent); }
 .protocol-step { min-height: 22rem; padding: 2rem 1.5rem 1.5rem 0; border-right: 1px solid var(--color-line); }
 .protocol-step + .protocol-step { padding-left: 1.5rem; }
 .protocol-step:last-child { border-right: 0; }
-.protocol-step__marker { display: grid; width: 2.7rem; height: 2.7rem; border: 1px solid var(--color-accent); border-radius: 50%; color: var(--color-accent); place-items: center; }
-.protocol-step h3 { margin: 5rem 0 0; font-size: clamp(1.6rem, 2.5vw, 2.6rem); font-weight: 560; letter-spacing: -0.045em; }
-.protocol-step p { max-width: 34ch; margin: 1rem 0 0; color: var(--color-text-muted); font-size: 0.95rem; }
+.protocol-step__marker { color: var(--color-text-muted); }
+.protocol-step h3 { margin: 5rem 0 0; font-family: var(--font-mono); font-size: clamp(1.2rem, 2vw, 2rem); font-weight: 500; letter-spacing: -0.045em; }
+.protocol-step h3 span { display: block; margin-bottom: 0.45rem; color: #c67be5; font-size: 0.62rem; letter-spacing: 0; }
+.protocol-step h3 i { color: var(--color-accent); font-style: normal; }
+.protocol-step p { max-width: 34ch; margin: 1rem 0 0; color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.72rem; }
 
 @media (max-width: 820px) {
   .protocol { grid-template-columns: 1fr; }
+  .protocol__head { grid-column: 1; }
   .protocol__progress { display: none; }
   .protocol-step,
   .protocol-step + .protocol-step { min-height: auto; padding: 2rem 0; border-right: 0; border-bottom: 1px solid var(--color-line); }

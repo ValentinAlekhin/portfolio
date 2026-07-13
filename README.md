@@ -205,7 +205,7 @@ metrics:
 ```yaml
 portrait:
   src: /images/portrait.webp
-  alt: Portrait of Valentin Alyokhin
+  alt: Portrait of Valentin Alekhin
 ```
 
 Для русского файла задайте локализованный `alt`. Если `src` пуст или поле отсутствует, Hero автоматически показывает абстрактную композицию с монограммой `VA`; менять компонент не нужно. Подготовьте изображение подходящего размера в WebP/AVIF, не удаляйте его пропорции и не используйте URL внешнего CDN.

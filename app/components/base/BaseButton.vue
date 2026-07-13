@@ -32,7 +32,6 @@ if (props.magnetic) {
     :class="`base-button--${variant}`"
     :type="!href && !to ? 'button' : undefined"
   >
-    <span class="base-button__fill" />
     <span class="base-button__label"><slot /></span>
     <span
       v-if="$slots.icon"
@@ -53,32 +52,30 @@ if (props.magnetic) {
   align-items: center;
   justify-content: center;
   min-height: 3rem;
-  gap: 0.75rem;
-  padding: 0.72rem 1.05rem;
-  overflow: hidden;
-  border: 1px solid var(--color-control-border);
-  border-radius: 6px;
+  gap: 0.35rem;
+  padding: 0.72rem 0.2rem;
+  border: 0;
   background: transparent;
-  color: var(--color-text);
+  color: var(--color-accent);
   cursor: pointer;
   font-family: var(--font-mono);
   font-size: 0.76rem;
-  font-weight: 650;
-  letter-spacing: 0.04em;
+  font-weight: 580;
+  letter-spacing: 0.025em;
   line-height: 1;
   text-decoration: none;
-  text-transform: uppercase;
   transform: translate3d(var(--magnetic-x), var(--magnetic-y), 0);
-  transition: color var(--duration-fast) ease, border-color var(--duration-fast) ease, transform var(--duration-ui) var(--ease-out);
+  transition: color var(--duration-fast) ease, transform var(--duration-ui) var(--ease-out);
 }
 
-.base-button__fill {
-  position: absolute;
-  background: var(--color-phosphor);
-  inset: 0;
-  transform: translateY(102%);
-  transition: transform var(--duration-ui) var(--ease-out);
+.base-button::before,
+.base-button::after {
+  color: var(--color-text-muted);
+  transition: color var(--duration-fast) ease, transform var(--duration-fast) ease;
 }
+
+.base-button::before { content: '['; }
+.base-button::after { content: ']'; }
 
 .base-button__label,
 .base-button__icon {
@@ -91,41 +88,21 @@ if (props.magnetic) {
 }
 
 .base-button__icon {
-  font-size: 1rem;
-  transition: transform var(--duration-fast) var(--ease-out);
+  display: none;
 }
 
 .base-button:hover {
-  border-color: var(--color-phosphor);
-  color: var(--color-accent-ink);
+  color: var(--color-text);
 }
 
-.base-button:hover .base-button__fill {
-  transform: translateY(0);
-}
-
-.base-button:hover .base-button__icon {
-  transform: translate(2px, -2px);
-}
-
-.base-button--primary {
-  border-color: var(--color-accent);
-  background: var(--color-accent);
-  color: var(--color-surface);
-}
-
-html[data-theme='phosphor'] .base-button--primary {
-  color: var(--color-accent-ink);
-}
+.base-button:hover::before { color: var(--color-accent); transform: translateX(-0.2rem); }
+.base-button:hover::after { color: var(--color-accent); transform: translateX(0.2rem); }
+.base-button--primary::before { content: '$_ ['; }
+.base-button--secondary { color: var(--color-text-muted); }
 
 .base-button--text {
   min-height: 2.75rem;
   padding-inline: 0;
-  border-color: transparent;
-}
-
-.base-button--text .base-button__fill {
-  display: none;
 }
 
 .base-button--text:hover {

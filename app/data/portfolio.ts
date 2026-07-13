@@ -29,18 +29,18 @@ export const portfolioCopy: Record<'ru' | 'en', PortfolioCopy> = {
       terminal: '> идея → интерфейс → frontend → backend → запуск_',
       primary: 'Обсудить проект',
       secondary: 'Смотреть проекты',
-      available: 'Available for projects',
-      experience: '6+ years',
+      available: 'Доступен для проектов',
+      experience: '6+ лет',
     },
     projects: {
-      eyebrow: 'Selected systems',
+      eyebrow: 'Выбранные системы',
       title: 'Продукты для реальных рабочих процессов',
       description: 'Не витрина экранов, а системы, в которых интерфейс, архитектура и запуск работают как одно целое.',
-      roleLabel: 'SaaS / Product / Full-stack',
+      roleLabel: 'SaaS / Продукт / Full-stack',
       openCase: 'Открыть кейс',
     },
     capabilities: {
-      eyebrow: 'Product pipeline',
+      eyebrow: 'Продуктовый конвейер',
       title: 'От неопределённой идеи до работающей системы',
       description: 'Подключаюсь ко всему продукту или к отдельному слою, сохраняя связь между пользовательским сценарием и техническим решением.',
       items: [
@@ -52,7 +52,7 @@ export const portfolioCopy: Record<'ru' | 'en', PortfolioCopy> = {
       ],
     },
     process: {
-      eyebrow: 'Work protocol',
+      eyebrow: 'Рабочий протокол',
       title: 'Прозрачный процесс без лишних слоёв',
       description: 'Вы общаетесь напрямую с человеком, который принимает продуктовые и технические решения и отвечает за результат.',
       items: [
@@ -63,7 +63,7 @@ export const portfolioCopy: Record<'ru' | 'en', PortfolioCopy> = {
       ],
     },
     about: {
-      eyebrow: 'About / Now',
+      eyebrow: 'Обо мне / Сейчас',
       title: 'Интерфейс и архитектура — части одного решения',
       paragraphs: [
         'Я работаю full-stack, потому что продуктовые решения редко заканчиваются на границе макета. Состояние интерфейса зависит от модели данных, а удобство запуска — от архитектуры и эксплуатации.',
@@ -77,13 +77,13 @@ export const portfolioCopy: Record<'ru' | 'en', PortfolioCopy> = {
         'Считаю продукт готовым только после запуска.',
       ],
       now: [
-        { label: 'Currently building', value: 'PowerSketch' },
-        { label: 'Currently exploring', value: 'SVG product interfaces' },
-        { label: 'Available for', value: 'SaaS / tools / internal systems' },
+        { label: 'Сейчас разрабатываю', value: 'PowerSketch' },
+        { label: 'Сейчас исследую', value: 'Продуктовые SVG-интерфейсы' },
+        { label: 'Открыт для', value: 'SaaS / инструменты / внутренние системы' },
       ],
     },
     contact: {
-      eyebrow: 'Open channel',
+      eyebrow: 'Открытый канал',
       title: 'Есть задача или идея продукта?',
       description: 'Расскажите, что вы создаёте, что уже работает и где нужна техническая помощь. Короткого описания достаточно, чтобы начать.',
       write: 'Написать',
@@ -94,10 +94,10 @@ export const portfolioCopy: Record<'ru' | 'en', PortfolioCopy> = {
       compose: 'Составить письмо',
       close: 'Закрыть',
     },
-    footer: { role: 'Independent full-stack developer', backToTop: 'Наверх' },
+    footer: { role: 'Независимый full-stack разработчик', backToTop: 'Наверх' },
     case: {
       back: 'К проектам', live: 'Открыть PowerSketch',
-      labels: { context: 'Контекст', problem: 'Задача', role: 'Моя роль', approach: 'Product approach', interactions: 'Core interactions', architecture: 'System / Architecture', result: 'Результат', stack: 'Стек', next: 'Open channel' },
+      labels: { context: 'Контекст', problem: 'Задача', role: 'Моя роль', approach: 'Продуктовый подход', interactions: 'Ключевые взаимодействия', architecture: 'Система / Архитектура', result: 'Результат', stack: 'Стек', next: 'Открытый канал' },
       interactionItems: [
         { title: 'SVG editor', description: 'Масштабируемое полотно, drag-and-drop устройств, привязка и работа со слоями.' },
         { title: 'Smart connections', description: 'Соединения между контактами становятся данными проекта и остаются редактируемыми.' },
@@ -109,7 +109,7 @@ export const portfolioCopy: Record<'ru' | 'en', PortfolioCopy> = {
   },
   en: {
     seo: {
-      title: 'Valentin Alyokhin — Senior Full-stack Developer',
+      title: 'Valentin Alekhin — Senior Full-stack Developer',
       description: 'I design and build SaaS, web applications, and internal systems—from idea to launch.',
       ogImage: '/og/portfolio-en.png',
     },
@@ -125,7 +125,7 @@ export const portfolioCopy: Record<'ru' | 'en', PortfolioCopy> = {
     },
     hero: {
       eyebrow: 'Independent senior full-stack developer',
-      name: ['VALENTIN', 'ALYOKHIN'],
+      name: ['VALENTIN', 'ALEKHIN'],
       statement: 'I build web products from idea to launch.',
       description: 'I design and build SaaS, web applications, and internal systems—without gaps between design, frontend, and backend.',
       terminal: '> idea → interface → frontend → backend → launch_',

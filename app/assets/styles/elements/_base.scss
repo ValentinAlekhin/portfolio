@@ -6,7 +6,10 @@ html {
 
 body {
   overflow-x: hidden;
-  background: var(--color-bg);
+  background-color: var(--color-bg);
+  background-image: linear-gradient(color-mix(in srgb, var(--color-line) 28%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--color-line) 22%, transparent) 1px, transparent 1px);
+  background-position: center top;
+  background-size: 4rem 4rem;
   color: var(--color-text);
   font-family: var(--font-sans);
   font-size: clamp(1rem, 1.1vw, 1.125rem);
