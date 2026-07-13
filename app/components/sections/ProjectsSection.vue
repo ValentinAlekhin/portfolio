@@ -127,7 +127,7 @@ onBeforeUnmount(() => {
               </span>
               <span class="project-row__meta">
                 <span class="system-label"><b>period:</b> '{{ project.period }}'</span>
-                <span class="system-label"><b>scope:</b> '{{ t('projects.roleLabel') }}'</span>
+                <span class="system-label"><b>scope:</b> '{{ t(project.scopeKey) }}'</span>
                 <span class="project-row__stack"><b>stack:</b> [{{ project.stack.map(item => `'${item}'`).join(', ') }}]</span>
               </span>
               <span
@@ -180,11 +180,18 @@ onBeforeUnmount(() => {
   --project-media-shadow: 0 28px 75px rgb(24 86 145 / 24%);
 }
 
+.project-row[data-project-theme='planes-arch'],
+.project-cursor-preview[data-project-theme='planes-arch'] {
+  --project-row-accent: #829b9a;
+  --project-media-bg: #dcd8cf;
+  --project-media-shadow: 0 28px 75px rgb(56 50 40 / 23%);
+}
+
 .project-row__link {
   position: relative;
   display: grid;
   min-height: 13rem;
-  grid-template-columns: 0.65fr 4.2fr 2fr auto;
+  grid-template-columns: 7.5rem minmax(0, 1fr) 19rem auto;
   align-items: start;
   gap: 1.5rem;
   padding: 2rem 1.5rem;
@@ -209,15 +216,15 @@ onBeforeUnmount(() => {
 .project-row__link:focus-visible { color: var(--color-text); }
 .project-row__link > span { position: relative; z-index: 1; }
 .project-row__index { color: var(--project-row-accent, var(--color-accent)); }
-.project-row__main { display: grid; gap: 1rem; }
-.project-row__title { color: var(--color-text); font-family: var(--font-mono); font-size: clamp(1.65rem, 3.7vw, 4rem); font-weight: 480; letter-spacing: -0.055em; line-height: 1; }
+.project-row__main { display: grid; min-width: 0; gap: 1rem; }
+.project-row__title { min-width: 0; color: var(--color-text); font-family: var(--font-mono); font-size: clamp(1.65rem, 3vw, 3.35rem); font-weight: 480; letter-spacing: -0.055em; line-height: 1; }
 .project-row__title b { color: #62b7e8; font-weight: 500; }
 .project-row__title > span { white-space: nowrap; }
 .project-row__title q { color: #d5b767; quotes: '"' '"'; }
 .project-row__summary { max-width: 44ch; color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.76rem; line-height: 1.6; }
 .project-row__link:hover .project-row__summary,
 .project-row__link:focus-visible .project-row__summary { color: var(--color-text-muted); }
-.project-row__meta { display: grid; gap: 0.75rem; color: var(--color-text-muted); }
+.project-row__meta { display: grid; width: 19rem; min-width: 19rem; gap: 0.75rem; color: var(--color-text-muted); }
 .project-row__meta b { color: var(--project-row-accent, var(--color-accent)); font-weight: 500; }
 .project-row__stack { max-width: 30ch; font-family: var(--font-mono); font-size: 0.68rem; }
 .project-row__arrow { color: var(--project-row-accent, var(--color-accent)); font-family: var(--font-mono); font-size: 0.65rem; transition: letter-spacing var(--duration-ui) var(--ease-out); }
@@ -237,9 +244,15 @@ onBeforeUnmount(() => {
 
 .project-cursor-preview.visible { opacity: 1; }
 
+@media (max-width: 1400px) {
+  .project-row__link { grid-template-columns: auto minmax(0, 1fr) 16rem auto; }
+  .project-row__title { font-size: clamp(1.5rem, 2.7vw, 2.35rem); }
+  .project-row__meta { width: 16rem; min-width: 16rem; }
+}
+
 @media (max-width: 900px), (hover: none), (pointer: coarse) {
   .project-row__link { min-height: auto; grid-template-columns: auto 1fr auto; padding: 1.75rem 1.25rem; }
-  .project-row__meta { grid-column: 2 / -1; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .project-row__meta { width: auto; min-width: 0; grid-column: 2 / -1; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .project-row__summary { max-width: 50ch; }
   .project-row__mobile-preview { display: block; padding: 0 1rem 1rem; }
   .project-cursor-preview { display: none; }

@@ -54,7 +54,7 @@
     "description": "Not a gallery of screens, but systems where interface, architecture, and launch work as one.",
     "roleLabel": "SaaS / Product / Full-stack",
     "openCase": "Open case",
-    "resultCount": "1 result",
+    "resultCount": "2 results",
     "status": {
       "live": "live",
       "in-progress": "in progress",
@@ -63,6 +63,7 @@
     "entries": {
       "powersketch": {
         "eyebrow": "Online electrical panel editor",
+        "scope": "SaaS / Product / Full-stack",
         "roles": { "product": "Product", "design": "UI/UX", "frontend": "Frontend", "backend": "Backend", "architecture": "Architecture" },
         "metrics": {
           "label": "PowerSketch in numbers",
@@ -134,6 +135,64 @@
           "sharing": { "alt": "PowerSketch public-access dialog with a view-only project link", "caption": "A link for viewing the project" },
           "export": { "alt": "PowerSketch SVG export window with paper settings and diagram preview", "caption": "SVG export settings" },
           "subscription": { "alt": "PowerSketch subscription page comparing Free, Plus, and Professional plans", "caption": "PowerSketch plans" }
+        }
+      },
+      "planesArch": {
+        "eyebrow": "Architecture studio website and portfolio",
+        "scope": "Corporate website / Frontend / CMS",
+        "roles": { "frontend": "Frontend", "cms": "CMS integration", "localization": "Localization", "production": "Launch" },
+        "metrics": {
+          "label": "The website in numbers",
+          "locales": "languages",
+          "themes": "display themes",
+          "categories": "portfolio filters"
+        },
+        "summary": "A bilingual architecture studio website with project galleries, services, and educational programs.",
+        "description": "The PLANES architects website puts the studio's work first. Visitors can explore architecture and interior projects, learn about the team's services and process, join an educational program, or send an enquiry.",
+        "audience": "The website introduces the studio to future clients and gives architects and designers a way to discover Bootcamp by PLANES.",
+        "challenge": "The goal was to bring the studio's calm editorial style to the browser without taking attention away from the project photography. The team also needed a simple way to add work, translate copy, and update large galleries without a developer.",
+        "challengeTitle": "More room for architecture, without making the website hard to manage",
+        "constraintAxis": "IMAGERY / TYPE / CONTENT / SPEED",
+        "role": "I handled the frontend architecture and responsive build, connected Strapi, localization, filters, galleries, and display themes, and prepared the website for production.",
+        "approach": "The interface is built around photography and restrained typography. There are no unnecessary decorative layers: navigation stays compact, captions do not compete with the images, and transitions make it easy to move through sections and projects.",
+        "architecture": "Nuxt renders the pages, routes, and language versions. The studio manages projects, copy, and photography in Strapi, while PostgreSQL stores the content structure. Images are delivered separately at a suitable size for each screen.",
+        "systemTitle": "The studio can update the website without touching code",
+        "constraints": "The main constraints were the weight of project galleries, the different lengths of Russian and English copy, and the need to preserve a balanced layout on phones, tablets, and wide screens.",
+        "portfolio": {
+          "label": "Portfolio",
+          "title": "The right project is easy to find",
+          "description": "Work is grouped into private, commercial, cultural, and competition projects. Filters narrow the list quickly, while each project pairs its gallery with clear details about the space.",
+          "categories": { "all": "All", "private": "Private", "commercial": "Commercial", "cultural": "Cultural", "competitions": "Competitions" }
+        },
+        "content": {
+          "label": "Content",
+          "title": "One CMS for projects, copy, and photography",
+          "description": "Editors enter a project once, adding its description, details, and gallery before linking the Russian and English versions. Nuxt receives that content and turns it into the finished page."
+        },
+        "features": {
+          "locales": { "title": "Russian and English", "description": "Switch languages without losing the current section or open project." },
+          "themes": { "title": "Three themes", "description": "Follow the device setting or choose the light or dark theme manually." },
+          "cms": { "title": "Easy updates", "description": "New projects and articles are added through Strapi, without rebuilding the interface by hand." },
+          "media": { "title": "Large galleries", "description": "Photography remains the main content and loads at a size suited to each device." }
+        },
+        "themes": {
+          "label": "Display",
+          "title": "The website adapts to the light around it",
+          "description": "System mode follows the device setting. Light mode keeps the feel of a printed architecture journal, while dark mode makes project photography more comfortable to browse at night.",
+          "items": { "system": "System", "light": "Light", "dark": "Dark" }
+        },
+        "responsive": {
+          "label": "Mobile",
+          "title": "Photography stays just as important on a phone",
+          "description": "Navigation becomes shorter, actions remain within reach, and large images adapt to the portrait screen without tiny text or horizontal scrolling."
+        },
+        "resultTitle": "A website that can grow with the studio's portfolio",
+        "result": "PLANES architects now has a working bilingual website for projects, services, Bootcamp, and enquiries. The team can update it through the CMS, while visitors can browse the work on any device and in the theme they prefer.",
+        "media": {
+          "landing": { "alt": "PLANES architects home page with a large interior photograph and project navigation", "caption": "The website home page" },
+          "about": { "alt": "PLANES architects studio page with editorial copy and a team portrait", "caption": "Introducing the studio" },
+          "projects": { "alt": "PLANES architects portfolio with filters for different architecture project types", "caption": "Projects and filters" },
+          "mobile": { "alt": "Mobile version of the PLANES architects home page", "caption": "The home page on a phone" }
         }
       }
     }

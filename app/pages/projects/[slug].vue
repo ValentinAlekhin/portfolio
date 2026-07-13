@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import PlanesArchCaseStudy from '~/components/project/PlanesArchCaseStudy.vue'
 import PowerSketchCaseStudy from '~/components/project/PowerSketchCaseStudy.vue'
 import { profile } from '~/data/profile'
 import { localeLanguageTag } from '~/types/i18n'
@@ -14,22 +15,49 @@ if (!project.value) {
 }
 
 const caseComponents = {
-  powersketch: PowerSketchCaseStudy,
+  'planes-arch': PlanesArchCaseStudy,
+  'powersketch': PowerSketchCaseStudy,
 } as const
 const caseComponent = computed(() => caseComponents[project.value!.caseName])
 const summary = computed(() => t(`${project.value!.translationKey}.summary`))
 const canonical = computed(() => `https://alekhin.dev${localePath(`/projects/${project.value!.slug}/`)}`)
 const homeUrl = computed(() => `https://alekhin.dev${localePath('/')}`)
 const ogImage = computed(() => `https://alekhin.dev${project.value!.ogImage}`)
+const ogMedia = computed(() => project.value!.media.find(item => item.src === project.value!.ogImage))
 const i18nHead = useLocaleHead({ dir: true, lang: true, seo: true })
+const projectJsonLd = computed(() => {
+  const shared = {
+    '@context': 'https://schema.org',
+    '@type': project.value!.schemaType,
+    'name': project.value!.title,
+    'description': summary.value,
+    'url': project.value!.externalUrl,
+    'mainEntityOfPage': canonical.value,
+    'creator': { '@type': 'Person', 'name': profile.name },
+    'inLanguage': localeLanguageTag[localeCode.value],
+    'image': ogImage.value,
+  }
+
+  if (project.value!.schemaType === 'SoftwareApplication') {
+    return {
+      ...shared,
+      applicationCategory: 'DesignApplication',
+      operatingSystem: 'Web',
+    }
+  }
+
+  return shared
+})
 
 useSeoMeta({
-  title: () => `${project.value!.title} — ${t('projects.roleLabel')}`,
+  title: () => `${project.value!.title} — ${t(project.value!.scopeKey)}`,
   description: summary,
   robots: 'index, follow',
-  ogTitle: () => `${project.value!.title} — ${t('projects.roleLabel')}`,
+  ogTitle: () => `${project.value!.title} — ${t(project.value!.scopeKey)}`,
   ogDescription: summary,
   ogImage,
+  ogImageWidth: () => ogMedia.value?.width,
+  ogImageHeight: () => ogMedia.value?.height,
   ogType: 'article',
   ogUrl: canonical,
   twitterCard: 'summary_large_image',
@@ -50,18 +78,7 @@ useHead(() => ({
       key: 'project-jsonld',
       type: 'application/ld+json',
       innerHTML: JSON.stringify([
-        {
-          '@context': 'https://schema.org',
-          '@type': 'SoftwareApplication',
-          'name': project.value!.title,
-          'description': summary.value,
-          'url': canonical.value,
-          'applicationCategory': 'DesignApplication',
-          'operatingSystem': 'Web',
-          'author': { '@type': 'Person', 'name': profile.name },
-          'inLanguage': localeLanguageTag[localeCode.value],
-          'image': ogImage.value,
-        },
+        projectJsonLd.value,
         {
           '@context': 'https://schema.org',
           '@type': 'BreadcrumbList',

@@ -79,7 +79,7 @@ function media(id: string): ProjectMedia {
 
         <div class="powersketch-manifest system-label">
           <span>{{ t('case.code.exportDefault') }} &#123;</span>
-          <span>&nbsp;&nbsp;{{ t('case.code.role') }}: '{{ t('projects.roleLabel') }}',</span>
+          <span>&nbsp;&nbsp;{{ t('case.code.role') }}: '{{ t(project.scopeKey) }}',</span>
           <span>&nbsp;&nbsp;{{ t('case.code.stack') }}: [{{ project.stack.map(item => `'${item}'`).join(', ') }}],</span>
           <span>&nbsp;&nbsp;{{ t('case.code.production') }}: true,</span>
           <span>&#125;</span>
@@ -412,7 +412,7 @@ function media(id: string): ProjectMedia {
 .case-role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 6vw, 7rem); margin-top: clamp(4rem, 8vw, 8rem); padding-top: 2rem; border-top: 1px solid var(--color-line); }
 .case-role-grid > div > p:last-child { max-width: 54ch; color: var(--color-text-muted); }
 .case-role-grid ul,
-.case-stack ul { display: flex; flex-wrap: wrap; margin: 0; list-style: none; }
+.case-stack ul { display: flex; align-content: flex-start; align-items: flex-start; align-self: start; flex-wrap: wrap; margin: 0; list-style: none; }
 .case-role-grid li,
 .case-stack li { padding: 0.75rem 1rem; border: 1px solid var(--color-line); color: var(--color-code-string); font-family: var(--font-mono); font-size: 0.72rem; }
 .case-stack { display: grid; grid-template-columns: 3fr 9fr; gap: 1.5rem; margin-top: 3rem; }

@@ -1,7 +1,8 @@
 export type ThemeName = 'system' | 'phosphor'
 
-export type ProjectCaseName = 'powersketch'
-export type ProjectThemeName = 'powersketch'
+export type ProjectCaseName = 'planes-arch' | 'powersketch'
+export type ProjectThemeName = 'planes-arch' | 'powersketch'
+export type ProjectSchemaType = 'SoftwareApplication' | 'WebSite'
 
 export interface CapabilityItem {
   id: string
@@ -49,8 +50,10 @@ export interface Project {
   status: 'live' | 'in-progress' | 'archived'
   externalUrl: string
   translationKey: string
+  scopeKey: string
   caseName: ProjectCaseName
   theme: ProjectThemeName
+  schemaType: ProjectSchemaType
   cover: string
   ogImage: string
   metrics: ProjectMetric[]
