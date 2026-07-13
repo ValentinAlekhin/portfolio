@@ -1,5 +1,8 @@
 export type ThemeName = 'system' | 'phosphor'
 
+export type ProjectCaseName = 'powersketch'
+export type ProjectThemeName = 'powersketch'
+
 export interface CapabilityItem {
   id: string
   title: string
@@ -24,6 +27,20 @@ export interface ProjectContent {
   constraints: string
 }
 
+export interface ProjectMedia {
+  id: string
+  src: string
+  width: number
+  height: number
+  altKey: string
+  captionKey: string
+}
+
+export interface ProjectMetric {
+  value: string
+  labelKey: string
+}
+
 export interface Project {
   slug: string
   index: string
@@ -32,5 +49,11 @@ export interface Project {
   status: 'live' | 'in-progress' | 'archived'
   externalUrl: string
   translationKey: string
+  caseName: ProjectCaseName
+  theme: ProjectThemeName
+  cover: string
+  ogImage: string
+  metrics: ProjectMetric[]
+  media: ProjectMedia[]
   stack: string[]
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Project } from '~/types/content'
+import type { Project, ProjectMedia } from '~/types/content'
 
 const { projects } = usePortfolio()
 const { t } = useI18n()
@@ -20,6 +20,16 @@ function projectPath(project: Project) {
 
 function projectSummary(project: Project) {
   return t(`${project.translationKey}.summary`)
+}
+
+function projectCover(project: Project): ProjectMedia {
+  const cover = project.media.find(item => item.src === project.cover)
+
+  if (!cover) {
+    throw new Error(`Project cover not found: ${project.slug}`)
+  }
+
+  return cover
 }
 
 function showPreview(project: Project, event?: MouseEvent) {
@@ -96,7 +106,10 @@ onBeforeUnmount(() => {
           v-for="project in projects"
           :key="project.slug"
         >
-          <article class="project-row">
+          <article
+            class="project-row"
+            :data-project-theme="project.theme"
+          >
             <NuxtLink
               :to="projectPath(project)"
               class="project-row__link"
@@ -124,7 +137,10 @@ onBeforeUnmount(() => {
             </NuxtLink>
 
             <div class="project-row__mobile-preview">
-              <CrtFrame><PowerSketchPreview :label="projectSummary(project)" /></CrtFrame>
+              <ProjectMedia
+                :media="projectCover(project)"
+                compact
+              />
             </div>
           </article>
         </MotionReveal>
@@ -135,11 +151,14 @@ onBeforeUnmount(() => {
       ref="preview"
       class="project-cursor-preview"
       :class="{ visible: previewVisible }"
+      :data-project-theme="activeProject?.theme"
       aria-hidden="true"
     >
-      <CrtFrame v-if="activeProject">
-        <PowerSketchPreview :label="projectSummary(activeProject)" />
-      </CrtFrame>
+      <ProjectMedia
+        v-if="activeProject"
+        :media="projectCover(activeProject)"
+        compact
+      />
     </div>
   </section>
 </template>
@@ -154,6 +173,12 @@ onBeforeUnmount(() => {
 .project-list__head i:first-child { background: var(--color-accent); }
 .project-row { border-bottom: 1px solid var(--color-line); }
 .project-row:last-child { border-bottom: 0; }
+.project-row[data-project-theme='powersketch'],
+.project-cursor-preview[data-project-theme='powersketch'] {
+  --project-row-accent: #287fd8;
+  --project-media-bg: #dbe8f5;
+  --project-media-shadow: 0 28px 75px rgb(24 86 145 / 24%);
+}
 
 .project-row__link {
   position: relative;
@@ -169,8 +194,8 @@ onBeforeUnmount(() => {
 .project-row__link::before {
   position: absolute;
   z-index: 0;
-  border-left: 2px solid var(--color-accent);
-  background: color-mix(in srgb, var(--color-accent) 11%, var(--color-surface));
+  border-left: 2px solid var(--project-row-accent, var(--color-accent));
+  background: color-mix(in srgb, var(--project-row-accent, var(--color-accent)) 11%, var(--color-surface));
   content: '';
   inset: 0;
   transform: scaleY(0);
@@ -183,7 +208,7 @@ onBeforeUnmount(() => {
 .project-row__link:hover,
 .project-row__link:focus-visible { color: var(--color-text); }
 .project-row__link > span { position: relative; z-index: 1; }
-.project-row__index { color: var(--color-accent); }
+.project-row__index { color: var(--project-row-accent, var(--color-accent)); }
 .project-row__main { display: grid; gap: 1rem; }
 .project-row__title { color: var(--color-text); font-family: var(--font-mono); font-size: clamp(1.65rem, 3.7vw, 4rem); font-weight: 480; letter-spacing: -0.055em; line-height: 1; }
 .project-row__title b { color: #62b7e8; font-weight: 500; }
@@ -193,9 +218,9 @@ onBeforeUnmount(() => {
 .project-row__link:hover .project-row__summary,
 .project-row__link:focus-visible .project-row__summary { color: var(--color-text-muted); }
 .project-row__meta { display: grid; gap: 0.75rem; color: var(--color-text-muted); }
-.project-row__meta b { color: var(--color-accent); font-weight: 500; }
+.project-row__meta b { color: var(--project-row-accent, var(--color-accent)); font-weight: 500; }
 .project-row__stack { max-width: 30ch; font-family: var(--font-mono); font-size: 0.68rem; }
-.project-row__arrow { color: var(--color-accent); font-family: var(--font-mono); font-size: 0.65rem; transition: letter-spacing var(--duration-ui) var(--ease-out); }
+.project-row__arrow { color: var(--project-row-accent, var(--color-accent)); font-family: var(--font-mono); font-size: 0.65rem; transition: letter-spacing var(--duration-ui) var(--ease-out); }
 .project-row__link:hover .project-row__arrow { letter-spacing: 0.1em; }
 .project-row__mobile-preview { display: none; padding-bottom: 1.5rem; }
 

@@ -62,15 +62,79 @@
     },
     "entries": {
       "powersketch": {
+        "eyebrow": "Engineering SaaS / browser editor",
         "roles": { "product": "Product", "design": "UI/UX", "frontend": "Frontend", "backend": "Backend", "architecture": "Architecture" },
+        "metrics": {
+          "label": "Verified data",
+          "devices": "devices in the catalog",
+          "manufacturers": "manufacturers",
+          "engine": "editor foundation"
+        },
         "summary": "A browser-based service for designing electrical distribution boards.",
-        "description": "PowerSketch helps electricians and smart-home integrators assemble distribution-board projects without complex desktop software—from device placement to connection reports and link sharing.",
-        "challenge": "The product had to combine the precision of an engineering tool with an approachable web interface. A large device catalog, scalable canvas, pin connections, and project data all needed to stay consistent.",
+        "description": "PowerSketch turns electrical-panel design into one continuous digital workflow: devices are selected from the catalog, placed on an SVG scene, connected with wires, organized into layers, and carried into reports without re-entering data.",
+        "audience": "The product is built for electricians, smart-home integrators, panel builders, commissioning engineers, and technical teams.",
+        "challenge": "An engineering editor must be precise without feeling heavy. The catalog, device pins, wires, layers, reports, and export all represent one project and must remain consistent after every user action.",
+        "challengeTitle": "Complex domain logic without a heavy desktop interface",
+        "constraintAxis": "PRECISION / SPEED / COMPATIBILITY / SCALE",
         "role": "I own the product end to end: workflows, interface and data-model design, frontend, backend, and continued product development after launch.",
-        "approach": "The editor is centered on an independent SVG scene. Devices, wires, layers, and annotations are data, so the same project can be edited, stored, copied, and exported without divergent representations.",
+        "approach": "The editor is centered on an independent SVG scene rather than a collection of disconnected screens. A device knows its dimensions and pins, a wire knows its endpoints, and a layer knows order and visibility. One project state therefore drives editing, persistence, reports, and export.",
         "architecture": "The interactive client is separated from server responsibilities. The backend handles authentication, projects, the device library, public access, and subscriptions, while the UI optimizes frequent canvas operations and synchronizes durable project state.",
-        "result": "A working browser product with a drag-and-drop editor, smart connections, layers, a device catalog, reports, shared access, and paid plans. Unverified user or financial metrics are deliberately excluded.",
-        "constraints": "The key trade-offs are large-scene SVG performance, export fidelity, backward compatibility of stored projects, and predictable editor behavior across screen sizes."
+        "systemTitle": "Project data flows through the whole product",
+        "constraints": "The key constraints are large-scene SVG performance, export fidelity, backward compatibility of stored projects, and predictable editor behavior across screen sizes.",
+        "workflow": {
+          "label": "Workflow",
+          "title": "From an empty project to installation hand-off",
+          "description": "The core journey is a sequence of connected operations: each step produces the data required by the next one.",
+          "steps": {
+            "create": { "title": "Create a project", "description": "The workspace brings projects, custom devices, and product updates together." },
+            "compose": { "title": "Compose the board", "description": "Devices are found in a hierarchical catalog and placed on a scalable canvas." },
+            "connect": { "title": "Connect the pins", "description": "Wires link named pins and persist as part of the project structure." },
+            "report": { "title": "Generate reports", "description": "Devices and connections become configurable tables ready for field work." },
+            "share": { "title": "Hand off the result", "description": "A project can be shared as a view-only link or exported as SVG." }
+          }
+        },
+        "features": {
+          "scene": { "title": "SVG scene", "description": "Zooming, panning, snapping, and editing preserve geometric precision." },
+          "catalog": { "title": "Device catalog", "description": "Search and hierarchy keep a large library of real components manageable." },
+          "layers": { "title": "Project layers", "description": "Elements can be ordered, hidden, locked, renamed, and grouped." },
+          "data": { "title": "Shared state", "description": "Devices, pins, and wires remain the common source for the editor, reports, and export." }
+        },
+        "customDevices": {
+          "label": "Custom devices",
+          "title": "The catalog can adapt to a real project",
+          "description": "A user can define a device with physical dimensions, a custom image, and named pins with coordinates. The editor accepts PNG, JPG, SVG, and WEBP files up to 5 MB; a missing model can also be proposed for the shared catalog."
+        },
+        "reports": {
+          "label": "Reports",
+          "title": "The scene becomes working tables",
+          "description": "The device report includes manufacturer, model, parameters, notes, and quantity. The wire report records marking, cross-section, length, source, and destination, with configurable columns before download."
+        },
+        "handoff": {
+          "label": "Hand-off",
+          "title": "A project can be reviewed without editor access",
+          "description": "Public access generates a view-only link that can be renewed. SVG export provides background, paper size, orientation, preview, download, and print controls."
+        },
+        "productModel": {
+          "label": "Product model",
+          "title": "One editor for different scales of work",
+          "description": "Free, Plus, and Professional plans all retain access to the editor and library. Paid tiers expand project, custom-device, and layer limits while adding copying and watermark-free export."
+        },
+        "resultTitle": "A working product, not an interface demonstration",
+        "result": "PowerSketch operates as a complete browser SaaS, from the workspace and a catalog of 2,000 devices to design, reports, public review, SVG export, and subscriptions. This case uses observable product capabilities only, without invented audience, conversion, or revenue figures.",
+        "media": {
+          "editor": { "alt": "PowerSketch editor showing an electrical panel diagram with devices and connecting wires", "caption": "The main SVG project scene" },
+          "landing": { "alt": "PowerSketch website hero describing the online editor alongside a demonstration diagram", "caption": "Public product positioning" },
+          "dashboard": { "alt": "PowerSketch workspace with recent projects, custom devices, and product updates", "caption": "A unified workspace" },
+          "projects": { "alt": "PowerSketch project list with search and public-access management", "caption": "Project management" },
+          "library": { "alt": "Hierarchical electrical-device library inside the PowerSketch editor", "caption": "Device search inside the editor" },
+          "layers": { "alt": "PowerSketch editor with the project layer panel open", "caption": "Layers in the context of a real diagram" },
+          "customDevices": { "alt": "Custom-device list showing dimensions, pin counts, and modification dates", "caption": "Custom-device management" },
+          "deviceReport": { "alt": "PowerSketch device report with manufacturers, parameters, and quantities", "caption": "Device schedule" },
+          "wireReport": { "alt": "PowerSketch wire report with markings, lengths, sources, and destinations", "caption": "Connection table" },
+          "sharing": { "alt": "PowerSketch public-access dialog with a view-only project link", "caption": "Public project review" },
+          "export": { "alt": "PowerSketch SVG export window with paper settings and diagram preview", "caption": "Vector result export" },
+          "subscription": { "alt": "PowerSketch subscription page comparing Free, Plus, and Professional plans", "caption": "Product plans and limits" }
+        }
       }
     }
   },
@@ -166,7 +230,16 @@
   },
   "case": {
     "back": "Back to projects",
-    "live": "Open PowerSketch",
+    "live": "Open live product",
+    "code": {
+      "backCommand": "cd ../projects",
+      "caseFile": "CASE_{index}.MD / {period}",
+      "status": "status",
+      "exportDefault": "export default",
+      "role": "role",
+      "stack": "stack",
+      "production": "production"
+    },
     "labels": { "context": "Context", "problem": "Problem", "role": "My role", "approach": "Product approach", "interactions": "Core interactions", "architecture": "System / Architecture", "result": "Result", "stack": "Stack", "next": "Open channel" },
     "interactionItems": {
       "editor": { "title": "SVG editor", "description": "A scalable canvas with device drag-and-drop, snapping, and layer controls." },
