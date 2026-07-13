@@ -4,8 +4,8 @@
     aria-hidden="true"
   >
     <div class="crt-overlay__bezel">
-      <span class="crt-overlay__model">VA // CRT-02</span>
-      <span class="crt-overlay__signal">SIGNAL: STABLE</span>
+      <span class="crt-overlay__model">{{ $t('system.crtModel') }}</span>
+      <span class="crt-overlay__signal">{{ $t('system.crtSignal') }}</span>
       <i class="crt-overlay__screw crt-overlay__screw--tl" />
       <i class="crt-overlay__screw crt-overlay__screw--tr" />
       <i class="crt-overlay__screw crt-overlay__screw--bl" />

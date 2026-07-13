@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { profile } from '~/data/profile'
 
-const { copy } = usePortfolio()
+const { t } = useI18n()
 const { time } = useLocalTime(profile.timeZone)
 const localePath = useLocalePath()
 const year = new Date().getUTCFullYear()
@@ -12,10 +12,10 @@ const year = new Date().getUTCFullYear()
     <div class="site-container site-footer__grid">
       <div class="site-footer__brand">
         <strong>&gt;_ alekhin.dev</strong>
-        <span class="system-label">{{ copy.footer.role }}</span>
+        <span class="system-label">{{ t('footer.role') }}</span>
       </div>
       <div class="site-footer__links system-label">
-        <LocaleSwitcher :label="copy.nav.language" />
+        <LocaleSwitcher :label="t('nav.language')" />
         <a :href="`mailto:${profile.email}`">EMAIL</a>
         <a
           :href="profile.github"

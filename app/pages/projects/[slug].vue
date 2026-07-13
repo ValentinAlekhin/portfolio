@@ -1,27 +1,49 @@
 <script setup lang="ts">
 import { profile } from '~/data/profile'
+import { localeLanguageTag } from '~/types/i18n'
+import type { ProjectContent } from '~/types/content'
+
+interface InteractionItem {
+  title: string
+  description: string
+}
 
 const route = useRoute()
 const localePath = useLocalePath()
-const { copy, localeCode, projects } = usePortfolio()
+const { localeCode, projects } = usePortfolio()
+const { t, tm } = useI18n()
 const project = computed(() => projects.find(item => item.slug === route.params.slug))
 
 if (!project.value) {
   throw createError({ statusCode: 404, statusMessage: 'Project not found' })
 }
 
-const content = computed(() => project.value!.content[localeCode.value])
+const content = computed<ProjectContent>(() => {
+  const key = project.value!.translationKey
+  return {
+    summary: t(`${key}.summary`),
+    description: t(`${key}.description`),
+    challenge: t(`${key}.challenge`),
+    role: t(`${key}.role`),
+    approach: t(`${key}.approach`),
+    architecture: t(`${key}.architecture`),
+    result: t(`${key}.result`),
+    constraints: t(`${key}.constraints`),
+  }
+})
+const roles = computed(() => tm(`${project.value!.translationKey}.roles`) as unknown as string[])
+const interactionItems = computed(() => tm('case.interactionItems') as unknown as InteractionItem[])
 const canonical = computed(() => `https://alekhin.dev/${localeCode.value}/projects/${project.value!.slug}/`)
 const i18nHead = useLocaleHead({ dir: true, lang: true, seo: true })
 const homeProjects = computed(() => `${localePath('/')}#projects`)
 
 useSeoMeta({
-  title: () => `${project.value!.title} — ${copy.value.projects.roleLabel}`,
+  title: () => `${project.value!.title} — ${t('projects.roleLabel')}`,
   description: () => content.value.summary,
   robots: 'index, follow',
-  ogTitle: () => `${project.value!.title} — ${copy.value.projects.roleLabel}`,
+  ogTitle: () => `${project.value!.title} — ${t('projects.roleLabel')}`,
   ogDescription: () => content.value.summary,
-  ogImage: () => `https://alekhin.dev${copy.value.seo.ogImage}`,
+  ogImage: () => `https://alekhin.dev${t('seo.ogImage')}`,
   ogType: 'article',
   ogUrl: canonical,
   twitterCard: 'summary_large_image',
@@ -46,7 +68,7 @@ useHead(() => ({
           'description': content.value.summary,
           'url': canonical.value,
           'author': { '@type': 'Person', 'name': profile.name },
-          'inLanguage': localeCode.value === 'ru' ? 'ru-RU' : 'en-US',
+          'inLanguage': localeLanguageTag[localeCode.value],
         },
         {
           '@context': 'https://schema.org',
@@ -74,7 +96,7 @@ useHead(() => ({
         <div class="case-hero__top system-label">
           <NuxtLink :to="homeProjects">[ cd ../projects ]</NuxtLink>
           <span>CASE_{{ project.index }}.MD / {{ project.period }}</span>
-          <span>&#123; status: <i /> '{{ project.status }}' &#125;</span>
+          <span>&#123; status: <i /> '{{ t(`projects.status.${project.status}`) }}' &#125;</span>
         </div>
         <h1><span>project:</span><q>{{ project.title }}</q><i>;</i></h1>
         <div class="case-hero__intro">
@@ -84,11 +106,11 @@ useHead(() => ({
             target="_blank"
             rel="noopener noreferrer"
             class="case-live-link system-label"
-          >[ open {{ copy.case.live }} ]</a>
+          >[ open {{ t('case.live') }} ]</a>
         </div>
         <div class="case-manifest system-label">
           <span>export default &#123;</span>
-          <span>&nbsp;&nbsp;role: '{{ copy.projects.roleLabel }}',</span>
+          <span>&nbsp;&nbsp;role: '{{ t('projects.roleLabel') }}',</span>
           <span>&nbsp;&nbsp;stack: [{{ project.stack.map(item => `'${item}'`).join(', ') }}],</span>
           <span>&nbsp;&nbsp;production: true,</span>
           <span>&#125;</span>
@@ -102,7 +124,7 @@ useHead(() => ({
     <section class="case-section section-rule">
       <div class="site-container case-copy-grid">
         <p class="case-label system-label">
-          <span>// 02</span>{{ copy.case.labels.context }}.md
+          <span>// 02</span>{{ t('case.labels.context') }}.md
         </p>
         <div class="case-prose case-prose--large">
           <p>{{ content.description }}</p>
@@ -113,10 +135,10 @@ useHead(() => ({
     <section class="case-section section-rule">
       <div class="site-container case-copy-grid">
         <p class="case-label system-label">
-          <span>// 03</span>{{ copy.case.labels.problem }}.issue
+          <span>// 03</span>{{ t('case.labels.problem') }}.issue
         </p>
         <div class="case-prose">
-          <h2>{{ copy.case.labels.problem }}</h2><p>{{ content.challenge }}</p>
+          <h2>{{ t('case.labels.problem') }}</h2><p>{{ content.challenge }}</p>
         </div>
         <div class="case-aside system-label">
           CANVAS / DATA / EXPORT / SCALE
@@ -127,12 +149,12 @@ useHead(() => ({
     <section class="case-section case-section--surface section-rule">
       <div class="site-container case-copy-grid">
         <p class="case-label system-label">
-          <span>// 04</span>{{ copy.case.labels.role }}.scope
+          <span>// 04</span>{{ t('case.labels.role') }}.scope
         </p>
         <div class="case-prose">
-          <h2>{{ copy.case.labels.role }}</h2><p>{{ content.role }}</p><ul class="case-tags">
+          <h2>{{ t('case.labels.role') }}</h2><p>{{ content.role }}</p><ul class="case-tags">
             <li
-              v-for="role in project.roles"
+              v-for="role in roles"
               :key="role"
             >
               '{{ role }}',
@@ -145,23 +167,23 @@ useHead(() => ({
     <section class="case-section section-rule">
       <div class="site-container case-copy-grid">
         <p class="case-label system-label">
-          <span>// 05</span>{{ copy.case.labels.approach }}.ts
+          <span>// 05</span>{{ t('case.labels.approach') }}.ts
         </p>
         <div class="case-prose">
-          <h2>{{ copy.case.labels.approach }}</h2><p>{{ content.approach }}</p>
+          <h2>{{ t('case.labels.approach') }}</h2><p>{{ content.approach }}</p>
         </div>
       </div>
       <div class="site-container case-visual-pair">
         <CrtFrame>
           <PowerSketchPreview
             mode="library"
-            :label="`${project.title}: device library`"
+            :label="t('case.libraryPreview', { title: project.title })"
           />
         </CrtFrame>
         <CrtFrame>
           <PowerSketchPreview
             mode="report"
-            :label="`${project.title}: project report`"
+            :label="t('case.reportPreview', { title: project.title })"
           />
         </CrtFrame>
       </div>
@@ -170,12 +192,12 @@ useHead(() => ({
     <section class="case-section case-interactions section-rule">
       <div class="site-container">
         <p class="case-label system-label">
-          <span>// 06</span>{{ copy.case.labels.interactions }}.events
+          <span>// 06</span>{{ t('case.labels.interactions') }}.events
         </p>
-        <h2>{{ copy.case.labels.interactions }}</h2>
+        <h2>{{ t('case.labels.interactions') }}</h2>
         <div class="case-interactions__grid">
           <article
-            v-for="(item, index) in copy.case.interactionItems"
+            v-for="(item, index) in interactionItems"
             :key="item.title"
           >
             <span class="system-label">listener[{{ index }}]</span><h3>{{ item.title }}()</h3><p>// {{ item.description }}</p>
@@ -187,17 +209,17 @@ useHead(() => ({
     <section class="case-section case-section--dark section-rule">
       <div class="site-container case-copy-grid">
         <p class="case-label system-label">
-          <span>// 07</span>{{ copy.case.labels.architecture }}.graph
+          <span>// 07</span>{{ t('case.labels.architecture') }}.graph
         </p>
         <div class="case-prose">
-          <h2>{{ copy.case.labels.architecture }}</h2><p>{{ content.architecture }}</p><p class="case-constraint">
+          <h2>{{ t('case.labels.architecture') }}</h2><p>{{ content.architecture }}</p><p class="case-constraint">
             {{ content.constraints }}
           </p>
         </div>
       </div>
       <div
         class="site-container architecture-map system-label"
-        aria-label="Product architecture"
+        :aria-label="t('case.architectureLabel')"
       >
         <span>interface.render()</span><i>=&gt;</i><span>editorCore.update()</span><i>=&gt;</i><span>api.sync()</span><i>=&gt;</i><span>data.persist()</span><i>=&gt;</i><span>export.build()</span>
       </div>
@@ -206,10 +228,10 @@ useHead(() => ({
     <section class="case-section section-rule">
       <div class="site-container case-copy-grid">
         <p class="case-label system-label">
-          <span>// 08</span>{{ copy.case.labels.result }}.log
+          <span>// 08</span>{{ t('case.labels.result') }}.log
         </p>
         <div class="case-prose case-prose--large">
-          <h2>{{ copy.case.labels.result }}</h2><p>{{ content.result }}</p>
+          <h2>{{ t('case.labels.result') }}</h2><p>{{ content.result }}</p>
         </div>
       </div>
     </section>
@@ -217,7 +239,7 @@ useHead(() => ({
     <section class="case-stack section-rule">
       <div class="site-container">
         <p class="case-label system-label">
-          <span>// 09</span>{{ copy.case.labels.stack }}[]
+          <span>// 09</span>{{ t('case.labels.stack') }}[]
         </p>
         <ul>
           <li
@@ -233,13 +255,13 @@ useHead(() => ({
     <section class="case-next">
       <div class="site-container case-copy-grid">
         <p class="case-label system-label">
-          <span>// 10</span>{{ copy.case.labels.next }}.command
+          <span>// 10</span>{{ t('case.labels.next') }}.command
         </p>
         <div>
-          <h2>{{ copy.case.nextTitle }}</h2>
-          <p>{{ copy.case.nextText }}</p>
+          <h2>{{ t('case.nextTitle') }}</h2>
+          <p>{{ t('case.nextText') }}</p>
           <BaseButton href="#contacts">
-            run contact
+            {{ t('hero.primary') }}
           </BaseButton>
         </div>
       </div>

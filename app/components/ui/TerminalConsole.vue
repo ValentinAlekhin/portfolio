@@ -8,19 +8,19 @@ interface TerminalEntry {
 
 interface TerminalCommand {
   name: string
-  alias: string
-  description: Record<'ru' | 'en', string>
+  tokenKey: string
+  descriptionKey: string
 }
 
 const localePath = useLocalePath()
-const { localeCode } = usePortfolio()
+const { locale, t } = useI18n()
 const open = ref(false)
 const command = ref('')
 const input = ref<HTMLInputElement | null>(null)
 const historyElement = ref<HTMLElement | null>(null)
 const history = ref<TerminalEntry[]>([
-  { kind: 'output', text: localeCode.value === 'ru' ? 'VA_OS v2.1 — интерактивная консоль готова' : 'VA_OS v2.1 — interactive shell ready' },
-  { kind: 'output', text: localeCode.value === 'ru' ? 'введите `помощь` или нажмите Tab' : 'type `help` or press Tab' },
+  { kind: 'output', text: t('terminal.ready') },
+  { kind: 'output', text: t('terminal.intro') },
 ])
 const { toggleTheme } = useTheme()
 const contactOpen = useState<boolean>('contact-dialog-open', () => false)
@@ -30,20 +30,18 @@ const completionOptions = ref<string[]>([])
 const completionIndex = ref(-1)
 
 const commandDefinitions: TerminalCommand[] = [
-  { name: 'help', alias: 'помощь', description: { ru: 'показать список команд', en: 'list available commands' } },
-  { name: 'whoami', alias: 'кто-я', description: { ru: 'кратко обо мне', en: 'show developer profile' } },
-  { name: 'projects', alias: 'проекты', description: { ru: 'перейти к проектам', en: 'open selected projects' } },
-  { name: 'pipeline', alias: 'возможности', description: { ru: 'открыть продуктовый конвейер', en: 'open product pipeline' } },
-  { name: 'about', alias: 'обо-мне', description: { ru: 'открыть README', en: 'open README' } },
-  { name: 'contact', alias: 'контакты', description: { ru: 'открыть контакты', en: 'open contact channel' } },
-  { name: 'telegram', alias: 'телеграм', description: { ru: `написать ${profile.telegramHandle}`, en: `message ${profile.telegramHandle}` } },
-  { name: 'theme', alias: 'тема', description: { ru: 'сменить профиль монитора', en: 'toggle display profile' } },
-  { name: 'clear', alias: 'очистить', description: { ru: 'очистить консоль', en: 'clear terminal output' } },
+  { name: 'help', tokenKey: 'terminal.commands.help.token', descriptionKey: 'terminal.commands.help.description' },
+  { name: 'whoami', tokenKey: 'terminal.commands.whoami.token', descriptionKey: 'terminal.commands.whoami.description' },
+  { name: 'projects', tokenKey: 'terminal.commands.projects.token', descriptionKey: 'terminal.commands.projects.description' },
+  { name: 'pipeline', tokenKey: 'terminal.commands.pipeline.token', descriptionKey: 'terminal.commands.pipeline.description' },
+  { name: 'about', tokenKey: 'terminal.commands.about.token', descriptionKey: 'terminal.commands.about.description' },
+  { name: 'contact', tokenKey: 'terminal.commands.contact.token', descriptionKey: 'terminal.commands.contact.description' },
+  { name: 'telegram', tokenKey: 'terminal.commands.telegram.token', descriptionKey: 'terminal.commands.telegram.description' },
+  { name: 'theme', tokenKey: 'terminal.commands.theme.token', descriptionKey: 'terminal.commands.theme.description' },
+  { name: 'clear', tokenKey: 'terminal.commands.clear.token', descriptionKey: 'terminal.commands.clear.description' },
 ]
 
-const availableTokens = computed(() => commandDefinitions.map((item) => {
-  return localeCode.value === 'ru' ? item.alias : item.name
-}))
+const availableTokens = computed(() => commandDefinitions.map(item => t(item.tokenKey)))
 
 const matchingCommands = computed(() => {
   const seed = command.value.trim().toLowerCase()
@@ -57,11 +55,12 @@ const visibleSuggestions = computed(() => {
 })
 
 function findCommand(token: string) {
-  return commandDefinitions.find(item => item.name === token || item.alias === token)
+  return commandDefinitions.find(item => item.name === token || t(item.tokenKey) === token)
 }
 
 function commandDescription(token: string) {
-  return findCommand(token)?.description[localeCode.value] ?? ''
+  const definition = findCommand(token)
+  return definition ? t(definition.descriptionKey, { handle: profile.telegramHandle }) : ''
 }
 
 function focusInput() {
@@ -150,23 +149,23 @@ function execute() {
 
   if (value === 'help') {
     commandDefinitions.forEach((item) => {
-      const label = localeCode.value === 'ru' ? item.alias : item.name
-      history.value.push({ kind: 'output', text: `${label.padEnd(24)} ${item.description[localeCode.value]}` })
+      const label = t(item.tokenKey)
+      history.value.push({ kind: 'output', text: `${label.padEnd(24)} ${t(item.descriptionKey, { handle: profile.telegramHandle })}` })
     })
   }
   else if (value === 'whoami') {
-    history.value.push({ kind: 'output', text: localeCode.value === 'ru' ? 'независимый senior full-stack разработчик / продуктовый инженер' : 'independent senior full-stack developer / product engineer' })
+    history.value.push({ kind: 'output', text: t('terminal.whoami') })
   }
   else if (value === 'projects') {
-    history.value.push({ kind: 'output', text: localeCode.value === 'ru' ? 'открываю ./проекты ...' : 'opening ./projects ...' })
+    history.value.push({ kind: 'output', text: t('terminal.openingProjects') })
     goTo('projects')
   }
   else if (value === 'pipeline') {
-    history.value.push({ kind: 'output', text: localeCode.value === 'ru' ? 'открываю ./продуктовый-конвейер ...' : 'opening ./product-pipeline ...' })
+    history.value.push({ kind: 'output', text: t('terminal.openingPipeline') })
     goTo('services')
   }
   else if (value === 'about') {
-    history.value.push({ kind: 'output', text: localeCode.value === 'ru' ? 'открываю README.md ...' : 'opening README.md ...' })
+    history.value.push({ kind: 'output', text: t('terminal.openingAbout') })
     goTo('about')
   }
   else if (value === 'contact') {
@@ -175,17 +174,17 @@ function execute() {
   }
   else if (value === 'telegram') {
     window.open(profile.telegram, '_blank', 'noopener,noreferrer')
-    history.value.push({ kind: 'output', text: localeCode.value === 'ru' ? `открываю ${profile.telegramHandle} ...` : `opening ${profile.telegramHandle} ...` })
+    history.value.push({ kind: 'output', text: t('terminal.openingTelegram', { handle: profile.telegramHandle }) })
   }
   else if (value === 'theme') {
     toggleTheme()
-    history.value.push({ kind: 'output', text: localeCode.value === 'ru' ? 'профиль монитора изменён' : 'display profile toggled' })
+    history.value.push({ kind: 'output', text: t('terminal.themeChanged') })
   }
   else if (value === 'clear') {
     history.value = []
   }
   else {
-    history.value.push({ kind: 'error', text: localeCode.value === 'ru' ? `команда не найдена: ${value}` : `command not found: ${value}` })
+    history.value.push({ kind: 'error', text: t('terminal.notFound', { command: value }) })
   }
 
   command.value = ''
@@ -214,6 +213,14 @@ function onKeydown(event: KeyboardEvent) {
 onMounted(() => window.addEventListener('keydown', onKeydown))
 onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
 watch(() => history.value.length, scrollHistoryToBottom)
+watch(locale, () => {
+  history.value = [
+    { kind: 'output', text: t('terminal.ready') },
+    { kind: 'output', text: t('terminal.intro') },
+  ]
+  command.value = ''
+  resetCompletion()
+})
 </script>
 
 <template>
@@ -225,7 +232,7 @@ watch(() => history.value.length, scrollHistoryToBottom)
       type="button"
       class="terminal-console__trigger system-label"
       :aria-expanded="open"
-      :aria-label="open ? 'Close command console' : 'Open command console'"
+      :aria-label="open ? t('terminal.close') : t('terminal.open')"
       @click="toggleConsole"
     >
       <span>&gt;_</span>
@@ -236,13 +243,13 @@ watch(() => history.value.length, scrollHistoryToBottom)
     <section
       v-if="open"
       class="terminal-console__panel"
-      aria-label="Command console"
+      :aria-label="t('terminal.label')"
     >
       <header class="terminal-console__head system-label">
         <span>TERMINAL / zsh</span>
         <button
           type="button"
-          aria-label="Close command console"
+          :aria-label="t('terminal.close')"
           @click="open = false"
         >
           [×]
@@ -285,12 +292,12 @@ watch(() => history.value.length, scrollHistoryToBottom)
           autocomplete="off"
           autocapitalize="off"
           spellcheck="false"
-          :placeholder="localeCode === 'ru' ? 'помощь' : 'help'"
+          :placeholder="t('terminal.placeholder')"
           @input="onCommandInput"
           @keydown="onInputKeydown"
         >
         <span class="terminal-console__key-hints">
-          {{ localeCode === 'ru' ? 'TAB — дополнить · ↑↓ — история' : 'TAB — complete · ↑↓ — history' }}
+          {{ t('terminal.keyHints') }}
         </span>
       </form>
     </section>

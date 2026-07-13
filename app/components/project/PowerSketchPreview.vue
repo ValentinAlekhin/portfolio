@@ -1,11 +1,14 @@
 <script setup lang="ts">
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   label?: string
   mode?: 'editor' | 'library' | 'report'
 }>(), {
-  label: 'PowerSketch editor interface',
+  label: undefined,
   mode: 'editor',
 })
+
+const { t } = useI18n()
+const resolvedLabel = computed(() => props.label ?? t('preview.label'))
 </script>
 
 <template>
@@ -13,13 +16,13 @@ withDefaults(defineProps<{
     class="powersketch-preview"
     :class="`powersketch-preview--${mode}`"
     role="img"
-    :aria-label="label"
+    :aria-label="resolvedLabel"
   >
     <div class="powersketch-preview__bar">
       <span class="powersketch-logo">P</span>
       <strong>PowerSketch</strong>
       <span class="powersketch-preview__file system-label">MAIN_BOARD.PS</span>
-      <span class="powersketch-preview__action system-label">SHARE</span>
+      <span class="powersketch-preview__action system-label">{{ t('preview.share') }}</span>
     </div>
     <div class="powersketch-preview__body">
       <aside
@@ -32,7 +35,7 @@ withDefaults(defineProps<{
         class="powersketch-preview__library"
         aria-hidden="true"
       >
-        <span class="system-label">{{ mode === 'report' ? 'REPORT' : 'DEVICES / 2000' }}</span>
+        <span class="system-label">{{ mode === 'report' ? t('preview.report') : t('preview.devices') }}</span>
         <div class="powersketch-search" />
         <template v-if="mode !== 'report'">
           <div

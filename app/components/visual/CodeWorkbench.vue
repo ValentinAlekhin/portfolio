@@ -1,57 +1,19 @@
 <script setup lang="ts">
 type WorkbenchTab = 'portfolio.ts' | 'runtime.log' | 'ascii.va'
 
-const { localeCode } = usePortfolio()
+const { t, tm } = useI18n()
 const activeTab = ref<WorkbenchTab>('portfolio.ts')
 const buildState = ref<'ready' | 'building' | 'passed'>('ready')
 const buildProgress = ref(100)
 let buildTimer: ReturnType<typeof setInterval> | undefined
 
 const tabs: WorkbenchTab[] = ['portfolio.ts', 'runtime.log', 'ascii.va']
-const localized = computed(() => localeCode.value === 'ru'
-  ? {
-      explorer: 'ФАЙЛЫ',
-      sourceFiles: 'Файлы проекта',
-      name: 'Валентин Алёхин',
-      nameKey: 'имя',
-      scopeKey: 'область',
-      stackKey: 'стек',
-      availableKey: 'доступен',
-      scope: '[\'идея\', \'интерфейс\', \'api\', \'запуск\']',
-      comment: '// без разрывов между слоями продукта',
-      ship: 'ship',
-      idea: 'idea',
-      logs: ['контекст продукта загружен', 'интерфейс собран', 'контракт API проверен', 'production-маршрут доступен'],
-      line: 'Стр. 9, поз. 24',
-      building: 'СБОРКА',
-      passed: '✓ СБОРКА ГОТОВА',
-      run: '▶ ЗАПУСТИТЬ СБОРКУ',
-      asciiLabel: 'ASCII-логотип VA',
-    }
-  : {
-      explorer: 'EXPLORER',
-      sourceFiles: 'Source files',
-      name: 'Valentin Alekhin',
-      nameKey: 'name',
-      scopeKey: 'scope',
-      stackKey: 'stack',
-      availableKey: 'available',
-      scope: '[\'idea\', \'ui\', \'api\', \'launch\']',
-      comment: '// no handoff gaps between layers',
-      ship: 'ship',
-      idea: 'idea',
-      logs: ['product context loaded', 'interface compiled', 'api contract validated', 'production route online'],
-      line: 'Ln 9, Col 24',
-      building: 'BUILD',
-      passed: '✓ BUILD PASSED',
-      run: '▶ RUN BUILD',
-      asciiLabel: 'VA ASCII art',
-    })
+const logs = computed(() => tm('workbench.logs') as unknown as string[])
 
 const buildLabel = computed(() => {
-  if (buildState.value === 'building') return `${localized.value.building} ${buildProgress.value}%`
-  if (buildState.value === 'passed') return localized.value.passed
-  return localized.value.run
+  if (buildState.value === 'building') return `${t('workbench.building')} ${buildProgress.value}%`
+  if (buildState.value === 'passed') return t('workbench.passed')
+  return t('workbench.run')
 })
 
 function runBuild() {
@@ -90,9 +52,9 @@ onBeforeUnmount(() => {
     <div class="workbench__body">
       <aside
         class="workbench__explorer"
-        :aria-label="localized.sourceFiles"
+        :aria-label="t('workbench.sourceFiles')"
       >
-        <span class="system-label">{{ localized.explorer }}</span>
+        <span class="system-label">{{ t('workbench.explorer') }}</span>
         <button
           v-for="tab in tabs"
           :key="tab"
@@ -124,14 +86,14 @@ onBeforeUnmount(() => {
             class="code-lines"
           >
             <li><code><b class="token-keyword">interface</b> <b class="token-type">ProductDeveloper</b> <span class="token-punct">&#123;</span></code></li>
-            <li><code>&nbsp;&nbsp;<span class="token-prop">{{ localized.nameKey }}</span><span class="token-punct">:</span> <span class="token-string">'{{ localized.name }}'</span></code></li>
-            <li><code>&nbsp;&nbsp;<span class="token-prop">{{ localized.scopeKey }}</span><span class="token-punct">:</span> <span class="token-array">{{ localized.scope }}</span></code></li>
-            <li><code>&nbsp;&nbsp;<span class="token-prop">{{ localized.stackKey }}</span><span class="token-punct">:</span> <span class="token-string">'Vue + Nuxt + Node + Go'</span></code></li>
-            <li><code>&nbsp;&nbsp;<span class="token-prop">{{ localized.availableKey }}</span><span class="token-punct">:</span> <b class="token-bool">true</b></code></li>
+            <li><code>&nbsp;&nbsp;<span class="token-prop">{{ t('workbench.nameKey') }}</span><span class="token-punct">:</span> <span class="token-string">'{{ t('workbench.name') }}'</span></code></li>
+            <li><code>&nbsp;&nbsp;<span class="token-prop">{{ t('workbench.scopeKey') }}</span><span class="token-punct">:</span> <span class="token-array">{{ t('workbench.scope') }}</span></code></li>
+            <li><code>&nbsp;&nbsp;<span class="token-prop">{{ t('workbench.stackKey') }}</span><span class="token-punct">:</span> <span class="token-string">'Vue + Nuxt + Node + Go'</span></code></li>
+            <li><code>&nbsp;&nbsp;<span class="token-prop">{{ t('workbench.availableKey') }}</span><span class="token-punct">:</span> <b class="token-bool">true</b></code></li>
             <li><code><span class="token-punct">&#125;</span></code></li>
             <li><code>&nbsp;</code></li>
-            <li><code><span class="token-comment">{{ localized.comment }}</span></code></li>
-            <li><code><b class="token-keyword">export default</b> <span class="token-fn">{{ localized.ship }}</span><span class="token-punct">({{ localized.idea }})</span></code></li>
+            <li><code><span class="token-comment">{{ t('workbench.comment') }}</span></code></li>
+            <li><code><b class="token-keyword">export default</b> <span class="token-fn">ship</span><span class="token-punct">(idea)</span></code></li>
           </ol>
 
           <div
@@ -139,7 +101,7 @@ onBeforeUnmount(() => {
             class="runtime-log system-label"
           >
             <p
-              v-for="(message, index) in localized.logs"
+              v-for="(message, index) in logs"
               :key="message"
             >
               <span>11:42:0{{ index + 1 }}</span><b>[OK]</b> {{ message }}
@@ -152,7 +114,7 @@ onBeforeUnmount(() => {
           <pre
             v-else
             class="ascii-logo"
-            :aria-label="localized.asciiLabel"
+            :aria-label="t('workbench.asciiLabel')"
           >
 ██╗   ██╗ █████╗
 ██║   ██║██╔══██╗
@@ -163,7 +125,7 @@ onBeforeUnmount(() => {
         </div>
 
         <div class="workbench__status system-label">
-          <span>{{ localized.line }}</span>
+          <span>{{ t('workbench.line') }}</span>
           <span>UTF-8</span>
           <span>TypeScript</span>
           <button

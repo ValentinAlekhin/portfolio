@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { profile } from '~/data/profile'
+import type { NavigationItem } from '~/types/content'
 
-const { copy, localeCode } = usePortfolio()
+const { t, tm } = useI18n()
+const navItems = computed(() => tm('nav.items') as unknown as NavigationItem[])
 const localePath = useLocalePath()
 const route = useRoute()
 const { time } = useLocalTime(profile.timeZone)
@@ -28,7 +30,7 @@ onMounted(() => {
   onScroll()
   window.addEventListener('scroll', onScroll, { passive: true })
 
-  const sections = copy.value.nav.items
+  const sections = navItems.value
     .map(item => document.getElementById(item.id))
     .filter((element): element is HTMLElement => Boolean(element))
   observer = new IntersectionObserver((entries) => {
@@ -58,7 +60,7 @@ onBeforeUnmount(() => {
       <NuxtLink
         :to="homePath"
         class="site-brand"
-        :aria-label="profile.displayName[localeCode]"
+        :aria-label="t('profile.displayName')"
       >
         <span class="site-brand__mark">&gt;_</span>
         <span>alekhin.dev</span>
@@ -66,10 +68,10 @@ onBeforeUnmount(() => {
 
       <nav
         class="site-nav"
-        :aria-label="copy.nav.label"
+        :aria-label="t('nav.label')"
       >
         <a
-          v-for="item in copy.nav.items"
+          v-for="item in navItems"
           :key="item.id"
           :href="sectionHref(item.id)"
           :aria-current="activeSection === item.id ? 'location' : undefined"
@@ -78,15 +80,15 @@ onBeforeUnmount(() => {
 
       <div class="site-header__actions">
         <div class="site-header__desktop-actions">
-          <LocaleSwitcher :label="copy.nav.language" />
-          <ThemeSwitch :label="copy.nav.theme" />
-          <span class="availability system-label"><i /> {{ localeCode === 'ru' ? 'В СЕТИ' : 'ONLINE' }}</span>
+          <LocaleSwitcher :label="t('nav.language')" />
+          <ThemeSwitch :label="t('nav.theme')" />
+          <span class="availability system-label"><i /> {{ t('common.online') }}</span>
           <button
             type="button"
             class="header-contact system-label"
             @click="contactOpen = true"
           >
-            [ {{ copy.nav.contact }} ]
+            [ {{ t('nav.contact') }} ]
           </button>
         </div>
         <button
@@ -94,7 +96,7 @@ onBeforeUnmount(() => {
           class="header-contact header-contact--mobile system-label"
           @click="contactOpen = true"
         >
-          [ {{ localeCode === 'ru' ? 'Связаться' : 'Contact' }} ]
+          [ {{ t('common.contact') }} ]
         </button>
         <MobileNavigation />
       </div>

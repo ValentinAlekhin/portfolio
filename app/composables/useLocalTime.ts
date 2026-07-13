@@ -1,3 +1,5 @@
+import { localeTimeFormat, LocaleCode } from '~/types/i18n'
+
 export function formatLocalTime(timeZone: string, locale: string, date = new Date()) {
   return new Intl.DateTimeFormat(locale, {
     timeZone,
@@ -14,7 +16,7 @@ export function useLocalTime(timeZone: string) {
 
   const time = computed(() => formatLocalTime(
     timeZone,
-    locale.value === 'ru' ? 'ru-RU' : 'en-GB',
+    localeTimeFormat[locale.value === LocaleCode.En ? LocaleCode.En : LocaleCode.Ru],
     new Date(now.value),
   ))
 

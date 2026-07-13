@@ -10,7 +10,7 @@ import {
 } from 'reka-ui'
 import { profile } from '~/data/profile'
 
-const { copy } = usePortfolio()
+const { t } = useI18n()
 const state = useState<boolean>('contact-dialog-open', () => false)
 const open = computed({
   get: () => state.value,
@@ -42,23 +42,23 @@ onBeforeUnmount(() => {
       <DialogContent class="contact-dialog">
         <div class="contact-dialog__top">
           <p class="system-label">
-            <span>●</span> {{ copy.contact.eyebrow }}
+            <span>●</span> {{ t('contact.eyebrow') }}
           </p>
           <DialogClose as-child>
             <button
               type="button"
               class="dialog-close"
-              :aria-label="copy.contact.close"
+              :aria-label="t('contact.close')"
             >
               ×
             </button>
           </DialogClose>
         </div>
         <DialogTitle class="contact-dialog__title">
-          {{ copy.contact.dialogTitle }}
+          {{ t('contact.dialogTitle') }}
         </DialogTitle>
         <DialogDescription class="contact-dialog__description">
-          {{ copy.contact.dialogDescription }}
+          {{ t('contact.dialogDescription') }}
         </DialogDescription>
 
         <div class="contact-dialog__address">
@@ -78,7 +78,7 @@ onBeforeUnmount(() => {
 
         <div class="contact-dialog__actions">
           <BaseButton :href="`mailto:${profile.email}?subject=New%20project`">
-            {{ copy.contact.compose }}
+            {{ t('contact.compose') }}
             <template #icon>
               ↗
             </template>
@@ -87,7 +87,7 @@ onBeforeUnmount(() => {
             variant="secondary"
             @click="copyEmail"
           >
-            {{ copy.contact.copy }}
+            {{ t('contact.copy') }}
           </BaseButton>
           <BaseButton
             :href="profile.telegram"
@@ -108,7 +108,7 @@ onBeforeUnmount(() => {
           class="contact-dialog__feedback system-label"
           aria-live="polite"
         >
-          {{ copied ? copy.contact.copied : '' }}
+          {{ copied ? t('contact.copied') : '' }}
         </p>
       </DialogContent>
     </DialogPortal>

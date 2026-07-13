@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { copy, localeCode } = usePortfolio()
+const { t } = useI18n()
 const root = ref<HTMLElement | null>(null)
 const contactOpen = useState<boolean>('contact-dialog-open', () => false)
 const { motionAllowed } = useMotionPreference()
@@ -30,42 +30,42 @@ onBeforeUnmount(() => context?.revert())
     <div class="site-container hero__grid">
       <div class="hero__copy">
         <p class="hero__eyebrow system-label">
-          <span>//</span> {{ copy.hero.eyebrow }}
+          <span>//</span> {{ t('hero.eyebrow') }}
         </p>
         <h1
           id="hero-title"
           class="hero__name"
         >
           <b aria-hidden="true">&lt;</b>
-          <span><i>{{ copy.hero.name[0] }}</i></span>
-          <span><i>{{ copy.hero.name[1] }}</i></span>
+          <span><i>{{ t('hero.name.first') }}</i></span>
+          <span><i>{{ t('hero.name.last') }}</i></span>
           <b aria-hidden="true">/&gt;</b>
         </h1>
         <p class="hero__statement">
-          <span>const</span> product = <q>{{ copy.hero.statement }}</q>
+          <span>const</span> product = <q>{{ t('hero.statement') }}</q>
         </p>
         <p class="hero__description">
-          /* {{ copy.hero.description }} */
+          /* {{ t('hero.description') }} */
         </p>
         <div class="hero__terminal">
-          <TypewriterLine :text="copy.hero.terminal" />
+          <TypewriterLine :text="t('hero.terminal')" />
         </div>
         <div class="hero__actions">
           <BaseButton @click="contactOpen = true">
-            {{ copy.hero.primary }}
+            {{ t('hero.primary') }}
           </BaseButton>
           <BaseButton
             href="#projects"
             variant="secondary"
           >
-            {{ copy.hero.secondary }}
+            {{ t('hero.secondary') }}
           </BaseButton>
         </div>
         <div class="hero__meta system-label">
           <span>&#123;</span>
-          <span><b>{{ localeCode === 'ru' ? 'доступен' : 'available' }}:</b> <i /> true,</span>
-          <span><b>{{ localeCode === 'ru' ? 'опыт' : 'experience' }}:</b> '{{ copy.hero.experience }}',</span>
-          <span><b>{{ localeCode === 'ru' ? 'стек' : 'stack' }}:</b> ['vue', 'nuxt', 'ts', 'node', 'go']</span>
+          <span><b>{{ t('hero.meta.available') }}:</b> <i /> true,</span>
+          <span><b>{{ t('hero.meta.experience') }}:</b> '{{ t('hero.experience') }}',</span>
+          <span><b>{{ t('hero.meta.stack') }}:</b> ['vue', 'nuxt', 'ts', 'node', 'go']</span>
           <span>&#125;</span>
         </div>
       </div>

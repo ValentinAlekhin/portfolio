@@ -1,5 +1,13 @@
 <script setup lang="ts">
-const { copy } = usePortfolio()
+interface NowItem {
+  label: string
+  value: string
+}
+
+const { t, tm } = useI18n()
+const paragraphs = computed(() => tm('about.paragraphs') as unknown as string[])
+const principles = computed(() => tm('about.principles') as unknown as string[])
+const now = computed(() => tm('about.now') as unknown as NowItem[])
 </script>
 
 <template>
@@ -12,8 +20,8 @@ const { copy } = usePortfolio()
       <MotionReveal>
         <BaseSectionHeading
           index="05"
-          :eyebrow="copy.about.eyebrow"
-          :title="copy.about.title"
+          :eyebrow="t('about.eyebrow')"
+          :title="t('about.title')"
           title-id="about-title"
         />
       </MotionReveal>
@@ -28,7 +36,7 @@ const { copy } = usePortfolio()
             ## valentin-alekhin / product-developer
           </p>
           <p
-            v-for="paragraph in copy.about.paragraphs"
+            v-for="paragraph in paragraphs"
             :key="paragraph"
           >
             {{ paragraph }}
@@ -40,11 +48,11 @@ const { copy } = usePortfolio()
           class="about-principles"
         >
           <p class="system-label">
-            <span>const</span> {{ copy.about.principlesLabel.toLowerCase().replace(/\s+/g, '_') }} = [
+            <span>const</span> {{ t('about.principlesKey') }} = [
           </p>
           <ol>
             <li
-              v-for="(principle, index) in copy.about.principles"
+              v-for="(principle, index) in principles"
               :key="principle"
             >
               <span class="system-label">{{ index + 1 }}:</span><q>{{ principle }}</q><i>,</i>
@@ -55,7 +63,7 @@ const { copy } = usePortfolio()
 
       <MotionReveal class="now-board">
         <div
-          v-for="item in copy.about.now"
+          v-for="item in now"
           :key="item.label"
           class="now-board__item"
         >

@@ -1,3 +1,5 @@
+import { LocaleCode } from '~/types/i18n'
+
 export function useScrambleText(locale: Ref<string>) {
   let frame = 0
   const latin = 'ABCDEFGHJKLMNPQRSTUVWXYZ0123456789'
@@ -10,7 +12,7 @@ export function useScrambleText(locale: Ref<string>) {
     }
 
     cancelAnimationFrame(frame)
-    const characters = locale.value === 'ru' ? cyrillic : latin
+    const characters = locale.value === LocaleCode.Ru ? cyrillic : latin
     const start = performance.now()
 
     function tick(time: number) {

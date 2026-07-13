@@ -1,5 +1,8 @@
 <script setup lang="ts">
-const { copy, localeCode } = usePortfolio()
+import type { ProcessItem } from '~/types/content'
+
+const { t, tm } = useI18n()
+const items = computed(() => tm('process.items') as unknown as ProcessItem[])
 const root = ref<HTMLElement | null>(null)
 const progress = ref<HTMLElement | null>(null)
 const { motionAllowed } = useMotionPreference()
@@ -43,16 +46,16 @@ onBeforeUnmount(() => context?.revert())
     <div class="site-container">
       <BaseSectionHeading
         index="04"
-        :eyebrow="copy.process.eyebrow"
-        :title="copy.process.title"
-        :description="copy.process.description"
+        :eyebrow="t('process.eyebrow')"
+        :title="t('process.title')"
+        :description="t('process.description')"
         title-id="process-title"
       />
 
       <div class="protocol">
         <div class="protocol__head system-label">
           <span>ship.ts</span>
-          <span>{{ localeCode === 'ru' ? 'ВЫПОЛНЯЕТСЯ / PID 2048' : 'RUNNING / PID 2048' }}</span>
+          <span>{{ t('process.running') }}</span>
         </div>
         <span
           ref="progress"
@@ -60,7 +63,7 @@ onBeforeUnmount(() => context?.revert())
           aria-hidden="true"
         />
         <article
-          v-for="item in copy.process.items"
+          v-for="item in items"
           :key="item.number"
           class="protocol-step"
         >

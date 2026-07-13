@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { Project } from '~/types/content'
 
-const { copy, projects, localeCode } = usePortfolio()
+const { projects } = usePortfolio()
+const { t } = useI18n()
 const localePath = useLocalePath()
 const { openProject } = usePageTransition()
 const preview = ref<HTMLElement | null>(null)
@@ -15,6 +16,10 @@ let currentY = 0
 
 function projectPath(project: Project) {
   return localePath(`/projects/${project.slug}`)
+}
+
+function projectSummary(project: Project) {
+  return t(`${project.translationKey}.summary`)
 }
 
 function showPreview(project: Project, event?: MouseEvent) {
@@ -74,9 +79,9 @@ onBeforeUnmount(() => {
       <MotionReveal>
         <BaseSectionHeading
           index="02"
-          :eyebrow="copy.projects.eyebrow"
-          :title="copy.projects.title"
-          :description="copy.projects.description"
+          :eyebrow="t('projects.eyebrow')"
+          :title="t('projects.title')"
+          :description="t('projects.description')"
           title-id="projects-title"
         />
       </MotionReveal>
@@ -85,7 +90,7 @@ onBeforeUnmount(() => {
         <div class="project-list__head system-label">
           <span><i /> <i /> <i /></span>
           <span>git://portfolio/projects.log</span>
-          <span>{{ localeCode === 'ru' ? '1 запись' : '1 result' }}</span>
+          <span>{{ t('projects.resultCount') }}</span>
         </div>
         <MotionReveal
           v-for="project in projects"
@@ -105,11 +110,11 @@ onBeforeUnmount(() => {
               <span class="project-row__index system-label">+{{ project.index }}</span>
               <span class="project-row__main">
                 <span class="project-row__title"><b>openProject</b>(<q>{{ project.title }}</q>)</span>
-                <span class="project-row__summary">// {{ project.content[localeCode].summary }}</span>
+                <span class="project-row__summary">// {{ projectSummary(project) }}</span>
               </span>
               <span class="project-row__meta">
                 <span class="system-label"><b>period:</b> '{{ project.period }}'</span>
-                <span class="system-label"><b>scope:</b> '{{ copy.projects.roleLabel }}'</span>
+                <span class="system-label"><b>scope:</b> '{{ t('projects.roleLabel') }}'</span>
                 <span class="project-row__stack"><b>stack:</b> [{{ project.stack.map(item => `'${item}'`).join(', ') }}]</span>
               </span>
               <span
@@ -119,7 +124,7 @@ onBeforeUnmount(() => {
             </NuxtLink>
 
             <div class="project-row__mobile-preview">
-              <CrtFrame><PowerSketchPreview :label="project.content[localeCode].summary" /></CrtFrame>
+              <CrtFrame><PowerSketchPreview :label="projectSummary(project)" /></CrtFrame>
             </div>
           </article>
         </MotionReveal>
@@ -133,7 +138,7 @@ onBeforeUnmount(() => {
       aria-hidden="true"
     >
       <CrtFrame v-if="activeProject">
-        <PowerSketchPreview :label="activeProject.content[localeCode].summary" />
+        <PowerSketchPreview :label="projectSummary(activeProject)" />
       </CrtFrame>
     </div>
   </section>

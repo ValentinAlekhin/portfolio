@@ -1,20 +1,14 @@
 <script setup lang="ts">
 const props = defineProps<{ label: string }>()
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 const { theme, toggleTheme } = useTheme()
 const visibleLabel = ref('SYSTEM')
 const target = ref<HTMLButtonElement | null>(null)
 const cells = Array.from({ length: 32 }, (_, index) => index)
 const { scramble } = useScrambleText(locale)
 const { motionAllowed } = useMotionPreference()
-const localizedLabel = computed(() => {
-  if (locale.value === 'ru') {
-    return theme.value === 'phosphor' ? 'ФОСФОР' : 'СИСТЕМА'
-  }
-
-  return theme.value.toUpperCase()
-})
-const displayPrefix = computed(() => locale.value === 'ru' ? 'ЭКРАН' : 'DISPLAY')
+const localizedLabel = computed(() => t(`theme.${theme.value}`))
+const displayPrefix = computed(() => t('theme.display'))
 
 useMagnetic(target)
 
@@ -30,9 +24,7 @@ async function toggle(event: MouseEvent) {
   }
 
   const next = theme.value === 'system' ? 'phosphor' : 'system'
-  const nextLabel = locale.value === 'ru'
-    ? next === 'phosphor' ? 'ФОСФОР' : 'СИСТЕМА'
-    : next.toUpperCase()
+  const nextLabel = t(`theme.${next}`)
   if (!motionAllowed.value) {
     toggleTheme()
     visibleLabel.value = nextLabel

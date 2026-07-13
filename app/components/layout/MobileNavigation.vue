@@ -9,8 +9,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from 'reka-ui'
+import type { NavigationItem } from '~/types/content'
 
-const { copy } = usePortfolio()
+const { t, tm } = useI18n()
+const navItems = computed(() => tm('nav.items') as unknown as NavigationItem[])
 const localePath = useLocalePath()
 const open = ref(false)
 const homePath = computed(() => localePath('/'))
@@ -28,7 +30,7 @@ function openContact() {
       <button
         type="button"
         class="mobile-menu-trigger"
-        :aria-label="copy.nav.open"
+        :aria-label="t('nav.open')"
       >
         <span aria-hidden="true" />
         <span aria-hidden="true" />
@@ -42,23 +44,23 @@ function openContact() {
             VA // NAVIGATION
           </DialogTitle>
           <DialogDescription class="sr-only">
-            {{ copy.nav.label }}
+            {{ t('nav.label') }}
           </DialogDescription>
           <DialogClose as-child>
             <button
               type="button"
               class="dialog-close system-label"
-              :aria-label="copy.nav.close"
+              :aria-label="t('nav.close')"
             >
               ×
             </button>
           </DialogClose>
         </div>
 
-        <nav :aria-label="copy.nav.label">
+        <nav :aria-label="t('nav.label')">
           <ul class="mobile-nav-list">
             <li
-              v-for="(item, index) in copy.nav.items"
+              v-for="(item, index) in navItems"
               :key="item.id"
             >
               <DialogClose as-child>
@@ -76,12 +78,12 @@ function openContact() {
           class="mobile-nav-contact"
           @click="openContact"
         >
-          {{ copy.nav.contact }} <span aria-hidden="true">↗</span>
+          {{ t('nav.contact') }} <span aria-hidden="true">↗</span>
         </button>
 
         <div class="mobile-nav-controls">
-          <ThemeSwitch :label="copy.nav.theme" />
-          <LocaleSwitcher :label="copy.nav.language" />
+          <ThemeSwitch :label="t('nav.theme')" />
+          <LocaleSwitcher :label="t('nav.language')" />
         </div>
       </DialogContent>
     </DialogPortal>

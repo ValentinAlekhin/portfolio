@@ -1,8 +1,218 @@
 {
+  "locale": {
+    "russian": "Russian",
+    "english": "English"
+  },
+  "profile": {
+    "displayName": "Valentin Alekhin"
+  },
   "common": {
     "skip": "Skip to content",
     "status": "Status",
     "local": "Local time",
-    "build": "Build"
+    "build": "Build",
+    "online": "ONLINE",
+    "contact": "Contact"
+  },
+  "seo": {
+    "title": "Valentin Alekhin — Senior Full-stack Developer",
+    "description": "I design and build SaaS, web applications, and internal systems—from idea to launch.",
+    "ogImage": "/og/portfolio-en.png"
+  },
+  "nav": {
+    "label": "Main navigation",
+    "items": [
+      { "id": "projects", "label": "Projects" },
+      { "id": "services", "label": "Capabilities" },
+      { "id": "process", "label": "Process" },
+      { "id": "about", "label": "About" }
+    ],
+    "contact": "Discuss a project",
+    "open": "Open menu",
+    "close": "Close menu",
+    "language": "Switch language",
+    "theme": "Switch theme"
+  },
+  "hero": {
+    "eyebrow": "Independent senior full-stack developer",
+    "name": { "first": "VALENTIN", "last": "ALEKHIN" },
+    "statement": "I build web products from idea to launch.",
+    "description": "I design and build SaaS, web applications, and internal systems—without gaps between design, frontend, and backend.",
+    "terminal": "> idea → interface → frontend → backend → launch_",
+    "primary": "Discuss a project",
+    "secondary": "View projects",
+    "available": "Available for projects",
+    "experience": "6+ years",
+    "meta": { "available": "available", "experience": "experience", "stack": "stack" }
+  },
+  "projects": {
+    "eyebrow": "Selected systems",
+    "title": "Products built around real workflows",
+    "description": "Not a gallery of screens, but systems where interface, architecture, and launch work as one.",
+    "roleLabel": "SaaS / Product / Full-stack",
+    "openCase": "Open case",
+    "resultCount": "1 result",
+    "status": {
+      "live": "live",
+      "in-progress": "in progress",
+      "archived": "archived"
+    },
+    "entries": {
+      "powersketch": {
+        "roles": ["Product", "UI/UX", "Frontend", "Backend", "Architecture"],
+        "summary": "A browser-based service for designing electrical distribution boards.",
+        "description": "PowerSketch helps electricians and smart-home integrators assemble distribution-board projects without complex desktop software—from device placement to connection reports and link sharing.",
+        "challenge": "The product had to combine the precision of an engineering tool with an approachable web interface. A large device catalog, scalable canvas, pin connections, and project data all needed to stay consistent.",
+        "role": "I own the product end to end: workflows, interface and data-model design, frontend, backend, and continued product development after launch.",
+        "approach": "The editor is centered on an independent SVG scene. Devices, wires, layers, and annotations are data, so the same project can be edited, stored, copied, and exported without divergent representations.",
+        "architecture": "The interactive client is separated from server responsibilities. The backend handles authentication, projects, the device library, public access, and subscriptions, while the UI optimizes frequent canvas operations and synchronizes durable project state.",
+        "result": "A working browser product with a drag-and-drop editor, smart connections, layers, a device catalog, reports, shared access, and paid plans. Unverified user or financial metrics are deliberately excluded.",
+        "constraints": "The key trade-offs are large-scene SVG performance, export fidelity, backward compatibility of stored projects, and predictable editor behavior across screen sizes."
+      }
+    }
+  },
+  "capabilities": {
+    "eyebrow": "Product pipeline",
+    "title": "From an uncertain idea to a working system",
+    "description": "I can own the complete product or a specific layer while keeping user workflows and technical decisions connected.",
+    "inspectMode": "INSPECT MODE / HOVER OR FOCUS",
+    "items": [
+      { "id": "discovery", "title": "Discovery / Product", "description": "I clarify the problem, constraints, and first-release scope before optimizing delivery.", "details": ["MVP and requirements", "User workflows", "First-release boundaries"] },
+      { "id": "interface", "title": "Interface", "description": "I design interfaces that keep complex domain logic understandable and controllable.", "details": ["UI/UX", "Editors and dashboards", "Interactive prototypes"] },
+      { "id": "frontend", "title": "Frontend", "description": "I build fast Vue and Nuxt applications with typed logic and accessible interaction.", "details": ["Vue / Nuxt", "TypeScript", "Complex state"] },
+      { "id": "backend", "title": "Backend / Integrations", "description": "I design APIs, integrations, and durable background workflows without unnecessary complexity.", "details": ["Node.js / Go", "Payments and CRM", "Telegram and external APIs"] },
+      { "id": "launch", "title": "Launch", "description": "I prepare production, observability, and the next product cycle—the work does not end at a local build.", "details": ["Architecture", "Deployment", "Product development"] }
+    ]
+  },
+  "process": {
+    "eyebrow": "Work protocol",
+    "title": "A transparent process without extra layers",
+    "description": "You communicate directly with the person making product and technical decisions and accountable for the result.",
+    "running": "RUNNING / PID 2048",
+    "items": [
+      { "number": "01", "title": "Discussion", "description": "We unpack the problem, users, constraints, and what a useful outcome means." },
+      { "number": "02", "title": "Proposal", "description": "I define the solution, scope, stages, timeline, and a suitable engagement model." },
+      { "number": "03", "title": "Development", "description": "Work moves in short stages with regular demonstrations and feedback." },
+      { "number": "04", "title": "Launch", "description": "I verify production scenarios, deploy the product, and stay available after release." }
+    ]
+  },
+  "about": {
+    "eyebrow": "About / Now",
+    "title": "Interface and architecture are parts of the same decision",
+    "paragraphs": [
+      "I work full-stack because product decisions rarely stop at the edge of a layout. Interface state depends on the data model, while a dependable launch depends on architecture and operations.",
+      "I prefer work where I can understand the real workflow, test the direction with a prototype, and carry it through to actual use—not merely hand off files."
+    ],
+    "principlesLabel": "Working principles",
+    "principlesKey": "working_principles",
+    "principles": [
+      "I do not separate interface from architecture.",
+      "I prefer a working prototype to a long document.",
+      "I automate anything I have to do twice.",
+      "A product is only finished after launch."
+    ],
+    "now": [
+      { "label": "Currently building", "value": "PowerSketch" },
+      { "label": "Currently exploring", "value": "SVG product interfaces" },
+      { "label": "Available for", "value": "SaaS / tools / internal systems" }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Open channel",
+    "title": "Have a task or a product idea?",
+    "description": "Tell me what you are building, what already works, and where you need technical help. A short note is enough to begin.",
+    "write": "Write to me",
+    "copy": "Copy email",
+    "copied": "Email copied",
+    "dialogTitle": "NEW_PROJECT_REQUEST",
+    "dialogDescription": "Choose the easiest way to start the conversation.",
+    "compose": "Compose email",
+    "close": "Close",
+    "ascii": "┌─[ NEW_SESSION ]─────────────────┐\n│  status: READY                 │\n│  handshake: waiting...         │\n└────────────────────────────────┘"
+  },
+  "footer": {
+    "role": "Independent full-stack developer",
+    "backToTop": "Back to top"
+  },
+  "case": {
+    "back": "Back to projects",
+    "live": "Open PowerSketch",
+    "labels": { "context": "Context", "problem": "Problem", "role": "My role", "approach": "Product approach", "interactions": "Core interactions", "architecture": "System / Architecture", "result": "Result", "stack": "Stack", "next": "Open channel" },
+    "interactionItems": [
+      { "title": "SVG editor", "description": "A scalable canvas with device drag-and-drop, snapping, and layer controls." },
+      { "title": "Smart connections", "description": "Pin-to-pin connections become editable, durable project data." },
+      { "title": "Library & reports", "description": "Device-library search and connection reports ready for hand-off." }
+    ],
+    "nextTitle": "Let’s discuss your product",
+    "nextText": "I can help shape the first release or join the next stage of an existing system.",
+    "architectureLabel": "Product architecture",
+    "libraryPreview": "{title}: device library",
+    "reportPreview": "{title}: project report"
+  },
+  "notFound": {
+    "title": "404 / ROUTE NOT FOUND",
+    "text": "The requested route does not exist in this system.",
+    "action": "> cd /home",
+    "systemError": "SYSTEM ERROR"
+  },
+  "theme": {
+    "system": "SYSTEM",
+    "phosphor": "PHOSPHOR",
+    "display": "DISPLAY"
+  },
+  "terminal": {
+    "open": "Open command console",
+    "close": "Close command console",
+    "label": "Command console",
+    "ready": "VA_OS v2.1 — interactive shell ready",
+    "intro": "type `help` or press Tab",
+    "placeholder": "help",
+    "keyHints": "TAB — complete · ↑↓ — history",
+    "whoami": "independent senior full-stack developer / product engineer",
+    "openingProjects": "opening ./projects ...",
+    "openingPipeline": "opening ./product-pipeline ...",
+    "openingAbout": "opening README.md ...",
+    "openingTelegram": "opening {handle} ...",
+    "themeChanged": "display profile toggled",
+    "notFound": "command not found: {command}",
+    "commands": {
+      "help": { "token": "help", "description": "list available commands" },
+      "whoami": { "token": "whoami", "description": "show developer profile" },
+      "projects": { "token": "projects", "description": "open selected projects" },
+      "pipeline": { "token": "pipeline", "description": "open product pipeline" },
+      "about": { "token": "about", "description": "open README" },
+      "contact": { "token": "contact", "description": "open contact channel" },
+      "telegram": { "token": "telegram", "description": "message {handle}" },
+      "theme": { "token": "theme", "description": "toggle display profile" },
+      "clear": { "token": "clear", "description": "clear terminal output" }
+    }
+  },
+  "workbench": {
+    "explorer": "EXPLORER",
+    "sourceFiles": "Source files",
+    "name": "Valentin Alekhin",
+    "nameKey": "name",
+    "scopeKey": "scope",
+    "stackKey": "stack",
+    "availableKey": "available",
+    "scope": "['idea', 'ui', 'api', 'launch']",
+    "comment": "// no handoff gaps between layers",
+    "logs": ["product context loaded", "interface compiled", "api contract validated", "production route online"],
+    "line": "Ln 9, Col 24",
+    "building": "BUILD",
+    "passed": "✓ BUILD PASSED",
+    "run": "▶ RUN BUILD",
+    "asciiLabel": "VA ASCII art"
+  },
+  "preview": {
+    "label": "PowerSketch editor interface",
+    "share": "SHARE",
+    "report": "REPORT",
+    "devices": "DEVICES / 2000"
+  },
+  "system": {
+    "loading": "VA // LOADING SYSTEM",
+    "crtModel": "VA // CRT-02",
+    "crtSignal": "SIGNAL: STABLE"
   }
 }

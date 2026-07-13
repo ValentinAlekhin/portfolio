@@ -1,18 +1,9 @@
 <script setup lang="ts">
 import { profile } from '~/data/profile'
 
-const { copy, localeCode } = usePortfolio()
+const { t } = useI18n()
 const contactOpen = useState<boolean>('contact-dialog-open', () => false)
 const copied = ref(false)
-const asciiArt = computed(() => localeCode.value === 'ru'
-  ? `┌─[ НОВЫЙ_СЕАНС ]───────────────┐
-│  статус: ГОТОВ                │
-│  соединение: ожидание...      │
-└───────────────────────────────┘`
-  : `┌─[ NEW_SESSION ]─────────────────┐
-│  status: READY                 │
-│  handshake: waiting...         │
-└────────────────────────────────┘`)
 
 async function copyEmail() {
   await navigator.clipboard.writeText(profile.email)
@@ -34,16 +25,16 @@ async function copyEmail() {
         class="contact-section__ascii"
         aria-hidden="true"
       >
-        <pre>{{ asciiArt }}</pre>
+        <pre>{{ t('contact.ascii') }}</pre>
       </div>
       <p class="contact-section__eyebrow system-label">
-        <span>root@portfolio:~/contact$</span> ./start-conversation // {{ copy.contact.eyebrow }}
+        <span>root@portfolio:~/contact$</span> ./start-conversation // {{ t('contact.eyebrow') }}
       </p>
       <h2 id="contact-title">
-        <span>console.log(</span>{{ copy.contact.title }}<span>);</span>
+        <span>console.log(</span>{{ t('contact.title') }}<span>);</span>
       </h2>
       <p class="contact-section__description">
-        /* {{ copy.contact.description }} */
+        /* {{ t('contact.description') }} */
       </p>
 
       <div class="contact-section__links">
@@ -62,20 +53,20 @@ async function copyEmail() {
 
       <div class="contact-section__actions">
         <BaseButton @click="contactOpen = true">
-          mail --compose // {{ copy.contact.write }}
+          mail --compose // {{ t('contact.write') }}
         </BaseButton>
         <BaseButton
           variant="secondary"
           @click="copyEmail"
         >
-          pbcopy email.txt // {{ copy.contact.copy }}
+          pbcopy email.txt // {{ t('contact.copy') }}
         </BaseButton>
       </div>
       <p
         class="contact-section__feedback system-label"
         aria-live="polite"
       >
-        {{ copied ? copy.contact.copied : '' }}
+        {{ copied ? t('contact.copied') : '' }}
       </p>
     </div>
   </section>

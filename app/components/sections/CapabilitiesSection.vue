@@ -1,7 +1,10 @@
 <script setup lang="ts">
-const { copy, localeCode } = usePortfolio()
-const activeId = ref(copy.value.capabilities.items[0]?.id ?? '')
-const active = computed(() => copy.value.capabilities.items.find(item => item.id === activeId.value) ?? copy.value.capabilities.items[0])
+import type { CapabilityItem } from '~/types/content'
+
+const { t, tm } = useI18n()
+const items = computed(() => tm('capabilities.items') as unknown as CapabilityItem[])
+const activeId = ref(items.value[0]?.id ?? '')
+const active = computed(() => items.value.find(item => item.id === activeId.value) ?? items.value[0])
 </script>
 
 <template>
@@ -14,9 +17,9 @@ const active = computed(() => copy.value.capabilities.items.find(item => item.id
       <MotionReveal>
         <BaseSectionHeading
           index="03"
-          :eyebrow="copy.capabilities.eyebrow"
-          :title="copy.capabilities.title"
-          :description="copy.capabilities.description"
+          :eyebrow="t('capabilities.eyebrow')"
+          :title="t('capabilities.title')"
+          :description="t('capabilities.description')"
           title-id="capabilities-title"
         />
       </MotionReveal>
@@ -24,7 +27,7 @@ const active = computed(() => copy.value.capabilities.items.find(item => item.id
       <MotionReveal>
         <div class="capabilities__window-head system-label">
           <span>src/product_pipeline/</span>
-          <span>{{ localeCode === 'ru' ? 'РЕЖИМ ПРОСМОТРА / НАВЕДИТЕ ИЛИ ВЫБЕРИТЕ' : 'INSPECT MODE / HOVER OR FOCUS' }}</span>
+          <span>{{ t('capabilities.inspectMode') }}</span>
         </div>
         <div class="capabilities__desktop">
           <div
@@ -32,7 +35,7 @@ const active = computed(() => copy.value.capabilities.items.find(item => item.id
             role="list"
           >
             <button
-              v-for="(item, index) in copy.capabilities.items"
+              v-for="(item, index) in items"
               :key="item.id"
               type="button"
               :class="{ active: activeId === item.id }"
@@ -70,7 +73,7 @@ const active = computed(() => copy.value.capabilities.items.find(item => item.id
 
         <div class="capabilities__mobile">
           <details
-            v-for="(item, index) in copy.capabilities.items"
+            v-for="(item, index) in items"
             :key="item.id"
             :open="index === 0"
           >

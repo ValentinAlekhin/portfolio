@@ -20,7 +20,7 @@ const style = computed(() => {
     :style="style"
     aria-hidden="true"
   >
-    <span>VA // LOADING SYSTEM</span>
+    <span>{{ $t('system.loading') }}</span>
   </div>
 </template>
 

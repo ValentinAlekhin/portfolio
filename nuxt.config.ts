@@ -1,3 +1,5 @@
+import { localeLanguageTag, LocaleCode } from './app/types/i18n'
+
 const themeScript = `(function(){try{var s=localStorage.getItem('va-theme');var t=s==='system'||s==='phosphor'?s:(matchMedia('(prefers-color-scheme: dark)').matches?'phosphor':'system');document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t==='phosphor'?'dark':'light'}catch(e){document.documentElement.dataset.theme='system'}})()`
 
 export default defineNuxtConfig({
@@ -46,9 +48,9 @@ export default defineNuxtConfig({
   css: ['~/assets/styles/main.scss'],
 
   routeRules: {
-    '/': { redirect: '/ru/' },
-    '/ru/**': { prerender: true },
-    '/en/**': { prerender: true },
+    '/': { redirect: `/${LocaleCode.Ru}/` },
+    [`/${LocaleCode.Ru}/**`]: { prerender: true },
+    [`/${LocaleCode.En}/**`]: { prerender: true },
   },
 
   compatibilityDate: '2026-07-12',
@@ -58,10 +60,10 @@ export default defineNuxtConfig({
       crawlLinks: true,
       failOnError: true,
       routes: [
-        '/ru/',
-        '/en/',
-        '/ru/projects/powersketch/',
-        '/en/projects/powersketch/',
+        `/${LocaleCode.Ru}/`,
+        `/${LocaleCode.En}/`,
+        `/${LocaleCode.Ru}/projects/powersketch/`,
+        `/${LocaleCode.En}/projects/powersketch/`,
       ],
     },
   },
@@ -82,21 +84,21 @@ export default defineNuxtConfig({
 
   i18n: {
     baseUrl: 'https://alekhin.dev',
-    defaultLocale: 'ru',
+    defaultLocale: LocaleCode.Ru,
     strategy: 'prefix',
     detectBrowserLanguage: false,
     locales: [
       {
-        code: 'ru',
-        language: 'ru-RU',
-        name: 'Русский',
-        file: 'ru.json',
+        code: LocaleCode.Ru,
+        language: localeLanguageTag[LocaleCode.Ru],
+        name: LocaleCode.Ru.toUpperCase(),
+        file: `${LocaleCode.Ru}.json`,
       },
       {
-        code: 'en',
-        language: 'en-US',
-        name: 'English',
-        file: 'en.json',
+        code: LocaleCode.En,
+        language: localeLanguageTag[LocaleCode.En],
+        name: LocaleCode.En.toUpperCase(),
+        file: `${LocaleCode.En}.json`,
       },
     ],
   },

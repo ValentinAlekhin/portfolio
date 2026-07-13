@@ -3,7 +3,7 @@ import { profile } from '~/data/profile'
 
 const appRoot = ref<HTMLElement | null>(null)
 const { initializeTheme } = useTheme()
-const { copy } = usePortfolio()
+const { t } = useI18n()
 
 usePointerField(appRoot)
 
@@ -44,7 +44,7 @@ onBeforeUnmount(() => window.removeEventListener('scroll', updateProgress))
       class="site-noise"
       aria-hidden="true"
     />
-    <span class="sr-only">{{ copy.seo.title }} · {{ profile.domain }}</span>
+    <span class="sr-only">{{ t('seo.title') }} · {{ profile.domain }}</span>
   </div>
 </template>
 

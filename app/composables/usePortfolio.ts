@@ -1,15 +1,11 @@
-import { portfolioCopy } from '~/data/portfolio'
 import { projects } from '~/data/projects'
-import type { LocaleCode } from '~/types/content'
+import { LocaleCode } from '~/types/i18n'
 
 export function usePortfolio() {
   const { locale } = useI18n()
-  const localeCode = computed<LocaleCode>(() => locale.value === 'en' ? 'en' : 'ru')
-  const copy = computed(() => portfolioCopy[localeCode.value])
-
+  const localeCode = computed<LocaleCode>(() => locale.value === LocaleCode.En ? LocaleCode.En : LocaleCode.Ru)
   return {
     localeCode,
-    copy,
     projects,
   }
 }

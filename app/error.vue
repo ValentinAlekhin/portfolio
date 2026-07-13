@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app'
-import { portfolioCopy } from '~/data/portfolio'
+import { LocaleCode } from '~/types/i18n'
 
 defineProps<{ error: NuxtError }>()
 
 const route = useRoute()
-const locale = computed(() => route.path.startsWith('/en') ? 'en' : 'ru')
-const copy = computed(() => portfolioCopy[locale.value].notFound)
+const { t } = useI18n()
+const locale = computed(() => route.path.startsWith(`/${LocaleCode.En}`) ? LocaleCode.En : LocaleCode.Ru)
 const home = computed(() => `/${locale.value}/`)
 
 function returnHome() {
@@ -20,10 +20,10 @@ function returnHome() {
       <p class="system-label">
         SYSTEM ERROR / {{ error.statusCode }}
       </p>
-      <h1>{{ copy.title }}</h1>
-      <p>{{ copy.text }}</p>
+      <h1>{{ t('notFound.title') }}</h1>
+      <p>{{ t('notFound.text') }}</p>
       <BaseButton @click="returnHome">
-        {{ copy.action }}
+        {{ t('notFound.action') }}
       </BaseButton>
     </div>
   </main>

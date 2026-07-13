@@ -1,25 +1,27 @@
 <script setup lang="ts">
 import { profile } from '~/data/profile'
+import { localeLanguageTag } from '~/types/i18n'
 
-const { copy, localeCode } = usePortfolio()
+const { localeCode } = usePortfolio()
+const { t } = useI18n()
 const i18nHead = useLocaleHead({ dir: true, lang: true, seo: true })
 const canonical = computed(() => `https://alekhin.dev/${localeCode.value}/`)
 
 useSeoMeta({
-  title: () => copy.value.seo.title,
-  description: () => copy.value.seo.description,
+  title: () => t('seo.title'),
+  description: () => t('seo.description'),
   robots: 'index, follow',
-  ogTitle: () => copy.value.seo.title,
-  ogDescription: () => copy.value.seo.description,
-  ogImage: () => `https://alekhin.dev${copy.value.seo.ogImage}`,
+  ogTitle: () => t('seo.title'),
+  ogDescription: () => t('seo.description'),
+  ogImage: () => `https://alekhin.dev${t('seo.ogImage')}`,
   ogImageWidth: 1200,
   ogImageHeight: 630,
   ogType: 'website',
   ogUrl: canonical,
   twitterCard: 'summary_large_image',
-  twitterTitle: () => copy.value.seo.title,
-  twitterDescription: () => copy.value.seo.description,
-  twitterImage: () => `https://alekhin.dev${copy.value.seo.ogImage}`,
+  twitterTitle: () => t('seo.title'),
+  twitterDescription: () => t('seo.description'),
+  twitterImage: () => `https://alekhin.dev${t('seo.ogImage')}`,
 })
 
 useHead(() => ({
@@ -49,7 +51,7 @@ useHead(() => ({
           '@type': 'WebSite',
           'name': profile.domain,
           'url': 'https://alekhin.dev',
-          'inLanguage': localeCode.value === 'ru' ? 'ru-RU' : 'en-US',
+          'inLanguage': localeLanguageTag[localeCode.value],
         },
       ]).replaceAll('<', '\\u003c'),
     },
