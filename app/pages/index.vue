@@ -68,6 +68,7 @@ useHead(() => ({
     <ProjectsSection />
     <CapabilitiesSection />
     <ProcessSection />
+    <TechnologyMarquee />
     <AboutSection />
     <ContactSection />
   </main>
