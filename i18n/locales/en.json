@@ -205,6 +205,7 @@
     "building": "BUILD",
     "passed": "✓ BUILD PASSED",
     "run": "▶ RUN BUILD",
+    "rerun": "↻ RERUN BUILD",
     "asciiLabel": "VA ASCII art"
   },
   "preview": {
