@@ -41,8 +41,8 @@ const commandDefinitions: TerminalCommand[] = [
   { name: 'clear', alias: 'очистить', description: { ru: 'очистить консоль', en: 'clear terminal output' } },
 ]
 
-const availableTokens = computed(() => commandDefinitions.flatMap((item) => {
-  return localeCode.value === 'ru' ? [item.alias, item.name] : [item.name]
+const availableTokens = computed(() => commandDefinitions.map((item) => {
+  return localeCode.value === 'ru' ? item.alias : item.name
 }))
 
 const matchingCommands = computed(() => {
@@ -150,7 +150,7 @@ function execute() {
 
   if (value === 'help') {
     commandDefinitions.forEach((item) => {
-      const label = localeCode.value === 'ru' ? `${item.alias} (${item.name})` : item.name
+      const label = localeCode.value === 'ru' ? item.alias : item.name
       history.value.push({ kind: 'output', text: `${label.padEnd(24)} ${item.description[localeCode.value]}` })
     })
   }
@@ -240,7 +240,6 @@ watch(() => history.value.length, scrollHistoryToBottom)
     >
       <header class="terminal-console__head system-label">
         <span>TERMINAL / zsh</span>
-        <span>{{ localeCode === 'ru' ? 'TAB — дополнить · ↑↓ — история' : 'TAB — complete · ↑↓ — history' }}</span>
         <button
           type="button"
           aria-label="Close command console"
@@ -290,6 +289,9 @@ watch(() => history.value.length, scrollHistoryToBottom)
           @input="onCommandInput"
           @keydown="onInputKeydown"
         >
+        <span class="terminal-console__key-hints">
+          {{ localeCode === 'ru' ? 'TAB — дополнить · ↑↓ — история' : 'TAB — complete · ↑↓ — history' }}
+        </span>
       </form>
     </section>
   </div>
@@ -304,7 +306,6 @@ watch(() => history.value.length, scrollHistoryToBottom)
 .terminal-console__panel::after { position: absolute; opacity: 0.3; background: repeating-linear-gradient(to bottom, transparent 0 3px, rgb(0 0 0 / 5%) 4px); content: ''; inset: 0; pointer-events: none; }
 .terminal-console__head { z-index: 1; display: flex; min-height: 2.4rem; align-items: center; justify-content: space-between; padding-inline: 0.75rem; border-bottom: 1px solid var(--color-line); color: var(--color-text-muted); }
 .terminal-console__head button { border: 0; background: transparent; color: var(--color-text-muted); cursor: pointer; font-family: inherit; }
-.terminal-console__head > span:nth-child(2) { color: var(--color-accent); font-size: 0.52rem; }
 .terminal-console__history { z-index: 1; padding: 1rem; overflow-y: auto; font-size: 0.7rem; }
 .terminal-console__history p { margin: 0 0 0.55rem; color: var(--color-text-muted); white-space: pre-wrap; }
 .terminal-console__history .is-input { color: var(--color-text); }
@@ -316,8 +317,9 @@ watch(() => history.value.length, scrollHistoryToBottom)
 .terminal-console__suggestions button:focus-visible { background: color-mix(in srgb, var(--color-accent) 12%, transparent); }
 .terminal-console__suggestions span { color: var(--color-accent); }
 .terminal-console__suggestions small { margin-top: 0.2rem; color: var(--color-text-muted); font-size: 0.52rem; white-space: nowrap; }
-.terminal-console__form { z-index: 1; display: grid; min-height: 3rem; grid-template-columns: auto 1fr; align-items: center; gap: 0.55rem; padding-inline: 0.75rem; border-top: 1px solid var(--color-line); color: var(--color-accent); font-size: 0.7rem; }
+.terminal-console__form { z-index: 1; display: grid; min-height: 3rem; grid-template-columns: auto 1fr auto; align-items: center; gap: 0.55rem; padding-inline: 0.75rem; border-top: 1px solid var(--color-line); color: var(--color-accent); font-size: 0.7rem; }
 .terminal-console__form input { min-width: 0; border: 0; outline: 0; background: transparent; color: var(--color-text); caret-color: var(--color-accent); font-family: inherit; }
+.terminal-console__key-hints { color: var(--color-text-muted); font-size: 0.5rem; white-space: nowrap; }
 
 @media (max-width: 600px) {
   .terminal-console { right: 0.65rem; bottom: 0.65rem; }
@@ -325,6 +327,6 @@ watch(() => history.value.length, scrollHistoryToBottom)
   .terminal-console__trigger { min-width: 4.4rem; }
   .terminal-console__trigger > span:nth-child(2),
   .terminal-console__trigger kbd { display: none; }
-  .terminal-console__head > span:nth-child(2) { display: none; }
+  .terminal-console__key-hints { display: none; }
 }
 </style>
