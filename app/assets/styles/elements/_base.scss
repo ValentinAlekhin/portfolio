@@ -1,0 +1,53 @@
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-height) + 1.5rem);
+  background: var(--color-bg);
+}
+
+body {
+  overflow-x: hidden;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  line-height: 1.62;
+  text-rendering: optimizelegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  position: fixed;
+  z-index: 1000;
+  height: 1px;
+  background: var(--color-accent);
+  content: '';
+  inset: 0 auto auto 0;
+  pointer-events: none;
+  transition: width 80ms linear;
+  width: var(--scroll-progress, 0%);
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+::selection {
+  background: var(--color-phosphor);
+  color: var(--color-accent-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 4px;
+}
+
+h1,
+h2,
+h3,
+p {
+  text-wrap: pretty;
+}

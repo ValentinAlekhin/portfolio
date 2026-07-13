@@ -1,9 +1,9 @@
+const themeScript = `(function(){try{var s=localStorage.getItem('va-theme');var t=s==='system'||s==='phosphor'?s:(matchMedia('(prefers-color-scheme: dark)').matches?'phosphor':'system');document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t==='phosphor'?'dark':'light'}catch(e){document.documentElement.dataset.theme='system'}})()`
+
 export default defineNuxtConfig({
   modules: [
-    '@nuxt/ui',
-    '@nuxt/content',
     '@nuxtjs/i18n',
-    '@vueuse/nuxt',
+    '@nuxt/image',
     '@nuxt/eslint',
   ],
 
@@ -18,46 +18,51 @@ export default defineNuxtConfig({
 
   app: {
     head: {
+      titleTemplate: '%s · alekhin.dev',
       meta: [
         { name: 'color-scheme', content: 'light dark' },
-        { name: 'theme-color', content: '#f4f3ef', media: '(prefers-color-scheme: light)' },
-        { name: 'theme-color', content: '#15171b', media: '(prefers-color-scheme: dark)' },
+        { name: 'theme-color', content: '#edeae4', media: '(prefers-color-scheme: light)' },
+        { name: 'theme-color', content: '#090b09', media: '(prefers-color-scheme: dark)' },
       ],
       link: [
         { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
         { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
         { rel: 'manifest', href: '/site.webmanifest' },
       ],
+      script: [
+        {
+          key: 'theme-init',
+          innerHTML: themeScript,
+          tagPosition: 'head',
+        },
+      ],
+    },
+    pageTransition: {
+      name: 'system-page',
+      mode: 'out-in',
     },
   },
 
-  css: ['~/assets/css/main.css'],
-
-  colorMode: {
-    preference: 'light',
-    fallback: 'light',
-    classSuffix: '',
-  },
-
-  ui: {
-    fonts: false,
-    colorMode: true,
-    experimental: {
-      componentDetection: true,
-    },
-  },
+  css: ['~/assets/styles/main.scss'],
 
   routeRules: {
-    '/': { prerender: true },
-    '/ru': { prerender: true },
+    '/': { redirect: '/ru/' },
+    '/ru/**': { prerender: true },
+    '/en/**': { prerender: true },
   },
+
   compatibilityDate: '2026-07-12',
 
   nitro: {
     prerender: {
       crawlLinks: true,
       failOnError: true,
-      routes: ['/', '/ru'],
+      routes: [
+        '/ru/',
+        '/en/',
+        '/ru/projects/powersketch/',
+        '/en/projects/powersketch/',
+      ],
     },
   },
 
@@ -77,42 +82,22 @@ export default defineNuxtConfig({
 
   i18n: {
     baseUrl: 'https://alekhin.dev',
-    defaultLocale: 'en',
-    strategy: 'prefix_except_default',
-    detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: 'i18n_redirected',
-      redirectOn: 'root',
-      fallbackLocale: 'en',
-    },
+    defaultLocale: 'ru',
+    strategy: 'prefix',
+    detectBrowserLanguage: false,
     locales: [
-      {
-        code: 'en',
-        language: 'en-US',
-        name: 'English',
-      },
       {
         code: 'ru',
         language: 'ru-RU',
         name: 'Русский',
+        file: 'ru.json',
+      },
+      {
+        code: 'en',
+        language: 'en-US',
+        name: 'English',
+        file: 'en.json',
       },
     ],
-  },
-
-  icon: {
-    provider: 'none',
-    fallbackToApi: false,
-    clientBundle: {
-      icons: [
-        'lucide:arrow-up-right',
-        'lucide:check',
-        'lucide:chevron-down',
-        'lucide:loader-circle',
-        'lucide:monitor',
-        'lucide:moon',
-        'lucide:sun',
-        'lucide:x',
-      ],
-    },
   },
 })

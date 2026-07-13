@@ -1,0 +1,28 @@
+.system-page-enter-active,
+.system-page-leave-active {
+  transition: opacity 220ms ease, transform 420ms var(--ease-out);
+}
+
+.system-page-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.system-page-leave-to {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

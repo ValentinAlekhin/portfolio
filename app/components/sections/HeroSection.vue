@@ -1,342 +1,175 @@
 <script setup lang="ts">
-import type { PortfolioContent, ProjectItem } from '~/types/portfolio'
+const { copy } = usePortfolio()
+const root = ref<HTMLElement | null>(null)
+const contactOpen = useState<boolean>('contact-dialog-open', () => false)
+const { motionAllowed } = useMotionPreference()
+let context: ReturnType<ReturnType<typeof useNuxtApp>['$gsap']['context']> | undefined
 
-const props = defineProps<{
-  hero: PortfolioContent['hero']
-  project: ProjectItem
-  contactHref: string
-  available: boolean
-}>()
+onMounted(() => {
+  if (!root.value || !motionAllowed.value) return
+  const { $gsap } = useNuxtApp()
+  context = $gsap.context(() => {
+    $gsap.timeline({ defaults: { ease: 'power3.out' } })
+      .from('.hero__eyebrow', { autoAlpha: 0, y: 12, duration: 0.4 })
+      .from('.hero__name span', { yPercent: 115, duration: 0.75, stagger: 0.08 }, '-=0.15')
+      .from('.hero__statement, .hero__description, .hero__terminal, .hero__actions, .hero__meta', { autoAlpha: 0, y: 18, duration: 0.55, stagger: 0.07 }, '-=0.45')
+      .from('.hero__map', { autoAlpha: 0, scale: 0.97, duration: 0.7 }, '-=0.65')
+  }, root.value)
+})
 
-const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
-
-function words(line: string) {
-  return line.split(' ')
-}
+onBeforeUnmount(() => context?.revert())
 </script>
 
 <template>
   <section
     id="top"
-    class="hero-section"
+    ref="root"
+    class="hero"
     aria-labelledby="hero-title"
   >
-    <div class="site-container hero-section__grid">
-      <div class="hero-section__content">
-        <p class="hero-section__eyebrow">
-          {{ hero.eyebrow }}
+    <div class="site-container hero__grid">
+      <div class="hero__copy">
+        <p class="hero__eyebrow system-label">
+          <span>●</span> {{ copy.hero.eyebrow }}
         </p>
-
-        <h1 id="hero-title">
-          <span
-            v-for="line in hero.titleLines"
-            :key="line"
-            class="hero-section__title-line"
-          >
-            <template
-              v-for="(word, index) in words(line)"
-              :key="`${line}-${word}-${index}`"
-            >
-              <span class="hero-section__title-word">{{ word }}</span>{{ index < words(line).length - 1 ? ' ' : '' }}
-            </template>
-          </span>
-        </h1>
-
-        <p class="hero-section__description">
-          {{ hero.description }}
-        </p>
-
-        <div class="hero-section__actions">
-          <a
-            :href="contactHref"
-            :target="isExternalContact ? '_blank' : undefined"
-            :rel="isExternalContact ? 'noopener noreferrer' : undefined"
-            class="hero-action hero-action--primary"
-          >
-            {{ hero.primaryAction.label }}
-            <span aria-hidden="true">↗</span>
-          </a>
-          <a
-            :href="hero.secondaryAction.href"
-            class="hero-action hero-action--secondary"
-          >
-            {{ hero.secondaryAction.label }}
-            <span aria-hidden="true">↓</span>
-          </a>
-        </div>
-
-        <p class="hero-section__meta">
-          <span class="hero-section__availability">
-            <i
-              :class="{ 'is-available': available }"
-              aria-hidden="true"
-            />
-            {{ hero.availability }}
-          </span>
-          <span aria-hidden="true">·</span>
-          <span>{{ hero.experience }}</span>
-        </p>
-
-        <ul
-          class="hero-section__technologies"
-          :aria-label="hero.technologiesLabel"
+        <h1
+          id="hero-title"
+          class="hero__name"
         >
-          <li
-            v-for="technology in hero.technologies"
-            :key="technology.label"
+          <span><i>{{ copy.hero.name[0] }}</i></span>
+          <span><i>{{ copy.hero.name[1] }}</i></span>
+        </h1>
+        <p class="hero__statement">
+          {{ copy.hero.statement }}
+        </p>
+        <p class="hero__description">
+          {{ copy.hero.description }}
+        </p>
+        <div class="hero__terminal">
+          <TypewriterLine :text="copy.hero.terminal" />
+        </div>
+        <div class="hero__actions">
+          <BaseButton @click="contactOpen = true">
+            {{ copy.hero.primary }}
+            <template #icon>
+              ↗
+            </template>
+          </BaseButton>
+          <BaseButton
+            href="#projects"
+            variant="secondary"
           >
-            {{ technology.label }}
-          </li>
-        </ul>
+            {{ copy.hero.secondary }}
+            <template #icon>
+              ↓
+            </template>
+          </BaseButton>
+        </div>
+        <div class="hero__meta system-label">
+          <span><i /> {{ copy.hero.available }}</span>
+          <span>{{ copy.hero.experience }}</span>
+          <span>VUE / NUXT / TYPESCRIPT / NODE / GO</span>
+        </div>
       </div>
-
-      <div class="hero-section__project">
-        <HeroProjectPreview
-          :hero="hero"
-          :project="project"
-        />
+      <div class="hero__map">
+        <SystemMap />
       </div>
     </div>
   </section>
 </template>
 
-<style scoped>
-@reference "tailwindcss";
-
-.hero-section {
-  @apply relative;
-  padding: calc(var(--header-height) + clamp(3.5rem, 5.5vw, 5rem)) 0 clamp(3.75rem, 5vw, 5.25rem);
+<style scoped lang="scss">
+.hero {
+  position: relative;
+  display: flex;
+  min-height: 100svh;
+  align-items: center;
+  padding: calc(var(--header-height) + 3rem) 0 4rem;
 }
 
-.hero-section__grid {
-  @apply grid items-center;
-  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
-  gap: clamp(2.25rem, 4vw, 4rem);
-}
-
-.hero-section__content {
-  @apply relative z-1;
-  min-width: 0;
-}
-
-.hero-section__eyebrow {
-  margin: 0 0 1.45rem;
-  color: var(--ui-text-muted);
-  font-size: 0.82rem;
-  font-weight: 630;
-  letter-spacing: 0.015em;
-}
-
-.hero-section h1 {
-  @apply m-0;
-  color: var(--ui-text-highlighted);
-  font-size: clamp(3.6rem, 4.35vw, 4.25rem);
-  font-weight: 690;
-  hyphens: none;
-  letter-spacing: -0.064em;
-  line-height: 0.98;
-  overflow-wrap: normal;
-  text-wrap: balance;
-  word-break: normal;
-}
-
-.hero-section__title-line {
-  @apply block whitespace-nowrap;
-}
-
-.hero-section__title-word {
-  display: inline-block;
-  white-space: nowrap;
-}
-
-.hero-section__description {
-  max-width: 630px;
-  margin: 1.7rem 0 0;
-  color: var(--ui-text-muted);
-  font-size: clamp(1rem, 1.25vw, 1.13rem);
-  line-height: 1.62;
-}
-
-.hero-section__actions {
-  @apply mt-8 flex flex-wrap items-center;
-  gap: 0.6rem;
-}
-
-.hero-action {
-  @apply inline-flex items-center justify-center no-underline;
-  min-height: 2.9rem;
-  gap: 0.65rem;
-  padding: 0.7rem 1.05rem;
-  border-radius: 0.65rem;
-  font-size: 0.9375rem;
-  font-weight: 680;
-  line-height: 1.2;
-  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
-}
-
-.hero-action span {
-  transition: transform 180ms ease;
-}
-
-.hero-action--primary {
-  background: var(--ui-accent);
-  color: var(--ui-accent-contrast);
-}
-
-.hero-action--primary:hover {
-  background: var(--ui-accent-hover);
-  color: var(--ui-accent-contrast);
-}
-
-.hero-action--primary:hover span {
-  transform: translate(3px, -3px);
-}
-
-.hero-action--secondary {
-  border: 1px solid var(--ui-border);
-  color: var(--ui-text-toned);
-}
-
-.hero-action--secondary:hover {
-  border-color: color-mix(in srgb, var(--ui-accent) 45%, var(--ui-border));
-  background: color-mix(in srgb, var(--ui-accent) 6%, transparent);
-  color: var(--ui-text-highlighted);
-}
-
-.hero-action--secondary:hover span {
-  transform: translateY(3px);
-}
-
-.hero-section__meta {
-  @apply flex flex-wrap items-center;
-  gap: 0.45rem;
-  margin: 1.7rem 0 0;
-  color: var(--ui-text-muted);
-  font-size: 0.875rem;
-  font-weight: 570;
-}
-
-.hero-section__availability {
-  @apply inline-flex items-center;
-  gap: 0.48rem;
-}
-
-.hero-section__availability i {
-  width: 0.42rem;
-  height: 0.42rem;
+.hero::before {
+  position: absolute;
+  width: min(38vw, 34rem);
+  aspect-ratio: 1;
+  border: 1px solid var(--color-line);
   border-radius: 50%;
-  background: var(--ui-text-dimmed);
+  content: '';
+  opacity: 0.45;
+  right: -16vw;
+  top: 12vh;
+  pointer-events: none;
 }
 
-.hero-section__availability i.is-available {
-  background: var(--ui-success);
+.hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(22rem, 5fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
 }
 
-.hero-section__technologies {
-  @apply flex list-none flex-wrap p-0;
-  gap: 0;
-  margin: 0.8rem 0 0;
-  color: var(--ui-text-dimmed);
-  font-size: 0.8125rem;
-  font-weight: 580;
+.hero__eyebrow {
+  margin: 0 0 1.4rem;
+  color: var(--color-text-muted);
 }
 
-.hero-section__technologies li + li::before {
-  margin-inline: 0.48rem;
-  color: var(--ui-border);
-  content: "·";
+.hero__eyebrow span { color: var(--color-accent); }
+
+.hero__name {
+  margin: 0;
+  font-size: clamp(4rem, 8.7vw, 9rem);
+  font-weight: 530;
+  letter-spacing: -0.082em;
+  line-height: 0.83;
 }
 
-.hero-section__project {
-  min-width: 0;
+.hero__name > span {
+  display: block;
+  overflow: hidden;
 }
 
-@media (min-width: 1600px) {
-  .hero-section h1 {
-    font-size: clamp(4.5rem, 4vw, 4.75rem);
-  }
+.hero__name i { display: block; font-style: normal; }
+
+.hero__statement {
+  max-width: 22ch;
+  margin: 2rem 0 0;
+  font-size: clamp(1.35rem, 2.2vw, 2.25rem);
+  font-weight: 520;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
 }
 
-@media (max-width: 1240px) {
-  .hero-section {
-    padding-top: calc(var(--header-height) + 3.25rem);
-  }
-
-  .hero-section__grid {
-    grid-template-columns: 1fr;
-    gap: 3.5rem;
-  }
-
-  .hero-section__content {
-    max-width: 900px;
-  }
-
-  .hero-section h1 {
-    font-size: clamp(3.55rem, 6.5vw, 4.75rem);
-  }
-
-  .hero-section__project {
-    width: min(100%, 860px);
-  }
+.hero__description {
+  max-width: 55ch;
+  margin: 1rem 0 0;
+  color: var(--color-text-muted);
 }
 
-@media (max-width: 640px) {
-  .hero-section {
-    padding-top: calc(var(--header-height) + 2.4rem);
-    padding-bottom: 3.75rem;
-  }
+.hero__terminal { margin-top: 1.5rem; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 1.8rem; }
 
-  .hero-section__grid {
-    gap: 2.4rem;
-  }
-
-  .hero-section__eyebrow {
-    margin-bottom: 1.15rem;
-    font-size: 0.8125rem;
-  }
-
-  .hero-section h1 {
-    font-size: clamp(2.5rem, 11vw, 3rem);
-    letter-spacing: -0.058em;
-    line-height: 1;
-  }
-
-  .hero-section__title-line {
-    white-space: normal;
-  }
-
-  .hero-section__description {
-    margin-top: 1.35rem;
-    font-size: 1rem;
-    line-height: 1.58;
-  }
-
-  .hero-section__actions {
-    margin-top: 1.6rem;
-  }
-
-  .hero-section__meta {
-    margin-top: 1.45rem;
-  }
+.hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem 1.25rem;
+  margin-top: 2rem;
+  color: var(--color-text-muted);
 }
 
-@media (max-width: 350px) {
-  .hero-section h1 {
-    font-size: 2.5rem;
-  }
+.hero__meta span { display: inline-flex; align-items: center; gap: 0.45rem; }
+.hero__meta i { width: 0.4rem; height: 0.4rem; border-radius: 50%; background: var(--color-accent); box-shadow: 0 0 12px var(--color-accent); }
 
-  .hero-section__actions {
-    @apply grid grid-cols-1;
-  }
-
-  .hero-action {
-    @apply w-full;
-  }
+@media (max-width: 1080px) {
+  .hero { align-items: flex-start; }
+  .hero__grid { grid-template-columns: 1fr; }
+  .hero__copy { max-width: 58rem; }
+  .hero__map { width: min(100%, 42rem); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .hero-action:hover span {
-    transform: none;
-  }
+@media (max-width: 767px) {
+  .hero { padding-top: calc(var(--header-height) + 2.5rem); }
+  .hero__name { font-size: clamp(3.6rem, 17vw, 6rem); }
+  .hero__grid { gap: 3rem; }
+  .hero__map { margin-inline: auto; }
+  .hero__actions { align-items: stretch; }
 }
 </style>

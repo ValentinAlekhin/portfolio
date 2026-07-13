@@ -1,19 +1,52 @@
 <script setup lang="ts">
-import { useWindowScroll } from '@vueuse/core'
+import { profile } from '~/data/profile'
 
-import type { PortfolioContent } from '~/types/portfolio'
+const { copy, localeCode } = usePortfolio()
+const localePath = useLocalePath()
+const route = useRoute()
+const { time } = useLocalTime(profile.timeZone)
+const hud = useState('pointer-hud', () => ({ x: 0, y: 0, active: false }))
+const contactOpen = useState<boolean>('contact-dialog-open', () => false)
+const isScrolled = ref(false)
+const activeSection = ref('top')
+const homePath = computed(() => localePath('/'))
+const isHome = computed(() => !route.path.includes('/projects/'))
+let observer: IntersectionObserver | undefined
 
-const props = defineProps<{
-  site: PortfolioContent['site']
-  navigation: PortfolioContent['navigation']
-  contactHref: string
-}>()
+function sectionHref(id: string) {
+  return isHome.value ? `#${id}` : `${homePath.value}#${id}`
+}
 
-const sectionIds = computed(() => props.navigation.items.map(item => item.id))
-const activeSection = useActiveSection(sectionIds)
-const { y } = useWindowScroll()
-const isScrolled = computed(() => y.value > 16)
-const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
+function formatCoordinate(value: number) {
+  return String(value).padStart(4, '0')
+}
+
+onMounted(() => {
+  const onScroll = () => {
+    isScrolled.value = window.scrollY > 56
+  }
+  onScroll()
+  window.addEventListener('scroll', onScroll, { passive: true })
+
+  const sections = copy.value.nav.items
+    .map(item => document.getElementById(item.id))
+    .filter((element): element is HTMLElement => Boolean(element))
+  observer = new IntersectionObserver((entries) => {
+    const visible = entries.find(entry => entry.isIntersecting)
+    if (visible?.target.id) {
+      activeSection.value = visible.target.id
+    }
+  }, { rootMargin: '-35% 0px -55%', threshold: 0 })
+  sections.forEach(section => observer?.observe(section))
+  scrollHandler = onScroll
+})
+
+let scrollHandler: (() => void) | undefined
+
+onBeforeUnmount(() => {
+  if (scrollHandler) window.removeEventListener('scroll', scrollHandler)
+  observer?.disconnect()
+})
 </script>
 
 <template>
@@ -21,226 +54,210 @@ const isExternalContact = computed(() => /^https?:\/\//.test(props.contactHref))
     class="site-header"
     :class="{ 'site-header--scrolled': isScrolled }"
   >
-    <div class="site-container site-header__inner">
-      <a
-        href="#top"
-        class="brand"
-        :aria-label="site.name"
+    <div class="site-container site-header__main">
+      <NuxtLink
+        :to="homePath"
+        class="site-brand"
+        :aria-label="profile.displayName[localeCode]"
       >
-        <span
-          class="brand__mark"
-          aria-hidden="true"
-        >{{ site.shortName }}</span>
-        <span class="brand__name">{{ site.name }}</span>
-      </a>
+        <span class="site-brand__mark">VA</span>
+        <span>{{ profile.displayName[localeCode] }}</span>
+      </NuxtLink>
 
       <nav
-        class="desktop-navigation"
-        :aria-label="navigation.menuTitle"
+        class="site-nav"
+        :aria-label="copy.nav.label"
       >
-        <ul>
-          <li
-            v-for="item in navigation.items"
-            :key="item.id"
-          >
-            <a
-              :href="`#${item.id}`"
-              :aria-current="activeSection === item.id ? 'location' : undefined"
-            >
-              {{ item.label }}
-            </a>
-          </li>
-        </ul>
+        <a
+          v-for="item in copy.nav.items"
+          :key="item.id"
+          :href="sectionHref(item.id)"
+          :aria-current="activeSection === item.id ? 'location' : undefined"
+        >{{ item.label }}</a>
       </nav>
 
       <div class="site-header__actions">
-        <div class="site-header__desktop-controls">
-          <ThemeSwitcher :label="navigation.themeLabel" />
-          <LocaleSwitcher :label="navigation.languageLabel" />
-          <a
-            :href="contactHref"
-            :target="isExternalContact ? '_blank' : undefined"
-            :rel="isExternalContact ? 'noopener noreferrer' : undefined"
-            class="site-header__contact"
+        <div class="site-header__desktop-actions">
+          <LocaleSwitcher :label="copy.nav.language" />
+          <ThemeSwitch :label="copy.nav.theme" />
+          <span class="availability system-label"><i /> AVAILABLE</span>
+          <button
+            type="button"
+            class="header-contact system-label"
+            @click="contactOpen = true"
           >
-            {{ navigation.contactLabel }}
-            <span aria-hidden="true">↗</span>
-          </a>
+            {{ copy.nav.contact }} <span aria-hidden="true">↗</span>
+          </button>
         </div>
-
-        <MobileNavigation
-          :items="navigation.items"
-          :active-section="activeSection"
-          :menu-title="navigation.menuTitle"
-          :open-label="navigation.menuOpenLabel"
-          :close-label="navigation.menuCloseLabel"
-          :contact-label="navigation.contactLabel"
-          :contact-href="contactHref"
-          :theme-label="navigation.themeLabel"
-          :language-label="navigation.languageLabel"
-        />
+        <button
+          type="button"
+          class="header-contact header-contact--mobile system-label"
+          @click="contactOpen = true"
+        >
+          {{ localeCode === 'ru' ? 'Связаться' : 'Contact' }}
+          <span aria-hidden="true">↗</span>
+        </button>
+        <MobileNavigation />
       </div>
+    </div>
+
+    <div class="site-container site-header__telemetry system-label">
+      <span>LOCAL {{ time }}</span>
+      <span class="pointer-coordinates">X {{ formatCoordinate(hud.x) }} Y {{ formatCoordinate(hud.y) }}</span>
+      <span>BUILD 02</span>
     </div>
   </header>
 </template>
 
-<style scoped>
-@reference "tailwindcss";
-
+<style scoped lang="scss">
 .site-header {
-  @apply fixed inset-x-0 top-0 z-50 border-b border-transparent bg-transparent;
-
+  position: fixed;
+  z-index: 500;
+  top: 0;
+  right: 0;
+  left: 0;
   height: var(--header-height);
-  transition: background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  transition: background var(--duration-ui) ease, border-color var(--duration-ui) ease;
 }
 
 .site-header--scrolled {
-  border-color: color-mix(in srgb, var(--ui-border) 68%, transparent);
-  background: color-mix(in srgb, var(--ui-background) 91%, transparent);
-  box-shadow: 0 6px 24px rgb(20 23 31 / 4%);
-  backdrop-filter: blur(16px) saturate(120%);
+  border-color: var(--color-line);
+  background: color-mix(in srgb, var(--color-bg) 94%, transparent);
 }
 
-.site-header__inner {
-  @apply grid h-full items-center gap-6;
-
-  grid-template-columns: minmax(180px, 1fr) auto minmax(180px, 1fr);
+.site-header__main {
+  display: grid;
+  height: 3.65rem;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1.5rem;
 }
 
-.brand {
-  @apply inline-flex w-fit items-center no-underline;
-
-  gap: 0.7rem;
+.site-brand {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 650;
+  text-decoration: none;
 }
 
-.brand__mark {
-  @apply inline-flex items-center;
-  height: 1.55rem;
-  padding-right: 0.7rem;
-  border-right: 1px solid var(--ui-border);
-  color: var(--ui-accent);
-  font-size: 0.8125rem;
-  font-weight: 780;
-  letter-spacing: -0.035em;
+.site-brand__mark {
+  padding-right: 0.75rem;
+  border-right: 1px solid var(--color-line);
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-weight: 800;
 }
 
-.brand__name {
-  @apply whitespace-nowrap;
-
-  color: var(--ui-text-highlighted);
-  font-size: 0.88rem;
-  font-weight: 690;
-  letter-spacing: -0.02em;
-}
-
-.desktop-navigation ul {
-  @apply m-0 flex list-none items-center p-0;
-
+.site-nav {
+  display: flex;
+  align-items: center;
   gap: 1.35rem;
 }
 
-.desktop-navigation a {
-  @apply inline-flex items-center no-underline;
-
+.site-nav a {
   position: relative;
+  display: inline-flex;
   min-height: 2.75rem;
-  color: var(--ui-text-muted);
-  font-size: 0.8125rem;
+  align-items: center;
+  color: var(--color-text-muted);
+  font-size: 0.76rem;
   font-weight: 620;
-  transition: color 180ms ease;
+  text-decoration: none;
 }
 
-.desktop-navigation a:hover,
-.desktop-navigation a[aria-current="location"] {
-  color: var(--ui-text-highlighted);
-}
-
-.desktop-navigation a::after {
-  @apply absolute rounded-full;
+.site-nav a::after {
+  position: absolute;
   right: 0;
-  bottom: 0.25rem;
+  bottom: 0.2rem;
   left: 0;
   height: 1px;
-  background: var(--ui-accent);
-  content: "";
+  background: var(--color-accent);
+  content: '';
   opacity: 0;
-  transform: scaleX(0.45);
-  transition: opacity 180ms ease, transform 180ms ease;
+  transform: scaleX(0.3);
+  transition: opacity 160ms ease, transform 160ms ease;
 }
 
-.desktop-navigation a[aria-current="location"]::after {
-  opacity: 1;
-  transform: scaleX(1);
-}
+.site-nav a:hover,
+.site-nav a[aria-current='location'] { color: var(--color-text); }
+.site-nav a[aria-current='location']::after { opacity: 1; transform: scaleX(1); }
 
 .site-header__actions,
-.site-header__desktop-controls {
-  @apply flex items-center justify-end;
+.site-header__desktop-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
 
+.site-header__desktop-actions { gap: 0.35rem; }
+
+.availability {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
   gap: 0.45rem;
+  padding-inline: 0.55rem;
+  color: var(--color-text-muted);
 }
 
-.site-header__contact {
-  @apply inline-flex min-h-9 items-center no-underline;
-  gap: 0.45rem;
-  padding: 0.48rem 0.72rem;
-  border-radius: 0.55rem;
-  background: var(--ui-accent);
-  color: var(--ui-accent-contrast);
-  font-size: 0.8125rem;
-  font-weight: 680;
-  transition: background-color 180ms ease, color 180ms ease;
+.availability i {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--color-accent) 70%, transparent);
 }
 
-.site-header__contact span {
-  color: inherit;
-  transition: transform 180ms ease;
+.header-contact {
+  min-height: 2.75rem;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--color-accent);
+  border-radius: 6px;
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  cursor: pointer;
 }
 
-.site-header__contact:hover {
-  background: var(--ui-accent-hover);
-  color: var(--ui-accent-contrast);
+.header-contact--mobile { display: none; }
+
+html:not([data-theme='phosphor']) .header-contact { color: #fff; }
+
+.site-header__telemetry {
+  display: flex;
+  height: 1.4rem;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.25rem;
+  border-top: 1px solid color-mix(in srgb, var(--color-line) 55%, transparent);
+  color: var(--color-text-muted);
+  font-size: 0.58rem;
 }
 
-.site-header__contact:hover span {
-  color: inherit;
-  transform: translate(2px, -2px);
+@media (max-width: 1240px) {
+  .availability { display: none; }
 }
 
-@media (max-width: 1120px) {
-  .site-header__inner {
-    grid-template-columns: 1fr auto;
-  }
-
-  .desktop-navigation,
-  .site-header__desktop-controls {
-    @apply hidden;
-  }
+@media (max-width: 1080px) {
+  .site-header__main { grid-template-columns: 1fr auto; }
+  .site-nav,
+  .site-header__desktop-actions { display: none; }
+  .header-contact--mobile { display: inline-flex; align-items: center; }
+  .site-header__actions { gap: 0.45rem; }
 }
 
-@media (max-width: 640px) {
-  .brand {
-    gap: 0.55rem;
-  }
-
-  .brand__mark {
-    padding-right: 0.55rem;
-  }
-
-  .brand__name {
-    font-size: 0.82rem;
-  }
+@media (max-width: 767px) {
+  .site-header__main { height: 3.55rem; }
+  .site-header__telemetry { height: 0.95rem; font-size: 0.52rem; }
+  .pointer-coordinates { display: none; }
 }
 
-@media (max-width: 360px) {
-  .brand__name {
-    @apply hidden;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .site-header__contact:hover span {
-    transform: none;
-  }
+@media (max-width: 390px) {
+  .site-brand > span:last-child { display: none; }
+  .header-contact--mobile { padding-inline: 0.55rem; font-size: 0.6rem; }
 }
 </style>

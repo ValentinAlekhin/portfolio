@@ -1,0 +1,12 @@
+@mixin system-label {
+  font-family: var(--font-mono);
+  font-variant-ligatures: none;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+@mixin focus-ring {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 4px;
+}

@@ -1,49 +1,42 @@
 <script setup lang="ts">
-const props = defineProps<{
-  label: string
-}>()
+defineProps<{ label: string }>()
 
 const { locale } = useI18n()
-const localePath = useLocalePath()
-const targetLocale = computed<'en' | 'ru'>(() => locale.value === 'ru' ? 'en' : 'ru')
-const targetPath = computed(() => localePath('index', targetLocale.value))
-const accessibleLabel = computed(() => `${props.label}: ${targetLocale.value === 'ru' ? 'Русский' : 'English'}`)
-
-async function switchLocale() {
-  await navigateTo(`${targetPath.value}${window.location.hash}`)
-}
+const switchLocalePath = useSwitchLocalePath()
+const targetLocale = computed(() => locale.value === 'ru' ? 'en' : 'ru')
+const targetPath = computed(() => switchLocalePath(targetLocale.value))
 </script>
 
 <template>
-  <UTooltip :text="accessibleLabel">
-    <NuxtLink
-      :to="targetPath"
-      :aria-label="accessibleLabel"
-      :hreflang="targetLocale"
-      class="locale-switcher"
-      @click.prevent="switchLocale"
-    >
-      {{ targetLocale.toUpperCase() }}
-    </NuxtLink>
-  </UTooltip>
+  <NuxtLink
+    :to="targetPath"
+    class="locale-switcher system-label"
+    :aria-label="`${label}: ${targetLocale === 'ru' ? 'Русский' : 'English'}`"
+    :hreflang="targetLocale"
+  >
+    <span :class="{ active: locale === 'ru' }">RU</span>
+    <i aria-hidden="true">/</i>
+    <span :class="{ active: locale === 'en' }">EN</span>
+  </NuxtLink>
 </template>
 
-<style scoped>
-@reference "tailwindcss";
-
+<style scoped lang="scss">
 .locale-switcher {
-  @apply inline-grid h-9 min-w-9 place-items-center no-underline;
-  padding-inline: 0.45rem;
-  border-radius: 0.55rem;
-  color: var(--ui-text-muted);
-  font-size: 0.8125rem;
-  font-weight: 760;
-  letter-spacing: 0.05em;
-  transition: background-color 180ms ease, color 180ms ease;
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.35rem;
+  padding-inline: 0.5rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
 }
 
-.locale-switcher:hover {
-  background: var(--ui-surface-muted);
-  color: var(--ui-text-highlighted);
+.locale-switcher .active {
+  color: var(--color-text);
+}
+
+.locale-switcher i {
+  color: var(--color-line);
+  font-style: normal;
 }
 </style>

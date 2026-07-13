@@ -1,0 +1,8 @@
+{
+  "common": {
+    "skip": "Skip to content",
+    "status": "Status",
+    "local": "Local time",
+    "build": "Build"
+  }
+}

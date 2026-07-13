@@ -1,144 +1,72 @@
 <script setup lang="ts">
-const { content } = await usePortfolioContent()
-const contactHref = useContactLink(() => content.value.contacts)
-const heroProject = computed(() => {
-  const project = content.value.projects.items.find(item => item.published && item.featured)
-    ?? content.value.projects.items.find(item => item.published)
+import { profile } from '~/data/profile'
 
-  if (!project) {
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'A published project is required for the portfolio hero.',
-    })
-  }
-
-  return project
-})
-const i18nHead = useLocaleHead({
-  dir: true,
-  lang: true,
-  seo: true,
-})
+const { copy, localeCode } = usePortfolio()
+const i18nHead = useLocaleHead({ dir: true, lang: true, seo: true })
+const canonical = computed(() => `https://alekhin.dev/${localeCode.value}/`)
 
 useSeoMeta({
-  title: () => content.value.seo.title,
-  description: () => content.value.seo.description,
+  title: () => copy.value.seo.title,
+  description: () => copy.value.seo.description,
   robots: 'index, follow',
-  ogTitle: () => content.value.seo.ogTitle,
-  ogDescription: () => content.value.seo.ogDescription,
-  ogImage: () => content.value.seo.ogImage,
-  ogImageAlt: () => content.value.seo.ogTitle,
+  ogTitle: () => copy.value.seo.title,
+  ogDescription: () => copy.value.seo.description,
+  ogImage: () => `https://alekhin.dev${copy.value.seo.ogImage}`,
   ogImageWidth: 1200,
   ogImageHeight: 630,
-  ogUrl: () => content.value.seo.canonicalUrl,
   ogType: 'website',
-  ogLocale: () => content.value.seo.ogLocale,
-  ogLocaleAlternate: () => content.value.seo.ogAlternateLocale,
+  ogUrl: canonical,
   twitterCard: 'summary_large_image',
-  twitterTitle: () => content.value.seo.ogTitle,
-  twitterDescription: () => content.value.seo.ogDescription,
-  twitterImage: () => content.value.seo.ogImage,
+  twitterTitle: () => copy.value.seo.title,
+  twitterDescription: () => copy.value.seo.description,
+  twitterImage: () => `https://alekhin.dev${copy.value.seo.ogImage}`,
 })
 
-useHead(() => {
-  const person = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    'name': content.value.site.schemaName,
-    'url': content.value.site.url,
-    'jobTitle': content.value.site.schemaRole,
-    'knowsAbout': content.value.site.knowsAbout,
-  }
-  const website = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    'name': content.value.site.name,
-    'url': content.value.site.url,
-    'inLanguage': content.value.locale === 'ru' ? 'ru-RU' : 'en-US',
-  }
-
-  return {
-    htmlAttrs: i18nHead.value.htmlAttrs,
-    link: [
-      ...(i18nHead.value.link ?? []).filter(link => link.rel !== 'canonical'),
-      {
-        key: 'canonical',
-        rel: 'canonical',
-        href: content.value.seo.canonicalUrl,
-      },
-    ],
-    meta: i18nHead.value.meta,
-    script: [
-      {
-        key: 'person-jsonld',
-        type: 'application/ld+json',
-        innerHTML: JSON.stringify(person).replaceAll('<', '\\u003c'),
-      },
-      {
-        key: 'website-jsonld',
-        type: 'application/ld+json',
-        innerHTML: JSON.stringify(website).replaceAll('<', '\\u003c'),
-      },
-    ],
-  }
-})
+useHead(() => ({
+  htmlAttrs: i18nHead.value.htmlAttrs,
+  link: [
+    ...(i18nHead.value.link ?? []).filter(link => link.rel !== 'canonical'),
+    { rel: 'canonical', href: canonical.value },
+  ],
+  meta: i18nHead.value.meta,
+  script: [
+    {
+      key: 'home-jsonld',
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify([
+        {
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          'name': profile.name,
+          'url': 'https://alekhin.dev',
+          'jobTitle': profile.role,
+          'email': `mailto:${profile.email}`,
+          'sameAs': [profile.github],
+          'knowsAbout': ['TypeScript', 'Vue', 'Nuxt', 'Node.js', 'Go', 'SaaS'],
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          'name': profile.domain,
+          'url': 'https://alekhin.dev',
+          'inLanguage': localeCode.value === 'ru' ? 'ru-RU' : 'en-US',
+        },
+      ]).replaceAll('<', '\\u003c'),
+    },
+  ],
+}))
 </script>
 
 <template>
-  <div class="site-shell">
-    <a
-      class="skip-link"
-      href="#main-content"
-    >
-      {{ content.navigation.skipLabel }}
-    </a>
-
-    <SiteHeader
-      :site="content.site"
-      :navigation="content.navigation"
-      :contact-href="contactHref"
-    />
-
-    <main
-      id="main-content"
-      tabindex="-1"
-    >
-      <HeroSection
-        :hero="content.hero"
-        :project="heroProject"
-        :contact-href="contactHref"
-        :available="content.availability.available"
-      />
-      <ProjectsSection :projects="content.projects" />
-      <ServicesSection :services="content.services" />
-      <ProcessSection :process="content.process" />
-      <AboutSection :about="content.about" />
-      <ContactsSection :contacts="content.contacts" />
-    </main>
-
-    <SiteFooter
-      :site="content.site"
-      :footer="content.footer"
-    />
-  </div>
+  <main
+    id="main-content"
+    tabindex="-1"
+  >
+    <HeroSection />
+    <ProjectsSection />
+    <CapabilitiesSection />
+    <ProcessSection />
+    <AboutSection />
+    <ContactSection />
+  </main>
 </template>
-
-<style scoped>
-@reference "tailwindcss";
-
-.site-shell {
-  @apply relative min-h-screen overflow-clip;
-}
-
-.skip-link {
-  @apply fixed left-3 top-3 z-100 rounded-xl px-4 py-3 font-bold;
-  background: var(--ui-accent);
-  color: var(--ui-accent-contrast);
-  transform: translateY(-150%);
-  transition: transform 180ms ease;
-}
-
-.skip-link:focus {
-  transform: translateY(0);
-}
-</style>
