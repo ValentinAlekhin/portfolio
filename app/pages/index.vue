@@ -71,5 +71,6 @@ useHead(() => ({
     <TechnologyMarquee />
     <AboutSection />
     <ContactSection />
+    <FlightGameSection />
   </main>
 </template>

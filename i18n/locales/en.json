@@ -99,6 +99,33 @@
       "launch": { "title": "Launch", "description": "I verify production scenarios, deploy the product, and stay available after release." }
     }
   },
+  "flight": {
+    "windowTitle": "flight.exe / CANVAS API",
+    "canvasLabel": "Arcade game: the aircraft flies and fires automatically while the player moves left and right",
+    "score": "SCORE",
+    "time": "TIME",
+    "system": "SYS",
+    "online": "ONLINE",
+    "standby": "STANDBY",
+    "status": {
+      "idle": "PROCESS IDLE",
+      "running": "PROCESS RUNNING",
+      "terminated": "PROCESS STOPPED"
+    },
+    "bootLabel": "VA_FLIGHT // READY",
+    "ready": "FLIGHT SYSTEM READY",
+    "intro": "Flight and weapons are automatic. Control the course and avoid every collision.",
+    "exitCode": "EXIT CODE: COLLISION",
+    "terminated": "PROCESS TERMINATED",
+    "finalScore": "FINAL SCORE",
+    "run": "> run flight.exe",
+    "restart": "> restart flight.exe",
+    "keyboardLabel": "KEYBOARD:",
+    "keyboardControls": "← → / A D / Ф В",
+    "mobileLabel": "MOBILE:",
+    "mobileControls": "DRAG TO MOVE",
+    "autofire": "AUTO-FIRE: ENABLED"
+  },
   "about": {
     "eyebrow": "About / Now",
     "title": "Interface and architecture are parts of the same decision",

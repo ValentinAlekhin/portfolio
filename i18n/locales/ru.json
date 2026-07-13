@@ -99,6 +99,33 @@
       "launch": { "title": "Запуск", "description": "Проверяю production-сценарии, разворачиваю продукт и остаюсь на связи после релиза." }
     }
   },
+  "flight": {
+    "windowTitle": "flight.exe / CANVAS API",
+    "canvasLabel": "Аркадная игра: самолёт автоматически летит и стреляет, игрок управляет движением влево и вправо",
+    "score": "SCORE",
+    "time": "TIME",
+    "system": "SYS",
+    "online": "ONLINE",
+    "standby": "STANDBY",
+    "status": {
+      "idle": "ПРОЦЕСС ОЖИДАЕТ",
+      "running": "ПРОЦЕСС ВЫПОЛНЯЕТСЯ",
+      "terminated": "ПРОЦЕСС ОСТАНОВЛЕН"
+    },
+    "bootLabel": "VA_FLIGHT // ГОТОВО",
+    "ready": "FLIGHT SYSTEM READY",
+    "intro": "Самолёт и стрельба работают автоматически. Управляйте курсом и избегайте любого столкновения.",
+    "exitCode": "EXIT CODE: COLLISION",
+    "terminated": "PROCESS TERMINATED",
+    "finalScore": "ИТОГОВЫЙ СЧЁТ",
+    "run": "> run flight.exe",
+    "restart": "> restart flight.exe",
+    "keyboardLabel": "КЛАВИАТУРА:",
+    "keyboardControls": "← → / A D / Ф В",
+    "mobileLabel": "МОБИЛЬНЫЙ:",
+    "mobileControls": "ДВИЖЕНИЕ ПАЛЬЦЕМ",
+    "autofire": "AUTO-FIRE: ENABLED"
+  },
   "about": {
     "eyebrow": "Обо мне / Сейчас",
     "title": "Интерфейс и архитектура — части одного решения",
