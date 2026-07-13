@@ -116,6 +116,6 @@ export const projects: Project[] = [
         captionKey: 'projects.entries.powersketch.media.subscription.caption',
       },
     ],
-    stack: ['Vue', 'Nuxt', 'TypeScript', 'Node.js', 'SVG'],
+    stack: ['Vue', 'Nuxt', 'TypeScript', 'Node.js', 'Canvas API', 'SVG', 'Go', 'PostgreSQL', 'Docker'],
   },
 ]
