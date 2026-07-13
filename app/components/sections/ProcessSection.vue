@@ -95,11 +95,10 @@ onBeforeUnmount(() => context?.revert())
 .protocol__progress { position: absolute; top: 2.55rem; right: 0; left: 0; height: 2px; content: ''; transform-origin: left; }
 .protocol::before { background: var(--color-line); }
 .protocol__progress { z-index: 1; background: var(--color-accent); }
-.protocol-step { min-height: 22rem; padding: 2rem 1.5rem 1.5rem 0; border-right: 1px solid var(--color-line); }
-.protocol-step + .protocol-step { padding-left: 1.5rem; }
+.protocol-step { min-height: 20rem; padding: 2rem 1.5rem; border-right: 1px solid var(--color-line); }
 .protocol-step:last-child { border-right: 0; }
 .protocol-step__marker { color: var(--color-text-muted); }
-.protocol-step h3 { margin: 5rem 0 0; font-family: var(--font-mono); font-size: clamp(1.2rem, 2vw, 2rem); font-weight: 500; letter-spacing: -0.045em; }
+.protocol-step h3 { margin: 3.25rem 0 0; font-family: var(--font-mono); font-size: clamp(1.2rem, 2vw, 2rem); font-weight: 500; letter-spacing: -0.045em; }
 .protocol-step h3 span { display: block; margin-bottom: 0.45rem; color: #c67be5; font-size: 0.62rem; letter-spacing: 0; }
 .protocol-step h3 i { color: var(--color-accent); font-style: normal; }
 .protocol-step p { max-width: 34ch; margin: 1rem 0 0; color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.72rem; }
@@ -108,8 +107,7 @@ onBeforeUnmount(() => context?.revert())
   .protocol { grid-template-columns: 1fr; }
   .protocol__head { grid-column: 1; }
   .protocol__progress { display: none; }
-  .protocol-step,
-  .protocol-step + .protocol-step { min-height: auto; padding: 2rem 0; border-right: 0; border-bottom: 1px solid var(--color-line); }
+  .protocol-step { min-height: auto; padding: 2rem 1rem; border-right: 0; border-bottom: 1px solid var(--color-line); }
   .protocol-step h3 { margin-top: 2rem; }
 }
 </style>

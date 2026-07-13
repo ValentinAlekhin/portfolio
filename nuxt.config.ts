@@ -48,8 +48,7 @@ export default defineNuxtConfig({
   css: ['~/assets/styles/main.scss'],
 
   routeRules: {
-    '/': { redirect: `/${LocaleCode.Ru}/` },
-    [`/${LocaleCode.Ru}/**`]: { prerender: true },
+    '/**': { prerender: true },
     [`/${LocaleCode.En}/**`]: { prerender: true },
   },
 
@@ -60,9 +59,9 @@ export default defineNuxtConfig({
       crawlLinks: true,
       failOnError: true,
       routes: [
-        `/${LocaleCode.Ru}/`,
+        '/',
         `/${LocaleCode.En}/`,
-        `/${LocaleCode.Ru}/projects/powersketch/`,
+        '/projects/powersketch/',
         `/${LocaleCode.En}/projects/powersketch/`,
       ],
     },
@@ -85,8 +84,14 @@ export default defineNuxtConfig({
   i18n: {
     baseUrl: 'https://alekhin.dev',
     defaultLocale: LocaleCode.Ru,
-    strategy: 'prefix',
-    detectBrowserLanguage: false,
+    strategy: 'prefix_except_default',
+    detectBrowserLanguage: {
+      alwaysRedirect: false,
+      cookieKey: 'i18n_redirected',
+      fallbackLocale: LocaleCode.Ru,
+      redirectOn: 'root',
+      useCookie: true,
+    },
     locales: [
       {
         code: LocaleCode.Ru,

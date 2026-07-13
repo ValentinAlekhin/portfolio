@@ -111,4 +111,33 @@ defineProps<{
     max-width: 55ch;
   }
 }
+
+@media (max-width: 600px) {
+  .section-heading {
+    gap: 1rem;
+  }
+
+  .section-heading__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0;
+  }
+
+  .section-heading h2 {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0.75rem;
+    font-size: clamp(2.15rem, 9.5vw, 2.7rem);
+    overflow-wrap: break-word;
+  }
+
+  .section-heading h2 span {
+    margin-left: -0.75rem;
+  }
+
+  .section-heading__description {
+    margin-top: 0.5rem;
+    font-size: 0.76rem;
+  }
+}
 </style>

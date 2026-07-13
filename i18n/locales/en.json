@@ -31,7 +31,10 @@
     "open": "Open menu",
     "close": "Close menu",
     "language": "Switch language",
-    "theme": "Switch theme"
+    "theme": "Switch theme",
+    "drawerTitle": "VA // NAVIGATION",
+    "runtime": "ROUTE TABLE",
+    "routesReady": "04 ROUTES / READY"
   },
   "hero": {
     "eyebrow": "Independent senior full-stack developer",

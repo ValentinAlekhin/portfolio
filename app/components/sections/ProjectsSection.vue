@@ -109,7 +109,7 @@ onBeforeUnmount(() => {
             >
               <span class="project-row__index system-label">+{{ project.index }}</span>
               <span class="project-row__main">
-                <span class="project-row__title"><b>openProject</b>(<q>{{ project.title }}</q>)</span>
+                <span class="project-row__title"><b>openProject</b><span>(<q>{{ project.title }}</q>)</span></span>
                 <span class="project-row__summary">// {{ projectSummary(project) }}</span>
               </span>
               <span class="project-row__meta">
@@ -147,7 +147,7 @@ onBeforeUnmount(() => {
 <style scoped lang="scss">
 .projects-section { background: color-mix(in srgb, var(--color-surface) 55%, var(--color-bg)); }
 .project-list { border: 1px solid var(--color-control-border); background: color-mix(in srgb, var(--color-bg) 92%, #000); box-shadow: 0 30px 80px rgb(0 0 0 / 12%); }
-.project-list__head { display: grid; min-height: 2.6rem; grid-template-columns: 1fr auto 1fr; align-items: center; padding-inline: 0.8rem; border-bottom: 1px solid var(--color-line); color: var(--color-text-muted); }
+.project-list__head { display: grid; min-height: 2.6rem; grid-template-columns: 1fr auto 1fr; align-items: center; padding-inline: 0.8rem; border-bottom: 1px solid var(--color-line); color: var(--color-text-muted); font-size: 0.6rem; }
 .project-list__head > span:last-child { justify-self: end; color: var(--color-accent); }
 .project-list__head > span:first-child { display: flex; gap: 0.3rem; }
 .project-list__head i { width: 0.42rem; height: 0.42rem; border: 1px solid var(--color-control-border); border-radius: 50%; }
@@ -158,11 +158,11 @@ onBeforeUnmount(() => {
 .project-row__link {
   position: relative;
   display: grid;
-  min-height: 15rem;
+  min-height: 13rem;
   grid-template-columns: 0.65fr 4.2fr 2fr auto;
   align-items: start;
   gap: 1.5rem;
-  padding-block: 2.2rem;
+  padding: 2rem 1.5rem;
   text-decoration: none;
 }
 
@@ -187,6 +187,7 @@ onBeforeUnmount(() => {
 .project-row__main { display: grid; gap: 1rem; }
 .project-row__title { color: var(--color-text); font-family: var(--font-mono); font-size: clamp(1.65rem, 3.7vw, 4rem); font-weight: 480; letter-spacing: -0.055em; line-height: 1; }
 .project-row__title b { color: #62b7e8; font-weight: 500; }
+.project-row__title > span { white-space: nowrap; }
 .project-row__title q { color: #d5b767; quotes: '"' '"'; }
 .project-row__summary { max-width: 44ch; color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.76rem; line-height: 1.6; }
 .project-row__link:hover .project-row__summary,
@@ -212,17 +213,25 @@ onBeforeUnmount(() => {
 .project-cursor-preview.visible { opacity: 1; }
 
 @media (max-width: 900px), (hover: none), (pointer: coarse) {
-  .project-row__link { min-height: auto; grid-template-columns: auto 1fr auto; }
+  .project-row__link { min-height: auto; grid-template-columns: auto 1fr auto; padding: 1.75rem 1.25rem; }
   .project-row__meta { grid-column: 2 / -1; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .project-row__summary { max-width: 50ch; }
-  .project-row__mobile-preview { display: block; }
+  .project-row__mobile-preview { display: block; padding: 0 1rem 1rem; }
   .project-cursor-preview { display: none; }
 }
 
 @media (max-width: 600px) {
-  .project-row__link { grid-template-columns: auto 1fr; gap: 1rem; }
-  .project-row__arrow { position: absolute !important; right: 0.75rem; }
-  .project-row__meta { grid-column: 1 / -1; }
-  .project-row__title { font-size: clamp(2.7rem, 14vw, 4.2rem); }
+  .project-list__head { grid-template-columns: auto minmax(0, 1fr) auto; gap: 0.55rem; padding-inline: 0.65rem; font-size: 0.5rem; }
+  .project-list__head > span:nth-child(2) { overflow: hidden; text-align: center; text-overflow: ellipsis; white-space: nowrap; }
+  .project-list__head > span:last-child { white-space: nowrap; }
+  .project-row__link { grid-template-columns: 1fr auto; gap: 0.85rem; }
+  .project-row__arrow { position: absolute !important; top: 1rem; right: 1.25rem; }
+  .project-row__main { grid-column: 1 / -1; }
+  .project-row__meta { grid-column: 1 / -1; grid-template-columns: 1fr; gap: 0.55rem; padding-top: 0.25rem; }
+  .project-row__title { font-size: clamp(1.75rem, 8.5vw, 2.35rem); }
+  .project-row__title b,
+  .project-row__title > span { display: block; }
+  .project-row__title > span { margin-top: 0.3rem; white-space: nowrap; }
+  .project-row__summary { font-size: 0.7rem; }
 }
 </style>

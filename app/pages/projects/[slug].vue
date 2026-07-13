@@ -111,7 +111,7 @@ useHead(() => ({
             target="_blank"
             rel="noopener noreferrer"
             class="case-live-link system-label"
-          >[ open {{ t('case.live') }} ]</a>
+          >[ {{ t('case.live') }} ]</a>
         </div>
         <div class="case-manifest system-label">
           <span>export default &#123;</span>
@@ -351,5 +351,37 @@ useHead(() => ({
   .case-interactions__grid article { min-height: auto; padding: 2rem 0; border-right: 0; border-bottom: 1px solid var(--color-line); }
   .case-interactions__grid h3 { margin-top: 2rem; }
   .case-stack .site-container { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .case-hero {
+    padding: calc(var(--header-height) + 2.5rem) 0 3.5rem;
+  }
+
+  .case-hero__top {
+    gap: 0.75rem;
+    font-size: 0.62rem;
+  }
+
+  .case-hero h1 {
+    margin-top: 3rem;
+    font-size: clamp(2.35rem, 12vw, 3.5rem);
+    line-height: 0.86;
+    white-space: nowrap;
+  }
+
+  .case-hero h1 span {
+    margin-bottom: 0.75rem;
+  }
+
+  .case-hero__intro {
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .case-manifest {
+    margin-top: 2.5rem;
+    overflow-wrap: anywhere;
+  }
 }
 </style>

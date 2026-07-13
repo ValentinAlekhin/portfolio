@@ -45,13 +45,7 @@ onBeforeUnmount(() => {
             <span>●</span> {{ t('contact.eyebrow') }}
           </p>
           <DialogClose as-child>
-            <button
-              type="button"
-              class="dialog-close"
-              :aria-label="t('contact.close')"
-            >
-              ×
-            </button>
+            <DialogCloseButton :label="t('contact.close')" />
           </DialogClose>
         </div>
         <DialogTitle class="contact-dialog__title">
@@ -116,19 +110,44 @@ onBeforeUnmount(() => {
 </template>
 
 <style lang="scss">
+.dialog-overlay {
+  z-index: 1400;
+}
+
 .contact-dialog {
   position: fixed;
-  z-index: 801;
+  z-index: 1401;
   top: 50%;
   left: 50%;
   width: min(calc(100% - 2rem), 42rem);
+  max-height: calc(100svh - 2rem);
   padding: clamp(1.25rem, 4vw, 2.5rem);
-  border: 1px solid var(--color-line);
-  border-radius: 14px;
-  background: var(--color-surface);
-  box-shadow: 0 35px 100px rgb(0 0 0 / 30%);
+  overflow-y: auto;
+  border: 1px solid var(--color-control-border);
+  border-radius: 2px;
+  background:
+    linear-gradient(color-mix(in srgb, var(--color-line) 38%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--color-line) 38%, transparent) 1px, transparent 1px),
+    color-mix(in srgb, var(--color-bg) 97%, #000);
+  background-size: 3rem 3rem;
+  box-shadow: 0 35px 100px rgb(0 0 0 / 45%), inset 0 0 50px rgb(0 0 0 / 18%);
   transform: translate(-50%, -50%);
   animation: contact-dialog-in 320ms var(--ease-out);
+}
+
+.contact-dialog::after {
+  position: absolute;
+  z-index: 0;
+  opacity: 0.24;
+  background: repeating-linear-gradient(to bottom, transparent 0 3px, rgb(0 0 0 / 9%) 4px);
+  content: '';
+  inset: 0;
+  pointer-events: none;
+}
+
+.contact-dialog > * {
+  position: relative;
+  z-index: 1;
 }
 
 .contact-dialog__top {
@@ -171,5 +190,55 @@ onBeforeUnmount(() => {
 
 @keyframes contact-dialog-in {
   from { opacity: 0; transform: translate(-50%, -46%) scale(0.98); }
+}
+
+@keyframes contact-dialog-mobile-in {
+  from { opacity: 0; transform: translateY(0.75rem); }
+}
+
+@media (max-width: 600px) {
+  .contact-dialog {
+    top: 0.4rem;
+    left: 0.4rem;
+    width: calc(100% - 0.8rem);
+    max-height: calc(100svh - 0.8rem);
+    padding: 1.25rem;
+    transform: none;
+    animation-name: contact-dialog-mobile-in;
+  }
+
+  .contact-dialog__title {
+    margin-top: 2rem;
+    font-size: clamp(1.3rem, 6vw, 1.55rem);
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+  }
+
+  .contact-dialog__description {
+    font-size: 0.95rem;
+  }
+
+  .contact-dialog__address {
+    margin-top: 1.75rem;
+  }
+
+  .contact-dialog__address-row {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  .contact-dialog__address a {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .contact-dialog__actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .contact-dialog__actions .base-button {
+    width: 100%;
+  }
 }
 </style>
