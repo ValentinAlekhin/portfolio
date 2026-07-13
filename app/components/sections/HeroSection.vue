@@ -183,7 +183,7 @@ onBeforeUnmount(() => context?.revert())
 .hero__meta b { color: var(--color-accent); font-weight: 500; }
 .hero__meta i { width: 0.4rem; height: 0.4rem; border-radius: 50%; background: var(--color-accent); box-shadow: 0 0 12px var(--color-accent); }
 
-@media (max-width: 1080px) {
+@media (max-width: 1200px) {
   .hero { align-items: flex-start; }
   .hero__grid { grid-template-columns: 1fr; }
   .hero__copy { max-width: 58rem; }

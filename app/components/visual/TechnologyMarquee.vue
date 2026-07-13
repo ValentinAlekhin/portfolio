@@ -57,12 +57,15 @@ const technologies = [
 
 <style scoped lang="scss">
 .technology-marquee {
+  --marquee-fill: #a8ff60;
+  --marquee-ink: #071007;
   position: relative;
   display: grid;
   overflow: hidden;
-  border-top: 1px solid var(--color-line);
-  border-bottom: 1px solid var(--color-line);
-  background: color-mix(in srgb, var(--color-surface) 86%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--marquee-ink) 48%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--marquee-ink) 48%, transparent);
+  background: var(--marquee-fill);
+  box-shadow: inset 0 1px color-mix(in srgb, var(--marquee-ink) 16%, transparent), inset 0 -1px color-mix(in srgb, #000 20%, transparent);
   grid-template-columns: auto minmax(0, 1fr);
 }
 
@@ -77,8 +80,8 @@ const technologies = [
 }
 
 .technology-marquee:focus-visible {
-  outline: 1px solid var(--color-accent);
-  outline-offset: -1px;
+  outline: 2px solid var(--marquee-ink);
+  outline-offset: -2px;
 }
 
 .technology-marquee__prompt {
@@ -90,16 +93,16 @@ const technologies = [
   gap: 0.65rem;
   margin: 0;
   padding: 0.9rem var(--layout-gutter);
-  border-right: 1px solid var(--color-line);
-  background: color-mix(in srgb, var(--color-bg) 96%, #000);
-  color: var(--color-text-muted);
+  border-right: 1px solid color-mix(in srgb, var(--marquee-ink) 42%, transparent);
+  background: color-mix(in srgb, var(--marquee-fill) 88%, #000);
+  color: var(--marquee-ink);
   text-transform: none;
   white-space: nowrap;
 }
 
 .technology-marquee__prompt span {
-  color: var(--color-accent);
-  text-shadow: 0 0 10px color-mix(in srgb, var(--color-accent) 55%, transparent);
+  color: var(--marquee-ink);
+  text-shadow: 0 0 10px color-mix(in srgb, var(--marquee-ink) 28%, transparent);
 }
 
 .technology-marquee__viewport {
@@ -126,7 +129,7 @@ const technologies = [
   align-items: center;
   gap: 0.55rem;
   padding: 0.9rem 1.25rem;
-  color: #d5b767;
+  color: var(--marquee-ink);
   font-family: var(--font-mono);
   font-size: clamp(0.65rem, 0.78vw, 0.78rem);
   line-height: 1.4;
@@ -134,13 +137,13 @@ const technologies = [
 }
 
 .technology-marquee__item i {
-  color: var(--color-accent);
+  color: var(--marquee-ink);
   font-style: normal;
 }
 
 .technology-marquee__item b {
   margin-left: 0.7rem;
-  color: var(--color-text-muted);
+  color: color-mix(in srgb, var(--marquee-ink) 62%, transparent);
   font-weight: 400;
 }
 

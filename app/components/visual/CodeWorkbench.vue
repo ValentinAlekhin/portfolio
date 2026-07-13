@@ -259,10 +259,11 @@ onBeforeUnmount(() => {
 .workbench__tabs { display: flex; min-height: 2.25rem; overflow: hidden; border-bottom: 1px solid var(--color-line); }
 .workbench__tabs button { min-width: 8.5rem; padding: 0.5rem 0.75rem; border: 0; border-right: 1px solid var(--color-line); background: transparent; color: var(--color-text-muted); cursor: pointer; font-family: var(--font-mono); font-size: 0.62rem; text-align: left; animation: workbench-file-in 280ms var(--ease-out); }
 .workbench__tabs button.active { box-shadow: inset 0 2px var(--color-accent); background: var(--color-surface); color: var(--color-text); }
-.workbench__code { min-height: 0; overflow: hidden; padding: clamp(1.2rem, 3vw, 2.2rem) 1rem; }
-.workbench__code--ascii { container-type: inline-size; display: grid; padding: 0; place-items: center; }
+.workbench__code { min-height: 0; overflow: auto; padding: clamp(1.2rem, 3vw, 2.2rem) 1rem; }
+.workbench__code--ascii { container-type: inline-size; display: grid; overflow: hidden; padding: 0; place-items: center; }
 .code-lines { margin: 0; padding-left: 3rem; color: var(--color-text-muted); font-size: clamp(0.7rem, 1vw, 0.9rem); line-height: 2; }
 .code-lines li { padding-left: 0.85rem; border-left: 1px solid color-mix(in srgb, var(--color-line) 60%, transparent); }
+.code-lines code { white-space: nowrap; }
 .code-lines li::marker { color: color-mix(in srgb, var(--color-text-muted) 55%, transparent); font-size: 0.65rem; }
 .token-keyword { color: #d275ff; font-weight: 500; }
 .token-type,
@@ -322,7 +323,8 @@ onBeforeUnmount(() => {
   .workbench__tabs button { min-width: auto; flex: 1; padding-inline: 0.4rem; font-size: 0.55rem; }
   .workbench__code { padding-inline: 0.3rem; }
   .code-lines { padding-left: 2.5rem; font-size: 0.61rem; }
-  .workbench__status > span { display: none; }
-  .workbench__status button { margin-left: auto; }
+  .workbench__status { gap: 0.45rem; padding-left: 0.45rem; font-size: 0.44rem; }
+  .workbench__status > span { flex-shrink: 0; white-space: nowrap; }
+  .workbench__status button { margin-left: auto; padding-inline: 0.45rem; }
 }
 </style>
