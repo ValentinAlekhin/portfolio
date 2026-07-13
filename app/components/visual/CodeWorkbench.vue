@@ -8,7 +8,13 @@ const buildProgress = ref(100)
 let buildTimer: ReturnType<typeof setInterval> | undefined
 
 const tabs: WorkbenchTab[] = ['portfolio.ts', 'runtime.log', 'ascii.va']
-const logs = useTranslatedMessages<string[]>('workbench.logs')
+const logKeys = [
+  'workbench.logs.context',
+  'workbench.logs.interface',
+  'workbench.logs.api',
+  'workbench.logs.production',
+] as const
+const logs = computed(() => logKeys.map(key => t(key)))
 
 const buildLabel = computed(() => {
   if (buildState.value === 'building') return `${t('workbench.building')} ${buildProgress.value}%`

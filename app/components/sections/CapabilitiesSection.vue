@@ -2,7 +2,19 @@
 import type { CapabilityItem } from '~/types/content'
 
 const { t } = useI18n()
-const items = useTranslatedMessages<CapabilityItem[]>('capabilities.items')
+const itemDefinitions = [
+  { id: 'discovery', details: ['mvp', 'workflows', 'scope'] },
+  { id: 'interface', details: ['design', 'editors', 'prototypes'] },
+  { id: 'frontend', details: ['frameworks', 'typescript', 'state'] },
+  { id: 'backend', details: ['runtime', 'integrations', 'externalApi'] },
+  { id: 'launch', details: ['architecture', 'deployment', 'development'] },
+] as const
+const items = computed<CapabilityItem[]>(() => itemDefinitions.map(item => ({
+  id: item.id,
+  title: t(`capabilities.items.${item.id}.title`),
+  description: t(`capabilities.items.${item.id}.description`),
+  details: item.details.map(detail => t(`capabilities.items.${item.id}.details.${detail}`)),
+})))
 const activeId = ref(items.value[0]?.id ?? '')
 const active = computed(() => items.value.find(item => item.id === activeId.value) ?? items.value[0])
 </script>

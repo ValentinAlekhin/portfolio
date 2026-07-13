@@ -31,9 +31,13 @@ const content = computed<ProjectContent>(() => {
     constraints: t(`${key}.constraints`),
   }
 })
-const rolesKey = computed(() => `${project.value!.translationKey}.roles`)
-const roles = useTranslatedMessages<string[]>(rolesKey)
-const interactionItems = useTranslatedMessages<InteractionItem[]>('case.interactionItems')
+const roleKeys = ['product', 'design', 'frontend', 'backend', 'architecture'] as const
+const interactionKeys = ['editor', 'connections', 'reports'] as const
+const roles = computed(() => roleKeys.map(role => t(`${project.value!.translationKey}.roles.${role}`)))
+const interactionItems = computed<InteractionItem[]>(() => interactionKeys.map(item => ({
+  title: t(`case.interactionItems.${item}.title`),
+  description: t(`case.interactionItems.${item}.description`),
+})))
 const canonical = computed(() => `https://alekhin.dev/${localeCode.value}/projects/${project.value!.slug}/`)
 const i18nHead = useLocaleHead({ dir: true, lang: true, seo: true })
 const homeProjects = computed(() => `${localePath('/')}#projects`)

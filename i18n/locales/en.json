@@ -59,7 +59,7 @@
     },
     "entries": {
       "powersketch": {
-        "roles": ["Product", "UI/UX", "Frontend", "Backend", "Architecture"],
+        "roles": { "product": "Product", "design": "UI/UX", "frontend": "Frontend", "backend": "Backend", "architecture": "Architecture" },
         "summary": "A browser-based service for designing electrical distribution boards.",
         "description": "PowerSketch helps electricians and smart-home integrators assemble distribution-board projects without complex desktop software—from device placement to connection reports and link sharing.",
         "challenge": "The product had to combine the precision of an engineering tool with an approachable web interface. A large device catalog, scalable canvas, pin connections, and project data all needed to stay consistent.",
@@ -76,41 +76,41 @@
     "title": "From an uncertain idea to a working system",
     "description": "I can own the complete product or a specific layer while keeping user workflows and technical decisions connected.",
     "inspectMode": "INSPECT MODE / HOVER OR FOCUS",
-    "items": [
-      { "id": "discovery", "title": "Discovery / Product", "description": "I clarify the problem, constraints, and first-release scope before optimizing delivery.", "details": ["MVP and requirements", "User workflows", "First-release boundaries"] },
-      { "id": "interface", "title": "Interface", "description": "I design interfaces that keep complex domain logic understandable and controllable.", "details": ["UI/UX", "Editors and dashboards", "Interactive prototypes"] },
-      { "id": "frontend", "title": "Frontend", "description": "I build fast Vue and Nuxt applications with typed logic and accessible interaction.", "details": ["Vue / Nuxt", "TypeScript", "Complex state"] },
-      { "id": "backend", "title": "Backend / Integrations", "description": "I design APIs, integrations, and durable background workflows without unnecessary complexity.", "details": ["Node.js / Go", "Payments and CRM", "Telegram and external APIs"] },
-      { "id": "launch", "title": "Launch", "description": "I prepare production, observability, and the next product cycle—the work does not end at a local build.", "details": ["Architecture", "Deployment", "Product development"] }
-    ]
+    "items": {
+      "discovery": { "title": "Discovery / Product", "description": "I clarify the problem, constraints, and first-release scope before optimizing delivery.", "details": { "mvp": "MVP and requirements", "workflows": "User workflows", "scope": "First-release boundaries" } },
+      "interface": { "title": "Interface", "description": "I design interfaces that keep complex domain logic understandable and controllable.", "details": { "design": "UI/UX", "editors": "Editors and dashboards", "prototypes": "Interactive prototypes" } },
+      "frontend": { "title": "Frontend", "description": "I build fast Vue and Nuxt applications with typed logic and accessible interaction.", "details": { "frameworks": "Vue / Nuxt", "typescript": "TypeScript", "state": "Complex state" } },
+      "backend": { "title": "Backend / Integrations", "description": "I design APIs, integrations, and durable background workflows without unnecessary complexity.", "details": { "runtime": "Node.js / Go", "integrations": "Payments and CRM", "externalApi": "Telegram and external APIs" } },
+      "launch": { "title": "Launch", "description": "I prepare production, observability, and the next product cycle—the work does not end at a local build.", "details": { "architecture": "Architecture", "deployment": "Deployment", "development": "Product development" } }
+    }
   },
   "process": {
     "eyebrow": "Work protocol",
     "title": "A transparent process without extra layers",
     "description": "You communicate directly with the person making product and technical decisions and accountable for the result.",
     "running": "RUNNING / PID 2048",
-    "items": [
-      { "number": "01", "title": "Discussion", "description": "We unpack the problem, users, constraints, and what a useful outcome means." },
-      { "number": "02", "title": "Proposal", "description": "I define the solution, scope, stages, timeline, and a suitable engagement model." },
-      { "number": "03", "title": "Development", "description": "Work moves in short stages with regular demonstrations and feedback." },
-      { "number": "04", "title": "Launch", "description": "I verify production scenarios, deploy the product, and stay available after release." }
-    ]
+    "items": {
+      "discussion": { "title": "Discussion", "description": "We unpack the problem, users, constraints, and what a useful outcome means." },
+      "proposal": { "title": "Proposal", "description": "I define the solution, scope, stages, timeline, and a suitable engagement model." },
+      "development": { "title": "Development", "description": "Work moves in short stages with regular demonstrations and feedback." },
+      "launch": { "title": "Launch", "description": "I verify production scenarios, deploy the product, and stay available after release." }
+    }
   },
   "about": {
     "eyebrow": "About / Now",
     "title": "Interface and architecture are parts of the same decision",
-    "paragraphs": [
-      "I work full-stack because product decisions rarely stop at the edge of a layout. Interface state depends on the data model, while a dependable launch depends on architecture and operations.",
-      "I prefer work where I can understand the real workflow, test the direction with a prototype, and carry it through to actual use—not merely hand off files."
-    ],
+    "paragraphs": {
+      "product": "I work full-stack because product decisions rarely stop at the edge of a layout. Interface state depends on the data model, while a dependable launch depends on architecture and operations.",
+      "workflow": "I prefer work where I can understand the real workflow, test the direction with a prototype, and carry it through to actual use—not merely hand off files."
+    },
     "principlesLabel": "Working principles",
     "principlesKey": "working_principles",
-    "principles": [
-      "I do not separate interface from architecture.",
-      "I prefer a working prototype to a long document.",
-      "I automate anything I have to do twice.",
-      "A product is only finished after launch."
-    ],
+    "principles": {
+      "interface": "I do not separate interface from architecture.",
+      "prototype": "I prefer a working prototype to a long document.",
+      "automation": "I automate anything I have to do twice.",
+      "launch": "A product is only finished after launch."
+    },
     "now": {
       "building": { "label": "Currently building", "value": "PowerSketch" },
       "exploring": { "label": "Currently exploring", "value": "SVG product interfaces" },
@@ -138,11 +138,11 @@
     "back": "Back to projects",
     "live": "Open PowerSketch",
     "labels": { "context": "Context", "problem": "Problem", "role": "My role", "approach": "Product approach", "interactions": "Core interactions", "architecture": "System / Architecture", "result": "Result", "stack": "Stack", "next": "Open channel" },
-    "interactionItems": [
-      { "title": "SVG editor", "description": "A scalable canvas with device drag-and-drop, snapping, and layer controls." },
-      { "title": "Smart connections", "description": "Pin-to-pin connections become editable, durable project data." },
-      { "title": "Library & reports", "description": "Device-library search and connection reports ready for hand-off." }
-    ],
+    "interactionItems": {
+      "editor": { "title": "SVG editor", "description": "A scalable canvas with device drag-and-drop, snapping, and layer controls." },
+      "connections": { "title": "Smart connections", "description": "Pin-to-pin connections become editable, durable project data." },
+      "reports": { "title": "Library & reports", "description": "Device-library search and connection reports ready for hand-off." }
+    },
     "nextTitle": "Let’s discuss your product",
     "nextText": "I can help shape the first release or join the next stage of an existing system.",
     "architectureLabel": "Product architecture",
@@ -197,7 +197,7 @@
     "availableKey": "available",
     "scope": "['idea', 'ui', 'api', 'launch']",
     "comment": "// no handoff gaps between layers",
-    "logs": ["product context loaded", "interface compiled", "api contract validated", "production route online"],
+    "logs": { "context": "product context loaded", "interface": "interface compiled", "api": "api contract validated", "production": "production route online" },
     "line": "Ln 9, Col 24",
     "building": "BUILD",
     "passed": "✓ BUILD PASSED",

@@ -2,7 +2,17 @@
 import type { ProcessItem } from '~/types/content'
 
 const { t } = useI18n()
-const items = useTranslatedMessages<ProcessItem[]>('process.items')
+const itemDefinitions = [
+  { id: 'discussion', number: '01' },
+  { id: 'proposal', number: '02' },
+  { id: 'development', number: '03' },
+  { id: 'launch', number: '04' },
+] as const
+const items = computed<ProcessItem[]>(() => itemDefinitions.map(item => ({
+  number: item.number,
+  title: t(`process.items.${item.id}.title`),
+  description: t(`process.items.${item.id}.description`),
+})))
 const root = ref<HTMLElement | null>(null)
 const progress = ref<HTMLElement | null>(null)
 const { motionAllowed } = useMotionPreference()

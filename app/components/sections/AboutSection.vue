@@ -1,7 +1,14 @@
 <script setup lang="ts">
 const { t } = useI18n()
-const paragraphs = useTranslatedMessages<string[]>('about.paragraphs')
-const principles = useTranslatedMessages<string[]>('about.principles')
+const paragraphKeys = ['about.paragraphs.product', 'about.paragraphs.workflow'] as const
+const principleKeys = [
+  'about.principles.interface',
+  'about.principles.prototype',
+  'about.principles.automation',
+  'about.principles.launch',
+] as const
+const paragraphs = computed(() => paragraphKeys.map(key => t(key)))
+const principles = computed(() => principleKeys.map(key => t(key)))
 const nowItems = [
   { id: 'building', labelKey: 'about.now.building.label', valueKey: 'about.now.building.value' },
   { id: 'exploring', labelKey: 'about.now.exploring.label', valueKey: 'about.now.exploring.value' },
