@@ -101,7 +101,7 @@ onBeforeUnmount(() => context?.revert())
 
 .hero__grid {
   display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(22rem, 5fr);
+  grid-template-columns: minmax(0, 13fr) minmax(22rem, 11fr);
   align-items: center;
   gap: clamp(2rem, 5vw, 5rem);
 }

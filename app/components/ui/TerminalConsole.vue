@@ -331,9 +331,7 @@ watch(locale, () => {
 @media (max-width: 600px) {
   .terminal-console { right: 0.65rem; bottom: 0.65rem; }
   .terminal-console__panel { position: fixed; right: 0.5rem; bottom: 3.8rem; left: 0.5rem; width: auto; height: min(72svh, 32rem); }
-  .terminal-console__trigger { min-width: 4.4rem; }
-  .terminal-console__trigger > span:nth-child(2),
-  .terminal-console__trigger kbd { display: none; }
+  .terminal-console__trigger { display: none; }
   .terminal-console__key-hints { display: none; }
 }
 </style>

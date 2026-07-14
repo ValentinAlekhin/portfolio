@@ -134,14 +134,13 @@ onBeforeUnmount(() => {
                 class="project-row__arrow"
                 aria-hidden="true"
               >[ENTER]</span>
+              <div class="project-row__mobile-preview">
+                <ProjectMedia
+                  :media="projectCover(project)"
+                  compact
+                />
+              </div>
             </NuxtLink>
-
-            <div class="project-row__mobile-preview">
-              <ProjectMedia
-                :media="projectCover(project)"
-                compact
-              />
-            </div>
           </article>
         </MotionReveal>
       </div>
@@ -217,10 +216,10 @@ onBeforeUnmount(() => {
 .project-row__link > span { position: relative; z-index: 1; }
 .project-row__index { color: var(--project-row-accent, var(--color-accent)); }
 .project-row__main { display: grid; min-width: 0; gap: 1rem; }
-.project-row__title { min-width: 0; color: var(--color-text); font-family: var(--font-mono); font-size: clamp(1.65rem, 3vw, 3.35rem); font-weight: 480; letter-spacing: -0.055em; line-height: 1; }
+.project-row__title { display: flex; min-width: 0; max-width: 100%; flex-wrap: wrap; color: var(--color-text); font-family: var(--font-mono); font-size: clamp(1.65rem, 2.5vw, 3.35rem); font-weight: 480; letter-spacing: -0.055em; line-height: 1; }
 .project-row__title b { color: #62b7e8; font-weight: 500; }
-.project-row__title > span { white-space: nowrap; }
-.project-row__title q { color: #d5b767; quotes: '"' '"'; }
+.project-row__title > span { min-width: 0; max-width: 100%; white-space: normal; }
+.project-row__title q { overflow-wrap: anywhere; color: #d5b767; quotes: '"' '"'; }
 .project-row__summary { max-width: 44ch; color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.76rem; line-height: 1.6; }
 .project-row__link:hover .project-row__summary,
 .project-row__link:focus-visible .project-row__summary { color: var(--color-text-muted); }
@@ -229,7 +228,7 @@ onBeforeUnmount(() => {
 .project-row__stack { max-width: 30ch; font-family: var(--font-mono); font-size: 0.68rem; }
 .project-row__arrow { color: var(--project-row-accent, var(--color-accent)); font-family: var(--font-mono); font-size: 0.65rem; transition: letter-spacing var(--duration-ui) var(--ease-out); }
 .project-row__link:hover .project-row__arrow { letter-spacing: 0.1em; }
-.project-row__mobile-preview { display: none; padding-bottom: 1.5rem; }
+.project-row__mobile-preview { position: relative; z-index: 1; display: none; }
 
 .project-cursor-preview {
   position: fixed;
@@ -254,7 +253,7 @@ onBeforeUnmount(() => {
   .project-row__link { min-height: auto; grid-template-columns: auto 1fr auto; padding: 1.75rem 1.25rem; }
   .project-row__meta { width: auto; min-width: 0; grid-column: 2 / -1; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .project-row__summary { max-width: 50ch; }
-  .project-row__mobile-preview { display: block; padding: 0 1rem 1rem; }
+  .project-row__mobile-preview { display: block; grid-column: 1 / -1; }
   .project-cursor-preview { display: none; }
 }
 
@@ -266,10 +265,10 @@ onBeforeUnmount(() => {
   .project-row__arrow { position: absolute !important; top: 1rem; right: 1.25rem; }
   .project-row__main { grid-column: 1 / -1; }
   .project-row__meta { grid-column: 1 / -1; grid-template-columns: 1fr; gap: 0.55rem; padding-top: 0.25rem; }
-  .project-row__title { font-size: clamp(1.75rem, 8.5vw, 2.35rem); }
+  .project-row__title { display: block; font-size: clamp(1.75rem, 8.5vw, 2.35rem); }
   .project-row__title b,
   .project-row__title > span { display: block; }
-  .project-row__title > span { margin-top: 0.3rem; white-space: nowrap; }
+  .project-row__title > span { margin-top: 0.3rem; white-space: normal; }
   .project-row__summary { font-size: 0.7rem; }
 }
 </style>
