@@ -12,22 +12,22 @@
     "local": "Local time",
     "build": "Build",
     "online": "ONLINE",
-    "contact": "Contact"
+    "contact": "Contact me"
   },
   "seo": {
     "title": "Valentin Alekhin — Senior Full-stack Developer",
-    "description": "I design and build SaaS, web applications, and internal systems—from idea to launch.",
+    "description": "I turn ideas into working web services: I design the interface, write the code, and launch the product.",
     "ogImage": "/og/portfolio-en.png"
   },
   "nav": {
     "label": "Main navigation",
     "sections": {
       "projects": "Projects",
-      "services": "Capabilities",
-      "process": "Process",
+      "services": "What I do",
+      "process": "How I work",
       "about": "About"
     },
-    "contact": "Discuss a project",
+    "contact": "Contact me",
     "open": "Open menu",
     "close": "Close menu",
     "language": "Switch language",
@@ -37,24 +37,24 @@
     "routesReady": "04 ROUTES / READY"
   },
   "hero": {
-    "eyebrow": "Independent senior full-stack developer",
+    "eyebrow": "Full-stack developer",
     "name": { "first": "VALENTIN", "last": "ALEKHIN" },
-    "statement": "I build web products from idea to launch.",
-    "description": "I design and build SaaS, web applications, and internal systems—without gaps between design, frontend, and backend.",
+    "statement": "I turn ideas into working web services.",
+    "description": "I start with the problem, design an easy-to-use interface, write all the code the product needs, then help launch and grow it.",
     "terminal": "> idea → interface → frontend → backend → launch_",
-    "primary": "Discuss a project",
-    "secondary": "View projects",
-    "available": "Available for projects",
+    "primary": "Contact me",
+    "secondary": "View my work",
+    "available": "Taking on new projects",
     "experience": "6+ years",
     "meta": { "available": "available", "experience": "experience", "stack": "stack" }
   },
   "projects": {
-    "eyebrow": "Selected systems",
-    "title": "Products built around real workflows",
-    "description": "Not a gallery of screens, but systems where interface, architecture, and launch work as one.",
+    "eyebrow": "My work",
+    "title": "Projects people already use",
+    "description": "These are not just polished screens. They are working services that can be used, updated, and improved over time.",
     "roleLabel": "SaaS / Product / Full-stack",
     "openCase": "Open case",
-    "resultCount": "2 results",
+    "resultCount": "2 projects",
     "status": {
       "live": "live",
       "in-progress": "in progress",
@@ -198,28 +198,28 @@
     }
   },
   "capabilities": {
-    "eyebrow": "Product pipeline",
-    "title": "From an uncertain idea to a working system",
-    "description": "I can own the complete product or a specific layer while keeping user workflows and technical decisions connected.",
-    "inspectMode": "INSPECT MODE / HOVER OR FOCUS",
+    "eyebrow": "How I can help",
+    "title": "I can build the whole product or take on one part of it",
+    "description": "I can help define what to build, create the interface and server, connect the services you need, and get everything ready to launch.",
+    "inspectMode": "HOVER OR SELECT A STAGE",
     "items": {
-      "discovery": { "title": "Discovery / Product", "description": "I clarify the problem, constraints, and first-release scope before optimizing delivery.", "details": { "mvp": "MVP and requirements", "workflows": "User workflows", "scope": "First-release boundaries" } },
-      "interface": { "title": "Interface", "description": "I design interfaces that keep complex domain logic understandable and controllable.", "details": { "design": "UI/UX", "editors": "Editors and dashboards", "prototypes": "Interactive prototypes" } },
-      "frontend": { "title": "Frontend", "description": "I build fast Vue and Nuxt applications with typed logic and accessible interaction.", "details": { "frameworks": "Vue / Nuxt", "typescript": "TypeScript", "state": "Complex state" } },
-      "backend": { "title": "Backend / Integrations", "description": "I design APIs, integrations, and durable background workflows without unnecessary complexity.", "details": { "runtime": "Node.js / Go", "integrations": "Payments and CRM", "externalApi": "Telegram and external APIs" } },
-      "launch": { "title": "Launch", "description": "I prepare production, observability, and the next product cycle—the work does not end at a local build.", "details": { "architecture": "Architecture", "deployment": "Deployment", "development": "Product development" } }
+      "discovery": { "title": "Problem and first version", "description": "Together we work out who the product is for, what problem it solves, and what the first version needs.", "details": { "mvp": "First-version plan", "workflows": "User journey", "scope": "Task list" } },
+      "interface": { "title": "Interface", "description": "I plan the screens and actions so that even a complex service feels easy to use.", "details": { "design": "Interface design", "editors": "Editors and dashboards", "prototypes": "Working prototypes" } },
+      "frontend": { "title": "Web application", "description": "I build the fast, accessible part of the product that people use in their browser.", "details": { "frameworks": "Vue and Nuxt", "typescript": "Reliable code", "state": "Complex workflows" } },
+      "backend": { "title": "Server and integrations", "description": "I build the server and connect payments, CRM, Telegram, and other external services.", "details": { "runtime": "Node.js and Go", "integrations": "Payments and CRM", "externalApi": "Telegram and other services" } },
+      "launch": { "title": "Launch and growth", "description": "I put the product online, keep an eye on it, and help ship the next updates.", "details": { "architecture": "Reliable foundation", "deployment": "Launch", "development": "New versions" } }
     }
   },
   "process": {
-    "eyebrow": "Work protocol",
-    "title": "A transparent process without extra layers",
-    "description": "You communicate directly with the person making product and technical decisions and accountable for the result.",
+    "eyebrow": "How I work",
+    "title": "A clear process from the first call to launch",
+    "description": "You work directly with me. I manage the project, share progress regularly, and take care of the technical side.",
     "running": "RUNNING / PID 2048",
     "items": {
-      "discussion": { "title": "Discussion", "description": "We unpack the problem, users, constraints, and what a useful outcome means." },
-      "proposal": { "title": "Proposal", "description": "I define the solution, scope, stages, timeline, and a suitable engagement model." },
-      "development": { "title": "Development", "description": "Work moves in short stages with regular demonstrations and feedback." },
-      "launch": { "title": "Launch", "description": "I verify production scenarios, deploy the product, and stay available after release." }
+      "discussion": { "title": "Introduction", "description": "We talk about your idea, the people who will use it, and what a good result looks like." },
+      "proposal": { "title": "Plan and estimate", "description": "I provide a clear work plan, timeline, and price." },
+      "development": { "title": "Development", "description": "I work in small stages, show progress regularly, and gather feedback as we go." },
+      "launch": { "title": "Launch", "description": "I test everything, launch the product, and stay available after it goes live." }
     }
   },
   "flight": {
@@ -250,41 +250,41 @@
     "autofire": "AUTO-FIRE: ENABLED"
   },
   "about": {
-    "eyebrow": "About / Now",
-    "title": "Interface and architecture are parts of the same decision",
+    "eyebrow": "About me",
+    "title": "I think about the whole product, not just individual screens",
     "paragraphs": {
-      "product": "I work full-stack because product decisions rarely stop at the edge of a layout. Interface state depends on the data model, while a dependable launch depends on architecture and operations.",
-      "workflow": "I prefer work where I can understand the real workflow, test the direction with a prototype, and carry it through to actual use—not merely hand off files."
+      "product": "I'm a full-stack developer, so I can build both the part people see and the server behind it. The project does not have to bounce between different specialists.",
+      "workflow": "I enjoy understanding the real problem, building a first working version quickly, and improving it with the people who actually use it."
     },
     "principlesLabel": "Working principles",
     "principlesKey": "working_principles",
     "principles": {
-      "interface": "I do not separate interface from architecture.",
-      "prototype": "I prefer a working prototype to a long document.",
-      "automation": "I automate anything I have to do twice.",
-      "launch": "A product is only finished after launch."
+      "interface": "I start with the user's problem, then choose the technology.",
+      "prototype": "A working version is more useful than a long document.",
+      "automation": "I try to automate repetitive work.",
+      "launch": "The work is not done until the product is live."
     },
     "now": {
       "building": { "label": "Currently building", "value": "PowerSketch" },
-      "exploring": { "label": "Currently exploring", "value": "SVG product interfaces" },
-      "available": { "label": "Available for", "value": "SaaS / tools / internal systems" }
+      "exploring": { "label": "Currently exploring", "value": "Interfaces for working with diagrams" },
+      "available": { "label": "Taking on", "value": "Web services / internal systems" }
     }
   },
   "contact": {
-    "eyebrow": "Open channel",
-    "title": "Have a task or a product idea?",
-    "description": "Tell me what you are building, what already works, and where you need technical help. A short note is enough to begin.",
+    "eyebrow": "Contact me directly",
+    "title": "Have an idea or a project in mind?",
+    "description": "Send me a short note about what you want to build and how I can help. That is enough to get started.",
     "write": "Write to me",
     "copy": "Copy email",
     "copied": "Email copied",
     "dialogTitle": "NEW_PROJECT_REQUEST",
-    "dialogDescription": "Choose the easiest way to start the conversation.",
+    "dialogDescription": "Choose where you would like to message me.",
     "compose": "Compose email",
     "close": "Close",
     "ascii": "┌─[ NEW_SESSION ]─────────────────┐\n│  status: READY                 │\n│  handshake: waiting...         │\n└────────────────────────────────┘"
   },
   "footer": {
-    "role": "Independent full-stack developer",
+    "role": "I build web services and applications",
     "backToTop": "Back to top"
   },
   "case": {
