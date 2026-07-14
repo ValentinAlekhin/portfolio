@@ -3,10 +3,10 @@ import type { ProcessItem } from '~/types/content'
 
 const { t } = useI18n()
 const itemDefinitions = [
-  { id: 'discussion', number: '01' },
-  { id: 'proposal', number: '02' },
-  { id: 'development', number: '03' },
-  { id: 'launch', number: '04' },
+  { id: 'websites', number: '01' },
+  { id: 'commerce', number: '02' },
+  { id: 'applications', number: '03' },
+  { id: 'products', number: '04' },
 ] as const
 const items = computed<ProcessItem[]>(() => itemDefinitions.map(item => ({
   number: item.number,
@@ -64,7 +64,7 @@ onBeforeUnmount(() => context?.revert())
 
       <div class="protocol">
         <div class="protocol__head system-label">
-          <span>ship.ts</span>
+          <span>project_types.ts</span>
           <span>{{ t('process.running') }}</span>
         </div>
         <span
@@ -78,7 +78,7 @@ onBeforeUnmount(() => context?.revert())
           class="protocol-step"
         >
           <span class="protocol-step__marker system-label">{{ Number(item.number) * 4 + 8 }}</span>
-          <h3><span>await</span> {{ item.title }}<i>();</i></h3>
+          <h3><span>build</span> {{ item.title }}<i>();</i></h3>
           <p>// {{ item.description }}</p>
         </article>
       </div>

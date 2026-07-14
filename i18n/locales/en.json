@@ -24,7 +24,7 @@
     "sections": {
       "projects": "Projects",
       "services": "What I do",
-      "process": "How I work",
+      "process": "Project types",
       "about": "About"
     },
     "contact": "Contact me",
@@ -211,15 +211,15 @@
     }
   },
   "process": {
-    "eyebrow": "How I work",
-    "title": "A clear process from the first call to launch",
-    "description": "You work directly with me. I manage the project, share progress regularly, and take care of the technical side.",
-    "running": "RUNNING / PID 2048",
+    "eyebrow": "What I can build",
+    "title": "Projects I work on",
+    "description": "From a focused landing page to a complex web service. I can help shape an idea, build a project from scratch, or join an existing one.",
+    "running": "4 DIRECTIONS / READY TO BUILD",
     "items": {
-      "discussion": { "title": "Introduction", "description": "We talk about your idea, the people who will use it, and what a good result looks like." },
-      "proposal": { "title": "Plan and estimate", "description": "I provide a clear work plan, timeline, and price." },
-      "development": { "title": "Development", "description": "I work in small stages, show progress regularly, and gather feedback as we go." },
-      "launch": { "title": "Launch", "description": "I test everything, launch the product, and stay available after it goes live." }
+      "websites": { "title": "Websites", "description": "Landing pages, company websites, and portfolios." },
+      "commerce": { "title": "Online stores", "description": "Catalogues, e-commerce websites, and sales tools." },
+      "applications": { "title": "Web applications", "description": "Dashboards, admin panels, and internal systems." },
+      "products": { "title": "New products", "description": "MVPs and custom projects, from the first version to launch." }
     }
   },
   "flight": {
