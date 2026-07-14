@@ -1,4 +1,22 @@
-import type { Project } from '~/types/content'
+import type { Project, ProjectMediaSources, ProjectMediaTheme } from '~/types/content'
+import { LocaleCode } from '~/types/i18n'
+
+function planesArchMediaPath(id: string, locale: LocaleCode, theme: ProjectMediaTheme) {
+  return `/projects/planes-arch/planes-arch-${id}-${locale}-${theme}.webp`
+}
+
+function planesArchMediaSources(id: string): ProjectMediaSources {
+  return {
+    [LocaleCode.Ru]: {
+      light: planesArchMediaPath(id, LocaleCode.Ru, 'light'),
+      dark: planesArchMediaPath(id, LocaleCode.Ru, 'dark'),
+    },
+    [LocaleCode.En]: {
+      light: planesArchMediaPath(id, LocaleCode.En, 'light'),
+      dark: planesArchMediaPath(id, LocaleCode.En, 'dark'),
+    },
+  }
+}
 
 export const projects: Project[] = [
   {
@@ -132,8 +150,8 @@ export const projects: Project[] = [
     caseName: 'planes-arch',
     theme: 'planes-arch',
     schemaType: 'WebSite',
-    cover: '/projects/planes-arch/planes-arch-landing-hero.png',
-    ogImage: '/projects/planes-arch/planes-arch-landing-hero.png',
+    cover: planesArchMediaPath('landing', LocaleCode.Ru, 'light'),
+    ogImage: planesArchMediaPath('landing', LocaleCode.Ru, 'light'),
     metrics: [
       { value: 'RU/EN', labelKey: 'projects.entries.planesArch.metrics.locales' },
       { value: '3', labelKey: 'projects.entries.planesArch.metrics.themes' },
@@ -142,33 +160,37 @@ export const projects: Project[] = [
     media: [
       {
         id: 'landing',
-        src: '/projects/planes-arch/planes-arch-landing-hero.png',
-        width: 1440,
-        height: 900,
+        src: planesArchMediaPath('landing', LocaleCode.Ru, 'light'),
+        sources: planesArchMediaSources('landing'),
+        width: 2880,
+        height: 1800,
         altKey: 'projects.entries.planesArch.media.landing.alt',
         captionKey: 'projects.entries.planesArch.media.landing.caption',
       },
       {
         id: 'about',
-        src: '/projects/planes-arch/planes-arch-about.png',
-        width: 1440,
-        height: 900,
+        src: planesArchMediaPath('about', LocaleCode.Ru, 'light'),
+        sources: planesArchMediaSources('about'),
+        width: 2880,
+        height: 1800,
         altKey: 'projects.entries.planesArch.media.about.alt',
         captionKey: 'projects.entries.planesArch.media.about.caption',
       },
       {
         id: 'projects',
-        src: '/projects/planes-arch/planes-arch-projects.png',
-        width: 1440,
-        height: 1000,
+        src: planesArchMediaPath('projects', LocaleCode.Ru, 'light'),
+        sources: planesArchMediaSources('projects'),
+        width: 2880,
+        height: 2000,
         altKey: 'projects.entries.planesArch.media.projects.alt',
         captionKey: 'projects.entries.planesArch.media.projects.caption',
       },
       {
         id: 'mobile',
-        src: '/projects/planes-arch/planes-arch-mobile.png',
-        width: 390,
-        height: 844,
+        src: planesArchMediaPath('mobile', LocaleCode.Ru, 'light'),
+        sources: planesArchMediaSources('mobile'),
+        width: 780,
+        height: 1688,
         altKey: 'projects.entries.planesArch.media.mobile.alt',
         captionKey: 'projects.entries.planesArch.media.mobile.caption',
       },

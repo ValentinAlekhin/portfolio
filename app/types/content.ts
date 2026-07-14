@@ -1,8 +1,13 @@
+import type { LocaleCode } from './i18n'
+
 export type ThemeName = 'system' | 'phosphor'
 
 export type ProjectCaseName = 'planes-arch' | 'powersketch'
 export type ProjectThemeName = 'planes-arch' | 'powersketch'
 export type ProjectSchemaType = 'SoftwareApplication' | 'WebSite'
+export type ProjectMediaTheme = 'light' | 'dark'
+
+export type ProjectMediaSources = Record<LocaleCode, Record<ProjectMediaTheme, string>>
 
 export interface CapabilityItem {
   id: string
@@ -31,6 +36,7 @@ export interface ProjectContent {
 export interface ProjectMedia {
   id: string
   src: string
+  sources?: ProjectMediaSources
   width: number
   height: number
   altKey: string

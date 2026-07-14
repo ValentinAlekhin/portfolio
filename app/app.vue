@@ -2,8 +2,10 @@
 import { profile } from '~/data/profile'
 
 const appRoot = ref<HTMLElement | null>(null)
+const route = useRoute()
 const { initializeTheme } = useTheme()
 const { t } = useI18n()
+const showCrtOverlay = computed(() => !route.path.includes('/projects/'))
 
 usePointerField(appRoot)
 
@@ -39,7 +41,7 @@ onBeforeUnmount(() => window.removeEventListener('scroll', updateProgress))
     <PageTransitionLayer />
     <PointerHud />
     <LazyTerminalConsole />
-    <CrtOverlay />
+    <CrtOverlay v-if="showCrtOverlay" />
     <div
       class="site-noise"
       aria-hidden="true"

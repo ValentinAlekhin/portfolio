@@ -15,8 +15,20 @@ const props = withDefaults(defineProps<{
 })
 
 const { t } = useI18n()
+const { localeCode } = usePortfolio()
+const { theme } = useTheme()
 const resolvedAlt = computed(() => props.alt ?? t(props.media.altKey))
 const resolvedCaption = computed(() => props.caption ?? t(props.media.captionKey))
+const resolvedSrc = computed(() => {
+  const sources = props.media.sources?.[localeCode.value]
+
+  if (!sources) {
+    return props.media.src
+  }
+
+  return theme.value === 'phosphor' ? sources.dark : sources.light
+})
+const resolvedExtension = computed(() => resolvedSrc.value.split('.').pop() ?? 'png')
 </script>
 
 <template>
@@ -26,18 +38,28 @@ const resolvedCaption = computed(() => props.caption ?? t(props.media.captionKey
   >
     <div class="project-media__chrome system-label">
       <span aria-hidden="true"><i /><i /><i /></span>
-      <span>{{ media.id }}.png</span>
+      <span>{{ media.id }}.{{ resolvedExtension }}</span>
       <span>{{ media.width }}×{{ media.height }}</span>
     </div>
     <div class="project-media__viewport">
       <NuxtImg
-        :src="media.src"
+        v-if="!media.sources"
+        :src="resolvedSrc"
         :alt="resolvedAlt"
         :width="media.width"
         :height="media.height"
         sizes="100vw lg:1440px"
         :loading="priority ? 'eager' : 'lazy'"
       />
+      <img
+        v-else
+        :src="resolvedSrc"
+        :alt="resolvedAlt"
+        :width="media.width"
+        :height="media.height"
+        :loading="priority ? 'eager' : 'lazy'"
+        decoding="async"
+      >
     </div>
     <figcaption class="system-label">
       <span>// {{ resolvedCaption }}</span>
