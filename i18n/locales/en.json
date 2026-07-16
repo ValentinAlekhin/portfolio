@@ -357,7 +357,7 @@
     "scopeKey": "scope",
     "stackKey": "stack",
     "availableKey": "available",
-    "scope": "['idea', 'ui', 'api', 'launch']",
+    "scope": "['idea', 'development', 'launch']",
     "comment": "// no handoff gaps between layers",
     "logs": { "context": "product context loaded", "interface": "interface compiled", "api": "api contract validated", "production": "production route online" },
     "line": "Ln 9, Col 24",

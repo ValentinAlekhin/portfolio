@@ -39,7 +39,6 @@ onBeforeUnmount(() => window.removeEventListener('scroll', updateProgress))
     <SiteFooter />
     <ContactDialog />
     <PageTransitionLayer />
-    <PointerHud />
     <LazyTerminalConsole />
     <CrtOverlay v-if="showCrtOverlay" />
     <div
