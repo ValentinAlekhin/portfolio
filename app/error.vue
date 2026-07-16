@@ -1,16 +1,13 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app'
-import { LocaleCode } from '~/types/i18n'
 
 defineProps<{ error: NuxtError }>()
 
-const route = useRoute()
 const { t } = useI18n()
-const locale = computed(() => route.path.startsWith(`/${LocaleCode.En}`) ? LocaleCode.En : LocaleCode.Ru)
-const home = computed(() => `/${locale.value}/`)
+const localePath = useLocalePath()
 
 function returnHome() {
-  clearError({ redirect: home.value })
+  clearError({ redirect: localePath('/') })
 }
 </script>
 
