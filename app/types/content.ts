@@ -2,10 +2,11 @@ import type { LocaleCode } from './i18n'
 
 export type ThemeName = 'system' | 'phosphor'
 
-export type ProjectCaseName = 'planes-arch' | 'powersketch'
-export type ProjectThemeName = 'planes-arch' | 'powersketch'
+export type ProjectCaseName = 'aerovista' | 'forma' | 'kineo' | 'nordhus' | 'planes-arch' | 'powersketch'
+export type ProjectThemeName = ProjectCaseName
 export type ProjectSchemaType = 'SoftwareApplication' | 'WebSite'
 export type ProjectMediaTheme = 'light' | 'dark'
+export type ProjectMediaDisplay = 'full-page' | 'modal' | 'phone' | 'viewport'
 
 export type ProjectMediaSources = Record<LocaleCode, Record<ProjectMediaTheme, string>>
 
@@ -41,6 +42,7 @@ export interface ProjectMedia {
   height: number
   altKey: string
   captionKey: string
+  display?: ProjectMediaDisplay
 }
 
 export interface ProjectMetric {
@@ -53,8 +55,8 @@ export interface Project {
   index: string
   title: string
   period: string
-  status: 'live' | 'in-progress' | 'archived'
-  externalUrl: string
+  status: 'live' | 'in-progress' | 'archived' | 'completed'
+  externalUrl?: string
   translationKey: string
   scopeKey: string
   caseName: ProjectCaseName

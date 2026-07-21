@@ -1,5 +1,7 @@
 import { localeLanguageTag, LocaleCode } from './app/types/i18n'
 
+const projectSlugs = ['powersketch', 'planes-arch', 'nordhus', 'aerovista', 'kineo', 'forma'] as const
+
 const themeScript = `(function(){try{var s=localStorage.getItem('va-theme');var t=s==='system'||s==='phosphor'?s:(matchMedia('(prefers-color-scheme: dark)').matches?'phosphor':'system');document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t==='phosphor'?'dark':'light'}catch(e){document.documentElement.dataset.theme='system'}})()`
 
 export default defineNuxtConfig({
@@ -61,8 +63,10 @@ export default defineNuxtConfig({
       routes: [
         '/',
         `/${LocaleCode.En}/`,
-        '/projects/powersketch/',
-        `/${LocaleCode.En}/projects/powersketch/`,
+        ...projectSlugs.flatMap(slug => [
+          `/projects/${slug}/`,
+          `/${LocaleCode.En}/projects/${slug}/`,
+        ]),
       ],
     },
   },

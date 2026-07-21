@@ -54,11 +54,12 @@
     "description": "These are not just polished screens. They are working services that can be used, updated, and improved over time.",
     "roleLabel": "SaaS / Product / Full-stack",
     "openCase": "Open case",
-    "resultCount": "2 projects",
+    "resultCount": "{count} projects",
     "status": {
       "live": "live",
       "in-progress": "in progress",
-      "archived": "archived"
+      "archived": "archived",
+      "completed": "completed"
     },
     "entries": {
       "powersketch": {
@@ -194,6 +195,99 @@
           "projects": { "alt": "PLANES architects portfolio with filters for different architecture project types", "caption": "Projects and filters" },
           "mobile": { "alt": "Mobile version of the PLANES architects home page", "caption": "The home page on a phone" }
         }
+      },
+      "nordhus": {
+        "eyebrow": "Lakeside retreat booking website",
+        "scope": "Booking website / Frontend / UI",
+        "summary": "An atmospheric website for seven cabins, with a catalogue, filters, galleries, and booking forms.",
+        "intro": "The interface is built around northern landscapes and large photography, while the catalogue turns that mood into a practical choice.",
+        "role": "Interface design, responsive development, cabin catalogue, galleries, and client-side booking flows.",
+        "metrics": { "label": "Project figures", "cabins": "cabins", "types": "cabin types", "viewport": "responsive from, px" },
+        "overview": { "title": "From first impression to the right cabin", "text": "The home page, catalogue, and cabin pages form one calm visual journey." },
+        "responsive": { "title": "The vertical format keeps the atmosphere", "text": "Photography, filters, and actions stay large and accessible on a phone." },
+        "interactions": { "title": "Useful flows over the content", "text": "Booking, filters, and the lightbox open without losing the page context." },
+        "media": {
+          "cover": { "alt": "NORDHUS home page with a winter cabin beside a lake", "caption": "Home page" },
+          "homeFull": { "alt": "Complete NORDHUS home page", "caption": "Full home page" },
+          "cabinsFull": { "alt": "Complete NORDHUS cabin catalogue", "caption": "Cabin catalogue" },
+          "experiencesFull": { "alt": "Complete NORDHUS experiences page", "caption": "Experiences and services" },
+          "cabinLakeFull": { "alt": "Complete page for the Lake cabin in NORDHUS", "caption": "Lake cabin page" },
+          "homeMobileFull": { "alt": "Complete NORDHUS home page on a phone", "caption": "Mobile home page" },
+          "cabinsMobileFull": { "alt": "Complete NORDHUS cabin catalogue on a phone", "caption": "Mobile catalogue" },
+          "cabinLakeMobileFull": { "alt": "Complete Lake cabin page on a phone", "caption": "Lake cabin on mobile" },
+          "booking": { "alt": "NORDHUS booking dialog", "caption": "Booking form" },
+          "lightbox": { "alt": "NORDHUS full-screen cabin gallery", "caption": "Lightbox gallery" },
+          "filtersMobile": { "alt": "NORDHUS catalogue filters on a phone", "caption": "Mobile filters" }
+        }
+      },
+      "aerovista": {
+        "eyebrow": "Industrial aerial inspection website",
+        "scope": "Corporate landing / Calculator / Frontend",
+        "summary": "A technical landing page for industrial inspections, with a calculator, case studies, and quote request.",
+        "intro": "High-contrast type, a coordinate grid, and signal orange make a complex service quick to understand.",
+        "role": "Concept, interface, responsive build, savings calculator, FAQ, and enquiry forms.",
+        "metrics": { "label": "Project contents", "services": "services", "cases": "case studies", "steps": "process steps" },
+        "overview": { "title": "A technical presentation without clutter", "text": "The page combines industrial photography, cost estimates, and evidence-led case studies." },
+        "responsive": { "title": "The complete landing page on mobile", "text": "Large calls to action and calculations remain legible on a narrow screen." },
+        "interactions": { "title": "The enquiry stays in context", "text": "The form opens over the page and works consistently on desktop and mobile." },
+        "media": {
+          "cover": { "alt": "AEROVISTA Inspect home page with an industrial facility", "caption": "Home page" },
+          "homeFull": { "alt": "Complete AEROVISTA Inspect home page", "caption": "Full landing page" },
+          "homeMobileFull": { "alt": "Complete mobile AEROVISTA Inspect page", "caption": "Landing page on a phone" },
+          "homeMobile": { "alt": "AEROVISTA Inspect mobile hero", "caption": "Mobile first screen" },
+          "request": { "alt": "AEROVISTA Inspect request dialog on desktop", "caption": "Quote form" },
+          "requestMobile": { "alt": "AEROVISTA Inspect request dialog on a phone", "caption": "Mobile quote form" }
+        }
+      },
+      "kineo": {
+        "eyebrow": "Movement recovery centre website",
+        "scope": "Service landing / Booking / Frontend",
+        "summary": "A responsive rehabilitation-centre website with programme matching, specialists, and step-by-step booking.",
+        "intro": "A calm healthcare structure meets energetic sports photography and prominent actions.",
+        "role": "Interface, responsive development, filters, interactive programme matching, and four-step booking.",
+        "metrics": { "label": "Project contents", "programs": "directions", "booking": "booking steps", "faq": "FAQ questions" },
+        "overview": { "title": "A path from the problem to the right programme", "text": "The landing page explains the approach, services, and specialists in a clear sequence." },
+        "responsive": { "title": "Booking is designed for a phone", "text": "Fields, cards, and step navigation remain large and easy to understand." },
+        "interactions": { "title": "States of a complex dialog", "text": "Booking retains choices between steps and warns before closing." },
+        "media": {
+          "cover": { "alt": "KINEO home page with a runner", "caption": "Home page" },
+          "homeFull": { "alt": "Complete KINEO home page", "caption": "Full landing page" },
+          "homeMobile": { "alt": "KINEO mobile hero", "caption": "Mobile first screen" },
+          "homeMobileFull": { "alt": "Complete KINEO mobile page", "caption": "Landing page on a phone" },
+          "booking": { "alt": "KINEO step-by-step booking on desktop", "caption": "Service selection" },
+          "bookingMobile": { "alt": "KINEO step-by-step booking on a phone", "caption": "Mobile booking" },
+          "closeConfirm": { "alt": "KINEO booking close confirmation", "caption": "Protecting entered data" },
+          "closeConfirmMobile": { "alt": "KINEO mobile booking close confirmation", "caption": "Mobile confirmation" },
+          "mobileMenu": { "alt": "KINEO full-screen mobile menu", "caption": "Mobile navigation" }
+        }
+      },
+      "forma": {
+        "eyebrow": "Handmade ceramics online store",
+        "scope": "E-commerce / Catalogue / Frontend",
+        "summary": "An editorial online store with a catalogue, product pages, local cart, and checkout flow.",
+        "intro": "Warm typography and a quiet grid leave maximum space for photography and handmade details.",
+        "role": "Store concept, responsive development, catalogue and filters, product pages, cart, and checkout.",
+        "metrics": { "label": "Project contents", "products": "products", "filters": "search parameters", "cart": "cart storage" },
+        "overview": { "title": "A catalogue that continues the studio story", "text": "Editorial pages and products share one restrained visual system." },
+        "responsive": { "title": "The complete store works on a phone", "text": "The catalogue, filters, cart, and checkout all adapt to a vertical screen." },
+        "interactions": { "title": "Shopping without visual noise", "text": "Cart and checkout keep the brand character without distracting from the product." },
+        "media": {
+          "cover": { "alt": "FORMA ceramics store home page", "caption": "Home page" },
+          "homeFull": { "alt": "Complete FORMA home page", "caption": "Full home page" },
+          "homeMobileFull": { "alt": "Complete FORMA mobile home page", "caption": "Mobile home page" },
+          "catalogFull": { "alt": "Complete FORMA catalogue page", "caption": "Product catalogue" },
+          "catalogMobileFull": { "alt": "Complete FORMA catalogue on a phone", "caption": "Mobile catalogue" },
+          "aboutFull": { "alt": "Complete FORMA studio page", "caption": "About the studio" },
+          "careMobileFull": { "alt": "FORMA ceramics care page on a phone", "caption": "Product care" },
+          "productCupFull": { "alt": "Complete FORMA Tuman cup product page", "caption": "Tuman cup" },
+          "productBowlFull": { "alt": "Complete FORMA Reka bowl product page", "caption": "Reka bowl" },
+          "productVaseMobileFull": { "alt": "FORMA Kontur vase product page on a phone", "caption": "Kontur vase" },
+          "cart": { "alt": "FORMA cart on desktop", "caption": "Cart" },
+          "cartMobile": { "alt": "FORMA cart on a phone", "caption": "Mobile cart" },
+          "checkout": { "alt": "FORMA checkout on desktop", "caption": "Checkout" },
+          "checkoutMobile": { "alt": "FORMA checkout on a phone", "caption": "Mobile checkout" },
+          "filtersMobile": { "alt": "FORMA catalogue filters on a phone", "caption": "Mobile filters" }
+        }
       }
     }
   },
@@ -290,6 +384,11 @@
   "case": {
     "back": "Back to projects",
     "live": "Open live product",
+    "viewImage": "Enlarge",
+    "closeImage": "Close image",
+    "previousImage": "Previous image",
+    "nextImage": "Next image",
+    "scrollImage": "Scrollable full-page screenshot",
     "code": {
       "backCommand": "cd ../projects",
       "caseFile": "CASE_{index}.MD / {period}",

@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import AerovistaCaseStudy from '~/components/project/AerovistaCaseStudy.vue'
+import FormaCaseStudy from '~/components/project/FormaCaseStudy.vue'
+import KineoCaseStudy from '~/components/project/KineoCaseStudy.vue'
+import NordhusCaseStudy from '~/components/project/NordhusCaseStudy.vue'
 import PlanesArchCaseStudy from '~/components/project/PlanesArchCaseStudy.vue'
 import PowerSketchCaseStudy from '~/components/project/PowerSketchCaseStudy.vue'
 import { profile } from '~/data/profile'
@@ -15,6 +19,10 @@ if (!project.value) {
 }
 
 const caseComponents = {
+  'aerovista': AerovistaCaseStudy,
+  'forma': FormaCaseStudy,
+  'kineo': KineoCaseStudy,
+  'nordhus': NordhusCaseStudy,
   'planes-arch': PlanesArchCaseStudy,
   'powersketch': PowerSketchCaseStudy,
 } as const
@@ -31,11 +39,11 @@ const projectJsonLd = computed(() => {
     '@type': project.value!.schemaType,
     'name': project.value!.title,
     'description': summary.value,
-    'url': project.value!.externalUrl,
     'mainEntityOfPage': canonical.value,
     'creator': { '@type': 'Person', 'name': profile.name },
     'inLanguage': localeLanguageTag[localeCode.value],
     'image': ogImage.value,
+    ...(project.value!.externalUrl ? { url: project.value!.externalUrl } : {}),
   }
 
   if (project.value!.schemaType === 'SoftwareApplication') {

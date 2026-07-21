@@ -1,5 +1,5 @@
-import type { Project, ProjectMediaSources, ProjectMediaTheme } from '~/types/content'
-import { LocaleCode } from '~/types/i18n'
+import type { Project, ProjectMedia, ProjectMediaDisplay, ProjectMediaSources, ProjectMediaTheme } from '../types/content'
+import { LocaleCode } from '../types/i18n'
 
 function planesArchMediaPath(id: string, locale: LocaleCode, theme: ProjectMediaTheme) {
   return `/projects/planes-arch/planes-arch-${id}-${locale}-${theme}.webp`
@@ -15,6 +15,27 @@ function planesArchMediaSources(id: string): ProjectMediaSources {
       light: planesArchMediaPath(id, LocaleCode.En, 'light'),
       dark: planesArchMediaPath(id, LocaleCode.En, 'dark'),
     },
+  }
+}
+
+type VisualProjectSlug = 'aerovista' | 'forma' | 'kineo' | 'nordhus'
+
+function visualProjectMedia(
+  project: VisualProjectSlug,
+  id: string,
+  width: number,
+  height: number,
+  display: ProjectMediaDisplay,
+  file = id,
+): ProjectMedia {
+  return {
+    id,
+    src: `/projects/${project}/${file}.webp`,
+    width,
+    height,
+    display,
+    altKey: `projects.entries.${project}.media.${id}.alt`,
+    captionKey: `projects.entries.${project}.media.${id}.caption`,
   }
 }
 
@@ -196,5 +217,134 @@ export const projects: Project[] = [
       },
     ],
     stack: ['Vue', 'Nuxt', 'Strapi', 'PostgreSQL'],
+  },
+  {
+    slug: 'nordhus',
+    index: '03',
+    title: 'NORDHUS',
+    period: '2026',
+    status: 'completed',
+    translationKey: 'projects.entries.nordhus',
+    scopeKey: 'projects.entries.nordhus.scope',
+    caseName: 'nordhus',
+    theme: 'nordhus',
+    schemaType: 'WebSite',
+    cover: '/projects/nordhus/cover.webp',
+    ogImage: '/projects/nordhus/og.webp',
+    metrics: [
+      { value: '7', labelKey: 'projects.entries.nordhus.metrics.cabins' },
+      { value: '4', labelKey: 'projects.entries.nordhus.metrics.types' },
+      { value: '360+', labelKey: 'projects.entries.nordhus.metrics.viewport' },
+    ],
+    media: [
+      visualProjectMedia('nordhus', 'cover', 2400, 1516, 'viewport'),
+      visualProjectMedia('nordhus', 'homeFull', 2000, 16383, 'full-page', 'home-full'),
+      visualProjectMedia('nordhus', 'cabinsFull', 5845, 16383, 'full-page', 'cabins-full'),
+      visualProjectMedia('nordhus', 'experiencesFull', 4013, 16383, 'full-page', 'experiences-full'),
+      visualProjectMedia('nordhus', 'cabinLakeFull', 4490, 16383, 'full-page', 'cabin-lake-full'),
+      visualProjectMedia('nordhus', 'homeMobileFull', 524, 16383, 'phone', 'home-mobile-full'),
+      visualProjectMedia('nordhus', 'cabinsMobileFull', 1286, 16383, 'phone', 'cabins-mobile-full'),
+      visualProjectMedia('nordhus', 'cabinLakeMobileFull', 1068, 16383, 'phone', 'cabin-lake-mobile-full'),
+      visualProjectMedia('nordhus', 'booking', 2400, 1516, 'modal'),
+      visualProjectMedia('nordhus', 'lightbox', 2400, 1516, 'modal'),
+      visualProjectMedia('nordhus', 'filtersMobile', 1200, 2701, 'phone', 'filters-mobile'),
+    ],
+    stack: ['Nuxt', 'Vue', 'TypeScript', 'Tailwind CSS'],
+  },
+  {
+    slug: 'aerovista',
+    index: '04',
+    title: 'AEROVISTA Inspect',
+    period: '2026',
+    status: 'completed',
+    translationKey: 'projects.entries.aerovista',
+    scopeKey: 'projects.entries.aerovista.scope',
+    caseName: 'aerovista',
+    theme: 'aerovista',
+    schemaType: 'WebSite',
+    cover: '/projects/aerovista/cover.webp',
+    ogImage: '/projects/aerovista/og.webp',
+    metrics: [
+      { value: '6', labelKey: 'projects.entries.aerovista.metrics.services' },
+      { value: '3', labelKey: 'projects.entries.aerovista.metrics.cases' },
+      { value: '5', labelKey: 'projects.entries.aerovista.metrics.steps' },
+    ],
+    media: [
+      visualProjectMedia('aerovista', 'cover', 2400, 1516, 'viewport'),
+      visualProjectMedia('aerovista', 'homeFull', 2572, 16383, 'full-page', 'home-full'),
+      visualProjectMedia('aerovista', 'homeMobileFull', 445, 16383, 'phone', 'home-mobile-full'),
+      visualProjectMedia('aerovista', 'homeMobile', 1200, 2701, 'phone', 'home-mobile'),
+      visualProjectMedia('aerovista', 'request', 2400, 1500, 'modal'),
+      visualProjectMedia('aerovista', 'requestMobile', 1200, 2597, 'phone', 'request-mobile'),
+    ],
+    stack: ['HTML', 'Tailwind CSS', 'JavaScript', 'Lucide'],
+  },
+  {
+    slug: 'kineo',
+    index: '05',
+    title: 'KINEO',
+    period: '2026',
+    status: 'completed',
+    translationKey: 'projects.entries.kineo',
+    scopeKey: 'projects.entries.kineo.scope',
+    caseName: 'kineo',
+    theme: 'kineo',
+    schemaType: 'WebSite',
+    cover: '/projects/kineo/cover.webp',
+    ogImage: '/projects/kineo/og.webp',
+    metrics: [
+      { value: '6', labelKey: 'projects.entries.kineo.metrics.programs' },
+      { value: '4', labelKey: 'projects.entries.kineo.metrics.booking' },
+      { value: '7', labelKey: 'projects.entries.kineo.metrics.faq' },
+    ],
+    media: [
+      visualProjectMedia('kineo', 'cover', 2400, 1516, 'viewport'),
+      visualProjectMedia('kineo', 'homeFull', 2072, 16383, 'full-page', 'home-full'),
+      visualProjectMedia('kineo', 'homeMobile', 1200, 2701, 'phone', 'home-mobile'),
+      visualProjectMedia('kineo', 'homeMobileFull', 330, 16383, 'phone', 'home-mobile-full'),
+      visualProjectMedia('kineo', 'booking', 2400, 1500, 'modal'),
+      visualProjectMedia('kineo', 'bookingMobile', 1200, 2597, 'phone', 'booking-mobile'),
+      visualProjectMedia('kineo', 'closeConfirm', 2400, 1516, 'modal', 'close-confirm'),
+      visualProjectMedia('kineo', 'closeConfirmMobile', 1200, 2701, 'phone', 'close-confirm-mobile'),
+      visualProjectMedia('kineo', 'mobileMenu', 1200, 2701, 'phone', 'mobile-menu'),
+    ],
+    stack: ['Vue', 'Vite', 'Tailwind CSS', 'JavaScript'],
+  },
+  {
+    slug: 'forma',
+    index: '06',
+    title: 'FORMA',
+    period: '2026',
+    status: 'completed',
+    translationKey: 'projects.entries.forma',
+    scopeKey: 'projects.entries.forma.scope',
+    caseName: 'forma',
+    theme: 'forma',
+    schemaType: 'WebSite',
+    cover: '/projects/forma/cover.webp',
+    ogImage: '/projects/forma/og.webp',
+    metrics: [
+      { value: '12', labelKey: 'projects.entries.forma.metrics.products' },
+      { value: '5', labelKey: 'projects.entries.forma.metrics.filters' },
+      { value: 'LOCAL', labelKey: 'projects.entries.forma.metrics.cart' },
+    ],
+    media: [
+      visualProjectMedia('forma', 'cover', 2400, 1516, 'viewport'),
+      visualProjectMedia('forma', 'homeFull', 3972, 16383, 'full-page', 'home-full'),
+      visualProjectMedia('forma', 'homeMobileFull', 973, 16383, 'phone', 'home-mobile-full'),
+      visualProjectMedia('forma', 'catalogFull', 5760, 11456, 'full-page', 'catalog-full'),
+      visualProjectMedia('forma', 'catalogMobileFull', 1560, 13320, 'phone', 'catalog-mobile-full'),
+      visualProjectMedia('forma', 'aboutFull', 5581, 16383, 'full-page', 'about-full'),
+      visualProjectMedia('forma', 'careMobileFull', 1411, 16383, 'phone', 'care-mobile-full'),
+      visualProjectMedia('forma', 'productCupFull', 5760, 10112, 'full-page', 'product-cup-full'),
+      visualProjectMedia('forma', 'productBowlFull', 5760, 10112, 'full-page', 'product-bowl-full'),
+      visualProjectMedia('forma', 'productVaseMobileFull', 1560, 13232, 'phone', 'product-vase-mobile-full'),
+      visualProjectMedia('forma', 'cart', 2400, 1516, 'modal'),
+      visualProjectMedia('forma', 'cartMobile', 1200, 2701, 'phone', 'cart-mobile'),
+      visualProjectMedia('forma', 'checkout', 2400, 1500, 'modal'),
+      visualProjectMedia('forma', 'checkoutMobile', 1200, 2597, 'phone', 'checkout-mobile'),
+      visualProjectMedia('forma', 'filtersMobile', 1200, 2701, 'phone', 'filters-mobile'),
+    ],
+    stack: ['Vue', 'Vite', 'Vue Router', 'Tailwind CSS'],
   },
 ]

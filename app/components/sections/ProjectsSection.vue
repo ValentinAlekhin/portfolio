@@ -100,7 +100,7 @@ onBeforeUnmount(() => {
         <div class="project-list__head system-label">
           <span><i /> <i /> <i /></span>
           <span>git://portfolio/projects.log</span>
-          <span>{{ t('projects.resultCount') }}</span>
+          <span>{{ t('projects.resultCount', { count: projects.length }) }}</span>
         </div>
         <MotionReveal
           v-for="project in projects"
@@ -184,6 +184,34 @@ onBeforeUnmount(() => {
   --project-row-accent: #829b9a;
   --project-media-bg: #dcd8cf;
   --project-media-shadow: 0 28px 75px rgb(56 50 40 / 23%);
+}
+
+.project-row[data-project-theme='nordhus'],
+.project-cursor-preview[data-project-theme='nordhus'] {
+  --project-row-accent: #bd6a43;
+  --project-media-bg: #d8d0c1;
+  --project-media-shadow: 0 28px 75px rgb(48 61 52 / 25%);
+}
+
+.project-row[data-project-theme='aerovista'],
+.project-cursor-preview[data-project-theme='aerovista'] {
+  --project-row-accent: #ff6a1a;
+  --project-media-bg: #1d2226;
+  --project-media-shadow: 0 28px 75px rgb(255 106 26 / 18%);
+}
+
+.project-row[data-project-theme='kineo'],
+.project-cursor-preview[data-project-theme='kineo'] {
+  --project-row-accent: #fb602d;
+  --project-media-bg: #14263e;
+  --project-media-shadow: 0 28px 75px rgb(20 38 62 / 28%);
+}
+
+.project-row[data-project-theme='forma'],
+.project-cursor-preview[data-project-theme='forma'] {
+  --project-row-accent: #80766a;
+  --project-media-bg: #e8e1d5;
+  --project-media-shadow: 0 28px 75px rgb(74 64 53 / 20%);
 }
 
 .project-row__link {
