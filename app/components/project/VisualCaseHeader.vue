@@ -87,6 +87,11 @@ const cover = computed(() => {
   white-space: nowrap;
 }
 
+.visual-case-hero[data-variant='forma'] h1 {
+  overflow-wrap: normal;
+  white-space: nowrap;
+}
+
 .visual-case-hero[data-variant='aerovista'] h1 {
   overflow-wrap: normal;
   font-size: clamp(3.25rem, 6vw, 6.5rem);
@@ -103,6 +108,7 @@ const cover = computed(() => {
 @media (max-width: 900px) {
   .visual-case-hero__heading,
   .visual-case-hero__facts { grid-template-columns: 1fr; }
+  .visual-case-hero[data-variant='forma'] .visual-case-hero__heading { grid-template-columns: 1fr; }
   .visual-case-hero__media { grid-row: 2; }
 }
 
