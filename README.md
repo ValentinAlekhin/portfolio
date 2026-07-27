@@ -1,37 +1,58 @@
-# Портфолио Валентина Алёхина
+# alekhin.dev
 
-Одностраничное мультиязычное коммерческое портфолио независимого senior full-stack разработчика. Сайт рассказывает об услугах, проектах и формате работы и ведёт потенциального клиента к Telegram или email. Это не резюме и не приложение с backend: обе языковые версии предварительно генерируются в полноценный HTML и после сборки могут работать на обычном статическом хостинге.
+Персональное портфолио Валентина Алёхина — независимого senior full-stack разработчика. Сайт знакомит с подходом к работе, услугами и проектами, а каждый проект раскрывается на отдельной странице кейса.
 
-- Основной домен: `https://alekhin.dev`
-- Английская версия: `/`
-- Русская версия: `/ru`
-- Статический каталог после генерации: `.output/public`
+Визуальная система построена вокруг интерфейсов терминала и редактора: моноширинная типографика, phosphor-green акценты, CRT-эффекты, интерактивная консоль и Canvas-игра. При этом сайт остаётся доступным с клавиатуры, учитывает `prefers-reduced-motion` и адаптирован для мобильных устройств.
 
-## Технологический стек
+- Production: [alekhin.dev](https://alekhin.dev)
+- Русская версия по умолчанию: `/`
+- Английская версия: `/en/`
+- Русские кейсы: `/projects/<slug>/`
+- Английские кейсы: `/en/projects/<slug>/`
+- Результат статической генерации: `.output/public`
 
-- Nuxt 4, Vue 3 и TypeScript
-- Nuxt UI и Tailwind CSS 4
-- Nuxt Content с YAML-коллекцией и строгой Zod-схемой
-- `@nuxtjs/i18n` со стратегией `prefix_except_default`
-- VueUse для browser-specific поведения интерфейса
-- Nuxt Color Mode для режимов `system`, `light` и `dark`
-- `@nuxt/eslint` и ESLint flat config
-- статическая генерация Nuxt/Nitro
+Сайт не требует базы данных, API или постоянно запущенного Node.js-процесса: все публичные маршруты предварительно генерируются в HTML.
 
-У проекта нет серверной базы данных, API-маршрутов и обязательных внешних runtime-запросов. После публикации Node.js на сервере не требуется.
+## Возможности
+
+- две локали с `prefix_except_default`: русский без префикса и английский под `/en`;
+- главная страница с секциями проектов, услуг, типов задач, информации об авторе и контактов;
+- шесть локализованных проектных кейсов с собственными визуальными темами и адаптивными галереями;
+- режимы `system` и `phosphor` с ранней инициализацией темы без заметной вспышки палитры;
+- интерактивный терминал с командами навигации, переключением темы и историей ввода;
+- Canvas-игра с управлением с клавиатуры и сенсорных устройств;
+- локализованные SEO-метаданные, Open Graph, canonical/alternate links и JSON-LD;
+- статическая генерация всех локализованных маршрутов.
+
+## Технологии
+
+- Nuxt 4 и Vue 3;
+- строгий TypeScript;
+- `@nuxtjs/i18n`;
+- SCSS и централизованные CSS custom properties;
+- GSAP для анимаций;
+- `@nuxt/image` для изображений;
+- Reka UI для доступных UI-примитивов;
+- Vitest и Vue Test Utils;
+- Playwright и axe-core для браузерных и accessibility-тестов;
+- ESLint и Stylelint.
+
+В проекте нет Tailwind CSS, Nuxt UI и Nuxt Content. Тексты хранятся в JSON-файлах локалей, а типизированные записи проектов — в `app/data/`.
 
 ## Требования
 
-- Node.js `22.12.0` или новее в ветке 22; также подходят поддерживаемые Nuxt версии `24.11.0+` и `26+`
-- pnpm 10.x
+- Node.js `^22.12.0`, `^24.11.0` или `>=26.0.0`;
+- pnpm 10.x.
 
-Используйте только pnpm. Не создавайте `package-lock.json`, `yarn.lock` или lock-файлы других пакетных менеджеров. Точная версия pnpm зафиксирована полем `packageManager` в `package.json`; при необходимости включите Corepack — при запуске из каталога проекта он выберет указанную версию:
+Точная версия pnpm зафиксирована в поле `packageManager` файла `package.json`. Используйте только pnpm и не создавайте lock-файлы других пакетных менеджеров.
+
+При необходимости включите Corepack:
 
 ```bash
 corepack enable
 ```
 
-## Установка и локальный запуск
+## Установка и запуск
 
 ```bash
 pnpm install
@@ -40,323 +61,248 @@ pnpm dev
 
 Development-сервер по умолчанию доступен на `http://localhost:3000`.
 
-Основные команды:
-
 | Команда | Назначение |
 | --- | --- |
-| `pnpm dev` | Запустить development-сервер с HMR |
-| `pnpm lint` | Проверить TypeScript/Vue/CSS-код правилами ESLint |
-| `pnpm lint:fix` | Автоматически исправить допустимые ESLint-ошибки |
-| `pnpm typecheck` | Запустить проверку типов Nuxt и Vue |
-| `pnpm build` | Собрать production-версию Nuxt |
-| `pnpm generate` | Сгенерировать статические версии `/` и `/ru` |
-| `pnpm preview` | Локально открыть production-результат |
+| `pnpm dev` | Запустить Nuxt development-сервер с HMR |
+| `pnpm lint` | Проверить проект правилами ESLint |
+| `pnpm lint:fix` | Применить безопасные автоматические исправления ESLint |
+| `pnpm test` | Запустить unit-тесты Vitest |
+| `pnpm test:e2e` | Запустить Playwright-тесты, когда в проекте есть browser specs |
+| `pnpm typecheck` | Проверить типы Nuxt, Vue и TypeScript |
+| `pnpm build` | Создать production server build |
+| `pnpm generate` | Предварительно сгенерировать статический сайт |
+| `pnpm preview` | Локально запустить сгенерированный production-результат |
 
-Перед отправкой изменений рекомендуется выполнить полный цикл проверок:
+Перед отправкой изменений выполните:
 
 ```bash
 pnpm lint
+pnpm test
 pnpm typecheck
 pnpm generate
-pnpm preview
 ```
 
-После `pnpm generate` проверьте наличие как минимум:
-
-```text
-.output/public/index.html
-.output/public/ru/index.html
-```
-
-Основной текст обеих страниц должен находиться в этих HTML-файлах уже при открытии исходного кода страницы, а не появляться только после выполнения JavaScript.
+Для изменений критичного browser-only поведения также добавьте и запустите подходящие Playwright-тесты.
 
 ## Структура проекта
 
 ```text
 app/
-  app.vue                         # корневой UApp и общая оболочка
-  app.config.ts                   # семантические цвета и конфигурация Nuxt UI
-  assets/css/main.css             # Tailwind, Nuxt UI, переменные и общие стили
+  app.vue                         # общая оболочка, header/footer, диалоги и эффекты
+  error.vue                       # локализованная страница ошибки
+  assets/
+    asciiart.txt                  # ASCII-графика для hero/workbench
+    styles/
+      main.scss                   # точка входа глобальных SCSS-слоёв
+      settings/                   # токены, breakpoints, типографика, темы кейсов
+      generic/                    # reset и шрифты
+      elements/                   # базовые стили элементов
+      objects/                    # layout и grid
+      tools/                      # SCSS mixins
+      utilities/                  # accessibility и reduced motion
   components/
-    layout/                       # header, мобильная навигация, footer
-    sections/                     # Hero, Services, Projects, Process и другие секции
-    project/                      # карточки, preview, метрики и placeholder проекта
-    ui/                           # повторяющиеся локальные UI-паттерны
-  composables/
-    usePortfolioContent.ts        # однократная SSR-safe загрузка YAML текущей локали
-    useActiveSection.ts           # активный пункт якорной навигации
-    useSectionReveal.ts           # появления с учётом reduced motion
-    useContactLink.ts             # выбор Telegram или fallback на #contacts
-  pages/index.vue                 # загрузка контента и сборка одностраничного сайта
-  types/portfolio.ts              # только вспомогательные/производные UI-типы
-content/
-  portfolio/
-    en.yml                        # весь английский пользовательский контент
-    ru.yml                        # весь русский пользовательский контент
+    base/                         # кнопки и заголовки секций
+    layout/                       # header, footer, mobile nav, page transition
+    motion/                       # небольшие animation-компоненты
+    project/                      # страницы и общие блоки проектных кейсов
+    sections/                     # секции главной страницы
+    ui/                           # theme/locale controls, dialog, terminal
+    visual/                       # CRT, workbench, marquee и Canvas-игра
+  composables/                    # переиспользуемое состояние и browser-only поведение
+  data/
+    navigation.ts                # locale-independent навигация
+    profile.ts                   # публичные контакты и профиль
+    projects.ts                  # проекты, метрики, стек и медиа
+  pages/
+    index.vue                    # главная страница
+    projects/[slug].vue          # динамический маршрут проектного кейса
+  plugins/
+    gsap.client.ts               # клиентская регистрация GSAP
+  types/                         # общие типы контента и локалей
+  utils/                         # framework-independent helpers
+i18n/locales/
+  ru.json                        # русские тексты, default locale
+  en.json                        # английские тексты
 public/
-  images/projects/                # локальные скриншоты проектов
-  og/                             # Open Graph изображения локалей
-  favicon.ico
+  og/                            # Open Graph изображения главной
+  projects/<slug>/               # скриншоты и OG-изображения кейсов
+  favicon.*                      # варианты favicon
   robots.txt
   sitemap.xml
   site.webmanifest
-content.config.ts                 # data-коллекция и строгая Zod-схема
-nuxt.config.ts                    # модули, i18n, prerender и SEO-настройки
-eslint.config.mjs                 # flat config ESLint
+tests/
+  projects.spec.ts               # целостность данных, медиа и переводов проектов
+  theme.spec.ts                  # разрешение и валидация темы
+nuxt.config.ts                   # модули, i18n, prerender, head и Nuxt-настройки
 ```
 
-Фактическое разбиение компонентов может немного меняться по мере развития сайта, но источником маркетингового контента остаются только `content/portfolio/en.yml` и `content/portfolio/ru.yml`. Страница загружает нужный документ один раз через `queryCollection`; секции получают уже типизированные данные через props.
+Каталоги `.nuxt/` и `.output/` генерируются автоматически и не являются исходным кодом.
 
-## Контент в YAML
+## Контент и локализация
 
-Оба файла локалей имеют одинаковую структуру и валидируются схемой из `content.config.ts`:
+Весь переводимый пользовательский текст находится в:
 
-```yaml
-locale: en
-seo:                    # title, description, OG и canonical
-site:                   # имя, роль, домен и URL
-navigation:             # якоря и доступные подписи элементов управления
-hero:                   # заголовок, CTA, технологии и необязательный portrait
-services:               # карточки услуг
-projects:               # любое количество проектов
-process:                # этапы сотрудничества
-about:                  # текст и краткие факты
-availability:           # видимость и статус доступности
-contacts:               # Telegram, email и fallback-текст
-footer:                 # роль, copyright и возврат наверх
+```text
+i18n/locales/ru.json
+i18n/locales/en.json
 ```
 
-После изменения структуры YAML синхронно обновите строгую схему в `content.config.ts`. Не создавайте отдельную ручную копию полного типа данных: типы коллекции генерирует Nuxt Content.
+Структура файлов должна оставаться полностью одинаковой. Это проверяет тест `tests/projects.spec.ts`. При добавлении или переименовании ключа синхронно обновляйте обе локали.
 
-### Английский и русский контент
+Не размещайте переводимый текст напрямую в Vue-компонентах или TypeScript-данных. Исключения — названия брендов и технологий, кодовые фрагменты и намеренные терминальные токены.
 
-- Английские тексты редактируются в `content/portfolio/en.yml` и публикуются на `/`.
-- Русские тексты редактируются в `content/portfolio/ru.yml` и публикуются на `/ru`.
+Locale-independent данные разделены по назначению:
 
-Сохраняйте одинаковые `id` секций и проектов в двух локалях. Это поддерживает якорные ссылки, активную навигацию и одинаковый порядок содержимого. Не переносите основные тексты в Vue-компоненты или i18n messages: там допустимы только короткие технические строки интерфейса.
+- `app/data/profile.ts` — имя, роль, опыт, часовой пояс и публичные контакты;
+- `app/data/navigation.ts` — идентификаторы секций и ключи переводов;
+- `app/data/projects.ts` — slug, статус, период, метрики, стек, медиа и ссылки проектов;
+- `app/types/i18n.ts` — `LocaleCode` и locale maps.
+
+Не используйте разрозненные строковые литералы `'ru'` и `'en'`: для кода локали предназначен `LocaleCode`.
+
+### Маршрутизация локалей
+
+`@nuxtjs/i18n` настроен со стратегией `prefix_except_default`:
+
+| Локаль | Главная | Пример кейса |
+| --- | --- | --- |
+| Русская | `/` | `/projects/powersketch/` |
+| Английская | `/en/` | `/en/projects/powersketch/` |
+
+Ссылки между локалями и локализованные пути формируйте через `useLocalePath()` и `useSwitchLocalePath()`, а не вручную.
+
+## Проектные кейсы
+
+Сейчас опубликованы шесть кейсов:
+
+1. PowerSketch
+2. PLANES architects
+3. NORDHUS
+4. AEROVISTA Inspect
+5. KINEO
+6. FORMA
+
+Запись в `app/data/projects.ts` содержит:
+
+- стабильный `slug`, индекс, название, период и статус;
+- ключи локализованного текста и scope;
+- имя компонента и тему кейса;
+- Schema.org-тип (`SoftwareApplication` или `WebSite`);
+- cover, Open Graph image, метрики, стек и массив медиа;
+- внешний URL, только если опубликованный проект действительно доступен.
+
+Медиа хранятся в `public/projects/<slug>/`. Для каждого элемента указываются реальные размеры, ключи локализованных `alt` и caption, а при необходимости — вариант отображения (`viewport`, `full-page`, `phone` или `modal`). Для изображений, зависящих от локали и темы, используйте `ProjectMediaSources`.
 
 ### Добавление проекта
 
-Добавьте элемент в `projects.items` обоих YAML-файлов. Пример для английской локали:
+1. Подготовьте оптимизированные изображения в `public/projects/<slug>/`, включая отдельное OG-изображение.
+2. Добавьте одинаковую структуру текстов, `alt` и caption в `ru.json` и `en.json`.
+3. Добавьте типизированную запись в `app/data/projects.ts`; cover должен входить в массив `media`, а все пути должны существовать.
+4. Создайте компонент кейса в `app/components/project/`. Если это новый тип кейса, обновите `ProjectCaseName` в `app/types/content.ts` и карту `caseComponents` в `app/pages/projects/[slug].vue`.
+5. Добавьте slug в `projectSlugs` внутри `nuxt.config.ts`, чтобы обе локали явно попали в prerender.
+6. Обновите `public/sitemap.xml` и тестовые ожидания в `tests/projects.spec.ts`.
+7. Выполните полный цикл проверок и откройте обе локализованные версии кейса напрямую.
 
-```yaml
-- id: powersketch
-  published: true
-  featured: true
-  title: PowerSketch
-  shortDescription: A browser-based service for designing electrical distribution boards.
-  fullDescription: A SaaS product with an interactive graphical editor, device library, project storage, exports and subscriptions.
-  url: https://powersketch.ru
-  repositoryUrl:
-  images: []
-  role:
-    - item: Product design
-    - item: UI/UX
-    - item: Frontend
-    - item: Backend
-    - item: Architecture
-    - item: Infrastructure
-  responsibilities:
-    - item: Product architecture
-    - item: Interactive editor
-    - item: Device library
-    - item: Project storage
-  features:
-    - item: Interactive graphical editor
-    - item: Layers, wires and annotations
-    - item: SVG, PNG and PDF export
-    - item: Subscriptions and paid features
-  technologies:
-    - label: Vue
-    - label: Nuxt
-    - label: TypeScript
-    - label: Node.js
-    - label: SVG
-  result: A complete browser-based product for creating electrical diagrams without installing specialized desktop software.
-  metrics: []
-```
+Не добавляйте вымышленные показатели, клиентов, ссылки или статусы. Метрики должны быть проверяемыми; локализуемое значение задаётся через `valueKey`, неизменяемое — через `value`.
 
-Для русского файла добавьте запись с тем же `id`, флагами, ссылками и изображениями, но с русскими текстами.
+## Стили и темы
 
-- Чтобы скрыть проект, установите `published: false` в обеих локалях. Он останется в контенте, но не попадёт на страницу.
-- Чтобы выделить проект, используйте `featured: true`.
-- Чтобы изменить порядок, переставьте элементы массива `projects.items`. Vue-код менять не требуется.
-- Пустые `url` и `repositoryUrl` разрешены: соответствующие кнопки не отображаются.
-- Не добавляйте вымышленные клиенты, отзывы или показатели.
+Глобальные стили подключаются через `app/assets/styles/main.scss` и разбиты на SCSS-слои. Основные токены определены в `app/assets/styles/settings/_tokens.scss`.
 
-### Реальные метрики
+Поддерживаются два значения темы:
 
-Метрики необязательны. Пока подтверждённых значений нет, оставляйте `metrics: []` или не задавайте поле. Для реальных показателей используйте:
+- `system` — основная светлая палитра;
+- `phosphor` — тёмная CRT-палитра с phosphor-green акцентом.
 
-```yaml
-metrics:
-  - value: "12"
-    label: Production integrations
-  - value: "3"
-    label: Export formats
-```
+При первом посещении начальное значение выбирается с учётом системной цветовой схемы, затем выбор хранится в `localStorage` под ключом `va-theme`. Синхронный скрипт в `nuxt.config.ts` применяет тему до гидратации.
 
-Замените пример только на проверяемые значения. При пустом массиве блок метрик не рендерится.
+У каждого кейса может быть собственная палитра. Она задаётся через `data-project-theme` и токены в `app/assets/styles/settings/_project-themes.scss`, а не через случайные цвета внутри компонентов.
 
-### Портрет
+При изменении интерфейса:
 
-Положите локальный файл, например, в `public/images/portrait.webp`, а затем заполните `hero.portrait` в обеих локалях:
+- используйте существующие CSS custom properties;
+- сохраняйте видимый focus и достаточный контраст;
+- проверяйте `system` и `phosphor`;
+- проверяйте desktop, ширину около 1100 px и mobile;
+- не ломайте layout длинными русскими или английскими строками;
+- учитывайте `prefers-reduced-motion`.
 
-```yaml
-portrait:
-  src: /images/portrait.webp
-  alt: Portrait of Valentin Alekhin
-```
+## Browser-only поведение
 
-Для русского файла задайте локализованный `alt`. Если `src` пуст или поле отсутствует, Hero автоматически показывает абстрактную композицию с монограммой `VA`; менять компонент не нужно. Подготовьте изображение подходящего размера в WebP/AVIF, не удаляйте его пропорции и не используйте URL внешнего CDN.
+DOM API, Canvas, observers, timers и event listeners инициализируются только внутри клиентского lifecycle. На unmount необходимо отменять animation frames, отключать observers и удалять listeners.
 
-### Скриншоты проектов
+Особое внимание требуется для:
 
-Храните изображения в отдельном каталоге проекта, например:
+- `TerminalConsole` — открывается кнопкой, `Cmd/Ctrl + K` или клавишей `` ` ``;
+- `FlightGameCanvas` — учитывает DPR, resize, keyboard/touch input, видимость вкладки и reduced motion;
+- GSAP-анимаций и page transitions;
+- диалога контактов и мобильной навигации;
+- переключения локали и темы без hydration warnings.
+
+## SEO и публичные файлы
+
+Главная страница и кейсы задают локализованные meta tags через `useSeoMeta()` и `useHead()`. Страницы также формируют canonical/alternate links и JSON-LD:
+
+- главная — `Person` и `WebSite`;
+- PowerSketch — `SoftwareApplication`;
+- остальные кейсы — `WebSite`;
+- страницы кейсов дополнительно содержат `BreadcrumbList`.
+
+Публичные SEO-ресурсы:
 
 ```text
-public/images/projects/powersketch/editor.webp
-public/images/projects/powersketch/mobile.webp
-```
-
-Подключите их в `images` у проекта:
-
-```yaml
-images:
-  - src: /images/projects/powersketch/editor.webp
-    alt: PowerSketch electrical board editor
-  - src: /images/projects/powersketch/mobile.webp
-    alt: PowerSketch project view on a narrow screen
-```
-
-Локализуйте `alt` в `ru.yml`. Используйте локальные WebP/AVIF/PNG, указывайте содержательный alt и оптимизируйте размер файлов. Если `images` пуст, для PowerSketch отображается встроенный аккуратный SVG/CSS-placeholder. Чтобы заменить его настоящими скриншотами, достаточно положить файлы в `public/images/projects/powersketch/` и заполнить массив; Vue-код менять не требуется.
-
-### Контакты
-
-Заполните одни и те же реальные контактные данные в обоих YAML-файлах:
-
-```yaml
-contacts:
-  telegram:
-    label: Telegram
-    url: https://t.me/your_username
-  email:
-    label: Email
-    value: hello@example.com
-```
-
-Не добавляйте `@` вместо URL Telegram и не пишите `mailto:` в `value`: ссылка email формируется приложением. Пустой Telegram не создаёт ссылку, пустой email не создаёт `mailto:`. Если оба значения пустые, секция выводит локализованное сообщение-заглушку, а основная CTA в Hero ведёт к `#contacts`.
-
-### Доступность для проектов, location и timezone
-
-Секция полностью управляется блоком `availability`:
-
-```yaml
-availability:
-  visible: true
-  available: true
-  label: Available for projects
-  title: Let’s discuss your product
-  description: ...
-  location:
-  timezone:
-```
-
-- `visible: false` полностью скрывает секцию.
-- `available: true` показывает положительный статус; `false` — нейтральный статус без зелёной индикации.
-- В `label`, `title` и `description` должен быть текст, соответствующий значению `available`.
-- В `location` укажите только фактическое местоположение, если хотите публиковать его.
-- В `timezone` укажите понятный клиенту часовой пояс, например `UTC+3`, только после проверки.
-- Пустые `location` и `timezone` не отображаются.
-
-Обновляйте блок в обоих YAML-файлах, локализуя подписи, но сохраняя одинаковые `visible` и `available`.
-
-## Цвета и темы
-
-Сайт поддерживает `system`, `light` и `dark`; по умолчанию используется системная тема с fallback на светлую. Выбор сохраняет Nuxt Color Mode. Не добавляйте параллельное хранение темы через VueUse или собственный `localStorage`.
-
-- Семантические цвета Nuxt UI меняются в `app/app.config.ts`.
-- Фон, поверхности, текст, границы, акцент, тени и радиусы меняются через CSS-переменные в `app/assets/css/main.css`.
-- Светлые и тёмные значения задаются централизованно; не размещайте произвольные HEX-цвета в компонентах.
-- Поведение и набор режимов color mode настраиваются в `nuxt.config.ts`.
-
-После изменения палитры проверьте контраст текста, focus ring, кнопки, карточки, мобильное меню, project preview и Open Graph изображения в обеих темах. Также проверьте `prefers-reduced-motion`: контент должен быть видим сразу, а декоративные движения и smooth scroll — отключаться.
-
-## Добавление локали
-
-Сейчас поддерживаются только `en` и `ru`. Чтобы добавить язык:
-
-1. Скопируйте `content/portfolio/en.yml` в новый файл, например `content/portfolio/de.yml`, переведите все пользовательские тексты и измените `locale`.
-2. Добавьте значение локали в Zod enum/схему `content.config.ts`.
-3. Зарегистрируйте локаль в настройках `@nuxtjs/i18n` в `nuxt.config.ts` и выберите корректный ISO-код и Open Graph locale.
-4. Добавьте новый маршрут в prerender-настройки и, если sitemap статический, в `public/sitemap.xml`.
-5. Создайте локальное Open Graph изображение и заполните локализованные SEO-поля, canonical, `hreflang`, alternate locale и `x-default`.
-6. При наличии коротких технических i18n messages добавьте их перевод в единственном используемом источнике.
-7. Выполните `pnpm typecheck` и `pnpm generate`, затем проверьте HTML нового маршрута и переключатель языка.
-
-Стратегия `prefix_except_default` оставляет английский языком без префикса. Ссылки переключателя строятся API `@nuxtjs/i18n`, а не вручную.
-
-## SEO и статические ресурсы
-
-Локализованные `title`, `description`, canonical и Open Graph данные находятся в `seo` каждого YAML-файла. Для `alekhin.dev` ожидаются canonical:
-
-```text
-https://alekhin.dev/
-https://alekhin.dev/ru
-```
-
-Open Graph изображения хранятся локально:
-
-```text
-public/og/portfolio-en.png
 public/og/portfolio-ru.png
+public/og/portfolio-en.png
+public/projects/<slug>/<og-image>
+public/robots.txt
+public/sitemap.xml
+public/site.webmanifest
+public/favicon.svg
+public/favicon.png
+public/favicon.ico
 ```
 
-Также перед публикацией проверяются `public/favicon.ico`, `public/site.webmanifest`, `public/robots.txt` и `public/sitemap.xml`. Если основной домен изменится, обновите его во всех YAML SEO-полях, JSON-LD, robots, sitemap и конфигурации сайта — частичная замена приведёт к конфликтующим canonical URL.
+При изменении домена, локалей или маршрутов синхронно обновите конфигурацию i18n, canonical URL, prerender routes, sitemap, manifest, robots и Open Graph assets.
 
-## Статическое развёртывание
+## Статическая генерация и публикация
 
-Соберите сайт:
+Production-сборка для статического хостинга:
 
 ```bash
 pnpm install --frozen-lockfile
 pnpm lint
+pnpm test
 pnpm typecheck
 pnpm generate
 ```
 
-На хостинг нужно загрузить **содержимое** каталога `.output/public`, а не сам исходный проект и не родительский каталог `.output`. Корень домена должен указывать на файл `.output/public/index.html`, а `/ru` — открывать `.output/public/ru/index.html`.
+После генерации проверьте как минимум:
 
-Для Netlify, Cloudflare Pages, GitHub Pages, S3/объектного хранилища или другого статического сервиса используйте:
+```text
+.output/public/index.html
+.output/public/en/index.html
+.output/public/projects/powersketch/index.html
+.output/public/en/projects/powersketch/index.html
+```
+
+На хостинг загружается содержимое `.output/public`. Для статического сервиса:
 
 ```text
 Build command: pnpm generate
 Publish directory: .output/public
 ```
 
-В CI должна быть установлена версия Node.js, подходящая под раздел «Требования», и включён pnpm/Corepack. Для обычного Nginx/Apache загрузите содержимое `.output/public` в document root. Серверный процесс `nuxt start` не нужен.
+После публикации откройте `/` и `/en/`, затем все страницы проектов в обеих локалях. Проверьте прямое открытие и обновление вложенных маршрутов, переключатели языка и темы, контакты, terminal, Canvas-игру, canonical/alternate links, `robots.txt`, `sitemap.xml` и Open Graph preview.
 
-После публикации откройте `/` и `/ru` напрямую, обновите страницу на каждом маршруте, проверьте якоря, контакты, переключение языка и темы, canonical/`hreflang`, `robots.txt`, `sitemap.xml` и Open Graph preview.
+## Финальная проверка UI
 
-## Before publishing
-
-- [ ] Добавить реальный Telegram URL в `content/portfolio/en.yml` и `ru.yml`.
-- [ ] Добавить реальный email в оба YAML-файла.
-- [ ] Проверить и при необходимости заполнить `availability.location`; не угадывать местоположение.
-- [ ] Проверить и при необходимости заполнить `availability.timezone`.
-- [ ] Добавить портрет в `public/images/` и заполнить `hero.portrait`, если он нужен.
-- [ ] Заменить placeholder PowerSketch реальными локальными скриншотами и заполнить `images`.
-- [ ] Проверить рабочую ссылку PowerSketch и убрать её, если она недоступна.
-- [ ] Проверить canonical URL для `/` и `/ru`.
-- [ ] Проверить локальные Open Graph изображения для обеих локалей.
-- [ ] Проверить favicon и `site.webmanifest`.
-- [ ] Проверить содержимое и доступность `robots.txt`.
-- [ ] Проверить, что sitemap содержит `/` и `/ru` с production-доменом.
-- [ ] Выполнить `pnpm lint`, `pnpm typecheck` и `pnpm generate` без ошибок.
-- [ ] Проверить сгенерированный HTML в `.output/public` и отсутствие runtime-запросов за контентом.
-- [ ] Проверить production-страницы `/` и `/ru`, включая прямое открытие и обновление.
-- [ ] Проверить мобильную версию от 320 px, клавиатурную навигацию, обе темы и reduced motion.
-- [ ] Проверить отсутствие ошибок, hydration warnings и горизонтального scroll в браузерной консоли.
-- [ ] Выполнить Lighthouse для обеих локалей и проверить Performance, Accessibility, Best Practices и SEO.
-
-Пустые Telegram, email, location, timezone, portrait, project images и metrics являются допустимыми до публикации: интерфейс не должен создавать для них пустые ссылки или блоки. В production следует заполнить только реальные, проверенные данные.
+- обе локали на главной и всех project routes;
+- обе темы, включая индивидуальные палитры кейсов;
+- desktop, примерно 1100 px и mobile;
+- keyboard navigation, skip link и видимый focus;
+- mobile navigation, contact dialog и terminal input;
+- Canvas controls с клавиатуры и touch;
+- `prefers-reduced-motion`;
+- отсутствие SSR/hydration ошибок и горизонтального scroll;
+- корректные локализованные title, description, canonical, alternate и JSON-LD;
+- полное содержимое страницы в сгенерированном HTML.
