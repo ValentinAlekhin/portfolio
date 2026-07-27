@@ -12,7 +12,7 @@ body {
   background-size: 4rem 4rem;
   color: var(--color-text);
   font-family: var(--font-sans);
-  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  font-size: var(--font-size-body);
   line-height: 1.62;
   text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;

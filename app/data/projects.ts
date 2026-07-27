@@ -174,7 +174,7 @@ export const projects: Project[] = [
     cover: planesArchMediaPath('landing', LocaleCode.Ru, 'light'),
     ogImage: planesArchMediaPath('landing', LocaleCode.Ru, 'light'),
     metrics: [
-      { value: 'RU/EN', labelKey: 'projects.entries.planesArch.metrics.locales' },
+      { value: '2', labelKey: 'projects.entries.planesArch.metrics.locales' },
       { value: '3', labelKey: 'projects.entries.planesArch.metrics.themes' },
       { value: '5', labelKey: 'projects.entries.planesArch.metrics.categories' },
     ],
@@ -234,7 +234,7 @@ export const projects: Project[] = [
     metrics: [
       { value: '7', labelKey: 'projects.entries.nordhus.metrics.cabins' },
       { value: '4', labelKey: 'projects.entries.nordhus.metrics.types' },
-      { value: '360+', labelKey: 'projects.entries.nordhus.metrics.viewport' },
+      { value: '3', labelKey: 'projects.entries.nordhus.metrics.actions' },
     ],
     media: [
       visualProjectMedia('nordhus', 'cover', 2400, 1516, 'viewport'),
@@ -326,7 +326,10 @@ export const projects: Project[] = [
     metrics: [
       { value: '12', labelKey: 'projects.entries.forma.metrics.products' },
       { value: '5', labelKey: 'projects.entries.forma.metrics.filters' },
-      { value: 'LOCAL', labelKey: 'projects.entries.forma.metrics.cart' },
+      {
+        valueKey: 'projects.entries.forma.metrics.cartValue',
+        labelKey: 'projects.entries.forma.metrics.cart',
+      },
     ],
     media: [
       visualProjectMedia('forma', 'cover', 2400, 1516, 'viewport'),

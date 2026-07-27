@@ -200,7 +200,7 @@ onBeforeUnmount(() => {
 .project-screenshot__chrome { border-bottom: 1px solid var(--color-line); }
 .project-screenshot__chrome > span:first-child { display: flex; gap: 0.3rem; }
 .project-screenshot__chrome > span:nth-child(2) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.project-screenshot__chrome button { justify-self: end; border: 0; color: var(--color-accent); font: inherit; cursor: pointer; }
+.project-screenshot__chrome button { justify-self: end; border: 0; background: transparent; color: var(--color-accent); font: inherit; cursor: pointer; white-space: nowrap; }
 .project-screenshot__chrome button:hover { color: var(--color-text); }
 .project-screenshot__chrome i { width: 0.42rem; height: 0.42rem; border: 1px solid var(--color-control-border); border-radius: 50%; }
 .project-screenshot__chrome i:first-child { border-color: var(--color-accent); background: var(--color-accent); }
@@ -224,19 +224,20 @@ onBeforeUnmount(() => {
 .project-screenshot figcaption > span:last-child { justify-self: end; color: var(--color-accent); }
 
 .project-screenshot__dialog {
-  width: min(96vw, 100rem);
+  width: min(96vw, var(--project-source-width));
   max-width: none;
   max-height: 94svh;
   margin: auto;
   padding: 0;
+  overflow: hidden;
   border: 1px solid var(--color-control-border);
-  background: var(--color-bg);
+  background: transparent;
   color: var(--color-text);
   box-shadow: 0 35px 120px rgb(0 0 0 / 55%);
 }
 
 .project-screenshot__dialog::backdrop { background: rgb(0 0 0 / 78%); backdrop-filter: blur(6px); }
-.project-screenshot__dialog-panel { position: relative; width: min(100%, var(--project-source-width)); max-height: 94svh; margin-inline: auto; overflow: auto; overscroll-behavior: contain; }
+.project-screenshot__dialog-panel { position: relative; width: 100%; max-height: calc(94svh - 2px); overflow: auto; overscroll-behavior: contain; }
 .project-screenshot__dialog-panel img { display: block; width: 100%; height: auto; }
 .project-screenshot__dialog-toolbar { position: sticky; z-index: 2; top: 0; display: grid; grid-template-columns: auto 1fr auto; border-bottom: 1px solid var(--color-line); background: color-mix(in srgb, var(--color-bg) 94%, transparent); backdrop-filter: blur(12px); }
 .project-screenshot__dialog-toolbar button { min-width: 3.25rem; padding: 0.9rem 1rem; border: 0; background: transparent; color: var(--color-accent); font: inherit; cursor: pointer; }
@@ -245,9 +246,9 @@ onBeforeUnmount(() => {
 .project-screenshot__dialog-toolbar button:focus-visible { outline: 2px solid var(--color-focus); outline-offset: -3px; }
 
 @media (max-width: 600px) {
-  .project-screenshot__chrome { grid-template-columns: auto minmax(0, 1fr); }
+  .project-screenshot__chrome { grid-template-columns: auto minmax(0, 1fr) auto; }
   .project-screenshot__chrome > span:nth-child(2) { justify-self: end; }
-  .project-screenshot__chrome button { grid-column: 1 / -1; width: 100%; padding-block: 0.7rem; border-top: 1px solid var(--color-line); text-align: right; }
+  .project-screenshot__chrome button { padding: 0.5rem 0; text-align: right; }
   .project-screenshot figcaption > span:last-child { display: none; }
 }
 </style>

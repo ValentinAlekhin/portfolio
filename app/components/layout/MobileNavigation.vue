@@ -215,7 +215,7 @@ function openContact() {
   border-bottom: 1px solid var(--color-line);
   color: var(--color-text-muted);
   font-family: var(--font-mono);
-  font-size: clamp(0.82rem, 3.7vw, 1rem);
+  font-size: clamp(1rem, 4.5vw, 1.125rem);
   text-decoration: none;
   transition: background var(--duration-ui) ease, color var(--duration-ui) ease;
 }

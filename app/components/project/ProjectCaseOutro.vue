@@ -3,6 +3,7 @@ import type { Project } from '~/types/content'
 
 defineProps<{
   project: Project
+  index: string
 }>()
 
 const { t } = useI18n()
@@ -12,14 +13,14 @@ const { t } = useI18n()
   <section class="visual-case-outro section-rule">
     <div class="site-container visual-case-outro__grid">
       <p class="system-label">
-        <span>// 04</span>{{ t('case.labels.stack') }}[]
+        <span>// {{ index }}</span>{{ t('case.labels.stack') }}
       </p>
       <ul>
         <li
           v-for="item in project.stack"
           :key="item"
         >
-          '{{ item }}',
+          {{ item }}
         </li>
       </ul>
       <div>

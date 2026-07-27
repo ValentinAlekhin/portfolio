@@ -142,7 +142,7 @@ onBeforeUnmount(() => {
   gap: 0.75rem;
   color: var(--color-text);
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
 }
@@ -165,7 +165,7 @@ onBeforeUnmount(() => {
   align-items: center;
   color: var(--color-text-muted);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   font-weight: 520;
   text-decoration: none;
 }
@@ -259,6 +259,6 @@ onBeforeUnmount(() => {
 
 @media (max-width: 390px) {
   .site-brand > span:last-child { display: none; }
-  .header-contact--mobile { padding-inline: 0.55rem; font-size: 0.6rem; }
+  .header-contact--mobile { padding-inline: 0.55rem; font-size: 0.75rem; }
 }
 </style>

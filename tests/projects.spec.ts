@@ -50,6 +50,32 @@ describe('portfolio projects', () => {
     }
   })
 
+  it('keeps every metric value literal or localized, but never both', () => {
+    for (const project of projects) {
+      for (const metric of project.metrics) {
+        const hasValue = 'value' in metric
+        const hasValueKey = 'valueKey' in metric
+
+        expect(hasValue).not.toBe(hasValueKey)
+
+        if (hasValueKey) {
+          expect(translated(ru, metric.valueKey as string)).toBe(true)
+          expect(translated(en, metric.valueKey as string)).toBe(true)
+        }
+      }
+    }
+  })
+
+  it('localizes the Forma cart persistence metric', () => {
+    const forma = projects.find(project => project.slug === 'forma')
+    const cartMetric = forma?.metrics.find(metric => metric.labelKey.endsWith('.cart'))
+
+    expect(cartMetric).toEqual({
+      valueKey: 'projects.entries.forma.metrics.cartValue',
+      labelKey: 'projects.entries.forma.metrics.cart',
+    })
+  })
+
   it('allows completed portfolio-only projects without external URLs', () => {
     const completed = projects.filter(project => project.status === 'completed')
 

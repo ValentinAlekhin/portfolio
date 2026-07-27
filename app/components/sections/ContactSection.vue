@@ -83,7 +83,7 @@ async function copyEmail() {
 .contact-section h2 { grid-column: 4 / -1; max-width: 11ch; margin: 0; font-size: clamp(3.8rem, 8vw, 8.8rem); font-weight: 520; letter-spacing: -0.075em; line-height: 0.85; }
 .contact-section h2 span { display: block; color: var(--contact-accent, #a8ff60); font-family: var(--font-mono); font-size: 0.09em; font-weight: 500; letter-spacing: 0; line-height: 2.2; }
 .contact-section__description { grid-column: 7 / 12; max-width: 50ch; margin: 1.5rem 0 0; color: var(--contact-muted, #a6ad9e); }
-.contact-section__description { font-family: var(--font-mono); font-size: 0.78rem; }
+.contact-section__description { font-family: var(--font-mono); font-size: var(--font-size-small); }
 .contact-section__links { grid-column: 4 / 10; display: grid; margin-top: 4rem; border-top: 1px solid var(--contact-line, #283025); }
 .contact-section__links a { display: grid; min-height: 4.7rem; grid-template-columns: 8rem 1fr; align-items: center; border-bottom: 1px solid var(--contact-line, #283025); color: var(--contact-text, #f0f2ea); text-decoration: none; }
 .contact-section__links span { color: var(--contact-muted, #a6ad9e); }

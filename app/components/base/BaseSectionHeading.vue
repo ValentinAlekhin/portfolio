@@ -12,14 +12,14 @@ defineProps<{
   <header class="section-heading">
     <p class="section-heading__meta system-label">
       <span>// {{ index }}</span>
-      {{ eyebrow }}.section
+      {{ eyebrow }}
     </p>
     <div class="section-heading__declaration">
       <p class="section-heading__code system-label">
         <b>export const</b> section_{{ index }} = &#123;
       </p>
       <h2 :id="titleId">
-        <span>title:</span> '{{ title }}',
+        <span>title:</span> '{{ title }}'
       </h2>
       <p class="section-heading__close system-label">
         &#125; satisfies PortfolioSection
@@ -88,7 +88,7 @@ defineProps<{
   margin: 0.8rem 0 0;
   color: var(--color-text-muted);
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: var(--font-size-small);
 }
 
 @media (max-width: 900px) {
@@ -137,7 +137,7 @@ defineProps<{
 
   .section-heading__description {
     margin-top: 0.5rem;
-    font-size: 0.76rem;
+    font-size: var(--font-size-small);
   }
 }
 </style>

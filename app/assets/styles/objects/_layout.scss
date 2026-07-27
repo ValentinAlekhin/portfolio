@@ -17,7 +17,7 @@
 
 .system-label {
   font-family: var(--font-mono);
-  font-size: clamp(0.6875rem, 0.8vw, 0.8125rem);
+  font-size: var(--font-size-ui);
   font-variant-ligatures: none;
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.06em;

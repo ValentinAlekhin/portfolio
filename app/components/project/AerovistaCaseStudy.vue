@@ -54,12 +54,15 @@ function media(id: string): ProjectMedia {
       </div>
     </VisualCaseSection>
 
-    <VisualCaseOutro :project="project" />
+    <ProjectCaseOutro
+      :project="project"
+      index="04"
+    />
   </main>
 </template>
 
 <style scoped lang="scss">
-.aerovista-case { background-image: linear-gradient(var(--color-line) 1px, transparent 1px), linear-gradient(90deg, var(--color-line) 1px, transparent 1px); background-size: 4rem 4rem; }
+.aerovista-case { background: var(--color-bg); }
 .aerovista-overview { position: relative; }
 .aerovista-coordinate { display: block; margin-bottom: 1rem; color: var(--color-accent); text-align: right; }
 .aerovista-mobile { display: grid; grid-template-columns: 5fr 3fr; align-items: start; gap: clamp(1rem, 4vw, 5rem); }

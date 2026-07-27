@@ -9,6 +9,7 @@ const itemDefinitions = [
   { id: 'products', number: '04' },
 ] as const
 const items = computed<ProcessItem[]>(() => itemDefinitions.map(item => ({
+  id: item.id,
   number: item.number,
   title: t(`process.items.${item.id}.title`),
   description: t(`process.items.${item.id}.description`),
@@ -64,7 +65,7 @@ onBeforeUnmount(() => context?.revert())
 
       <div class="protocol">
         <div class="protocol__head system-label">
-          <span>project_types.ts</span>
+          <span>{{ t('process.fileLabel') }}</span>
           <span>{{ t('process.running') }}</span>
         </div>
         <span
@@ -76,6 +77,7 @@ onBeforeUnmount(() => context?.revert())
           v-for="item in items"
           :key="item.number"
           class="protocol-step"
+          :data-process="item.id"
         >
           <span class="protocol-step__marker system-label">{{ Number(item.number) * 4 + 8 }}</span>
           <h3><span>build</span> {{ item.title }}<i>();</i></h3>
@@ -101,7 +103,14 @@ onBeforeUnmount(() => context?.revert())
 .protocol-step h3 { margin: 3.25rem 0 0; font-family: var(--font-mono); font-size: clamp(1.2rem, 2vw, 2rem); font-weight: 500; letter-spacing: -0.045em; }
 .protocol-step h3 span { display: block; margin-bottom: 0.45rem; color: #c67be5; font-size: 0.62rem; letter-spacing: 0; }
 .protocol-step h3 i { color: var(--color-accent); font-style: normal; }
-.protocol-step p { max-width: 34ch; margin: 1rem 0 0; color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.72rem; }
+.protocol-step p { max-width: 34ch; margin: 1rem 0 0; color: var(--color-text-muted); font-family: var(--font-mono); font-size: var(--font-size-small); }
+
+@media (min-width: 821px) {
+  .protocol-step[data-process='commerce'] h3 {
+    font-size: clamp(0.95rem, 1.8vw, 1.875rem);
+    white-space: nowrap;
+  }
+}
 
 @media (max-width: 820px) {
   .protocol { grid-template-columns: 1fr; }

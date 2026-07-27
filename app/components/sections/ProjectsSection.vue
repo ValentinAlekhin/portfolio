@@ -247,13 +247,13 @@ onBeforeUnmount(() => {
 .project-row__title { display: flex; min-width: 0; max-width: 100%; flex-wrap: wrap; color: var(--color-text); font-family: var(--font-mono); font-size: clamp(1.65rem, 2.5vw, 3.35rem); font-weight: 480; letter-spacing: -0.055em; line-height: 1; }
 .project-row__title b { color: #62b7e8; font-weight: 500; }
 .project-row__title > span { min-width: 0; max-width: 100%; white-space: normal; }
-.project-row__title q { overflow-wrap: anywhere; color: #d5b767; quotes: '"' '"'; }
-.project-row__summary { max-width: 44ch; color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.76rem; line-height: 1.6; }
+.project-row__title q { overflow-wrap: anywhere; color: var(--color-code-string); quotes: '"' '"'; }
+.project-row__summary { max-width: 44ch; color: var(--color-text-muted); font-family: var(--font-mono); font-size: var(--font-size-small); line-height: 1.6; }
 .project-row__link:hover .project-row__summary,
 .project-row__link:focus-visible .project-row__summary { color: var(--color-text-muted); }
 .project-row__meta { display: grid; width: 19rem; min-width: 19rem; gap: 0.75rem; color: var(--color-text-muted); }
 .project-row__meta b { color: var(--project-row-accent, var(--color-accent)); font-weight: 500; }
-.project-row__stack { max-width: 30ch; font-family: var(--font-mono); font-size: 0.68rem; }
+.project-row__stack { max-width: 30ch; font-family: var(--font-mono); font-size: var(--font-size-ui); }
 .project-row__arrow { color: var(--project-row-accent, var(--color-accent)); font-family: var(--font-mono); font-size: 0.65rem; transition: letter-spacing var(--duration-ui) var(--ease-out); }
 .project-row__link:hover .project-row__arrow { letter-spacing: 0.1em; }
 .project-row__mobile-preview { position: relative; z-index: 1; display: none; }
@@ -297,6 +297,6 @@ onBeforeUnmount(() => {
   .project-row__title b,
   .project-row__title > span { display: block; }
   .project-row__title > span { margin-top: 0.3rem; white-space: normal; }
-  .project-row__summary { font-size: 0.7rem; }
+  .project-row__summary { font-size: var(--font-size-small); }
 }
 </style>

@@ -57,7 +57,7 @@ const active = computed(() => items.value.find(item => item.id === activeId.valu
               @click="activeId = item.id"
             >
               <span class="system-label">{{ index + 12 }}</span>
-              <strong><i aria-hidden="true">├─</i> {{ item.id }}.ts</strong>
+              <strong>{{ item.title }}</strong>
               <em aria-hidden="true">{{ activeId === item.id ? '●' : '○' }}</em>
             </button>
           </div>
@@ -141,8 +141,7 @@ const active = computed(() => items.value.find(item => item.id === activeId.valu
 }
 
 .capabilities__pipeline button > span { z-index: 1; color: var(--color-text-muted); text-align: right; }
-.capabilities__pipeline strong { overflow: hidden; font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
-.capabilities__pipeline strong i { color: var(--color-text-muted); font-style: normal; }
+.capabilities__pipeline strong { overflow: hidden; font-family: var(--font-mono); font-size: var(--font-size-small); font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
 .capabilities__pipeline em { color: var(--color-line); font-size: 0.65rem; font-style: normal; }
 .capabilities__pipeline button.active { color: var(--color-text); }
 .capabilities__pipeline button.active { background: color-mix(in srgb, var(--color-accent) 10%, transparent); }
@@ -154,9 +153,9 @@ const active = computed(() => items.value.find(item => item.id === activeId.valu
 .capabilities__detail > p:first-child b { color: #c67be5; font-weight: 500; }
 .capabilities__detail h3 { max-width: 12ch; margin: 4rem 0 0; font-family: var(--font-mono); font-size: clamp(2rem, 4vw, 4.4rem); font-weight: 480; letter-spacing: -0.055em; line-height: 1; }
 .capabilities__detail h3 span { display: block; margin-bottom: 0.6rem; color: #62b7e8; font-size: 0.23em; letter-spacing: 0; }
-.capabilities__detail h3 + p { max-width: 52ch; margin: 1.5rem 0 0; color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.78rem; }
+.capabilities__detail h3 + p { max-width: 52ch; margin: 1.5rem 0 0; color: var(--color-text-muted); font-family: var(--font-mono); font-size: var(--font-size-small); }
 .capabilities__detail ul { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 2rem 0 0; list-style: none; }
-.capabilities__detail li { padding: 0.5rem 0; font-family: var(--font-mono); font-size: 0.68rem; }
+.capabilities__detail li { padding: 0.5rem 0; font-family: var(--font-mono); font-size: var(--font-size-ui); }
 .capabilities__detail li span { margin-right: 0.4rem; color: #c67be5; }
 .capabilities__detail li i { color: var(--color-accent); font-style: normal; }
 .capabilities__mobile { display: none; }

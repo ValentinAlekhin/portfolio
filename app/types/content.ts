@@ -18,6 +18,7 @@ export interface CapabilityItem {
 }
 
 export interface ProcessItem {
+  id: string
   number: string
   title: string
   description: string
@@ -45,10 +46,19 @@ export interface ProjectMedia {
   display?: ProjectMediaDisplay
 }
 
-export interface ProjectMetric {
+export interface LiteralProjectMetric {
   value: string
+  valueKey?: never
   labelKey: string
 }
+
+export interface LocalizedProjectMetric {
+  value?: never
+  valueKey: string
+  labelKey: string
+}
+
+export type ProjectMetric = LiteralProjectMetric | LocalizedProjectMetric
 
 export interface Project {
   slug: string

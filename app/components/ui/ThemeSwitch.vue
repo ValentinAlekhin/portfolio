@@ -115,13 +115,13 @@ async function toggle(event: MouseEvent) {
 .theme-switch::after {
   z-index: 1;
   color: var(--color-accent);
-  font-size: 0.7rem;
+  font-size: var(--font-size-ui);
 }
 
 .theme-switch::before { content: '['; }
 .theme-switch::after { content: ']'; }
 
-.theme-switch__prefix { z-index: 1; color: var(--color-text-muted); font-size: 0.52rem; }
+.theme-switch__prefix { z-index: 1; color: var(--color-text-muted); font-size: 0.65rem; }
 
 .theme-switch__rail {
   position: relative;

@@ -100,7 +100,7 @@ function media(id: string): ProjectMedia {
             v-for="metric in project.metrics"
             :key="metric.labelKey"
           >
-            <dd>{{ metric.value }}</dd>
+            <dd>{{ 'valueKey' in metric ? t(metric.valueKey) : metric.value }}</dd>
             <dt>{{ t(metric.labelKey) }}</dt>
           </div>
         </dl>
@@ -187,7 +187,13 @@ function media(id: string): ProjectMedia {
         class="site-container planes-flow system-label"
         :aria-label="t('case.architectureLabel')"
       >
-        <span>Strapi</span><i>→</i><span>PostgreSQL</span><i>→</i><span>Nuxt</span><i>→</i><span>RU / EN</span>
+        <span>{{ t(`${translationKey}.flow.cms`) }}</span>
+        <i>→</i>
+        <span>{{ t(`${translationKey}.flow.content`) }}</span>
+        <i>→</i>
+        <span>{{ t(`${translationKey}.flow.locales`) }}</span>
+        <i>→</i>
+        <span>{{ t(`${translationKey}.flow.website`) }}</span>
       </div>
 
       <div class="site-container planes-feature-grid">
@@ -272,38 +278,12 @@ function media(id: string): ProjectMedia {
           </li>
         </ul>
       </div>
-
-      <div class="site-container planes-stack">
-        <p class="planes-label system-label">
-          {{ t('case.labels.stack') }}[]
-        </p>
-        <ul>
-          <li
-            v-for="item in project.stack"
-            :key="item"
-          >
-            '{{ item }}'
-          </li>
-        </ul>
-      </div>
     </section>
 
-    <section class="planes-next section-rule">
-      <div class="site-container planes-copy-grid">
-        <p class="planes-label system-label">
-          <span>// 09</span>{{ t('case.labels.next') }}
-        </p>
-        <div>
-          <h2>{{ t('case.nextTitle') }}</h2>
-          <p>{{ t('case.nextText') }}</p>
-          <BaseButton href="#contacts">
-            {{ t('hero.primary') }}
-          </BaseButton>
-        </div>
-      </div>
-    </section>
-
-    <ContactSection />
+    <ProjectCaseOutro
+      :project="project"
+      index="09"
+    />
   </main>
 </template>
 
@@ -339,8 +319,7 @@ function media(id: string): ProjectMedia {
 .planes-lead > p:first-of-type { max-width: 43ch; margin: 0; color: var(--color-text); font-size: clamp(1.6rem, 3.3vw, 3.4rem); letter-spacing: -0.045em; line-height: 1.18; }
 .planes-lead__note { max-width: 56ch; margin: 2rem 0 0; color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.78rem; line-height: 1.7; }
 .planes-prose h2,
-.planes-lead h2,
-.planes-next h2 { max-width: 13ch; margin: 0; font-size: clamp(2.7rem, 6vw, 6rem); font-weight: 500; letter-spacing: -0.075em; line-height: 0.92; }
+.planes-lead h2 { max-width: 13ch; margin: 0; font-size: clamp(2.7rem, 6vw, 6rem); font-weight: 500; letter-spacing: -0.075em; line-height: 0.92; }
 .planes-prose p { max-width: 56ch; margin: 1.7rem 0 0; color: var(--color-text-muted); font-size: clamp(1.05rem, 1.55vw, 1.32rem); }
 .planes-about { display: grid; grid-template-columns: 2fr 10fr; gap: 1.5rem; align-items: start; margin-top: clamp(4rem, 7vw, 7rem); }
 .planes-about__index { display: flex; justify-content: space-between; padding-top: 0.8rem; border-top: 1px solid var(--color-line); color: var(--color-text-muted); }
@@ -384,14 +363,8 @@ function media(id: string): ProjectMedia {
 .planes-result .planes-lead h2 { margin-bottom: 2rem; }
 .planes-role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 6vw, 7rem); margin-top: clamp(4rem, 8vw, 8rem); padding-top: 2rem; border-top: 1px solid var(--color-line); }
 .planes-role-grid > div > p:last-child { max-width: 54ch; color: var(--color-text-muted); }
-.planes-role-grid ul,
-.planes-stack ul { display: flex; align-content: flex-start; align-items: flex-start; align-self: start; flex-wrap: wrap; margin: 0; list-style: none; }
-.planes-role-grid li,
-.planes-stack li { padding: 0.75rem 1rem; border: 1px solid var(--color-line); color: var(--color-code-string); font-family: var(--font-mono); font-size: 0.72rem; }
-.planes-stack { display: grid; grid-template-columns: 3fr 9fr; gap: 1.5rem; margin-top: 3rem; }
-
-.planes-next { padding-block: clamp(6rem, 10vw, 10rem); background: color-mix(in srgb, var(--color-accent) 10%, var(--color-bg)); }
-.planes-next p { max-width: 48ch; margin: 1.5rem 0 2rem; color: var(--color-text-muted); }
+.planes-role-grid ul { display: flex; align-content: flex-start; align-items: flex-start; align-self: start; flex-wrap: wrap; margin: 0; list-style: none; }
+.planes-role-grid li { padding: 0.75rem 1rem; border: 1px solid var(--color-line); color: var(--color-code-string); font-family: var(--font-mono); font-size: 0.72rem; }
 
 @media (max-width: 980px) {
   .planes-feature-grid { grid-template-columns: repeat(2, 1fr); }
@@ -408,8 +381,7 @@ function media(id: string): ProjectMedia {
   .planes-section-head,
   .planes-about,
   .planes-mobile-grid,
-  .planes-role-grid,
-  .planes-stack { grid-template-columns: 1fr; }
+  .planes-role-grid { grid-template-columns: 1fr; }
   .planes-hero__intro p,
   .planes-lead,
   .planes-prose { grid-column: 1; }

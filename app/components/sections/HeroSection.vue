@@ -63,8 +63,8 @@ onBeforeUnmount(() => context?.revert())
         </div>
         <div class="hero__meta system-label">
           <span>&#123;</span>
-          <span><b>{{ t('hero.meta.available') }}:</b> <i /> true,</span>
-          <span><b>{{ t('hero.meta.experience') }}:</b> '{{ t('hero.experience') }}',</span>
+          <span><b>{{ t('hero.meta.available') }}:</b> <i /> true</span>
+          <span><b>{{ t('hero.meta.experience') }}:</b> '{{ t('hero.experience') }}'</span>
           <span><b>{{ t('hero.meta.stack') }}:</b> ['vue', 'nuxt', 'ts', 'node', 'go']</span>
           <span>&#125;</span>
         </div>
@@ -154,14 +154,14 @@ onBeforeUnmount(() => context?.revert())
 .hero__statement > span { color: #c67be5; font-family: var(--font-mono); font-size: 0.58em; }
 .hero__statement q { color: var(--color-text); quotes: '"' '"'; }
 .hero__statement q::before,
-.hero__statement q::after { color: #d5b767; }
+.hero__statement q::after { color: var(--color-code-string); }
 
 .hero__description {
   max-width: 55ch;
   margin: 1rem 0 0;
   color: var(--color-text-muted);
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: var(--font-size-small);
 }
 
 .hero__terminal { margin-top: 1.5rem; }

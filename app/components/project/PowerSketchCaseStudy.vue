@@ -79,9 +79,9 @@ function media(id: string): ProjectMedia {
 
         <div class="powersketch-manifest system-label">
           <span>{{ t('case.code.exportDefault') }} &#123;</span>
-          <span>&nbsp;&nbsp;{{ t('case.code.role') }}: '{{ t(project.scopeKey) }}',</span>
-          <span>&nbsp;&nbsp;{{ t('case.code.stack') }}: [{{ project.stack.map(item => `'${item}'`).join(', ') }}],</span>
-          <span>&nbsp;&nbsp;{{ t('case.code.production') }}: true,</span>
+          <span>&nbsp;&nbsp;{{ t('case.code.role') }}: '{{ t(project.scopeKey) }}'</span>
+          <span>&nbsp;&nbsp;{{ t('case.code.stack') }}: [{{ project.stack.map(item => `'${item}'`).join(', ') }}]</span>
+          <span>&nbsp;&nbsp;{{ t('case.code.production') }}: true</span>
           <span>&#125;</span>
         </div>
 
@@ -104,7 +104,7 @@ function media(id: string): ProjectMedia {
             :key="metric.labelKey"
           >
             <dt>{{ t(metric.labelKey) }}</dt>
-            <dd>{{ metric.value }}</dd>
+            <dd>{{ 'valueKey' in metric ? t(metric.valueKey) : metric.value }}</dd>
           </div>
         </dl>
       </div>
@@ -113,7 +113,7 @@ function media(id: string): ProjectMedia {
     <section class="case-section section-rule">
       <div class="site-container case-copy-grid">
         <p class="case-label system-label">
-          <span>// 02</span>{{ t('case.labels.context') }}.md
+          <span>// 02</span>{{ t('case.labels.context') }}
         </p>
         <div class="case-prose case-prose--large">
           <p>{{ content.description }}</p>
@@ -276,7 +276,7 @@ function media(id: string): ProjectMedia {
     <section class="case-section case-result section-rule">
       <div class="site-container case-copy-grid">
         <p class="case-label system-label">
-          <span>// 10</span>{{ t('case.labels.result') }}.log
+          <span>// 10</span>{{ t('case.labels.result') }}
         </p>
         <div class="case-prose case-prose--large">
           <h2>{{ t(`${translationKey}.resultTitle`) }}</h2>
@@ -296,42 +296,16 @@ function media(id: string): ProjectMedia {
             v-for="role in roles"
             :key="role"
           >
-            '{{ role }}',
-          </li>
-        </ul>
-      </div>
-
-      <div class="site-container case-stack">
-        <p class="case-label system-label">
-          {{ t('case.labels.stack') }}[]
-        </p>
-        <ul>
-          <li
-            v-for="item in project.stack"
-            :key="item"
-          >
-            '{{ item }}',
+            {{ role }}
           </li>
         </ul>
       </div>
     </section>
 
-    <section class="case-next section-rule">
-      <div class="site-container case-copy-grid">
-        <p class="case-label system-label">
-          <span>// 11</span>{{ t('case.labels.next') }}.command
-        </p>
-        <div>
-          <h2>{{ t('case.nextTitle') }}</h2>
-          <p>{{ t('case.nextText') }}</p>
-          <BaseButton href="#contacts">
-            {{ t('hero.primary') }}
-          </BaseButton>
-        </div>
-      </div>
-    </section>
-
-    <ContactSection />
+    <ProjectCaseOutro
+      :project="project"
+      index="11"
+    />
   </main>
 </template>
 
@@ -366,10 +340,8 @@ function media(id: string): ProjectMedia {
 .case-label { margin: 0.45rem 0 0; color: var(--color-text-muted); }
 .case-label span { margin-right: 0.7rem; color: var(--color-accent); }
 .case-prose { grid-column: 2; }
-.case-prose h2,
-.case-next h2 { max-width: 11ch; margin: 0; font-size: clamp(2.7rem, 6vw, 6rem); font-weight: 550; letter-spacing: -0.07em; line-height: 0.9; }
-.case-prose h2::before,
-.case-next h2::before { display: block; margin-bottom: 0.9rem; color: var(--color-code-blue); content: 'const section ='; font-family: var(--font-mono); font-size: 0.12em; font-weight: 500; letter-spacing: 0; line-height: 1; }
+.case-prose h2 { max-width: 11ch; margin: 0; font-size: clamp(2.7rem, 6vw, 6rem); font-weight: 550; letter-spacing: -0.07em; line-height: 0.9; }
+.case-prose h2::before { display: block; margin-bottom: 0.9rem; color: var(--color-code-blue); content: 'const section ='; font-family: var(--font-mono); font-size: 0.12em; font-weight: 500; letter-spacing: 0; line-height: 1; }
 .case-prose p { max-width: 56ch; margin: 1.6rem 0 0; color: var(--color-text-muted); font-size: clamp(1.08rem, 1.7vw, 1.4rem); }
 .case-prose--large p { margin-top: 0; color: var(--color-text); font-size: clamp(1.55rem, 3.2vw, 3.35rem); line-height: 1.2; }
 .case-prose--large .case-prose__note { margin-top: 2rem; color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.78rem; line-height: 1.7; }
@@ -411,14 +383,8 @@ function media(id: string): ProjectMedia {
 .case-result .case-prose--large h2 { margin-bottom: 2rem; }
 .case-role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 6vw, 7rem); margin-top: clamp(4rem, 8vw, 8rem); padding-top: 2rem; border-top: 1px solid var(--color-line); }
 .case-role-grid > div > p:last-child { max-width: 54ch; color: var(--color-text-muted); }
-.case-role-grid ul,
-.case-stack ul { display: flex; align-content: flex-start; align-items: flex-start; align-self: start; flex-wrap: wrap; margin: 0; list-style: none; }
-.case-role-grid li,
-.case-stack li { padding: 0.75rem 1rem; border: 1px solid var(--color-line); color: var(--color-code-string); font-family: var(--font-mono); font-size: 0.72rem; }
-.case-stack { display: grid; grid-template-columns: 3fr 9fr; gap: 1.5rem; margin-top: 3rem; }
-
-.case-next { padding-block: clamp(6rem, 10vw, 10rem); background: color-mix(in srgb, var(--color-accent) 10%, var(--color-surface)); }
-.case-next p { max-width: 48ch; margin: 1.5rem 0 2rem; color: var(--color-text-muted); }
+.case-role-grid ul { display: flex; align-content: flex-start; align-items: flex-start; align-self: start; flex-wrap: wrap; margin: 0; list-style: none; }
+.case-role-grid li { padding: 0.75rem 1rem; border: 1px solid var(--color-line); color: var(--color-code-string); font-family: var(--font-mono); font-size: 0.72rem; }
 
 @media (max-width: 980px) {
   .workflow-list { grid-template-columns: repeat(2, 1fr); }
@@ -440,8 +406,7 @@ function media(id: string): ProjectMedia {
   .case-prose,
   .case-aside { grid-column: 1; }
   .case-aside { writing-mode: initial; }
-  .powersketch-metrics .site-container,
-  .case-stack { grid-template-columns: 1fr; }
+  .powersketch-metrics .site-container { grid-template-columns: 1fr; }
   .case-media-pair,
   .case-media-pair--handoff { grid-template-columns: 1fr; }
   .case-split .case-prose { margin-top: 2rem; }

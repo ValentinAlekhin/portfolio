@@ -140,8 +140,8 @@
       },
       "planesArch": {
         "eyebrow": "Architecture studio website and portfolio",
-        "scope": "Corporate website / Frontend / CMS",
-        "roles": { "frontend": "Frontend", "cms": "CMS integration", "localization": "Localization", "production": "Launch" },
+        "scope": "Corporate website / Frontend / CMS (admin panel)",
+        "roles": { "frontend": "Frontend", "cms": "CMS (admin panel)", "localization": "Russian and English", "production": "Launch" },
         "metrics": {
           "label": "The website in numbers",
           "locales": "languages",
@@ -150,13 +150,13 @@
         },
         "summary": "A bilingual architecture studio website with project galleries, services, and educational programs.",
         "description": "The PLANES architects website puts the studio's work first. Visitors can explore architecture and interior projects, learn about the team's services and process, join an educational program, or send an enquiry.",
-        "audience": "The website introduces the studio to future clients and gives architects and designers a way to discover Bootcamp by PLANES.",
-        "challenge": "The goal was to bring the studio's calm editorial style to the browser without taking attention away from the project photography. The team also needed a simple way to add work, translate copy, and update large galleries without a developer.",
+        "audience": "The website introduces the studio to future clients and gives architects and designers a way to discover PLANES educational programs.",
+        "challenge": "The goal was to bring the studio's calm style to the browser without taking attention away from the project photography. The team also needed a simple way to add work, translate copy, and update large galleries without a developer.",
         "challengeTitle": "More room for architecture, without making the website hard to manage",
         "constraintAxis": "IMAGERY / TYPE / CONTENT / SPEED",
-        "role": "I handled the frontend architecture and responsive build, connected Strapi, localization, filters, galleries, and display themes, and prepared the website for production.",
+        "role": "I handled the interface and responsive build, set up the CMS (admin panel), implemented Russian and English versions, added filters, galleries, and display themes, and prepared the website for launch.",
         "approach": "The interface is built around photography and restrained typography. There are no unnecessary decorative layers: navigation stays compact, captions do not compete with the images, and transitions make it easy to move through sections and projects.",
-        "architecture": "Nuxt renders the pages, routes, and language versions. The studio manages projects, copy, and photography in Strapi, while PostgreSQL stores the content structure. Images are delivered separately at a suitable size for each screen.",
+        "architecture": "The studio manages projects, copy, and photography through the CMS (admin panel), without touching code. Content appears on the website in the right language, while photography adapts to the screen.",
         "systemTitle": "The studio can update the website without touching code",
         "constraints": "The main constraints were the weight of project galleries, the different lengths of Russian and English copy, and the need to preserve a balanced layout on phones, tablets, and wide screens.",
         "portfolio": {
@@ -167,13 +167,14 @@
         },
         "content": {
           "label": "Content",
-          "title": "One CMS for projects, copy, and photography",
-          "description": "Editors enter a project once, adding its description, details, and gallery before linking the Russian and English versions. Nuxt receives that content and turns it into the finished page."
+          "title": "One CMS (admin panel) for projects, copy, and photography",
+          "description": "The team adds a description, details, and a gallery before linking the Russian and English versions. Once published, the content appears on the website immediately."
         },
+        "flow": { "cms": "CMS", "content": "Projects and copy", "locales": "Russian / English", "website": "Website" },
         "features": {
-          "locales": { "title": "Russian and English", "description": "Switch languages without losing the current section or open project." },
+          "locales": { "title": "Russian and English", "description": "Languages switch seamlessly while the visitor stays in the same section or project." },
           "themes": { "title": "Three themes", "description": "Follow the device setting or choose the light or dark theme manually." },
-          "cms": { "title": "Easy updates", "description": "New projects and articles are added through Strapi, without rebuilding the interface by hand." },
+          "cms": { "title": "Easy updates", "description": "The team adds projects and materials through the CMS (admin panel), without a developer." },
           "media": { "title": "Large galleries", "description": "Photography remains the main content and loads at a size suited to each device." }
         },
         "themes": {
@@ -184,14 +185,14 @@
         },
         "responsive": {
           "label": "Mobile",
-          "title": "Photography stays just as important on a phone",
-          "description": "Navigation becomes shorter, actions remain within reach, and large images adapt to the portrait screen without tiny text or horizontal scrolling."
+          "title": "Photography remains dominant on a phone",
+          "description": "Large images adapt to a portrait screen while actions remain within reach, without tiny text or horizontal scrolling."
         },
         "resultTitle": "A website that can grow with the studio's portfolio",
-        "result": "PLANES architects now has a working bilingual website for projects, services, Bootcamp, and enquiries. The team can update it through the CMS, while visitors can browse the work on any device and in the theme they prefer.",
+        "result": "The PLANES architects studio now has a bilingual website for projects, services, educational programs, and enquiries. The team updates materials through the CMS (admin panel), while visitors browse the work on any device and in the theme they prefer.",
         "media": {
           "landing": { "alt": "PLANES architects home page with a large interior photograph and project navigation", "caption": "The website home page" },
-          "about": { "alt": "PLANES architects studio page with editorial copy and a team portrait", "caption": "Introducing the studio" },
+          "about": { "alt": "PLANES architects studio page with copy and a team portrait", "caption": "Introducing the studio" },
           "projects": { "alt": "PLANES architects portfolio with filters for different architecture project types", "caption": "Projects and filters" },
           "mobile": { "alt": "Mobile version of the PLANES architects home page", "caption": "The home page on a phone" }
         }
@@ -202,10 +203,10 @@
         "summary": "An atmospheric website for seven cabins, with a catalogue, filters, galleries, and booking forms.",
         "intro": "The interface is built around northern landscapes and large photography, while the catalogue turns that mood into a practical choice.",
         "role": "Interface design, responsive development, cabin catalogue, galleries, and client-side booking flows.",
-        "metrics": { "label": "Project figures", "cabins": "cabins", "types": "cabin types", "viewport": "responsive from, px" },
-        "overview": { "title": "From first impression to the right cabin", "text": "The home page, catalogue, and cabin pages form one calm visual journey." },
-        "responsive": { "title": "The vertical format keeps the atmosphere", "text": "Photography, filters, and actions stay large and accessible on a phone." },
-        "interactions": { "title": "Useful flows over the content", "text": "Booking, filters, and the lightbox open without losing the page context." },
+        "metrics": { "label": "Project figures", "cabins": "cabins", "types": "cabin types", "actions": "key actions" },
+        "overview": { "title": "From first impression to the right cabin", "text": "Large photography sets the atmosphere, while the catalogue helps visitors compare cabins and choose the right one." },
+        "responsive": { "title": "Easy to browse and book on a phone", "text": "Photography, filters, and buttons stay large enough to choose a cabin without zooming in." },
+        "interactions": { "title": "Booking without unnecessary detours", "text": "Dates, guests, and cabin options are selected on the page, while the gallery opens full screen." },
         "media": {
           "cover": { "alt": "NORDHUS home page with a winter cabin beside a lake", "caption": "Home page" },
           "homeFull": { "alt": "Complete NORDHUS home page", "caption": "Full home page" },
@@ -267,10 +268,10 @@
         "summary": "An editorial online store with a catalogue, product pages, local cart, and checkout flow.",
         "intro": "Warm typography and a quiet grid leave maximum space for photography and handmade details.",
         "role": "Store concept, responsive development, catalogue and filters, product pages, cart, and checkout.",
-        "metrics": { "label": "Project contents", "products": "products", "filters": "search parameters", "cart": "cart storage" },
+        "metrics": { "label": "Project contents", "products": "products", "filters": "search parameters", "cartValue": "IN BROWSER", "cart": "cart persists" },
         "overview": { "title": "A catalogue that continues the studio story", "text": "Editorial pages and products share one restrained visual system." },
         "responsive": { "title": "The complete store works on a phone", "text": "The catalogue, filters, cart, and checkout all adapt to a vertical screen." },
-        "interactions": { "title": "Shopping without visual noise", "text": "Cart and checkout keep the brand character without distracting from the product." },
+        "interactions": { "title": "A focused cart and checkout", "text": "The path from a chosen piece to a completed order stays short, calm, and clear." },
         "media": {
           "cover": { "alt": "FORMA ceramics store home page", "caption": "Home page" },
           "homeFull": { "alt": "Complete FORMA home page", "caption": "Full home page" },
@@ -308,6 +309,7 @@
     "eyebrow": "What I can build",
     "title": "Projects I work on",
     "description": "From a focused landing page to a complex web service. I can help shape an idea, build a project from scratch, or join an existing one.",
+    "fileLabel": "PROJECT TYPES",
     "running": "4 DIRECTIONS / READY TO BUILD",
     "items": {
       "websites": { "title": "Websites", "description": "Landing pages, company websites, and portfolios." },
@@ -345,7 +347,9 @@
   },
   "about": {
     "eyebrow": "About me",
-    "title": "I think about the whole product, not just individual screens",
+    "title": "I think about the whole product",
+    "fileLabel": "ABOUT",
+    "nowTitle": "Now",
     "paragraphs": {
       "product": "I'm a full-stack developer, so I can build both the part people see and the server behind it. The project does not have to bounce between different specialists.",
       "workflow": "I enjoy understanding the real problem, building a first working version quickly, and improving it with the people who actually use it."
@@ -391,7 +395,7 @@
     "scrollImage": "Scrollable full-page screenshot",
     "code": {
       "backCommand": "cd ../projects",
-      "caseFile": "CASE_{index}.MD / {period}",
+      "caseFile": "CASE {index} / {period}",
       "status": "status",
       "exportDefault": "export default",
       "role": "role",

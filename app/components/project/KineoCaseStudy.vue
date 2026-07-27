@@ -37,9 +37,9 @@ function media(id: string): ProjectMedia {
       tone="deep"
     >
       <div class="site-container kineo-phones">
-        <ProjectScreenshot :media="media('homeMobile')" />
         <ProjectScreenshot :media="media('homeMobileFull')" />
-        <ProjectScreenshot :media="media('mobileMenu')" />
+        <ProjectScreenshot :media="media('bookingMobile')" />
+        <ProjectScreenshot :media="media('closeConfirmMobile')" />
       </div>
     </VisualCaseSection>
 
@@ -50,13 +50,14 @@ function media(id: string): ProjectMedia {
     >
       <div class="site-container kineo-booking">
         <ProjectScreenshot :media="media('booking')" />
-        <ProjectScreenshot :media="media('bookingMobile')" />
         <ProjectScreenshot :media="media('closeConfirm')" />
-        <ProjectScreenshot :media="media('closeConfirmMobile')" />
       </div>
     </VisualCaseSection>
 
-    <VisualCaseOutro :project="project" />
+    <ProjectCaseOutro
+      :project="project"
+      index="04"
+    />
   </main>
 </template>
 
@@ -65,15 +66,11 @@ function media(id: string): ProjectMedia {
 .kineo-overview { width: min(100%, 74rem); }
 .kineo-phones { display: grid; grid-template-columns: repeat(3, 1fr); align-items: start; gap: clamp(1rem, 3vw, 3rem); }
 .kineo-phones > :nth-child(2) { margin-top: clamp(2rem, 8vw, 7rem); }
-.kineo-booking { display: grid; grid-template-columns: 8fr 4fr; align-items: center; gap: clamp(1rem, 3vw, 3rem); }
-.kineo-booking > :nth-child(3) { grid-column: 1; }
-.kineo-booking > :nth-child(4) { grid-column: 2; }
+.kineo-booking { display: grid; grid-template-columns: repeat(2, 1fr); align-items: center; gap: clamp(1rem, 3vw, 3rem); }
 
 @media (max-width: 800px) {
   .kineo-phones,
   .kineo-booking { grid-template-columns: 1fr; }
   .kineo-phones > :nth-child(2) { margin-top: 0; }
-  .kineo-booking > :nth-child(3),
-  .kineo-booking > :nth-child(4) { grid-column: auto; }
 }
 </style>

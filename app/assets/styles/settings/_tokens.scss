@@ -14,6 +14,10 @@
   --color-danger: #a63c35;
   --font-sans: 'Manrope Variable', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono Variable', monospace;
+  --font-size-body: clamp(1.0625rem, 1.2vw, 1.25rem);
+  --font-size-small: clamp(0.875rem, 0.95vw, 1rem);
+  --font-size-ui: clamp(0.75rem, 0.85vw, 0.875rem);
+  --color-code-string: #765600;
   --duration-instant: 100ms;
   --duration-fast: 160ms;
   --duration-ui: 280ms;
@@ -40,6 +44,7 @@ html[data-theme='phosphor'] {
   --color-accent-ink: #0a0c09;
   --color-focus: #c9ff9b;
   --color-danger: #ff8d82;
+  --color-code-string: #f0c86a;
 }
 
 @media (max-width: 767px) {

@@ -66,7 +66,10 @@ function media(id: string): ProjectMedia {
       </div>
     </VisualCaseSection>
 
-    <VisualCaseOutro :project="project" />
+    <ProjectCaseOutro
+      :project="project"
+      index="04"
+    />
   </main>
 </template>
 
