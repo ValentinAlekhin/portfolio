@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Project } from '~/types/content'
+import { ensureTrailingSlash } from '~/utils/url'
 
 const props = defineProps<{
   project: Project
@@ -7,7 +8,7 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const localePath = useLocalePath()
-const homeProjects = computed(() => `${localePath('/')}#projects`)
+const homeProjects = computed(() => `${ensureTrailingSlash(localePath('/'))}#projects`)
 const cover = computed(() => {
   const media = props.project.media.find(item => item.src === props.project.cover)
 

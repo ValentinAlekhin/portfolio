@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { profile } from '~/data/profile'
+import { ensureTrailingSlash } from '~/utils/url'
 
 interface TerminalEntry {
   kind: 'input' | 'output' | 'error'
@@ -134,7 +135,7 @@ function onInputKeydown(event: KeyboardEvent) {
 
 function goTo(id: string) {
   open.value = false
-  const path = `${localePath('/')}#${id}`
+  const path = `${ensureTrailingSlash(localePath('/'))}#${id}`
   navigateTo(path)
 }
 

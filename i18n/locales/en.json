@@ -4,7 +4,12 @@
     "english": "English"
   },
   "profile": {
-    "displayName": "Valentin Alekhin"
+    "displayName": "Valentin Alekhin",
+    "role": "Independent senior full-stack developer"
+  },
+  "nuxtSiteConfig": {
+    "name": "alekhin.dev",
+    "description": "I turn ideas into working web services: I design the interface, write the code, and launch the product."
   },
   "common": {
     "skip": "Skip to content",
@@ -16,8 +21,8 @@
   },
   "seo": {
     "title": "Valentin Alekhin — Senior Full-stack Developer",
-    "description": "I turn ideas into working web services: I design the interface, write the code, and launch the product.",
-    "ogImage": "/og/portfolio-en.png"
+    "ogImage": "/og/portfolio-en.png",
+    "ogAvailability": "Available for new projects"
   },
   "nav": {
     "label": "Main navigation",

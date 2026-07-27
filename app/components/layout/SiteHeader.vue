@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { profile } from '~/data/profile'
 import { navigationItems } from '~/data/navigation'
+import { ensureTrailingSlash } from '~/utils/url'
 
 const { t } = useI18n()
 const localePath = useLocalePath()
@@ -10,7 +11,7 @@ const hud = useState('pointer-hud', () => ({ x: 0, y: 0, active: false }))
 const contactOpen = useState<boolean>('contact-dialog-open', () => false)
 const isScrolled = ref(false)
 const activeSection = ref('top')
-const homePath = computed(() => localePath('/'))
+const homePath = computed(() => ensureTrailingSlash(localePath('/')))
 const isHome = computed(() => !route.path.includes('/projects/'))
 let observer: IntersectionObserver | undefined
 

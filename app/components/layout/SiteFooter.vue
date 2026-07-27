@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { profile } from '~/data/profile'
+import { ensureTrailingSlash } from '~/utils/url'
 
 const { t } = useI18n()
 const { time } = useLocalTime(profile.timeZone)
 const localePath = useLocalePath()
+const topPath = computed(() => `${ensureTrailingSlash(localePath('/'))}#top`)
 const year = new Date().getUTCFullYear()
 </script>
 
@@ -34,7 +36,7 @@ const year = new Date().getUTCFullYear()
         <span>© {{ year }}</span>
       </div>
       <a
-        :href="`${localePath('/')}#top`"
+        :href="topPath"
         class="site-footer__top system-label"
       >cd /top</a>
     </div>

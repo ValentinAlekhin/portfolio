@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://alekhin.dev/sitemap.xml

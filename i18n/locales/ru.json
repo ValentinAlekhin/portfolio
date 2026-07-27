@@ -4,7 +4,12 @@
     "english": "English"
   },
   "profile": {
-    "displayName": "Валентин Алёхин"
+    "displayName": "Валентин Алёхин",
+    "role": "Независимый senior full-stack разработчик"
+  },
+  "nuxtSiteConfig": {
+    "name": "alekhin.dev",
+    "description": "Помогаю превратить идею в работающий веб-сервис: продумываю интерфейс, пишу код и запускаю продукт."
   },
   "common": {
     "skip": "Перейти к содержанию",
@@ -16,8 +21,8 @@
   },
   "seo": {
     "title": "Валентин Алёхин — Senior Full-stack разработчик",
-    "description": "Помогаю превратить идею в работающий веб-сервис: продумываю интерфейс, пишу код и запускаю продукт.",
-    "ogImage": "/og/portfolio-ru.png"
+    "ogImage": "/og/portfolio-ru.png",
+    "ogAvailability": "Открыт к новым проектам"
   },
   "nav": {
     "label": "Основная навигация",

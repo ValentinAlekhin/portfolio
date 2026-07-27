@@ -10,11 +10,12 @@ import {
   DialogTrigger,
 } from 'reka-ui'
 import { navigationItems } from '~/data/navigation'
+import { ensureTrailingSlash } from '~/utils/url'
 
 const { t } = useI18n()
 const localePath = useLocalePath()
 const open = ref(false)
-const homePath = computed(() => localePath('/'))
+const homePath = computed(() => ensureTrailingSlash(localePath('/')))
 const contactOpen = useState<boolean>('contact-dialog-open', () => false)
 
 function openContact() {

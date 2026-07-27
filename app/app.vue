@@ -6,6 +6,18 @@ const route = useRoute()
 const { initializeTheme } = useTheme()
 const { t } = useI18n()
 const showCrtOverlay = computed(() => !route.path.includes('/projects/'))
+const personSchema = computed(() => [
+  definePerson({
+    name: t('profile.displayName'),
+    url: `https://${profile.domain}/`,
+    jobTitle: t('profile.role'),
+    email: `mailto:${profile.email}`,
+    sameAs: [profile.github, profile.telegram],
+    knowsAbout: ['TypeScript', 'Vue', 'Nuxt', 'Node.js', 'Go', 'SaaS'],
+  }),
+])
+
+useSchemaOrg(personSchema)
 
 usePointerField(appRoot)
 

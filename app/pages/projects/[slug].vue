@@ -7,6 +7,7 @@ import PlanesArchCaseStudy from '~/components/project/PlanesArchCaseStudy.vue'
 import PowerSketchCaseStudy from '~/components/project/PowerSketchCaseStudy.vue'
 import { profile } from '~/data/profile'
 import { localeLanguageTag } from '~/types/i18n'
+import { ensureTrailingSlash } from '~/utils/url'
 
 const route = useRoute()
 const localePath = useLocalePath()
@@ -28,46 +29,60 @@ const caseComponents = {
 } as const
 const caseComponent = computed(() => caseComponents[project.value!.caseName])
 const summary = computed(() => t(`${project.value!.translationKey}.summary`))
-const canonical = computed(() => `https://alekhin.dev${localePath(`/projects/${project.value!.slug}/`)}`)
-const homeUrl = computed(() => `https://alekhin.dev${localePath('/')}`)
-const ogImage = computed(() => `https://alekhin.dev${project.value!.ogImage}`)
-const ogMedia = computed(() => project.value!.media.find(item => item.src === project.value!.ogImage))
+const pageTitle = computed(() => `${project.value!.title} — ${t(project.value!.scopeKey)}`)
+const ogImage = computed(() => project.value!.ogImage)
 const i18nHead = useLocaleHead({ dir: true, lang: true, seo: true })
-const projectJsonLd = computed(() => {
+const schemaNodes = computed(() => {
+  const canonicalPath = ensureTrailingSlash(route.path)
+
   const shared = {
-    '@context': 'https://schema.org',
-    '@type': project.value!.schemaType,
-    'name': project.value!.title,
-    'description': summary.value,
-    'mainEntityOfPage': canonical.value,
-    'creator': { '@type': 'Person', 'name': profile.name },
-    'inLanguage': localeLanguageTag[localeCode.value],
-    'image': ogImage.value,
-    ...(project.value!.externalUrl ? { url: project.value!.externalUrl } : {}),
+    name: project.value!.title,
+    description: summary.value,
+    mainEntityOfPage: { '@id': `https://${profile.domain}${canonicalPath}#webpage` },
+    creator: { '@id': `https://${profile.domain}/#identity` },
+    inLanguage: localeLanguageTag[localeCode.value],
+    image: ogImage.value,
+    url: project.value!.externalUrl ?? canonicalPath,
   }
 
-  if (project.value!.schemaType === 'SoftwareApplication') {
-    return {
-      ...shared,
-      applicationCategory: 'DesignApplication',
-      operatingSystem: 'Web',
-    }
-  }
+  const projectEntity = project.value!.schemaType === 'SoftwareApplication'
+    ? defineSoftwareApp({
+        ...shared,
+        applicationCategory: 'DesignApplication',
+        operatingSystem: 'Web',
+      })
+    : defineWebSite(shared)
 
-  return shared
+  return [
+    defineWebPage({
+      name: pageTitle.value,
+      description: summary.value,
+      image: ogImage.value,
+    }),
+    projectEntity,
+    defineBreadcrumb({
+      itemListElement: [
+        { name: profile.domain, item: ensureTrailingSlash(localePath('/')) },
+        { name: project.value!.title, item: canonicalPath },
+      ],
+    }),
+  ]
+})
+
+defineOgImage('Portfolio.takumi', {
+  title: pageTitle.value,
+  availability: t('seo.ogAvailability'),
+  description: summary.value,
+  eyebrow: `CASE ${project.value.index}`,
+  locale: localeLanguageTag[localeCode.value],
 })
 
 useSeoMeta({
-  title: () => `${project.value!.title} — ${t(project.value!.scopeKey)}`,
+  title: pageTitle,
   description: summary,
-  robots: 'index, follow',
-  ogTitle: () => `${project.value!.title} — ${t(project.value!.scopeKey)}`,
+  ogTitle: pageTitle,
   ogDescription: summary,
-  ogImage,
-  ogImageWidth: () => ogMedia.value?.width,
-  ogImageHeight: () => ogMedia.value?.height,
   ogType: 'article',
-  ogUrl: canonical,
   twitterCard: 'summary_large_image',
 })
 
@@ -76,29 +91,16 @@ useHead(() => ({
     ...i18nHead.value.htmlAttrs,
     'data-project-theme': project.value!.theme,
   },
-  link: [
-    ...(i18nHead.value.link ?? []).filter(link => link.rel !== 'canonical'),
-    { rel: 'canonical', href: canonical.value },
-  ],
-  meta: i18nHead.value.meta,
-  script: [
-    {
-      key: 'project-jsonld',
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify([
-        projectJsonLd.value,
-        {
-          '@context': 'https://schema.org',
-          '@type': 'BreadcrumbList',
-          'itemListElement': [
-            { '@type': 'ListItem', 'position': 1, 'name': profile.domain, 'item': homeUrl.value },
-            { '@type': 'ListItem', 'position': 2, 'name': project.value!.title, 'item': canonical.value },
-          ],
-        },
-      ]).replaceAll('<', '\\u003c'),
-    },
-  ],
+  link: (i18nHead.value.link ?? [])
+    .filter(link => link.rel !== 'canonical')
+    .map(link => ({
+      ...link,
+      href: typeof link.href === 'string' ? ensureTrailingSlash(link.href) : link.href,
+    })),
+  meta: (i18nHead.value.meta ?? []).filter(meta => meta.property !== 'og:url'),
 }))
+
+useSchemaOrg(schemaNodes)
 </script>
 
 <template>

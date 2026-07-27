@@ -1,3 +1,4 @@
+import { profile } from './app/data/profile'
 import { localeLanguageTag, LocaleCode } from './app/types/i18n'
 
 const projectSlugs = ['powersketch', 'planes-arch', 'nordhus', 'aerovista', 'kineo', 'forma'] as const
@@ -7,6 +8,8 @@ const themeScript = `(function(){try{var s=localStorage.getItem('va-theme');var 
 export default defineNuxtConfig({
   modules: [
     '@nuxtjs/i18n',
+    '@nuxt/fonts',
+    '@nuxtjs/seo',
     '@nuxt/image',
     '@nuxt/eslint',
   ],
@@ -49,9 +52,23 @@ export default defineNuxtConfig({
 
   css: ['~/assets/styles/main.scss'],
 
+  site: {
+    url: `https://${profile.domain}`,
+    name: profile.domain,
+    trailingSlash: true,
+  },
+
   routeRules: {
     '/**': { prerender: true },
     [`/${LocaleCode.En}/**`]: { prerender: true },
+  },
+
+  experimental: {
+    defaults: {
+      nuxtLink: {
+        trailingSlash: 'append',
+      },
+    },
   },
 
   compatibilityDate: '2026-07-12',
@@ -60,6 +77,7 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: true,
       failOnError: true,
+      ignore: [`/${LocaleCode.En}/sitemap.xml`],
       routes: [
         '/',
         `/${LocaleCode.En}/`,
@@ -82,6 +100,31 @@ export default defineNuxtConfig({
         semi: false,
         commaDangle: 'always-multiline',
       },
+    },
+  },
+
+  fonts: {
+    families: [
+      {
+        global: true,
+        name: 'JetBrains Mono Cyrillic',
+        src: '/fonts/jetbrains-mono-cyrillic-wght-normal.woff2',
+        style: 'normal',
+        weight: [100, 800],
+      },
+      {
+        global: true,
+        name: 'JetBrains Mono Latin',
+        src: '/fonts/jetbrains-mono-latin-wght-normal.woff2',
+        style: 'normal',
+        weight: [100, 800],
+      },
+    ],
+    providers: {
+      bunny: false,
+      fontshare: false,
+      fontsource: false,
+      google: false,
     },
   },
 
@@ -110,5 +153,51 @@ export default defineNuxtConfig({
         file: `${LocaleCode.En}.json`,
       },
     ],
+  },
+
+  linkChecker: {
+    runOnBuild: true,
+    failOnError: true,
+  },
+
+  ogImage: {
+    defaults: {
+      height: 630,
+      width: 1200,
+    },
+    enabled: true,
+    zeroRuntime: true,
+  },
+
+  robots: {
+    allow: '/',
+    mergeWithRobotsTxtPath: false,
+  },
+
+  schemaOrg: {
+    defaults: true,
+  },
+
+  sitemap: {
+    autoI18n: {
+      defaultLocale: LocaleCode.Ru,
+      locales: [
+        {
+          code: LocaleCode.Ru,
+          language: localeLanguageTag[LocaleCode.Ru],
+          _hreflang: localeLanguageTag[LocaleCode.Ru],
+          _sitemap: `${LocaleCode.Ru}-sitemap`,
+        },
+        {
+          code: LocaleCode.En,
+          language: localeLanguageTag[LocaleCode.En],
+          _hreflang: localeLanguageTag[LocaleCode.En],
+          _sitemap: `${LocaleCode.En}-sitemap`,
+        },
+      ],
+      strategy: 'prefix_except_default',
+    },
+    sitemapsPathPrefix: false,
+    zeroRuntime: true,
   },
 })

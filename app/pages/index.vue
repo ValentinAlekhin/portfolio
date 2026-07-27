@@ -1,62 +1,49 @@
 <script setup lang="ts">
 import { profile } from '~/data/profile'
 import { localeLanguageTag } from '~/types/i18n'
+import { ensureTrailingSlash } from '~/utils/url'
 
 const { localeCode } = usePortfolio()
 const { t } = useI18n()
 const i18nHead = useLocaleHead({ dir: true, lang: true, seo: true })
-const canonical = computed(() => `https://alekhin.dev/${localeCode.value}/`)
+const pageSchema = computed(() => [
+  defineWebPage({
+    name: t('seo.title'),
+    description: t('nuxtSiteConfig.description'),
+  }),
+])
+
+defineOgImage('Portfolio.takumi', {
+  title: t('seo.title'),
+  availability: t('seo.ogAvailability'),
+  description: t('nuxtSiteConfig.description'),
+  eyebrow: profile.domain,
+  locale: localeLanguageTag[localeCode.value],
+})
 
 useSeoMeta({
   title: () => t('seo.title'),
-  description: () => t('seo.description'),
-  robots: 'index, follow',
+  description: () => t('nuxtSiteConfig.description'),
   ogTitle: () => t('seo.title'),
-  ogDescription: () => t('seo.description'),
-  ogImage: () => `https://alekhin.dev${t('seo.ogImage')}`,
-  ogImageWidth: 1200,
-  ogImageHeight: 630,
+  ogDescription: () => t('nuxtSiteConfig.description'),
   ogType: 'website',
-  ogUrl: canonical,
   twitterCard: 'summary_large_image',
   twitterTitle: () => t('seo.title'),
-  twitterDescription: () => t('seo.description'),
-  twitterImage: () => `https://alekhin.dev${t('seo.ogImage')}`,
+  twitterDescription: () => t('nuxtSiteConfig.description'),
 })
 
 useHead(() => ({
   htmlAttrs: i18nHead.value.htmlAttrs,
-  link: [
-    ...(i18nHead.value.link ?? []).filter(link => link.rel !== 'canonical'),
-    { rel: 'canonical', href: canonical.value },
-  ],
-  meta: i18nHead.value.meta,
-  script: [
-    {
-      key: 'home-jsonld',
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify([
-        {
-          '@context': 'https://schema.org',
-          '@type': 'Person',
-          'name': profile.name,
-          'url': 'https://alekhin.dev',
-          'jobTitle': profile.role,
-          'email': `mailto:${profile.email}`,
-          'sameAs': [profile.github, profile.telegram],
-          'knowsAbout': ['TypeScript', 'Vue', 'Nuxt', 'Node.js', 'Go', 'SaaS'],
-        },
-        {
-          '@context': 'https://schema.org',
-          '@type': 'WebSite',
-          'name': profile.domain,
-          'url': 'https://alekhin.dev',
-          'inLanguage': localeLanguageTag[localeCode.value],
-        },
-      ]).replaceAll('<', '\\u003c'),
-    },
-  ],
+  link: (i18nHead.value.link ?? [])
+    .filter(link => link.rel !== 'canonical')
+    .map(link => ({
+      ...link,
+      href: typeof link.href === 'string' ? ensureTrailingSlash(link.href) : link.href,
+    })),
+  meta: (i18nHead.value.meta ?? []).filter(meta => meta.property !== 'og:url'),
 }))
+
+useSchemaOrg(pageSchema)
 </script>
 
 <template>

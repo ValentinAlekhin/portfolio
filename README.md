@@ -21,7 +21,8 @@
 - режимы `system` и `phosphor` с ранней инициализацией темы без заметной вспышки палитры;
 - интерактивный терминал с командами навигации, переключением темы и историей ввода;
 - Canvas-игра с управлением с клавиатуры и сенсорных устройств;
-- локализованные SEO-метаданные, Open Graph, canonical/alternate links и JSON-LD;
+- локализованные SEO-метаданные, Open Graph, canonical/alternate links и Schema.org graph;
+- автоматически генерируемые sitemap и robots.txt с проверкой ссылок при сборке;
 - статическая генерация всех локализованных маршрутов.
 
 ## Технологии
@@ -29,6 +30,7 @@
 - Nuxt 4 и Vue 3;
 - строгий TypeScript;
 - `@nuxtjs/i18n`;
+- `@nuxtjs/seo` для Site Config, статических OG-карточек, sitemap, robots, Schema.org и проверки ссылок;
 - SCSS и централизованные CSS custom properties;
 - GSAP для анимаций;
 - `@nuxt/image` для изображений;
@@ -124,11 +126,10 @@ i18n/locales/
   ru.json                        # русские тексты, default locale
   en.json                        # английские тексты
 public/
+  fonts/                         # локальные шрифты для статических OG-карточек
   og/                            # Open Graph изображения главной
   projects/<slug>/               # скриншоты и OG-изображения кейсов
   favicon.*                      # варианты favicon
-  robots.txt
-  sitemap.xml
   site.webmanifest
 tests/
   projects.spec.ts               # целостность данных, медиа и переводов проектов
@@ -200,8 +201,8 @@ Locale-independent данные разделены по назначению:
 3. Добавьте типизированную запись в `app/data/projects.ts`; cover должен входить в массив `media`, а все пути должны существовать.
 4. Создайте компонент кейса в `app/components/project/`. Если это новый тип кейса, обновите `ProjectCaseName` в `app/types/content.ts` и карту `caseComponents` в `app/pages/projects/[slug].vue`.
 5. Добавьте slug в `projectSlugs` внутри `nuxt.config.ts`, чтобы обе локали явно попали в prerender.
-6. Обновите `public/sitemap.xml` и тестовые ожидания в `tests/projects.spec.ts`.
-7. Выполните полный цикл проверок и откройте обе локализованные версии кейса напрямую.
+6. Обновите тестовые ожидания в `tests/projects.spec.ts`.
+7. Выполните полный цикл проверок и убедитесь, что проект появился в автоматически сгенерированных sitemap обеих локалей.
 
 Не добавляйте вымышленные показатели, клиентов, ссылки или статусы. Метрики должны быть проверяемыми; локализуемое значение задаётся через `valueKey`, неизменяемое — через `value`.
 
@@ -241,28 +242,37 @@ DOM API, Canvas, observers, timers и event listeners инициализирую
 
 ## SEO и публичные файлы
 
-Главная страница и кейсы задают локализованные meta tags через `useSeoMeta()` и `useHead()`. Страницы также формируют canonical/alternate links и JSON-LD:
+`@nuxtjs/seo` централизует домен, canonical URL, trailing slash и технические SEO-модули. Главная страница и кейсы задают локализованные meta tags через `useSeoMeta()` и `useHead()`, а Schema.org graph — через `useSchemaOrg()`:
 
-- главная — `Person` и `WebSite`;
+- общая оболочка — `Person`;
+- главная — `WebSite` и `WebPage`;
 - PowerSketch — `SoftwareApplication`;
 - остальные кейсы — `WebSite`;
 - страницы кейсов дополнительно содержат `BreadcrumbList`.
 
-Публичные SEO-ресурсы:
+Исходные и резервные SEO-ресурсы:
 
 ```text
 public/og/portfolio-ru.png
 public/og/portfolio-en.png
 public/projects/<slug>/<og-image>
-public/robots.txt
-public/sitemap.xml
 public/site.webmanifest
 public/favicon.svg
 public/favicon.png
 public/favicon.ico
 ```
 
-При изменении домена, локалей или маршрутов синхронно обновите конфигурацию i18n, canonical URL, prerender routes, sitemap, manifest, robots и Open Graph assets.
+Во время `pnpm generate` Nuxt SEO создаёт:
+
+```text
+.output/public/_og/s/*.png
+.output/public/robots.txt
+.output/public/sitemap_index.xml
+.output/public/ru-sitemap.xml
+.output/public/en-sitemap.xml
+```
+
+OG-карточки главной и кейсов рендерятся Takumi по локализованным данным через `Portfolio.takumi.vue`. Русская карта содержит маршруты без `/ru/`, английская — под `/en/`; альтернативные версии связаны через `hreflang`. `robots.txt` автоматически ссылается на sitemap index. При изменении домена, локалей или маршрутов обновите Site Config, i18n, prerender routes, manifest и OG-шаблон — XML, PNG и robots вручную не редактируются.
 
 ## Статическая генерация и публикация
 
@@ -283,6 +293,11 @@ pnpm generate
 .output/public/en/index.html
 .output/public/projects/powersketch/index.html
 .output/public/en/projects/powersketch/index.html
+.output/public/_og/s/*.png
+.output/public/robots.txt
+.output/public/sitemap_index.xml
+.output/public/ru-sitemap.xml
+.output/public/en-sitemap.xml
 ```
 
 На хостинг загружается содержимое `.output/public`. Для статического сервиса:
@@ -292,7 +307,7 @@ Build command: pnpm generate
 Publish directory: .output/public
 ```
 
-После публикации откройте `/` и `/en/`, затем все страницы проектов в обеих локалях. Проверьте прямое открытие и обновление вложенных маршрутов, переключатели языка и темы, контакты, terminal, Canvas-игру, canonical/alternate links, `robots.txt`, `sitemap.xml` и Open Graph preview.
+После публикации откройте `/` и `/en/`, затем все страницы проектов в обеих локалях. Проверьте прямое открытие и обновление вложенных маршрутов, переключатели языка и темы, контакты, terminal, Canvas-игру, canonical/alternate links, `robots.txt`, `sitemap_index.xml` и Open Graph preview.
 
 ## Финальная проверка UI
 
@@ -304,5 +319,5 @@ Publish directory: .output/public
 - Canvas controls с клавиатуры и touch;
 - `prefers-reduced-motion`;
 - отсутствие SSR/hydration ошибок и горизонтального scroll;
-- корректные локализованные title, description, canonical, alternate и JSON-LD;
+- корректные локализованные title, description, canonical, alternate и Schema.org graph;
 - полное содержимое страницы в сгенерированном HTML.
