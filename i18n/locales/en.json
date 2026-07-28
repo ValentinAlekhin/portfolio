@@ -53,6 +53,51 @@
     "experience": "6+ years",
     "meta": { "available": "available", "experience": "experience", "stack": "stack" }
   },
+  "businessCard": {
+    "seoTitle": "Valentin Alekhin’s business card",
+    "seoDescription": "A two-sided digital business card for Valentin Alekhin: websites, web apps, bots, and automation from idea to launch.",
+    "eyebrow": "Digital business card",
+    "title": "A business card without the jargon",
+    "description": "Who I am, what I build, and how to reach me — presented across two sides in the alekhin.dev style.",
+    "sides": {
+      "front": "Front of the business card",
+      "back": "Back of the business card"
+    },
+    "artwork": {
+      "role": "Senior full-stack developer",
+      "offer": "Websites, web apps, bots, and automation — end to end.",
+      "support": "From idea and interface to launch",
+      "experience": "{years}+ years of experience",
+      "pipeline": "idea → interface → code → launch",
+      "contactsTitle": "Get in touch",
+      "scan": "Scan to open the portfolio",
+      "qrAlt": "QR code linking to the alekhin.dev website"
+    },
+    "preview": {
+      "front": "01 / Front",
+      "back": "02 / Back"
+    },
+    "download": {
+      "title": "Save the card",
+      "description": "The standard PNG is easy to share in a message. The print pack contains two separate sides with bleed.",
+      "share": "Download image",
+      "shareMeta": "PNG / 1440×1680",
+      "print": "Print-ready pack",
+      "printMeta": "ZIP / 90×50 mm / 300 DPI",
+      "rendering": "Preparing the files…",
+      "success": "The file is ready and downloaded",
+      "error": "The file could not be prepared. Refresh the page and try again.",
+      "readme": "VALENTIN ALEKHIN BUSINESS CARD\n\nTrim size: {width}×{height} mm\nBleed: {bleed} mm on every side\nResolution: {dpi} DPI\n\nThe archive contains two separate sides. Tell the printer the trim size and bleed before production.\n"
+    },
+    "specs": {
+      "formatLabel": "Format",
+      "formatValue": "90×50 mm",
+      "printLabel": "Print",
+      "printValue": "300 DPI + bleed",
+      "qrLabel": "QR",
+      "qrValue": "alekhin.dev"
+    }
+  },
   "projects": {
     "eyebrow": "My work",
     "title": "Projects people already use",

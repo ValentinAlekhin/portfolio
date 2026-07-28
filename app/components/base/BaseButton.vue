@@ -5,7 +5,9 @@ const props = withDefaults(defineProps<{
   variant?: 'primary' | 'secondary' | 'text'
   external?: boolean
   magnetic?: boolean
+  disabled?: boolean
 }>(), {
+  disabled: false,
   href: undefined,
   to: undefined,
   variant: 'primary',
@@ -28,6 +30,7 @@ if (props.magnetic) {
     :href="href"
     :target="external ? '_blank' : undefined"
     :rel="external ? 'noopener noreferrer' : undefined"
+    :disabled="!href && !to ? disabled : undefined"
     class="base-button"
     :class="`base-button--${variant}`"
     :type="!href && !to ? 'button' : undefined"
@@ -93,6 +96,19 @@ if (props.magnetic) {
 
 .base-button:hover {
   color: var(--color-text);
+}
+
+.base-button:disabled {
+  color: var(--color-text-muted);
+  cursor: wait;
+  opacity: 0.58;
+  transform: none;
+}
+
+.base-button:disabled::before,
+.base-button:disabled::after {
+  color: var(--color-line);
+  transform: none;
 }
 
 .base-button:hover::before { color: var(--color-accent); transform: translateX(-0.2rem); }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { profile } from '~/data/profile'
 import { navigationItems } from '~/data/navigation'
-import { ensureTrailingSlash } from '~/utils/url'
+import { ensureTrailingSlash, isLocalizedHomePath } from '~/utils/url'
 
 const { t } = useI18n()
 const localePath = useLocalePath()
@@ -12,7 +12,7 @@ const contactOpen = useState<boolean>('contact-dialog-open', () => false)
 const isScrolled = ref(false)
 const activeSection = ref('top')
 const homePath = computed(() => ensureTrailingSlash(localePath('/')))
-const isHome = computed(() => !route.path.includes('/projects/'))
+const isHome = computed(() => isLocalizedHomePath(route.path, homePath.value))
 let observer: IntersectionObserver | undefined
 
 function sectionHref(id: string) {

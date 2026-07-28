@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { profile } from '~/data/profile'
+import { ensureTrailingSlash } from '~/utils/url'
 
 const appRoot = ref<HTMLElement | null>(null)
 const route = useRoute()
 const { initializeTheme } = useTheme()
 const { t } = useI18n()
-const showCrtOverlay = computed(() => !route.path.includes('/projects/'))
+const showCrtOverlay = computed(() => {
+  const path = ensureTrailingSlash(route.path)
+  return !path.includes('/projects/') && !path.endsWith('/card/')
+})
 const personSchema = computed(() => [
   definePerson({
     name: t('profile.displayName'),
