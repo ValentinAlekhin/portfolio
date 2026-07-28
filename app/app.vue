@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { profile } from '~/data/profile'
+import { browserThemeColors } from '~/utils/theme'
 import { ensureTrailingSlash } from '~/utils/url'
 
 const appRoot = ref<HTMLElement | null>(null)
 const route = useRoute()
-const { initializeTheme } = useTheme()
+const { initializeTheme, theme } = useTheme()
 const { t } = useI18n()
+const themeColor = computed(() => browserThemeColors[theme.value])
 const showCrtOverlay = computed(() => {
   const path = ensureTrailingSlash(route.path)
   return !path.includes('/projects/') && !path.endsWith('/card/')
@@ -22,6 +24,15 @@ const personSchema = computed(() => [
 ])
 
 useSchemaOrg(personSchema)
+
+useHead({
+  meta: [
+    {
+      name: 'theme-color',
+      content: themeColor,
+    },
+  ],
+})
 
 usePointerField(appRoot)
 
