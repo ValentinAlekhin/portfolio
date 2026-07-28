@@ -253,13 +253,8 @@ onBeforeUnmount(() => {
 }
 
 @media (max-width: 767px) {
-  .site-header__main { height: 3.55rem; }
-  .site-header__telemetry { height: 0.95rem; font-size: 0.52rem; }
-  .pointer-coordinates { display: none; }
-}
-
-@media (max-width: 390px) {
-  .site-brand > span:last-child { display: none; }
-  .header-contact--mobile { padding-inline: 0.55rem; font-size: 0.75rem; }
+  .site-header__main { height: var(--header-height); }
+  .site-header__telemetry,
+  .header-contact--mobile { display: none; }
 }
 </style>

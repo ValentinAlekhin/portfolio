@@ -285,14 +285,18 @@ onBeforeUnmount(() => {
   .project-cursor-preview { display: none; }
 }
 
+@media (max-width: 767px) {
+  .project-row__link { grid-template-columns: auto minmax(0, 1fr); }
+  .project-row__meta,
+  .project-row__arrow { display: none; }
+}
+
 @media (max-width: 600px) {
   .project-list__head { grid-template-columns: auto minmax(0, 1fr) auto; gap: 0.55rem; padding-inline: 0.65rem; font-size: 0.5rem; }
   .project-list__head > span:nth-child(2) { overflow: hidden; text-align: center; text-overflow: ellipsis; white-space: nowrap; }
   .project-list__head > span:last-child { white-space: nowrap; }
-  .project-row__link { grid-template-columns: 1fr auto; gap: 0.85rem; }
-  .project-row__arrow { position: absolute !important; top: 1rem; right: 1.25rem; }
-  .project-row__main { grid-column: 1 / -1; }
-  .project-row__meta { grid-column: 1 / -1; grid-template-columns: 1fr; gap: 0.55rem; padding-top: 0.25rem; }
+  .project-row__link { grid-template-columns: 1fr; gap: 0.85rem; }
+  .project-row__main { grid-column: 1; }
   .project-row__title { display: block; font-size: clamp(1.75rem, 8.5vw, 2.35rem); }
   .project-row__title b,
   .project-row__title > span { display: block; }

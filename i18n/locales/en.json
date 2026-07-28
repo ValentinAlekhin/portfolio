@@ -46,6 +46,7 @@
     "name": { "first": "VALENTIN", "last": "ALEKHIN" },
     "statement": "I turn ideas into working web services.",
     "description": "I start with the problem, design an easy-to-use interface, write all the code the product needs, then help launch and grow it.",
+    "mobileDescription": "From idea and interface to code, launch, and product growth.",
     "terminal": "> idea → interface → frontend → backend → launch_",
     "primary": "Contact me",
     "secondary": "View my work",
@@ -518,6 +519,8 @@
     "passed": "✓ BUILD PASSED",
     "run": "▶ RUN BUILD",
     "rerun": "↻ RERUN BUILD",
+    "mobileOpen": "[ OPEN ]",
+    "mobileClose": "[ CLOSE ]",
     "asciiLabel": "VA ASCII art"
   },
   "preview": {

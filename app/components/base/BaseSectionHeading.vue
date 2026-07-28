@@ -15,13 +15,23 @@ defineProps<{
       {{ eyebrow }}
     </p>
     <div class="section-heading__declaration">
-      <p class="section-heading__code system-label">
+      <p
+        class="section-heading__code system-label"
+        aria-hidden="true"
+      >
         <b>export const</b> section_{{ index }} = &#123;
       </p>
       <h2 :id="titleId">
-        <span>title:</span> '{{ title }}'
+        <span
+          class="section-heading__title-label"
+          aria-hidden="true"
+        >title:</span>
+        <span class="section-heading__title-text">{{ title }}</span>
       </h2>
-      <p class="section-heading__close system-label">
+      <p
+        class="section-heading__close system-label"
+        aria-hidden="true"
+      >
         &#125; satisfies PortfolioSection
       </p>
     </div>
@@ -71,7 +81,7 @@ defineProps<{
   line-height: 0.92;
 }
 
-.section-heading h2 span {
+.section-heading__title-label {
   display: block;
   margin: 0 0 0.35rem -1.5rem;
   color: #62b7e8;
@@ -80,6 +90,11 @@ defineProps<{
   font-weight: 500;
   letter-spacing: 0.04em;
   line-height: 1;
+}
+
+.section-heading__title-text::before,
+.section-heading__title-text::after {
+  content: "'";
 }
 
 .section-heading__description {
@@ -112,9 +127,10 @@ defineProps<{
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 767px) {
   .section-heading {
     gap: 1rem;
+    margin-bottom: 2.5rem;
   }
 
   .section-heading__meta {
@@ -123,16 +139,23 @@ defineProps<{
     gap: 0.35rem 0;
   }
 
+  .section-heading__code,
+  .section-heading__close,
+  .section-heading__title-label {
+    display: none;
+  }
+
   .section-heading h2 {
     width: 100%;
     max-width: 100%;
-    margin-left: 0.75rem;
-    font-size: clamp(2.15rem, 9.5vw, 2.7rem);
+    margin: 0;
+    font-size: clamp(2.15rem, 9.5vw, 2.9rem);
     overflow-wrap: break-word;
   }
 
-  .section-heading h2 span {
-    margin-left: -0.75rem;
+  .section-heading__title-text::before,
+  .section-heading__title-text::after {
+    content: none;
   }
 
   .section-heading__description {

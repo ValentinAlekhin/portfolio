@@ -87,7 +87,6 @@ const active = computed(() => items.value.find(item => item.id === activeId.valu
           <details
             v-for="(item, index) in items"
             :key="item.id"
-            :open="index === 0"
           >
             <summary><span class="system-label">0{{ index + 1 }}</span>{{ item.title }}</summary>
             <div>
