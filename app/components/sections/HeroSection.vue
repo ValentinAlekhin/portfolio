@@ -241,8 +241,7 @@ onBeforeUnmount(() => context?.revert())
 
   .hero__name > b,
   .hero__description-desktop,
-  .hero__terminal,
-  .hero__action-contact {
+  .hero__terminal {
     display: none;
   }
 
