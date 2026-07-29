@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     '@nuxtjs/seo',
     '@nuxt/image',
     '@nuxt/eslint',
+    'nuxt-yandex-metrika',
   ],
 
   components: [
@@ -192,5 +193,18 @@ export default defineNuxtConfig({
     },
     sitemapsPathPrefix: false,
     zeroRuntime: true,
+  },
+
+  yandexMetrika: {
+    id: '111128581',
+    options: {
+      accurateTrackBounce: true,
+      childIframe: false,
+      clickmap: true,
+      ecommerce: false,
+      trackHash: false,
+      trackLinks: true,
+      webvisor: false,
+    },
   },
 })
