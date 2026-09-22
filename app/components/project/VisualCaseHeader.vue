@@ -49,6 +49,9 @@ const cover = computed(() => {
         priority
       />
     </div>
+    <div class="site-container">
+      <ProjectFacts :project="project" />
+    </div>
   </section>
 </template>
 

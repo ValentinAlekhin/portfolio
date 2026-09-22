@@ -53,6 +53,16 @@ async function followProject(event: MouseEvent, project: Project) {
                 <p class="project-row__category system-label">{{ t(`${project.translationKey}.eyebrow`) }}</p>
                 <h3>{{ project.title }}</h3>
                 <p>{{ t(`${project.translationKey}.summary`) }}</p>
+                <dl class="project-row__facts">
+                  <div>
+                    <dt>{{ t('case.labels.scope') }}</dt>
+                    <dd>{{ t(project.scopeKey) }}</dd>
+                  </div>
+                  <div>
+                    <dt>{{ t('case.labels.stack') }}</dt>
+                    <dd>{{ project.stack.join(' / ') }}</dd>
+                  </div>
+                </dl>
                 <span class="project-row__action">{{ t('projects.view') }} <span aria-hidden="true">↗</span></span>
               </div>
               <div class="project-row__preview">
@@ -83,6 +93,10 @@ async function followProject(event: MouseEvent, project: Project) {
 .project-row__index::before { width: 0.5rem; height: 0.5rem; background: var(--project-row-accent); content: ''; }
 .project-row__copy > p { max-width: 40ch; margin: 0; color: var(--color-text-muted); font-size: var(--font-size-small); }
 .project-row__copy .project-row__category { font-size: 0.65rem; }
+.project-row__facts { display: grid; gap: 0.85rem; margin: 1.5rem 0 0; padding-top: 1.25rem; border-top: 1px solid var(--color-line); font-family: var(--font-mono); font-size: var(--font-size-ui); }
+.project-row__facts > div { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: 0.75rem; }
+.project-row__facts dt { color: var(--color-accent); }
+.project-row__facts dd { margin: 0; color: var(--color-text-muted); }
 .project-row h3 { margin: 1.1rem 0 1.25rem; font-size: clamp(2rem, 3.8vw, 4rem); font-weight: 530; letter-spacing: -0.06em; line-height: 1.02; }
 .project-row__action { display: inline-flex; align-items: center; gap: 1.25rem; margin-top: 2rem; color: var(--color-accent); font-family: var(--font-mono); font-size: var(--font-size-ui); }
 .project-row__action::before { content: '['; }
@@ -105,6 +119,7 @@ async function followProject(event: MouseEvent, project: Project) {
   .project-row__preview { grid-column: 1 / -1; grid-row: 2; }
   .project-row h3 { font-size: clamp(2rem, 8vw, 3rem); }
   .project-row__action { margin-top: 1.25rem; }
+  .project-row__facts > div { grid-template-columns: 1fr; gap: 0.3rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .project-row__link, .project-row__link::before, .project-row__action > span, .project-row__preview :deep(.project-media) { transition: none; }

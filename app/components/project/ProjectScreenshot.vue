@@ -9,6 +9,12 @@ const props = withDefaults(defineProps<{
 })
 
 const { t } = useI18n()
+const { localeCode } = usePortfolio()
+const { theme } = useTheme()
+const resolvedSrc = computed(() => {
+  const sources = props.media.sources?.[localeCode.value]
+  return sources ? sources[theme.value === 'phosphor' ? 'dark' : 'light'] : props.media.src
+})
 const dialog = ref<HTMLDialogElement | null>(null)
 const trigger = ref<HTMLElement | null>(null)
 const instanceId = useId()
@@ -113,7 +119,7 @@ onBeforeUnmount(() => {
         @click="openDialog($event)"
       >
         <img
-          :src="media.src"
+          :src="resolvedSrc"
           :alt="t(media.altKey)"
           :width="media.width"
           :height="media.height"
@@ -131,6 +137,10 @@ onBeforeUnmount(() => {
       <span>// {{ t(media.captionKey) }}</span>
       <span>{{ media.width }}×{{ media.height }}</span>
     </figcaption>
+
+    <p v-if="media.descriptionKey" class="project-screenshot__description">
+      {{ t(media.descriptionKey) }}
+    </p>
 
     <dialog
       ref="dialog"
@@ -164,7 +174,7 @@ onBeforeUnmount(() => {
           </button>
         </div>
         <img
-          :src="media.src"
+          :src="resolvedSrc"
           :alt="t(media.altKey)"
           :width="media.width"
           :height="media.height"
@@ -222,6 +232,7 @@ onBeforeUnmount(() => {
 .project-screenshot figcaption { grid-template-columns: 1fr auto; border-top: 1px solid var(--color-line); }
 .project-screenshot figcaption > span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .project-screenshot figcaption > span:last-child { justify-self: end; color: var(--color-accent); }
+.project-screenshot__description { margin: 0; padding: 1rem 1.25rem; border-top: 1px solid var(--color-line); color: var(--color-text-muted); font-size: var(--font-size-small); line-height: 1.6; }
 
 .project-screenshot__dialog {
   width: min(96vw, var(--project-source-width));

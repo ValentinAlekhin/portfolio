@@ -14,9 +14,14 @@ const { t, te } = useI18n()
     <div class="site-container visual-case-outro__grid">
       <details class="technical-details">
         <summary>{{ t('case.technicalDetails') }}</summary>
-        <p>{{ t(`${project.translationKey}.role`) }}</p>
         <p v-if="te(`${project.translationKey}.architecture`)">
           {{ t(`${project.translationKey}.architecture`) }}
+        </p>
+        <p v-if="te(`${project.translationKey}.constraints`)">
+          {{ t(`${project.translationKey}.constraints`) }}
+        </p>
+        <p v-if="te(`${project.translationKey}.implementation`)">
+          {{ t(`${project.translationKey}.implementation`) }}
         </p>
         <ul>
           <li

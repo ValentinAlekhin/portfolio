@@ -24,17 +24,6 @@ export interface ProcessItem {
   description: string
 }
 
-export interface ProjectContent {
-  summary: string
-  description: string
-  challenge: string
-  role: string
-  approach: string
-  architecture: string
-  result: string
-  constraints: string
-}
-
 export interface ProjectMedia {
   id: string
   src: string
@@ -43,6 +32,7 @@ export interface ProjectMedia {
   height: number
   altKey: string
   captionKey: string
+  descriptionKey?: string
   display?: ProjectMediaDisplay
 }
 

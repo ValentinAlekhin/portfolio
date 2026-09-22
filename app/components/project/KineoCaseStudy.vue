@@ -41,6 +41,10 @@ function media(id: string): ProjectMedia {
         <ProjectScreenshot :media="media('bookingMobile')" />
         <ProjectScreenshot :media="media('closeConfirmMobile')" />
       </div>
+      <div class="site-container kineo-navigation">
+        <ProjectScreenshot :media="media('homeMobile')" />
+        <ProjectScreenshot :media="media('mobileMenu')" />
+      </div>
     </VisualCaseSection>
 
     <VisualCaseSection
@@ -67,9 +71,11 @@ function media(id: string): ProjectMedia {
 .kineo-phones { display: grid; grid-template-columns: repeat(3, 1fr); align-items: start; gap: clamp(1rem, 3vw, 3rem); }
 .kineo-phones > :nth-child(2) { margin-top: clamp(2rem, 8vw, 7rem); }
 .kineo-booking { display: grid; grid-template-columns: repeat(2, 1fr); align-items: center; gap: clamp(1rem, 3vw, 3rem); }
+.kineo-navigation { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: clamp(1rem, 3vw, 3rem); margin-top: clamp(2rem, 5vw, 5rem); }
 
 @media (max-width: 800px) {
   .kineo-phones,
+  .kineo-navigation,
   .kineo-booking { grid-template-columns: 1fr; }
   .kineo-phones > :nth-child(2) { margin-top: 0; }
 }

@@ -36,6 +36,7 @@ function visualProjectMedia(
     display,
     altKey: `projects.entries.${project}.media.${id}.alt`,
     captionKey: `projects.entries.${project}.media.${id}.caption`,
+    descriptionKey: `projects.entries.${project}.media.${id}.description`,
   }
 }
 
@@ -69,6 +70,7 @@ export const projects: Project[] = [
         height: 1884,
         altKey: 'projects.entries.powersketch.media.editor.alt',
         captionKey: 'projects.entries.powersketch.media.editor.caption',
+        descriptionKey: 'projects.entries.powersketch.media.editor.description',
       },
       {
         id: 'landing',
@@ -77,6 +79,7 @@ export const projects: Project[] = [
         height: 1200,
         altKey: 'projects.entries.powersketch.media.landing.alt',
         captionKey: 'projects.entries.powersketch.media.landing.caption',
+        descriptionKey: 'projects.entries.powersketch.media.landing.description',
       },
       {
         id: 'dashboard',
@@ -85,6 +88,7 @@ export const projects: Project[] = [
         height: 1884,
         altKey: 'projects.entries.powersketch.media.dashboard.alt',
         captionKey: 'projects.entries.powersketch.media.dashboard.caption',
+        descriptionKey: 'projects.entries.powersketch.media.dashboard.description',
       },
       {
         id: 'projects',
@@ -93,6 +97,7 @@ export const projects: Project[] = [
         height: 1884,
         altKey: 'projects.entries.powersketch.media.projects.alt',
         captionKey: 'projects.entries.powersketch.media.projects.caption',
+        descriptionKey: 'projects.entries.powersketch.media.projects.description',
       },
       {
         id: 'library',
@@ -101,6 +106,7 @@ export const projects: Project[] = [
         height: 1884,
         altKey: 'projects.entries.powersketch.media.library.alt',
         captionKey: 'projects.entries.powersketch.media.library.caption',
+        descriptionKey: 'projects.entries.powersketch.media.library.description',
       },
       {
         id: 'layers',
@@ -109,6 +115,7 @@ export const projects: Project[] = [
         height: 1884,
         altKey: 'projects.entries.powersketch.media.layers.alt',
         captionKey: 'projects.entries.powersketch.media.layers.caption',
+        descriptionKey: 'projects.entries.powersketch.media.layers.description',
       },
       {
         id: 'customDevices',
@@ -117,6 +124,7 @@ export const projects: Project[] = [
         height: 1884,
         altKey: 'projects.entries.powersketch.media.customDevices.alt',
         captionKey: 'projects.entries.powersketch.media.customDevices.caption',
+        descriptionKey: 'projects.entries.powersketch.media.customDevices.description',
       },
       {
         id: 'deviceReport',
@@ -125,6 +133,7 @@ export const projects: Project[] = [
         height: 1884,
         altKey: 'projects.entries.powersketch.media.deviceReport.alt',
         captionKey: 'projects.entries.powersketch.media.deviceReport.caption',
+        descriptionKey: 'projects.entries.powersketch.media.deviceReport.description',
       },
       {
         id: 'wireReport',
@@ -133,6 +142,7 @@ export const projects: Project[] = [
         height: 1884,
         altKey: 'projects.entries.powersketch.media.wireReport.alt',
         captionKey: 'projects.entries.powersketch.media.wireReport.caption',
+        descriptionKey: 'projects.entries.powersketch.media.wireReport.description',
       },
       {
         id: 'sharing',
@@ -141,6 +151,7 @@ export const projects: Project[] = [
         height: 560,
         altKey: 'projects.entries.powersketch.media.sharing.alt',
         captionKey: 'projects.entries.powersketch.media.sharing.caption',
+        descriptionKey: 'projects.entries.powersketch.media.sharing.description',
       },
       {
         id: 'export',
@@ -149,6 +160,7 @@ export const projects: Project[] = [
         height: 1380,
         altKey: 'projects.entries.powersketch.media.export.alt',
         captionKey: 'projects.entries.powersketch.media.export.caption',
+        descriptionKey: 'projects.entries.powersketch.media.export.description',
       },
       {
         id: 'subscription',
@@ -157,6 +169,7 @@ export const projects: Project[] = [
         height: 1884,
         altKey: 'projects.entries.powersketch.media.subscription.alt',
         captionKey: 'projects.entries.powersketch.media.subscription.caption',
+        descriptionKey: 'projects.entries.powersketch.media.subscription.description',
       },
     ],
     stack: ['Vue', 'Nuxt', 'TypeScript', 'Node.js', 'Canvas API', 'SVG', 'Go', 'PostgreSQL', 'Docker'],
@@ -190,6 +203,7 @@ export const projects: Project[] = [
         height: 1800,
         altKey: 'projects.entries.planesArch.media.landing.alt',
         captionKey: 'projects.entries.planesArch.media.landing.caption',
+        descriptionKey: 'projects.entries.planesArch.media.landing.description',
       },
       {
         id: 'about',
@@ -199,6 +213,7 @@ export const projects: Project[] = [
         height: 1800,
         altKey: 'projects.entries.planesArch.media.about.alt',
         captionKey: 'projects.entries.planesArch.media.about.caption',
+        descriptionKey: 'projects.entries.planesArch.media.about.description',
       },
       {
         id: 'projects',
@@ -208,15 +223,18 @@ export const projects: Project[] = [
         height: 2000,
         altKey: 'projects.entries.planesArch.media.projects.alt',
         captionKey: 'projects.entries.planesArch.media.projects.caption',
+        descriptionKey: 'projects.entries.planesArch.media.projects.description',
       },
       {
         id: 'mobile',
+        display: 'phone',
         src: planesArchMediaPath('mobile', LocaleCode.Ru, 'light'),
         sources: planesArchMediaSources('mobile'),
         width: 780,
         height: 1688,
         altKey: 'projects.entries.planesArch.media.mobile.alt',
         captionKey: 'projects.entries.planesArch.media.mobile.caption',
+        descriptionKey: 'projects.entries.planesArch.media.mobile.description',
       },
     ],
     stack: ['Vue', 'Nuxt', 'Strapi', 'PostgreSQL'],
