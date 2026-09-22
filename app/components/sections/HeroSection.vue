@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { t } = useI18n()
+const statementParts = computed(() => t('hero.statement').split(t('hero.highlight')))
 const root = ref<HTMLElement | null>(null)
 const contactOpen = useState<boolean>('contact-dialog-open', () => false)
 const workbenchOpen = ref(false)
@@ -10,8 +11,8 @@ onMounted(() => {
   if (!root.value || !motionAllowed.value) return
   const { $gsap } = useNuxtApp()
   const detailSelector = window.matchMedia('(max-width: 767px)').matches
-    ? '.hero__statement, .hero__description, .hero__actions, .hero__meta'
-    : '.hero__statement, .hero__description, .hero__terminal, .hero__actions, .hero__meta'
+    ? '.hero__description, .hero__actions, .hero__meta'
+    : '.hero__description, .hero__terminal, .hero__actions, .hero__meta'
 
   context = $gsap.context(() => {
     $gsap.timeline({ defaults: { ease: 'power3.out' } })
@@ -35,13 +36,13 @@ onBeforeUnmount(() => context?.revert())
     <div class="site-container hero__grid">
       <div class="hero__copy">
         <p class="hero__eyebrow system-label">
-          {{ t('profile.displayName') }} · {{ t('hero.eyebrow') }}
+          <span aria-hidden="true">// 01</span> {{ t('profile.displayName') }}
         </p>
         <h1
           id="hero-title"
           class="hero__name"
         >
-          <span><i>{{ t('hero.statement') }}</i></span>
+          <span><i>{{ statementParts[0] }}<em>{{ t('hero.highlight') }}</em>{{ statementParts[1] }}</i></span>
         </h1>
         <p class="hero__description">
           <span class="hero__description-desktop">{{ t('hero.description') }}</span>
@@ -65,9 +66,10 @@ onBeforeUnmount(() => context?.revert())
             {{ t('hero.secondary') }}
           </BaseButton>
         </div>
-        <p class="hero__meta system-label">
-          {{ t('seo.ogAvailability') }}
-        </p>
+        <div class="hero__meta system-label">
+          <span class="hero__availability"><i aria-hidden="true" />{{ t('hero.available') }}</span>
+          <span>{{ t('hero.experienceCaption') }}</span>
+        </div>
       </div>
       <div
         class="hero__workbench"
@@ -129,6 +131,9 @@ onBeforeUnmount(() => context?.revert())
 }
 
 .hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
   margin: 0 0 1.4rem;
   color: var(--color-text-muted);
 }
@@ -138,24 +143,31 @@ onBeforeUnmount(() => context?.revert())
 .hero__name {
   position: relative;
   margin: 0;
-  font-size: clamp(2.8rem, 4.8vw, 5.6rem);
+  font-size: clamp(3.5rem, 5.6vw, 6.25rem);
   font-weight: 530;
-  letter-spacing: -0.055em;
-  line-height: 1.04;
+  letter-spacing: -0.065em;
+  line-height: 0.98;
+  text-wrap: balance;
 }
 
-.hero__name > b {
+.hero__copy {
+  position: relative;
+  padding-block: 1.5rem;
+}
+
+.hero__copy::before,
+.hero__copy::after {
   position: absolute;
-  color: var(--color-accent);
-  font-family: var(--font-mono);
-  font-size: clamp(1.1rem, 2vw, 2rem);
-  font-weight: 500;
-  letter-spacing: 0;
-  line-height: 1;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-color: var(--color-control-border);
+  border-style: solid;
+  content: '';
+  pointer-events: none;
 }
 
-.hero__name > b:first-child { top: -1.8rem; left: 0; }
-.hero__name > b:last-child { right: 0; bottom: -1rem; }
+.hero__copy::before { top: -0.5rem; left: -1rem; border-width: 1px 0 0 1px; }
+.hero__copy::after { right: 0; bottom: -0.5rem; border-width: 0 1px 1px 0; }
 
 .hero__name > span {
   display: block;
@@ -163,24 +175,11 @@ onBeforeUnmount(() => context?.revert())
 }
 
 .hero__name i { display: block; font-style: normal; }
-
-.hero__statement {
-  max-width: 22ch;
-  margin: 2rem 0 0;
-  font-size: clamp(1.35rem, 2.2vw, 2.25rem);
-  font-weight: 520;
-  letter-spacing: -0.035em;
-  line-height: 1.15;
-}
-
-.hero__statement > span { color: #c67be5; font-family: var(--font-mono); font-size: 0.58em; }
-.hero__statement q { color: var(--color-text); quotes: '"' '"'; }
-.hero__statement q::before,
-.hero__statement q::after { color: var(--color-code-string); }
+.hero__name em { color: var(--color-accent); font-style: normal; }
 
 .hero__description {
   max-width: 55ch;
-  margin: 1rem 0 0;
+  margin: 1.75rem 0 0;
   color: var(--color-text-muted);
   font-family: var(--font-mono);
   font-size: var(--font-size-small);
@@ -188,30 +187,35 @@ onBeforeUnmount(() => context?.revert())
 
 .hero__description-mobile { display: none; }
 .hero__terminal { margin-top: 1.5rem; }
-.hero__actions { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 1.8rem; }
+.hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin-top: 1.8rem; }
+.hero__action-contact { padding-inline: 0.9rem; border: 1px solid var(--color-accent); background: color-mix(in srgb, var(--color-accent) 7%, var(--color-bg)); }
 
 .hero__meta {
-  display: grid;
-  width: fit-content;
-  gap: 0.45rem;
-  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem 1.5rem;
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-line);
   color: var(--color-text-muted);
 }
 
-.hero__meta span { display: inline-flex; max-width: 100%; flex-wrap: wrap; align-items: center; gap: 0.45rem; padding-left: 1rem; overflow-wrap: anywhere; }
-.hero__meta span:first-child,
-.hero__meta span:last-child { padding-left: 0; }
-.hero__meta span:first-child,
-.hero__meta span:last-child,
-.hero__meta b { color: var(--color-accent); font-weight: 500; }
+.hero__meta span { display: inline-flex; align-items: center; gap: 0.6rem; }
+.hero__availability { color: var(--color-accent); }
 .hero__meta i { width: 0.4rem; height: 0.4rem; border-radius: 50%; background: var(--color-accent); box-shadow: 0 0 12px var(--color-accent); }
 
 .hero__workbench-toggle { display: none; }
 
-@media (max-width: 1200px) {
+@media (min-width: 1001px) and (max-width: 1200px) {
+  .hero__grid { gap: 2rem; }
+  .hero__name { font-size: 5.3vw; }
+}
+
+@media (max-width: 1000px) {
   .hero { align-items: flex-start; }
   .hero__grid { grid-template-columns: 1fr; }
   .hero__copy { max-width: 58rem; }
+  .hero__name { max-width: 14ch; font-size: clamp(3.5rem, 8vw, 5.5rem); }
   .hero__workbench { width: min(100%, 50rem); }
 }
 
@@ -223,18 +227,12 @@ onBeforeUnmount(() => context?.revert())
   .hero__grid { gap: 2rem; }
 
   .hero__name {
-    font-size: clamp(2.5rem, 10vw, 3.8rem);
-    line-height: 1.05;
+    font-size: clamp(2.5rem, 11.8vw, 4.75rem);
+    line-height: 1;
   }
 
-  .hero__name > b,
   .hero__description-desktop,
   .hero__terminal {
-    display: none;
-  }
-
-  .hero__meta .hero__meta-brace,
-  .hero__meta .hero__meta-stack {
     display: none;
   }
 
@@ -259,10 +257,6 @@ onBeforeUnmount(() => context?.revert())
     flex-wrap: wrap;
     gap: 0.5rem 1rem;
     margin-top: 1.5rem;
-  }
-
-  .hero__meta span {
-    padding-left: 0;
   }
 
   .hero__workbench {

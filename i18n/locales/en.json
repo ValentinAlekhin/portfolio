@@ -59,7 +59,9 @@
       "available": "available",
       "experience": "experience",
       "stack": "stack"
-    }
+    },
+    "highlight": "websites and services",
+    "experienceCaption": "6+ years in development"
   },
   "businessCard": {
     "seoTitle": "Valentin Alekhin’s business card",
@@ -679,7 +681,8 @@
         }
       }
     },
-    "view": "View project"
+    "view": "View project",
+    "windowTitle": "Projects and solutions"
   },
   "capabilities": {
     "eyebrow": "Services",
@@ -750,7 +753,9 @@
         "title": "Workflow automation",
         "description": "Connect data and workflows to avoid entering the same information by hand."
       }
-    }
+    },
+    "windowTitle": "Built around your needs",
+    "directionCount": "4 ways I can help"
   },
   "process": {
     "eyebrow": "From task to launch",

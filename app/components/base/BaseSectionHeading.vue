@@ -37,24 +37,40 @@ defineProps<{
 }
 
 .section-heading__meta {
+  display: flex;
+  align-items: center;
+  align-self: start;
   grid-column: 1 / 4;
   margin: 0.6rem 0 0;
   color: var(--color-text-muted);
 }
 
 .section-heading__meta span {
+  display: inline-flex;
+  min-height: 2rem;
+  align-items: center;
+  padding-right: 0.85rem;
+  border-right: 1px solid var(--color-control-border);
   margin-right: 1rem;
   color: var(--color-accent);
 }
 
 .section-heading__declaration {
+  position: relative;
   grid-column: 4 / -1;
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--color-accent);
 }
 
-.section-heading__code,
-.section-heading__close { margin: 0; color: var(--color-text-muted); }
-.section-heading__code b { color: #c67be5; font-weight: 500; }
-.section-heading__close { margin-top: 1rem; }
+.section-heading__declaration::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.45rem;
+  height: 2px;
+  background: var(--color-accent);
+  content: '';
+}
 
 .section-heading h2 {
   max-width: 20ch;
@@ -63,22 +79,6 @@ defineProps<{
   font-weight: 560;
   letter-spacing: -0.065em;
   line-height: 0.92;
-}
-
-.section-heading__title-label {
-  display: block;
-  margin: 0 0 0.35rem -1.5rem;
-  color: #62b7e8;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  line-height: 1;
-}
-
-.section-heading__title-text::before,
-.section-heading__title-text::after {
-  content: none;
 }
 
 .section-heading__description {
@@ -123,11 +123,7 @@ defineProps<{
     gap: 0.35rem 0;
   }
 
-  .section-heading__code,
-  .section-heading__close,
-  .section-heading__title-label {
-    display: none;
-  }
+  .section-heading__declaration { padding-left: 1rem; }
 
   .section-heading h2 {
     width: 100%;
@@ -135,11 +131,6 @@ defineProps<{
     margin: 0;
     font-size: clamp(2.15rem, 9.5vw, 2.9rem);
     overflow-wrap: break-word;
-  }
-
-  .section-heading__title-text::before,
-  .section-heading__title-text::after {
-    content: none;
   }
 
   .section-heading__description {
