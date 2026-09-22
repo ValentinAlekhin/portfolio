@@ -51,8 +51,10 @@ export default defineNuxtConfig({
   routeRules: {
     '/**': { prerender: true },
     '/card/**': { robots: false },
+    '/presentation/**': { robots: false },
     [`/${LocaleCode.En}/**`]: { prerender: true },
     [`/${LocaleCode.En}/card/**`]: { robots: false },
+    [`/${LocaleCode.En}/presentation/**`]: { robots: false },
   },
 
   experimental: {
@@ -75,6 +77,8 @@ export default defineNuxtConfig({
         `/${LocaleCode.En}/`,
         '/card/',
         `/${LocaleCode.En}/card/`,
+        '/presentation/',
+        `/${LocaleCode.En}/presentation/`,
         ...projectSlugs.flatMap(slug => [
           `/projects/${slug}/`,
           `/${LocaleCode.En}/projects/${slug}/`,

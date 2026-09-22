@@ -10,7 +10,7 @@ const { t } = useI18n()
 const themeColor = computed(() => browserThemeColors[theme.value])
 const showCrtOverlay = computed(() => {
   const path = ensureTrailingSlash(route.path)
-  return !path.includes('/projects/') && !path.endsWith('/card/')
+  return !path.includes('/projects/') && !path.endsWith('/card/') && !path.endsWith('/presentation/')
 })
 const personSchema = computed(() => [
   definePerson({

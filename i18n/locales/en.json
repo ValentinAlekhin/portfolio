@@ -1012,5 +1012,55 @@
     "loading": "VA // LOADING SYSTEM",
     "crtModel": "VA // CRT-02",
     "crtSignal": "SIGNAL: STABLE"
+  },
+  "presentation": {
+    "eyebrow": "Share what I do",
+    "title": "A card for social media",
+    "description": "Choose a format and a look. Share the finished image in your stories or send it in a direct message.",
+    "settings": "Image settings",
+    "format": "Where to share",
+    "palette": "Appearance",
+    "preview": "Preview",
+    "formats": {
+      "story": "Stories",
+      "square": "Square"
+    },
+    "palettes": {
+      "dark": "Dark",
+      "light": "Light"
+    },
+    "artwork": {
+      "label": "Services by Valentin Alekhin",
+      "eyebrow": "From idea to launch",
+      "headline": "Websites & bots",
+      "headlineEnd": "for your business",
+      "support": "I help you plan, build, and launch.",
+      "services": {
+        "websites": {
+          "title": "Websites",
+          "description": "Show what you do and get enquiries."
+        },
+        "bots": {
+          "title": "Telegram bots",
+          "description": "Take orders and book appointments."
+        },
+        "tools": {
+          "title": "Tools for your work",
+          "description": "Cut repetitive tasks and manual data entry."
+        }
+      },
+      "experience": "{years}+ years of experience",
+      "cta": "Tell me what you need on Telegram",
+      "portfolio": "Selected work",
+      "qrAlt": "QR code linking to the alekhin.dev portfolio"
+    },
+    "download": {
+      "button": "Download image",
+      "retry": "Try again",
+      "hint": "Save the image and add it to a post or a conversation.",
+      "rendering": "Preparing your image…",
+      "success": "Your image is ready. The download has started.",
+      "error": "Could not prepare the image. Please try again."
+    }
   }
 }
