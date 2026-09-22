@@ -75,7 +75,7 @@ onBeforeUnmount(() => {
           :key="item.id"
           :href="sectionHref(item.id)"
           :aria-current="activeSection === item.id ? 'location' : undefined"
-        ><span>/</span>{{ t(item.labelKey).toLowerCase().replaceAll(' ', '-') }}</a>
+        >{{ t(item.labelKey) }}</a>
       </nav>
 
       <div class="site-header__actions">

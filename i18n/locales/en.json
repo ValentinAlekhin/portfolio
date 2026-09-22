@@ -5,11 +5,11 @@
   },
   "profile": {
     "displayName": "Valentin Alekhin",
-    "role": "Independent senior full-stack developer"
+    "role": "Website and web service developer"
   },
   "nuxtSiteConfig": {
     "name": "alekhin.dev",
-    "description": "I turn ideas into working web services: I design the interface, write the code, and launch the product."
+    "description": "Websites, online stores, customer portals and workflow automation. I help define the task, build it and launch."
   },
   "common": {
     "skip": "Skip to content",
@@ -20,16 +20,16 @@
     "contact": "Contact me"
   },
   "seo": {
-    "title": "Valentin Alekhin — Senior Full-stack Developer",
+    "title": "Valentin Alekhin — websites and services for business",
     "ogImage": "/og/portfolio-en.png",
     "ogAvailability": "Available for new projects"
   },
   "nav": {
     "label": "Main navigation",
     "sections": {
-      "projects": "Projects",
+      "projects": "My work",
       "services": "What I do",
-      "process": "Project types",
+      "process": "How I work",
       "about": "About"
     },
     "contact": "Contact me",
@@ -37,22 +37,29 @@
     "close": "Close menu",
     "language": "Switch language",
     "theme": "Switch theme",
-    "drawerTitle": "VA // NAVIGATION",
-    "runtime": "ROUTE TABLE",
-    "routesReady": "04 ROUTES / READY"
+    "drawerTitle": "Menu",
+    "runtime": "Site sections",
+    "routesReady": "Choose a section"
   },
   "hero": {
-    "eyebrow": "Full-stack developer",
-    "name": { "first": "VALENTIN", "last": "ALEKHIN" },
-    "statement": "I turn ideas into working web services.",
-    "description": "I start with the problem, design an easy-to-use interface, write all the code the product needs, then help launch and grow it.",
-    "mobileDescription": "From idea and interface to code, launch, and product growth.",
-    "terminal": "> idea → interface → frontend → backend → launch_",
-    "primary": "Contact me",
+    "eyebrow": "Websites and services for business",
+    "name": {
+      "first": "VALENTIN",
+      "last": "ALEKHIN"
+    },
+    "statement": "I build websites and services for business",
+    "description": "Websites, online stores, customer portals and workflow automation. I help define the task, build it and launch.",
+    "mobileDescription": "Websites, online stores, customer portals and workflow automation. I help define the task, build it and launch.",
+    "terminal": "From the first conversation to launch",
+    "primary": "Discuss your project",
     "secondary": "View my work",
     "available": "Taking on new projects",
     "experience": "6+ years",
-    "meta": { "available": "available", "experience": "experience", "stack": "stack" }
+    "meta": {
+      "available": "available",
+      "experience": "experience",
+      "stack": "stack"
+    }
   },
   "businessCard": {
     "seoTitle": "Valentin Alekhin’s business card",
@@ -65,7 +72,7 @@
       "back": "Back of the business card"
     },
     "artwork": {
-      "role": "Senior full-stack developer",
+      "role": "Website & web service developer",
       "offer": "Websites, web apps, bots, and automation — end to end.",
       "support": "From idea and interface to launch",
       "experience": "{years}+ years of experience",
@@ -100,9 +107,9 @@
     }
   },
   "projects": {
-    "eyebrow": "My work",
-    "title": "Projects people already use",
-    "description": "These are not just polished screens. They are working services that can be used, updated, and improved over time.",
+    "eyebrow": "Portfolio",
+    "title": "My work",
+    "description": "Websites, stores and services: from presenting a company to preparing documents.",
     "roleLabel": "SaaS / Product / Full-stack",
     "openCase": "Open case",
     "resultCount": "{count} projects",
@@ -114,16 +121,29 @@
     },
     "entries": {
       "powersketch": {
-        "eyebrow": "Online electrical panel editor",
+        "eyebrow": "Electrical diagram service",
         "scope": "SaaS / Product / Full-stack",
-        "roles": { "product": "Product", "design": "UI/UX", "frontend": "Frontend", "backend": "Backend", "architecture": "Architecture" },
+        "roles": {
+          "product": "Product",
+          "design": "UI/UX",
+          "frontend": "Frontend",
+          "backend": "Backend",
+          "architecture": "Architecture"
+        },
         "metrics": {
           "label": "PowerSketch in numbers",
           "devices": "devices in the catalog",
           "manufacturers": "manufacturers",
-          "engine": "diagram format"
+          "engine": "diagram format",
+          "visitors": "visitors",
+          "visits": "visits",
+          "views": "page views",
+          "visitorsValue": "11.8k",
+          "visitsValue": "26.3k",
+          "viewsValue": "144.9k",
+          "period": "Over the last 3 months, as of 22 September 2026"
         },
-        "summary": "An online editor for drawing electrical panel diagrams and preparing them for installation.",
+        "summary": "Prepare diagrams and documents without repeatedly entering the same data.",
         "description": "PowerSketch lets an electrician build a panel much as they would at a workbench: choose real devices from the catalog, place them on the diagram, and connect them with wires. The service then creates the device list and connection table automatically, so nothing has to be copied by hand.",
         "audience": "It is made for electricians, smart-home integrators, panel builders, commissioning engineers, and technical specialists.",
         "challenge": "The main challenge was making a precise engineering tool feel straightforward in everyday work. When someone moves a device or wire, the pins, layers, reports, and export all need to update without losing data.",
@@ -139,18 +159,45 @@
           "title": "From a new diagram to ready-to-use documents",
           "description": "Every step is connected. The user draws the diagram once, and PowerSketch reuses that information for reports, sharing, and export.",
           "steps": {
-            "create": { "title": "Create a project", "description": "Every diagram lives in the workspace, where it is easy to find, open, or copy." },
-            "compose": { "title": "Build the panel", "description": "Find the device you need in the catalog and drag it onto the diagram." },
-            "connect": { "title": "Add the wires", "description": "Wires connect specific device pins, keeping the diagram clear and easy to check." },
-            "report": { "title": "Download reports", "description": "PowerSketch builds device and connection tables directly from the finished diagram." },
-            "share": { "title": "Share the result", "description": "Send a view-only link to a client or colleague, or download an SVG for the job." }
+            "create": {
+              "title": "Create a project",
+              "description": "Every diagram lives in the workspace, where it is easy to find, open, or copy."
+            },
+            "compose": {
+              "title": "Build the panel",
+              "description": "Find the device you need in the catalog and drag it onto the diagram."
+            },
+            "connect": {
+              "title": "Add the wires",
+              "description": "Wires connect specific device pins, keeping the diagram clear and easy to check."
+            },
+            "report": {
+              "title": "Download reports",
+              "description": "PowerSketch builds device and connection tables directly from the finished diagram."
+            },
+            "share": {
+              "title": "Share the result",
+              "description": "Send a view-only link to a client or colleague, or download an SVG for the job."
+            }
           }
         },
         "features": {
-          "scene": { "title": "A precise diagram", "description": "Zoom, move, and edit the diagram without losing dimensions or connection points." },
-          "catalog": { "title": "Devices close at hand", "description": "Search and clear categories make it easy to find the right model among 2,000 devices." },
-          "layers": { "title": "A tidy workspace", "description": "Group items into layers, hide what you do not need, and lock finished parts against accidental edits." },
-          "data": { "title": "No duplicate work", "description": "Add devices and wires once, and they automatically appear in reports and exports." }
+          "scene": {
+            "title": "A precise diagram",
+            "description": "Zoom, move, and edit the diagram without losing dimensions or connection points."
+          },
+          "catalog": {
+            "title": "Devices close at hand",
+            "description": "Search and clear categories make it easy to find the right model among 2,000 devices."
+          },
+          "layers": {
+            "title": "A tidy workspace",
+            "description": "Group items into layers, hide what you do not need, and lock finished parts against accidental edits."
+          },
+          "data": {
+            "title": "No duplicate work",
+            "description": "Add devices and wires once, and they automatically appear in reports and exports."
+          }
         },
         "customDevices": {
           "label": "Custom devices",
@@ -173,33 +220,79 @@
           "description": "The editor and device catalog are included in the free plan. Plus and Professional suit people managing more projects, with higher limits, project copying, and watermark-free export."
         },
         "resultTitle": "PowerSketch covers the job from start to finish",
-        "result": "Today, PowerSketch lets people create a project, build a diagram from 2,000 ready-made devices, add the wiring, and produce useful documents. A project can be shared by link or exported as SVG. Everything runs in the browser, with nothing extra to install.",
+        "result": "Diagrams and reports use data from one project. Users can prepare documents and hand them over.",
         "media": {
-          "editor": { "alt": "PowerSketch editor showing an electrical panel diagram with devices and connecting wires", "caption": "A working diagram in the editor" },
-          "landing": { "alt": "PowerSketch website hero describing the online editor alongside a demonstration diagram", "caption": "The PowerSketch home page" },
-          "dashboard": { "alt": "PowerSketch workspace with recent projects, custom devices, and product updates", "caption": "The first screen after sign-in" },
-          "projects": { "alt": "PowerSketch project list with search and public-access management", "caption": "All projects in one place" },
-          "library": { "alt": "Hierarchical electrical-device library inside the PowerSketch editor", "caption": "The catalog inside the editor" },
-          "layers": { "alt": "PowerSketch editor with the project layer panel open", "caption": "Managing diagram layers" },
-          "customDevices": { "alt": "Custom-device list showing dimensions, pin counts, and modification dates", "caption": "Your own devices" },
-          "deviceReport": { "alt": "PowerSketch device report with manufacturers, parameters, and quantities", "caption": "Device schedule" },
-          "wireReport": { "alt": "PowerSketch wire report with markings, lengths, sources, and destinations", "caption": "Connection table" },
-          "sharing": { "alt": "PowerSketch public-access dialog with a view-only project link", "caption": "A link for viewing the project" },
-          "export": { "alt": "PowerSketch SVG export window with paper settings and diagram preview", "caption": "SVG export settings" },
-          "subscription": { "alt": "PowerSketch subscription page comparing Free, Plus, and Professional plans", "caption": "PowerSketch plans" }
+          "editor": {
+            "alt": "PowerSketch editor showing an electrical panel diagram with devices and connecting wires",
+            "caption": "A working diagram in the editor"
+          },
+          "landing": {
+            "alt": "PowerSketch website hero describing the online editor alongside a demonstration diagram",
+            "caption": "The PowerSketch home page"
+          },
+          "dashboard": {
+            "alt": "PowerSketch workspace with recent projects, custom devices, and product updates",
+            "caption": "The first screen after sign-in"
+          },
+          "projects": {
+            "alt": "PowerSketch project list with search and public-access management",
+            "caption": "All projects in one place"
+          },
+          "library": {
+            "alt": "Hierarchical electrical-device library inside the PowerSketch editor",
+            "caption": "The catalog inside the editor"
+          },
+          "layers": {
+            "alt": "PowerSketch editor with the project layer panel open",
+            "caption": "Managing diagram layers"
+          },
+          "customDevices": {
+            "alt": "Custom-device list showing dimensions, pin counts, and modification dates",
+            "caption": "Your own devices"
+          },
+          "deviceReport": {
+            "alt": "PowerSketch device report with manufacturers, parameters, and quantities",
+            "caption": "Device schedule"
+          },
+          "wireReport": {
+            "alt": "PowerSketch wire report with markings, lengths, sources, and destinations",
+            "caption": "Connection table"
+          },
+          "sharing": {
+            "alt": "PowerSketch public-access dialog with a view-only project link",
+            "caption": "A link for viewing the project"
+          },
+          "export": {
+            "alt": "PowerSketch SVG export window with paper settings and diagram preview",
+            "caption": "SVG export settings"
+          },
+          "subscription": {
+            "alt": "PowerSketch subscription page comparing Free, Plus, and Professional plans",
+            "caption": "PowerSketch plans"
+          }
+        },
+        "brief": {
+          "task": "Connect electrical diagrams and their documents so equipment and connection data does not need to be entered again.",
+          "solution": "Built a diagram editor with an equipment library, reports, export and link sharing.",
+          "result": "Diagrams and reports use data from one project. Users can prepare documents and hand them over."
         }
       },
       "planesArch": {
-        "eyebrow": "Architecture studio website and portfolio",
+        "eyebrow": "Architecture studio website",
         "scope": "Corporate website / Frontend / CMS (admin panel)",
-        "roles": { "frontend": "Frontend", "cms": "CMS (admin panel)", "localization": "Russian and English", "production": "Launch" },
+        "roles": {
+          "frontend": "Frontend",
+          "cms": "CMS (admin panel)",
+          "localization": "Russian and English",
+          "production": "Launch"
+        },
         "metrics": {
           "label": "The website in numbers",
           "locales": "languages",
           "themes": "display themes",
           "categories": "portfolio filters"
         },
-        "summary": "A bilingual architecture studio website with project galleries, services, and educational programs.",
+        "summary": "Present studio work and let the team update the content themselves.",
         "description": "The PLANES architects website puts the studio's work first. Visitors can explore architecture and interior projects, learn about the team's services and process, join an educational program, or send an enquiry.",
         "audience": "The website introduces the studio to future clients and gives architects and designers a way to discover PLANES educational programs.",
         "challenge": "The goal was to bring the studio's calm style to the browser without taking attention away from the project photography. The team also needed a simple way to add work, translate copy, and update large galleries without a developer.",
@@ -214,25 +307,52 @@
           "label": "Portfolio",
           "title": "The right project is easy to find",
           "description": "Work is grouped into private, commercial, cultural, and competition projects. Filters narrow the list quickly, while each project pairs its gallery with clear details about the space.",
-          "categories": { "all": "All", "private": "Private", "commercial": "Commercial", "cultural": "Cultural", "competitions": "Competitions" }
+          "categories": {
+            "all": "All",
+            "private": "Private",
+            "commercial": "Commercial",
+            "cultural": "Cultural",
+            "competitions": "Competitions"
+          }
         },
         "content": {
           "label": "Content",
           "title": "One CMS (admin panel) for projects, copy, and photography",
           "description": "The team adds a description, details, and a gallery before linking the Russian and English versions. Once published, the content appears on the website immediately."
         },
-        "flow": { "cms": "CMS", "content": "Projects and copy", "locales": "Russian / English", "website": "Website" },
+        "flow": {
+          "cms": "CMS",
+          "content": "Projects and copy",
+          "locales": "Russian / English",
+          "website": "Website"
+        },
         "features": {
-          "locales": { "title": "Russian and English", "description": "Languages switch seamlessly while the visitor stays in the same section or project." },
-          "themes": { "title": "Three themes", "description": "Follow the device setting or choose the light or dark theme manually." },
-          "cms": { "title": "Easy updates", "description": "The team adds projects and materials through the CMS (admin panel), without a developer." },
-          "media": { "title": "Large galleries", "description": "Photography remains the main content and loads at a size suited to each device." }
+          "locales": {
+            "title": "Russian and English",
+            "description": "Languages switch seamlessly while the visitor stays in the same section or project."
+          },
+          "themes": {
+            "title": "Three themes",
+            "description": "Follow the device setting or choose the light or dark theme manually."
+          },
+          "cms": {
+            "title": "Easy updates",
+            "description": "The team adds projects and materials through the CMS (admin panel), without a developer."
+          },
+          "media": {
+            "title": "Large galleries",
+            "description": "Photography remains the main content and loads at a size suited to each device."
+          }
         },
         "themes": {
           "label": "Display",
           "title": "The website adapts to the light around it",
           "description": "System mode follows the device setting. Light mode keeps the feel of a printed architecture journal, while dark mode makes project photography more comfortable to browse at night.",
-          "items": { "system": "System", "light": "Light", "dark": "Dark" }
+          "items": {
+            "system": "System",
+            "light": "Light",
+            "dark": "Dark"
+          }
         },
         "responsive": {
           "label": "Mobile",
@@ -240,133 +360,421 @@
           "description": "Large images adapt to a portrait screen while actions remain within reach, without tiny text or horizontal scrolling."
         },
         "resultTitle": "A website that can grow with the studio's portfolio",
-        "result": "The PLANES architects studio now has a bilingual website for projects, services, educational programs, and enquiries. The team updates materials through the CMS (admin panel), while visitors browse the work on any device and in the theme they prefer.",
+        "result": "The finished website presents the studio’s work. The team can add projects and update content without editing code.",
         "media": {
-          "landing": { "alt": "PLANES architects home page with a large interior photograph and project navigation", "caption": "The website home page" },
-          "about": { "alt": "PLANES architects studio page with copy and a team portrait", "caption": "Introducing the studio" },
-          "projects": { "alt": "PLANES architects portfolio with filters for different architecture project types", "caption": "Projects and filters" },
-          "mobile": { "alt": "Mobile version of the PLANES architects home page", "caption": "The home page on a phone" }
+          "landing": {
+            "alt": "PLANES architects home page with a large interior photograph and project navigation",
+            "caption": "The website home page"
+          },
+          "about": {
+            "alt": "PLANES architects studio page with copy and a team portrait",
+            "caption": "Introducing the studio"
+          },
+          "projects": {
+            "alt": "PLANES architects portfolio with filters for different architecture project types",
+            "caption": "Projects and filters"
+          },
+          "mobile": {
+            "alt": "Mobile version of the PLANES architects home page",
+            "caption": "The home page on a phone"
+          }
+        },
+        "brief": {
+          "task": "Present the studio’s projects and let the team update the website independently.",
+          "solution": "Built a portfolio website with a studio page, two languages and content management.",
+          "result": "The finished website presents the studio’s work. The team can add projects and update content without editing code."
         }
       },
       "nordhus": {
-        "eyebrow": "Lakeside retreat booking website",
+        "eyebrow": "Country retreat website",
         "scope": "Booking website / Frontend / UI",
-        "summary": "An atmospheric website for seven cabins, with a catalogue, filters, galleries, and booking forms.",
+        "summary": "Find a suitable cabin and follow a clear booking flow.",
         "intro": "The interface is built around northern landscapes and large photography, while the catalogue turns that mood into a practical choice.",
         "role": "Interface design, responsive development, cabin catalogue, galleries, and client-side booking flows.",
-        "metrics": { "label": "Project figures", "cabins": "cabins", "types": "cabin types", "actions": "key actions" },
-        "overview": { "title": "From first impression to the right cabin", "text": "Large photography sets the atmosphere, while the catalogue helps visitors compare cabins and choose the right one." },
-        "responsive": { "title": "Easy to browse and book on a phone", "text": "Photography, filters, and buttons stay large enough to choose a cabin without zooming in." },
-        "interactions": { "title": "Booking without unnecessary detours", "text": "Dates, guests, and cabin options are selected on the page, while the gallery opens full screen." },
+        "metrics": {
+          "label": "Project figures",
+          "cabins": "cabins",
+          "types": "cabin types",
+          "actions": "key actions"
+        },
+        "overview": {
+          "title": "From first impression to the right cabin",
+          "text": "Large photography sets the atmosphere, while the catalogue helps visitors compare cabins and choose the right one."
+        },
+        "responsive": {
+          "title": "Easy to browse and book on a phone",
+          "text": "Photography, filters, and buttons stay large enough to choose a cabin without zooming in."
+        },
+        "interactions": {
+          "title": "Booking without unnecessary detours",
+          "text": "Dates, guests, and cabin options are selected on the page, while the gallery opens full screen."
+        },
         "media": {
-          "cover": { "alt": "NORDHUS home page with a winter cabin beside a lake", "caption": "Home page" },
-          "homeFull": { "alt": "Complete NORDHUS home page", "caption": "Full home page" },
-          "cabinsFull": { "alt": "Complete NORDHUS cabin catalogue", "caption": "Cabin catalogue" },
-          "experiencesFull": { "alt": "Complete NORDHUS experiences page", "caption": "Experiences and services" },
-          "cabinLakeFull": { "alt": "Complete page for the Lake cabin in NORDHUS", "caption": "Lake cabin page" },
-          "homeMobileFull": { "alt": "Complete NORDHUS home page on a phone", "caption": "Mobile home page" },
-          "cabinsMobileFull": { "alt": "Complete NORDHUS cabin catalogue on a phone", "caption": "Mobile catalogue" },
-          "cabinLakeMobileFull": { "alt": "Complete Lake cabin page on a phone", "caption": "Lake cabin on mobile" },
-          "booking": { "alt": "NORDHUS booking dialog", "caption": "Booking form" },
-          "lightbox": { "alt": "NORDHUS full-screen cabin gallery", "caption": "Lightbox gallery" },
-          "filtersMobile": { "alt": "NORDHUS catalogue filters on a phone", "caption": "Mobile filters" }
+          "cover": {
+            "alt": "NORDHUS home page with a winter cabin beside a lake",
+            "caption": "Home page"
+          },
+          "homeFull": {
+            "alt": "Complete NORDHUS home page",
+            "caption": "Full home page"
+          },
+          "cabinsFull": {
+            "alt": "Complete NORDHUS cabin catalogue",
+            "caption": "Cabin catalogue"
+          },
+          "experiencesFull": {
+            "alt": "Complete NORDHUS experiences page",
+            "caption": "Experiences and services"
+          },
+          "cabinLakeFull": {
+            "alt": "Complete page for the Lake cabin in NORDHUS",
+            "caption": "Lake cabin page"
+          },
+          "homeMobileFull": {
+            "alt": "Complete NORDHUS home page on a phone",
+            "caption": "Mobile home page"
+          },
+          "cabinsMobileFull": {
+            "alt": "Complete NORDHUS cabin catalogue on a phone",
+            "caption": "Mobile catalogue"
+          },
+          "cabinLakeMobileFull": {
+            "alt": "Complete Lake cabin page on a phone",
+            "caption": "Lake cabin on mobile"
+          },
+          "booking": {
+            "alt": "NORDHUS booking dialog",
+            "caption": "Booking form"
+          },
+          "lightbox": {
+            "alt": "NORDHUS full-screen cabin gallery",
+            "caption": "Lightbox gallery"
+          },
+          "filtersMobile": {
+            "alt": "NORDHUS catalogue filters on a phone",
+            "caption": "Mobile filters"
+          }
+        },
+        "brief": {
+          "task": "Help guests compare cabins and move on to booking a suitable option.",
+          "solution": "Built a filtered catalog, cabin pages, a photo gallery and a booking form.",
+          "result": "Visitors can explore cabins, choose one and follow the booking flow on desktop or mobile."
         }
       },
       "aerovista": {
-        "eyebrow": "Industrial aerial inspection website",
+        "eyebrow": "Drone inspection website",
         "scope": "Corporate landing / Calculator / Frontend",
-        "summary": "A technical landing page for industrial inspections, with a calculator, case studies, and quote request.",
+        "summary": "Understand the service and request a quote.",
         "intro": "High-contrast type, a coordinate grid, and signal orange make a complex service quick to understand.",
         "role": "Concept, interface, responsive build, savings calculator, FAQ, and enquiry forms.",
-        "metrics": { "label": "Project contents", "services": "services", "cases": "case studies", "steps": "process steps" },
-        "overview": { "title": "A technical presentation without clutter", "text": "The page combines industrial photography, cost estimates, and evidence-led case studies." },
-        "responsive": { "title": "The complete landing page on mobile", "text": "Large calls to action and calculations remain legible on a narrow screen." },
-        "interactions": { "title": "The enquiry stays in context", "text": "The form opens over the page and works consistently on desktop and mobile." },
+        "metrics": {
+          "label": "Project contents",
+          "services": "services",
+          "cases": "case studies",
+          "steps": "process steps"
+        },
+        "overview": {
+          "title": "A technical presentation without clutter",
+          "text": "The page combines industrial photography, cost estimates, and evidence-led case studies."
+        },
+        "responsive": {
+          "title": "The complete landing page on mobile",
+          "text": "Large calls to action and calculations remain legible on a narrow screen."
+        },
+        "interactions": {
+          "title": "The enquiry stays in context",
+          "text": "The form opens over the page and works consistently on desktop and mobile."
+        },
         "media": {
-          "cover": { "alt": "AEROVISTA Inspect home page with an industrial facility", "caption": "Home page" },
-          "homeFull": { "alt": "Complete AEROVISTA Inspect home page", "caption": "Full landing page" },
-          "homeMobileFull": { "alt": "Complete mobile AEROVISTA Inspect page", "caption": "Landing page on a phone" },
-          "homeMobile": { "alt": "AEROVISTA Inspect mobile hero", "caption": "Mobile first screen" },
-          "request": { "alt": "AEROVISTA Inspect request dialog on desktop", "caption": "Quote form" },
-          "requestMobile": { "alt": "AEROVISTA Inspect request dialog on a phone", "caption": "Mobile quote form" }
+          "cover": {
+            "alt": "AEROVISTA Inspect home page with an industrial facility",
+            "caption": "Home page"
+          },
+          "homeFull": {
+            "alt": "Complete AEROVISTA Inspect home page",
+            "caption": "Full landing page"
+          },
+          "homeMobileFull": {
+            "alt": "Complete mobile AEROVISTA Inspect page",
+            "caption": "Landing page on a phone"
+          },
+          "homeMobile": {
+            "alt": "AEROVISTA Inspect mobile hero",
+            "caption": "Mobile first screen"
+          },
+          "request": {
+            "alt": "AEROVISTA Inspect request dialog on desktop",
+            "caption": "Quote form"
+          },
+          "requestMobile": {
+            "alt": "AEROVISTA Inspect request dialog on a phone",
+            "caption": "Mobile quote form"
+          }
+        },
+        "brief": {
+          "task": "Explain which sites can benefit from drone inspections and provide a way to request a quote.",
+          "solution": "Built a page with services, work examples and a form for site details.",
+          "result": "Visitors can learn about the service and fill out a quote request."
         }
       },
       "kineo": {
-        "eyebrow": "Movement recovery centre website",
+        "eyebrow": "Movement studio website",
         "scope": "Service landing / Booking / Frontend",
-        "summary": "A responsive rehabilitation-centre website with programme matching, specialists, and step-by-step booking.",
+        "summary": "Explore programs and follow a clear booking flow.",
         "intro": "A calm healthcare structure meets energetic sports photography and prominent actions.",
         "role": "Interface, responsive development, filters, interactive programme matching, and four-step booking.",
-        "metrics": { "label": "Project contents", "programs": "directions", "booking": "booking steps", "faq": "FAQ questions" },
-        "overview": { "title": "A path from the problem to the right programme", "text": "The landing page explains the approach, services, and specialists in a clear sequence." },
-        "responsive": { "title": "Booking is designed for a phone", "text": "Fields, cards, and step navigation remain large and easy to understand." },
-        "interactions": { "title": "States of a complex dialog", "text": "Booking retains choices between steps and warns before closing." },
+        "metrics": {
+          "label": "Project contents",
+          "programs": "directions",
+          "booking": "booking steps",
+          "faq": "FAQ questions"
+        },
+        "overview": {
+          "title": "A path from the problem to the right programme",
+          "text": "The landing page explains the approach, services, and specialists in a clear sequence."
+        },
+        "responsive": {
+          "title": "Booking is designed for a phone",
+          "text": "Fields, cards, and step navigation remain large and easy to understand."
+        },
+        "interactions": {
+          "title": "States of a complex dialog",
+          "text": "Booking retains choices between steps and warns before closing."
+        },
         "media": {
-          "cover": { "alt": "KINEO home page with a runner", "caption": "Home page" },
-          "homeFull": { "alt": "Complete KINEO home page", "caption": "Full landing page" },
-          "homeMobile": { "alt": "KINEO mobile hero", "caption": "Mobile first screen" },
-          "homeMobileFull": { "alt": "Complete KINEO mobile page", "caption": "Landing page on a phone" },
-          "booking": { "alt": "KINEO step-by-step booking on desktop", "caption": "Service selection" },
-          "bookingMobile": { "alt": "KINEO step-by-step booking on a phone", "caption": "Mobile booking" },
-          "closeConfirm": { "alt": "KINEO booking close confirmation", "caption": "Protecting entered data" },
-          "closeConfirmMobile": { "alt": "KINEO mobile booking close confirmation", "caption": "Mobile confirmation" },
-          "mobileMenu": { "alt": "KINEO full-screen mobile menu", "caption": "Mobile navigation" }
+          "cover": {
+            "alt": "KINEO home page with a runner",
+            "caption": "Home page"
+          },
+          "homeFull": {
+            "alt": "Complete KINEO home page",
+            "caption": "Full landing page"
+          },
+          "homeMobile": {
+            "alt": "KINEO mobile hero",
+            "caption": "Mobile first screen"
+          },
+          "homeMobileFull": {
+            "alt": "Complete KINEO mobile page",
+            "caption": "Landing page on a phone"
+          },
+          "booking": {
+            "alt": "KINEO step-by-step booking on desktop",
+            "caption": "Service selection"
+          },
+          "bookingMobile": {
+            "alt": "KINEO step-by-step booking on a phone",
+            "caption": "Mobile booking"
+          },
+          "closeConfirm": {
+            "alt": "KINEO booking close confirmation",
+            "caption": "Protecting entered data"
+          },
+          "closeConfirmMobile": {
+            "alt": "KINEO mobile booking close confirmation",
+            "caption": "Mobile confirmation"
+          },
+          "mobileMenu": {
+            "alt": "KINEO full-screen mobile menu",
+            "caption": "Mobile navigation"
+          }
+        },
+        "brief": {
+          "task": "Help visitors understand the programs and book a suitable session.",
+          "solution": "Built a page with programs, answers to common questions and a booking form that protects entered data when closing.",
+          "result": "Visitors can choose a program and follow the booking flow, including on a phone."
         }
       },
       "forma": {
-        "eyebrow": "Handmade ceramics online store",
+        "eyebrow": "Ceramics online store",
         "scope": "E-commerce / Catalogue / Frontend",
-        "summary": "An editorial online store with a catalogue, product pages, local cart, and checkout flow.",
+        "summary": "Choose products, fill a cart and proceed to checkout.",
         "intro": "Warm typography and a quiet grid leave maximum space for photography and handmade details.",
         "role": "Store concept, responsive development, catalogue and filters, product pages, cart, and checkout.",
-        "metrics": { "label": "Project contents", "products": "products", "filters": "search parameters", "cartValue": "IN BROWSER", "cart": "cart persists" },
-        "overview": { "title": "A catalogue that continues the studio story", "text": "Editorial pages and products share one restrained visual system." },
-        "responsive": { "title": "The complete store works on a phone", "text": "The catalogue, filters, cart, and checkout all adapt to a vertical screen." },
-        "interactions": { "title": "A focused cart and checkout", "text": "The path from a chosen piece to a completed order stays short, calm, and clear." },
+        "metrics": {
+          "label": "Project contents",
+          "products": "products",
+          "filters": "search parameters",
+          "cartValue": "IN BROWSER",
+          "cart": "cart persists"
+        },
+        "overview": {
+          "title": "A catalogue that continues the studio story",
+          "text": "Editorial pages and products share one restrained visual system."
+        },
+        "responsive": {
+          "title": "The complete store works on a phone",
+          "text": "The catalogue, filters, cart, and checkout all adapt to a vertical screen."
+        },
+        "interactions": {
+          "title": "A focused cart and checkout",
+          "text": "The path from a chosen piece to a completed order stays short, calm, and clear."
+        },
         "media": {
-          "cover": { "alt": "FORMA ceramics store home page", "caption": "Home page" },
-          "homeFull": { "alt": "Complete FORMA home page", "caption": "Full home page" },
-          "homeMobileFull": { "alt": "Complete FORMA mobile home page", "caption": "Mobile home page" },
-          "catalogFull": { "alt": "Complete FORMA catalogue page", "caption": "Product catalogue" },
-          "catalogMobileFull": { "alt": "Complete FORMA catalogue on a phone", "caption": "Mobile catalogue" },
-          "aboutFull": { "alt": "Complete FORMA studio page", "caption": "About the studio" },
-          "careMobileFull": { "alt": "FORMA ceramics care page on a phone", "caption": "Product care" },
-          "productCupFull": { "alt": "Complete FORMA Tuman cup product page", "caption": "Tuman cup" },
-          "productBowlFull": { "alt": "Complete FORMA Reka bowl product page", "caption": "Reka bowl" },
-          "productVaseMobileFull": { "alt": "FORMA Kontur vase product page on a phone", "caption": "Kontur vase" },
-          "cart": { "alt": "FORMA cart on desktop", "caption": "Cart" },
-          "cartMobile": { "alt": "FORMA cart on a phone", "caption": "Mobile cart" },
-          "checkout": { "alt": "FORMA checkout on desktop", "caption": "Checkout" },
-          "checkoutMobile": { "alt": "FORMA checkout on a phone", "caption": "Mobile checkout" },
-          "filtersMobile": { "alt": "FORMA catalogue filters on a phone", "caption": "Mobile filters" }
+          "cover": {
+            "alt": "FORMA ceramics store home page",
+            "caption": "Home page"
+          },
+          "homeFull": {
+            "alt": "Complete FORMA home page",
+            "caption": "Full home page"
+          },
+          "homeMobileFull": {
+            "alt": "Complete FORMA mobile home page",
+            "caption": "Mobile home page"
+          },
+          "catalogFull": {
+            "alt": "Complete FORMA catalogue page",
+            "caption": "Product catalogue"
+          },
+          "catalogMobileFull": {
+            "alt": "Complete FORMA catalogue on a phone",
+            "caption": "Mobile catalogue"
+          },
+          "aboutFull": {
+            "alt": "Complete FORMA studio page",
+            "caption": "About the studio"
+          },
+          "careMobileFull": {
+            "alt": "FORMA ceramics care page on a phone",
+            "caption": "Product care"
+          },
+          "productCupFull": {
+            "alt": "Complete FORMA Tuman cup product page",
+            "caption": "Tuman cup"
+          },
+          "productBowlFull": {
+            "alt": "Complete FORMA Reka bowl product page",
+            "caption": "Reka bowl"
+          },
+          "productVaseMobileFull": {
+            "alt": "FORMA Kontur vase product page on a phone",
+            "caption": "Kontur vase"
+          },
+          "cart": {
+            "alt": "FORMA cart on desktop",
+            "caption": "Cart"
+          },
+          "cartMobile": {
+            "alt": "FORMA cart on a phone",
+            "caption": "Mobile cart"
+          },
+          "checkout": {
+            "alt": "FORMA checkout on desktop",
+            "caption": "Checkout"
+          },
+          "checkoutMobile": {
+            "alt": "FORMA checkout on a phone",
+            "caption": "Mobile checkout"
+          },
+          "filtersMobile": {
+            "alt": "FORMA catalogue filters on a phone",
+            "caption": "Mobile filters"
+          }
+        },
+        "brief": {
+          "task": "Let customers examine pieces, select products and place an order.",
+          "solution": "Built a filtered catalog, product pages, a persistent cart and a checkout form.",
+          "result": "Customers can compare pieces, add them to the cart and proceed to checkout."
         }
+      }
+    },
+    "view": "View project"
+  },
+  "capabilities": {
+    "eyebrow": "Services",
+    "title": "How I can help",
+    "description": "Bring a complete project or a specific task.",
+    "inspectMode": "HOVER OR SELECT A STAGE",
+    "items": {
+      "discovery": {
+        "title": "Problem and first version",
+        "description": "Together we work out who the product is for, what problem it solves, and what the first version needs.",
+        "details": {
+          "mvp": "First-version plan",
+          "workflows": "User journey",
+          "scope": "Task list"
+        }
+      },
+      "interface": {
+        "title": "Interface",
+        "description": "I plan the screens and actions so that even a complex service feels easy to use.",
+        "details": {
+          "design": "Interface design",
+          "editors": "Editors and dashboards",
+          "prototypes": "Working prototypes"
+        }
+      },
+      "frontend": {
+        "title": "Web application",
+        "description": "I build the fast, accessible part of the product that people use in their browser.",
+        "details": {
+          "frameworks": "Vue and Nuxt",
+          "typescript": "Reliable code",
+          "state": "Complex workflows"
+        }
+      },
+      "backend": {
+        "title": "Server and integrations",
+        "description": "I build the server and connect payments, CRM, Telegram, and other external services.",
+        "details": {
+          "runtime": "Node.js and Go",
+          "integrations": "Payments and CRM",
+          "externalApi": "Telegram and other services"
+        }
+      },
+      "launch": {
+        "title": "Launch and growth",
+        "description": "I put the product online, keep an eye on it, and help ship the next updates.",
+        "details": {
+          "architecture": "Reliable foundation",
+          "deployment": "Launch",
+          "development": "New versions"
+        }
+      }
+    },
+    "services": {
+      "website": {
+        "title": "Company website",
+        "description": "Present your company, explain your services and make it easy for customers to contact you."
+      },
+      "shop": {
+        "title": "Online store",
+        "description": "Help customers choose products, fill a cart and place an order."
+      },
+      "service": {
+        "title": "Customer service",
+        "description": "Give customers a portal for requests, documents and working with your company."
+      },
+      "automation": {
+        "title": "Workflow automation",
+        "description": "Connect data and workflows to avoid entering the same information by hand."
       }
     }
   },
-  "capabilities": {
-    "eyebrow": "How I can help",
-    "title": "I can build the whole product or take on one part of it",
-    "description": "I can help define what to build, create the interface and server, connect the services you need, and get everything ready to launch.",
-    "inspectMode": "HOVER OR SELECT A STAGE",
-    "items": {
-      "discovery": { "title": "Problem and first version", "description": "Together we work out who the product is for, what problem it solves, and what the first version needs.", "details": { "mvp": "First-version plan", "workflows": "User journey", "scope": "Task list" } },
-      "interface": { "title": "Interface", "description": "I plan the screens and actions so that even a complex service feels easy to use.", "details": { "design": "Interface design", "editors": "Editors and dashboards", "prototypes": "Working prototypes" } },
-      "frontend": { "title": "Web application", "description": "I build the fast, accessible part of the product that people use in their browser.", "details": { "frameworks": "Vue and Nuxt", "typescript": "Reliable code", "state": "Complex workflows" } },
-      "backend": { "title": "Server and integrations", "description": "I build the server and connect payments, CRM, Telegram, and other external services.", "details": { "runtime": "Node.js and Go", "integrations": "Payments and CRM", "externalApi": "Telegram and other services" } },
-      "launch": { "title": "Launch and growth", "description": "I put the product online, keep an eye on it, and help ship the next updates.", "details": { "architecture": "Reliable foundation", "deployment": "Launch", "development": "New versions" } }
-    }
-  },
   "process": {
-    "eyebrow": "What I can build",
-    "title": "Projects I work on",
-    "description": "From a focused landing page to a complex web service. I can help shape an idea, build a project from scratch, or join an existing one.",
-    "fileLabel": "PROJECT TYPES",
-    "running": "4 DIRECTIONS / READY TO BUILD",
+    "eyebrow": "From task to launch",
+    "title": "How I work",
+    "description": "At every stage, you know what is happening and what comes next.",
+    "fileLabel": "Project stages",
+    "running": "In touch at every stage",
     "items": {
-      "websites": { "title": "Websites", "description": "Landing pages, company websites, and portfolios." },
-      "commerce": { "title": "Online stores", "description": "Catalogues, e-commerce websites, and sales tools." },
-      "applications": { "title": "Web applications", "description": "Dashboards, admin panels, and internal systems." },
-      "products": { "title": "New products", "description": "MVPs and custom projects, from the first version to launch." }
+      "websites": {
+        "title": "Discuss the task",
+        "description": "Identify who the project is for and the problem it should solve."
+      },
+      "commerce": {
+        "title": "Agree on the scope",
+        "description": "Define what is included, the timeline and the cost."
+      },
+      "applications": {
+        "title": "Build and review",
+        "description": "Build a working version, share progress and incorporate feedback."
+      },
+      "products": {
+        "title": "Launch",
+        "description": "Check the project, publish it and explain how to use it."
+      }
     }
   },
   "flight": {
@@ -388,8 +796,8 @@
     "exitCode": "EXIT CODE: COLLISION",
     "terminated": "PROCESS TERMINATED",
     "finalScore": "FINAL SCORE",
-    "run": "> run flight.exe",
-    "restart": "> restart flight.exe",
+    "run": "Play",
+    "restart": "Play again",
     "keyboardLabel": "KEYBOARD:",
     "keyboardControls": "← → / A D / Ф В",
     "mobileLabel": "MOBILE:",
@@ -398,12 +806,12 @@
   },
   "about": {
     "eyebrow": "About me",
-    "title": "I think about the whole product",
+    "title": "About me",
     "fileLabel": "ABOUT",
     "nowTitle": "Now",
     "paragraphs": {
-      "product": "I'm a full-stack developer, so I can build both the part people see and the server behind it. The project does not have to bounce between different specialists.",
-      "workflow": "I enjoy understanding the real problem, building a first working version quickly, and improving it with the people who actually use it."
+      "product": "I’m Valentin Alekhin. I build websites, stores and services, from customer screens to data processing and connecting other systems.",
+      "workflow": "First I understand what the business and its users need. Then I build a working version, show it to you and refine the details together."
     },
     "principlesLabel": "Working principles",
     "principlesKey": "working_principles",
@@ -414,9 +822,18 @@
       "launch": "The work is not done until the product is live."
     },
     "now": {
-      "building": { "label": "Currently building", "value": "PowerSketch" },
-      "exploring": { "label": "Currently exploring", "value": "Interfaces for working with diagrams" },
-      "available": { "label": "Taking on", "value": "Web services / internal systems" }
+      "building": {
+        "label": "Currently building",
+        "value": "PowerSketch"
+      },
+      "exploring": {
+        "label": "Currently exploring",
+        "value": "Interfaces for working with diagrams"
+      },
+      "available": {
+        "label": "Taking on",
+        "value": "Websites, stores, services and automation"
+      }
     }
   },
   "contact": {
@@ -426,19 +843,19 @@
     "write": "Write to me",
     "copy": "Copy email",
     "copied": "Email copied",
-    "dialogTitle": "NEW_PROJECT_REQUEST",
+    "dialogTitle": "Let’s discuss your project",
     "dialogDescription": "Choose where you would like to message me.",
     "compose": "Compose email",
     "close": "Close",
     "ascii": "┌─[ NEW_SESSION ]─────────────────┐\n│  status: READY                 │\n│  handshake: waiting...         │\n└────────────────────────────────┘"
   },
   "footer": {
-    "role": "I build web services and applications",
+    "role": "Websites and services for business",
     "backToTop": "Back to top"
   },
   "case": {
     "back": "Back to projects",
-    "live": "Open live product",
+    "live": "Visit website",
     "viewImage": "Enlarge",
     "closeImage": "Close image",
     "previousImage": "Previous image",
@@ -453,55 +870,112 @@
       "stack": "stack",
       "production": "production"
     },
-    "labels": { "context": "Context", "problem": "Problem", "role": "My role", "approach": "Product approach", "interactions": "Core interactions", "architecture": "System / Architecture", "result": "Result", "stack": "Stack", "next": "Open channel" },
-    "interactionItems": {
-      "editor": { "title": "SVG editor", "description": "A scalable canvas with device drag-and-drop, snapping, and layer controls." },
-      "connections": { "title": "Smart connections", "description": "Pin-to-pin connections become editable, durable project data." },
-      "reports": { "title": "Library & reports", "description": "Device-library search and connection reports ready for hand-off." }
+    "labels": {
+      "context": "Context",
+      "problem": "Problem",
+      "role": "My role",
+      "approach": "Product approach",
+      "interactions": "Core interactions",
+      "architecture": "System / Architecture",
+      "result": "Result",
+      "stack": "Stack",
+      "next": "Open channel"
     },
-    "nextTitle": "Let’s discuss your product",
-    "nextText": "I can help shape the first release or join the next stage of an existing system.",
+    "interactionItems": {
+      "editor": {
+        "title": "SVG editor",
+        "description": "A scalable canvas with device drag-and-drop, snapping, and layer controls."
+      },
+      "connections": {
+        "title": "Smart connections",
+        "description": "Pin-to-pin connections become editable, durable project data."
+      },
+      "reports": {
+        "title": "Library & reports",
+        "description": "Device-library search and connection reports ready for hand-off."
+      }
+    },
+    "nextTitle": "Let’s discuss your project",
+    "nextText": "Tell me what you need: a website, store, service or workflow automation.",
     "architectureLabel": "Product architecture",
     "libraryPreview": "{title}: device library",
-    "reportPreview": "{title}: project report"
+    "reportPreview": "{title}: project report",
+    "technicalDetails": "Technical details",
+    "brief": {
+      "task": "Task",
+      "solution": "What I built",
+      "result": "Result"
+    }
   },
   "notFound": {
-    "title": "404 / ROUTE NOT FOUND",
-    "text": "The requested route does not exist in this system.",
-    "action": "> cd /home",
-    "systemError": "SYSTEM ERROR"
+    "title": "Page not found",
+    "text": "The address may have changed, or there may be a typo in the link.",
+    "action": "Back to home",
+    "systemError": "Error 404"
   },
   "theme": {
-    "system": "SYSTEM",
-    "phosphor": "PHOSPHOR",
-    "display": "DISPLAY"
+    "system": "System",
+    "phosphor": "Green",
+    "display": "Theme"
   },
   "terminal": {
-    "open": "Open command console",
+    "open": "Open console",
     "close": "Close command console",
     "label": "Command console",
     "ready": "VA_OS v2.1 — interactive shell ready",
     "intro": "type `help` or press Tab",
     "placeholder": "help",
     "keyHints": "TAB — complete · ↑↓ — history",
-    "whoami": "independent senior full-stack developer / product engineer",
+    "whoami": "Valentin Alekhin — website and web service developer",
     "openingProjects": "opening ./projects ...",
-    "openingPipeline": "opening ./product-pipeline ...",
-    "openingAbout": "opening README.md ...",
+    "openingPipeline": "opening services ...",
+    "openingAbout": "opening about me ...",
     "openingTelegram": "opening {handle} ...",
     "themeChanged": "display profile toggled",
     "notFound": "command not found: {command}",
     "commands": {
-      "help": { "token": "help", "description": "list available commands" },
-      "whoami": { "token": "whoami", "description": "show developer profile" },
-      "projects": { "token": "projects", "description": "open selected projects" },
-      "pipeline": { "token": "pipeline", "description": "open product pipeline" },
-      "about": { "token": "about", "description": "open README" },
-      "contact": { "token": "contact", "description": "open contact channel" },
-      "telegram": { "token": "telegram", "description": "message {handle}" },
-      "theme": { "token": "theme", "description": "toggle display profile" },
-      "clear": { "token": "clear", "description": "clear terminal output" }
-    }
+      "help": {
+        "token": "help",
+        "description": "list available commands"
+      },
+      "whoami": {
+        "token": "whoami",
+        "description": "show developer profile"
+      },
+      "projects": {
+        "token": "projects",
+        "description": "open selected projects"
+      },
+      "pipeline": {
+        "token": "pipeline",
+        "description": "go to services"
+      },
+      "about": {
+        "token": "about",
+        "description": "go to about me"
+      },
+      "contact": {
+        "token": "contact",
+        "description": "open contact channel"
+      },
+      "telegram": {
+        "token": "telegram",
+        "description": "message {handle}"
+      },
+      "theme": {
+        "token": "theme",
+        "description": "switch theme"
+      },
+      "clear": {
+        "token": "clear",
+        "description": "clear terminal output"
+      },
+      "process": {
+        "token": "process",
+        "description": "how I work"
+      }
+    },
+    "openingProcess": "opening project stages ..."
   },
   "workbench": {
     "explorer": "EXPLORER",
@@ -513,14 +987,19 @@
     "availableKey": "available",
     "scope": "['idea', 'development', 'launch']",
     "comment": "// no handoff gaps between layers",
-    "logs": { "context": "product context loaded", "interface": "interface compiled", "api": "api contract validated", "production": "production route online" },
+    "logs": {
+      "context": "product context loaded",
+      "interface": "interface compiled",
+      "api": "api contract validated",
+      "production": "production route online"
+    },
     "line": "Ln 9, Col 24",
     "building": "BUILD",
     "passed": "✓ BUILD PASSED",
     "run": "▶ RUN BUILD",
     "rerun": "↻ RERUN BUILD",
-    "mobileOpen": "[ OPEN ]",
-    "mobileClose": "[ CLOSE ]",
+    "mobileOpen": "Open editor",
+    "mobileClose": "Collapse editor",
     "asciiLabel": "VA ASCII art"
   },
   "preview": {

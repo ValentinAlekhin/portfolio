@@ -68,6 +68,8 @@ export interface Project {
   status: 'live' | 'in-progress' | 'archived' | 'completed'
   externalUrl?: string
   translationKey: string
+  brief: { taskKey: string, solutionKey: string, resultKey: string }
+  statisticsPeriodKey?: string
   scopeKey: string
   caseName: ProjectCaseName
   theme: ProjectThemeName

@@ -58,7 +58,7 @@ async function toggle(event: MouseEvent) {
     ref="target"
     type="button"
     class="theme-switch system-label"
-    :aria-label="`${props.label}: ${theme}`"
+    :aria-label="`${props.label}: ${localizedLabel}`"
     :aria-pressed="theme === 'phosphor'"
     @click="toggle"
   >
@@ -90,7 +90,7 @@ async function toggle(event: MouseEvent) {
       data-flip
       aria-hidden="true"
     >{{ visibleLabel }}</span>
-    <span class="sr-only">{{ theme }}</span>
+    <span class="sr-only">{{ localizedLabel }}</span>
   </button>
 </template>
 

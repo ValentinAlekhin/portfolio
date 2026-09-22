@@ -60,7 +60,7 @@ function openContact() {
               <DialogClose as-child>
                 <a :href="`${homePath}#${item.id}`">
                   <span class="system-label">0{{ index + 1 }}</span>
-                  <strong>/{{ t(item.labelKey).toLowerCase().replaceAll(' ', '-') }}</strong>
+                  <strong>{{ t(item.labelKey) }}</strong>
                   <i aria-hidden="true">↵</i>
                 </a>
               </DialogClose>
@@ -85,12 +85,7 @@ function openContact() {
           <p class="system-label">
             {{ t('nav.runtime') }}
           </p>
-          <pre>┌─ route_table ───────┐
-│  01  ./projects    │
-│  02  ./pipeline    │
-│  03  ./process     │
-│  04  ./readme      │
-└────────────────────┘</pre>
+
           <span class="system-label"><i /> {{ t('nav.routesReady') }}</span>
         </div>
 

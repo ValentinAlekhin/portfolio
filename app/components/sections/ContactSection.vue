@@ -4,11 +4,16 @@ import { profile } from '~/data/profile'
 const { t } = useI18n()
 const contactOpen = useState<boolean>('contact-dialog-open', () => false)
 const copied = ref(false)
+let feedbackTimer: ReturnType<typeof setTimeout> | undefined
+onBeforeUnmount(() => {
+  if (feedbackTimer) clearTimeout(feedbackTimer)
+})
 
 async function copyEmail() {
   await navigator.clipboard.writeText(profile.email)
   copied.value = true
-  window.setTimeout(() => {
+  if (feedbackTimer) clearTimeout(feedbackTimer)
+  feedbackTimer = setTimeout(() => {
     copied.value = false
   }, 2400)
 }
@@ -28,38 +33,39 @@ async function copyEmail() {
         <pre>{{ t('contact.ascii') }}</pre>
       </div>
       <p class="contact-section__eyebrow system-label">
-        <span>root@portfolio:~/contact$</span> ./start-conversation // {{ t('contact.eyebrow') }}
+        {{ t('contact.eyebrow') }}
       </p>
       <h2 id="contact-title">
-        <span>console.log(</span>{{ t('contact.title') }}<span>);</span>
+        {{ t('contact.title') }}
       </h2>
       <p class="contact-section__description">
-        /* {{ t('contact.description') }} */
+        {{ t('contact.description') }}
       </p>
 
       <div class="contact-section__links">
         <a :href="`mailto:${profile.email}`"><span class="system-label">EMAIL</span>{{ profile.email }}</a>
         <a
-          :href="profile.github"
-          target="_blank"
-          rel="noopener noreferrer"
-        ><span class="system-label">GITHUB</span>github.com/ValentinAlekhin</a>
-        <a
           :href="profile.telegram"
           target="_blank"
           rel="noopener noreferrer"
         ><span class="system-label">TELEGRAM</span>{{ profile.telegramHandle }}</a>
+        <a
+          class="contact-section__github"
+          :href="profile.github"
+          target="_blank"
+          rel="noopener noreferrer"
+        ><span class="system-label">GITHUB</span>github.com/ValentinAlekhin</a>
       </div>
 
       <div class="contact-section__actions">
         <BaseButton @click="contactOpen = true">
-          mail --compose // {{ t('contact.write') }}
+          {{ t('contact.write') }}
         </BaseButton>
         <BaseButton
           variant="secondary"
           @click="copyEmail"
         >
-          pbcopy email.txt // {{ t('contact.copy') }}
+          {{ t('contact.copy') }}
         </BaseButton>
       </div>
       <p
@@ -86,6 +92,7 @@ async function copyEmail() {
 .contact-section__description { font-family: var(--font-mono); font-size: var(--font-size-small); }
 .contact-section__links { grid-column: 4 / 10; display: grid; margin-top: 4rem; border-top: 1px solid var(--contact-line, #283025); }
 .contact-section__links a { display: grid; min-height: 4.7rem; grid-template-columns: 8rem 1fr; align-items: center; border-bottom: 1px solid var(--contact-line, #283025); color: var(--contact-text, #f0f2ea); text-decoration: none; }
+.contact-section__links .contact-section__github { min-height: 3rem; font-size: var(--font-size-small); color: var(--contact-muted); }
 .contact-section__links span { color: var(--contact-muted, #a6ad9e); }
 .contact-section__actions { grid-column: 4 / -1; display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 2rem; }
 .contact-section :deep(.base-button) { --color-text: var(--contact-text, #f0f2ea); --color-control-border: var(--contact-control-border, #5c6b55); --color-accent: var(--contact-accent, #a8ff60); --color-surface: var(--contact-surface, #090b09); }

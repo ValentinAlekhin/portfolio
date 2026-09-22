@@ -1,6 +1,6 @@
 export const profile = {
   name: 'Valentin Alekhin',
-  role: 'Independent senior full-stack developer',
+  role: 'Website and web service developer',
   experienceYears: 6,
   available: true,
   timeZone: 'Europe/Moscow',

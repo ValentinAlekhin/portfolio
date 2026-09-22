@@ -33,8 +33,9 @@ const completionIndex = ref(-1)
 const commandDefinitions: TerminalCommand[] = [
   { name: 'help', tokenKey: 'terminal.commands.help.token', descriptionKey: 'terminal.commands.help.description' },
   { name: 'whoami', tokenKey: 'terminal.commands.whoami.token', descriptionKey: 'terminal.commands.whoami.description' },
-  { name: 'projects', tokenKey: 'terminal.commands.projects.token', descriptionKey: 'terminal.commands.projects.description' },
   { name: 'pipeline', tokenKey: 'terminal.commands.pipeline.token', descriptionKey: 'terminal.commands.pipeline.description' },
+  { name: 'projects', tokenKey: 'terminal.commands.projects.token', descriptionKey: 'terminal.commands.projects.description' },
+  { name: 'process', tokenKey: 'terminal.commands.process.token', descriptionKey: 'terminal.commands.process.description' },
   { name: 'about', tokenKey: 'terminal.commands.about.token', descriptionKey: 'terminal.commands.about.description' },
   { name: 'contact', tokenKey: 'terminal.commands.contact.token', descriptionKey: 'terminal.commands.contact.description' },
   { name: 'telegram', tokenKey: 'terminal.commands.telegram.token', descriptionKey: 'terminal.commands.telegram.description' },
@@ -165,6 +166,10 @@ function execute() {
     history.value.push({ kind: 'output', text: t('terminal.openingPipeline') })
     goTo('services')
   }
+  else if (value === 'process') {
+    history.value.push({ kind: 'output', text: t('terminal.openingProcess') })
+    goTo('process')
+  }
   else if (value === 'about') {
     history.value.push({ kind: 'output', text: t('terminal.openingAbout') })
     goTo('about')
@@ -237,7 +242,7 @@ watch(locale, () => {
       @click="toggleConsole"
     >
       <span>&gt;_</span>
-      <span>CMD</span>
+      <span>{{ t('terminal.label') }}</span>
       <kbd>⌘K</kbd>
     </button>
 
@@ -332,7 +337,8 @@ watch(locale, () => {
 @media (max-width: 600px) {
   .terminal-console { right: 0.65rem; bottom: 0.65rem; }
   .terminal-console__panel { position: fixed; right: 0.5rem; bottom: 3.8rem; left: 0.5rem; width: auto; height: min(72svh, 32rem); }
-  .terminal-console__trigger { display: none; }
+  .terminal-console__trigger { min-width: 0; }
+  .terminal-console__trigger kbd { display: none; }
   .terminal-console__key-hints { display: none; }
 }
 </style>

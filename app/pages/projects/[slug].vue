@@ -29,7 +29,7 @@ const caseComponents = {
 } as const
 const caseComponent = computed(() => caseComponents[project.value!.caseName])
 const summary = computed(() => t(`${project.value!.translationKey}.summary`))
-const pageTitle = computed(() => `${project.value!.title} — ${t(project.value!.scopeKey)}`)
+const pageTitle = computed(() => `${project.value!.title} — ${t(`${project.value!.translationKey}.eyebrow`)}`)
 const ogImage = computed(() => project.value!.ogImage)
 const i18nHead = useLocaleHead({ dir: true, lang: true, seo: true })
 const schemaNodes = computed(() => {

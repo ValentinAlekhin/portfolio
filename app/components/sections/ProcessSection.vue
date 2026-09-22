@@ -79,9 +79,9 @@ onBeforeUnmount(() => context?.revert())
           class="protocol-step"
           :data-process="item.id"
         >
-          <span class="protocol-step__marker system-label">{{ Number(item.number) * 4 + 8 }}</span>
-          <h3><span>build</span> {{ item.title }}<i>();</i></h3>
-          <p>// {{ item.description }}</p>
+          <span class="protocol-step__marker system-label">{{ item.number }}</span>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.description }}</p>
         </article>
       </div>
     </div>
@@ -108,7 +108,7 @@ onBeforeUnmount(() => context?.revert())
 @media (min-width: 821px) {
   .protocol-step[data-process='commerce'] h3 {
     font-size: clamp(0.95rem, 1.8vw, 1.875rem);
-    white-space: nowrap;
+    white-space: normal;
   }
 }
 

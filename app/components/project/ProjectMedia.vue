@@ -38,8 +38,8 @@ const resolvedExtension = computed(() => resolvedSrc.value.split('.').pop() ?? '
   >
     <div class="project-media__chrome system-label">
       <span aria-hidden="true"><i /><i /><i /></span>
-      <span>{{ media.id }}.{{ resolvedExtension }}</span>
-      <span>{{ media.width }}×{{ media.height }}</span>
+      <span v-if="!compact">{{ media.id }}.{{ resolvedExtension }}</span>
+      <span v-if="!compact">{{ media.width }}×{{ media.height }}</span>
     </div>
     <div class="project-media__viewport">
       <NuxtImg

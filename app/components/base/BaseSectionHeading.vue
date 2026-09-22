@@ -15,31 +15,15 @@ defineProps<{
       {{ eyebrow }}
     </p>
     <div class="section-heading__declaration">
-      <p
-        class="section-heading__code system-label"
-        aria-hidden="true"
-      >
-        <b>export const</b> section_{{ index }} = &#123;
-      </p>
       <h2 :id="titleId">
-        <span
-          class="section-heading__title-label"
-          aria-hidden="true"
-        >title:</span>
         <span class="section-heading__title-text">{{ title }}</span>
       </h2>
-      <p
-        class="section-heading__close system-label"
-        aria-hidden="true"
-      >
-        &#125; satisfies PortfolioSection
-      </p>
     </div>
     <p
       v-if="description"
       class="section-heading__description"
     >
-      /* {{ description }} */
+      {{ description }}
     </p>
   </header>
 </template>
@@ -73,8 +57,8 @@ defineProps<{
 .section-heading__close { margin-top: 1rem; }
 
 .section-heading h2 {
-  max-width: 12ch;
-  margin: 0.65rem 0 0 1.5rem;
+  max-width: 20ch;
+  margin: 0;
   font-size: clamp(2.75rem, 5vw, 5.5rem);
   font-weight: 560;
   letter-spacing: -0.065em;
@@ -94,7 +78,7 @@ defineProps<{
 
 .section-heading__title-text::before,
 .section-heading__title-text::after {
-  content: "'";
+  content: none;
 }
 
 .section-heading__description {

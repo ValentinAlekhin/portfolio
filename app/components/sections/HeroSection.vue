@@ -35,25 +35,17 @@ onBeforeUnmount(() => context?.revert())
     <div class="site-container hero__grid">
       <div class="hero__copy">
         <p class="hero__eyebrow system-label">
-          <span>//</span> {{ t('hero.eyebrow') }}
+          {{ t('profile.displayName') }} · {{ t('hero.eyebrow') }}
         </p>
         <h1
           id="hero-title"
           class="hero__name"
         >
-          <b aria-hidden="true">&lt;</b>
-          <span><i>{{ t('hero.name.first') }}</i></span>
-          <span><i>{{ t('hero.name.last') }}</i></span>
-          <b aria-hidden="true">/&gt;</b>
+          <span><i>{{ t('hero.statement') }}</i></span>
         </h1>
-        <p class="hero__statement">
-          <span>const</span> product = <q>{{ t('hero.statement') }}</q>
-        </p>
         <p class="hero__description">
-          <span aria-hidden="true">/* </span>
           <span class="hero__description-desktop">{{ t('hero.description') }}</span>
           <span class="hero__description-mobile">{{ t('hero.mobileDescription') }}</span>
-          <span aria-hidden="true"> */</span>
         </p>
         <div class="hero__terminal">
           <TypewriterLine :text="t('hero.terminal')" />
@@ -73,13 +65,9 @@ onBeforeUnmount(() => context?.revert())
             {{ t('hero.secondary') }}
           </BaseButton>
         </div>
-        <div class="hero__meta system-label">
-          <span class="hero__meta-brace">&#123;</span>
-          <span><b>{{ t('hero.meta.available') }}:</b> <i /> true</span>
-          <span><b>{{ t('hero.meta.experience') }}:</b> '{{ t('hero.experience') }}'</span>
-          <span class="hero__meta-stack"><b>{{ t('hero.meta.stack') }}:</b> ['vue', 'nuxt', 'ts', 'node', 'go']</span>
-          <span class="hero__meta-brace">&#125;</span>
-        </div>
+        <p class="hero__meta system-label">
+          {{ t('seo.ogAvailability') }}
+        </p>
       </div>
       <div
         class="hero__workbench"
@@ -150,10 +138,10 @@ onBeforeUnmount(() => context?.revert())
 .hero__name {
   position: relative;
   margin: 0;
-  font-size: clamp(4rem, 8.7vw, 9rem);
+  font-size: clamp(2.8rem, 4.8vw, 5.6rem);
   font-weight: 530;
-  letter-spacing: -0.082em;
-  line-height: 0.83;
+  letter-spacing: -0.055em;
+  line-height: 1.04;
 }
 
 .hero__name > b {
@@ -235,8 +223,8 @@ onBeforeUnmount(() => context?.revert())
   .hero__grid { gap: 2rem; }
 
   .hero__name {
-    font-size: clamp(3.25rem, 15.5vw, 4.75rem);
-    line-height: 0.86;
+    font-size: clamp(2.5rem, 10vw, 3.8rem);
+    line-height: 1.05;
   }
 
   .hero__name > b,
@@ -262,7 +250,7 @@ onBeforeUnmount(() => context?.revert())
   }
 
   .hero__actions .hero__action-projects::before {
-    content: '$_ [';
+    content: '[';
   }
 
   .hero__meta {

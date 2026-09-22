@@ -50,6 +50,16 @@ describe('portfolio projects', () => {
     }
   })
 
+  it('provides a localized task, solution, result and optional statistics period', () => {
+    for (const project of projects) {
+      const keys = [...Object.values(project.brief), ...(project.statisticsPeriodKey ? [project.statisticsPeriodKey] : [])]
+      for (const key of keys) {
+        expect(translated(ru, key)).toBe(true)
+        expect(translated(en, key)).toBe(true)
+      }
+    }
+  })
+
   it('keeps every metric value literal or localized, but never both', () => {
     for (const project of projects) {
       for (const metric of project.metrics) {

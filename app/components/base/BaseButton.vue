@@ -113,7 +113,7 @@ if (props.magnetic) {
 
 .base-button:hover::before { color: var(--color-accent); transform: translateX(-0.2rem); }
 .base-button:hover::after { color: var(--color-accent); transform: translateX(0.2rem); }
-.base-button--primary::before { content: '$_ ['; }
+.base-button--primary::before { content: '['; }
 .base-button--secondary { color: var(--color-text-muted); }
 
 .base-button--text {

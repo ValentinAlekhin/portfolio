@@ -6,23 +6,28 @@ defineProps<{
   index: string
 }>()
 
-const { t } = useI18n()
+const { t, te } = useI18n()
 </script>
 
 <template>
   <section class="visual-case-outro section-rule">
     <div class="site-container visual-case-outro__grid">
-      <p class="system-label">
-        <span>// {{ index }}</span>{{ t('case.labels.stack') }}
-      </p>
-      <ul>
-        <li
-          v-for="item in project.stack"
-          :key="item"
-        >
-          {{ item }}
-        </li>
-      </ul>
+      <details class="technical-details">
+        <summary>{{ t('case.technicalDetails') }}</summary>
+        <p>{{ t(`${project.translationKey}.role`) }}</p>
+        <p v-if="te(`${project.translationKey}.architecture`)">
+          {{ t(`${project.translationKey}.architecture`) }}
+        </p>
+        <ul>
+          <li
+            v-for="item in project.stack"
+            :key="item"
+          >
+            {{ item }}
+          </li>
+        </ul>
+        <slot />
+      </details>
       <div>
         <h2>{{ t('case.nextTitle') }}</h2>
         <p>{{ t('case.nextText') }}</p>
@@ -36,8 +41,9 @@ const { t } = useI18n()
 </template>
 
 <style scoped lang="scss">
+.technical-details summary { cursor: pointer; padding-block: 1rem; font-family: var(--font-mono); }
 .visual-case-outro { padding-block: clamp(5rem, 9vw, 9rem); background: var(--project-deep); color: var(--project-on-deep); }
-.visual-case-outro__grid { display: grid; grid-template-columns: 3fr 4fr 5fr; gap: clamp(2rem, 5vw, 6rem); }
+.visual-case-outro__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 6rem); }
 .visual-case-outro__grid > p { display: flex; flex-direction: column; gap: 0.45rem; color: var(--project-muted-on-deep); }
 .visual-case-outro__grid > p span { color: var(--color-accent); }
 .visual-case-outro ul { margin: 0; padding: 0; color: var(--project-muted-on-deep); font-family: var(--font-mono); list-style: none; line-height: 1.8; }

@@ -23,9 +23,8 @@ const cover = computed(() => {
     :data-variant="project.theme"
   >
     <div class="site-container visual-case-hero__top system-label">
-      <NuxtLink :to="homeProjects">[ {{ t('case.code.backCommand') }} ]</NuxtLink>
+      <NuxtLink :to="homeProjects">{{ t('case.back') }}</NuxtLink>
       <span>{{ t('case.code.caseFile', { index: project.index, period: project.period }) }}</span>
-      <span>&#123; {{ t('case.code.status') }}: '{{ t(`projects.status.${project.status}`) }}' &#125;</span>
     </div>
 
     <div class="site-container visual-case-hero__heading">
@@ -39,26 +38,16 @@ const cover = computed(() => {
         </p>
       </div>
 
+      <ProjectBrief
+        class="visual-case-hero__brief"
+        :project="project"
+      />
+
       <ProjectScreenshot
         class="visual-case-hero__media"
         :media="cover"
         priority
       />
-    </div>
-
-    <div class="site-container visual-case-hero__facts">
-      <p class="visual-case-hero__role">
-        {{ t(`${project.translationKey}.role`) }}
-      </p>
-      <dl>
-        <div
-          v-for="metric in project.metrics"
-          :key="metric.labelKey"
-        >
-          <dd>{{ 'valueKey' in metric ? t(metric.valueKey) : metric.value }}</dd>
-          <dt>{{ t(metric.labelKey) }}</dt>
-        </div>
-      </dl>
     </div>
   </section>
 </template>
@@ -68,6 +57,7 @@ const cover = computed(() => {
 .visual-case-hero__top { display: flex; justify-content: space-between; gap: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--color-line); color: var(--color-text-muted); }
 .visual-case-hero__top a { color: var(--color-accent); text-decoration: none; }
 .visual-case-hero__heading { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: end; gap: clamp(2rem, 5vw, 6rem); margin-top: clamp(3rem, 7vw, 7rem); }
+.visual-case-hero__brief { grid-column: 1 / -1; grid-row: 2; }
 .visual-case-hero__copy { min-width: 0; }
 .visual-case-hero__copy > p:first-child { margin: 0 0 1rem; color: var(--color-accent); }
 .visual-case-hero h1 { max-width: 100%; margin: 0; overflow-wrap: anywhere; font-size: clamp(3.6rem, 8.5vw, 9.5rem); font-weight: 560; letter-spacing: -0.085em; line-height: 0.82; }
@@ -110,7 +100,7 @@ const cover = computed(() => {
   .visual-case-hero__heading,
   .visual-case-hero__facts { grid-template-columns: 1fr; }
   .visual-case-hero[data-variant='forma'] .visual-case-hero__heading { grid-template-columns: 1fr; }
-  .visual-case-hero__media { grid-row: 2; }
+  .visual-case-hero__media { grid-row: 3; }
 }
 
 @media (max-width: 650px) {

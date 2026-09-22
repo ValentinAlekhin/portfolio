@@ -39,7 +39,7 @@ const nowItems = [
       <div class="about-grid">
         <MotionReveal class="about-copy">
           <p class="about-copy__prompt">
-            ## valentin-alekhin / product-developer
+            {{ t('profile.displayName') }}
           </p>
           <p
             v-for="paragraph in paragraphs"
@@ -54,14 +54,14 @@ const nowItems = [
           class="about-principles"
         >
           <p class="system-label">
-            <span>const</span> {{ t('about.principlesKey') }} = [
+            {{ t('about.principlesLabel') }}
           </p>
           <ol>
             <li
               v-for="(principle, index) in principles"
               :key="principle"
             >
-              <span class="system-label">{{ index + 1 }}:</span><q>{{ principle }}</q>
+              <span class="system-label">{{ index + 1 }}:</span><span>{{ principle }}</span>
             </li>
           </ol>
         </MotionReveal>
@@ -98,7 +98,7 @@ const nowItems = [
 .about-principles > p span { color: #c67be5; }
 .about-principles ol { margin: 0; list-style: none; border-top: 1px solid var(--color-line); }
 .about-principles li { display: grid; min-height: 4.7rem; grid-template-columns: 3rem minmax(0, 1fr); align-items: center; border-bottom: 1px solid var(--color-line); }
-.about-principles li span { color: var(--color-accent); }
+.about-principles li > span:first-child { color: var(--color-accent); }
 .about-principles li q { color: var(--color-code-string); quotes: '"' '"'; }
 .now-panel { margin-top: 3.25rem; }
 .now-panel__title { margin: 0 0 0.75rem; color: var(--color-accent); }
