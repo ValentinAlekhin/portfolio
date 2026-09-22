@@ -188,7 +188,7 @@ onBeforeUnmount(() => context?.revert())
 .hero__description-mobile { display: none; }
 .hero__terminal { margin-top: 1.5rem; }
 .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin-top: 1.8rem; }
-.hero__action-contact { padding-inline: 0.9rem; border: 1px solid var(--color-accent); background: color-mix(in srgb, var(--color-accent) 7%, var(--color-bg)); }
+.hero__action-contact { padding-inline: 0.9rem; }
 
 .hero__meta {
   display: flex;
