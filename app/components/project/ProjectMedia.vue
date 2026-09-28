@@ -7,11 +7,13 @@ const props = withDefaults(defineProps<{
   caption?: string
   priority?: boolean
   compact?: boolean
+  contained?: boolean
 }>(), {
   alt: undefined,
   caption: undefined,
   priority: false,
   compact: false,
+  contained: false,
 })
 
 const { t } = useI18n()
@@ -24,7 +26,7 @@ const localizedSources = computed(() => props.media.sources?.[localeCode.value])
 <template>
   <figure
     class="project-media"
-    :class="{ 'project-media--compact': compact }"
+    :class="{ 'project-media--compact': compact, 'project-media--contained': contained }"
   >
     <div class="project-media__viewport">
       <BaseProgressiveImage
@@ -67,6 +69,10 @@ const localizedSources = computed(() => props.media.sources?.[localeCode.value])
 .project-media { margin: 0; min-width: 0; }
 .project-media__viewport { overflow: hidden; border: 1px solid var(--color-line); background: var(--color-surface); }
 .project-media__viewport :deep(img) { display: block; width: 100%; height: 100%; object-fit: cover; }
+.project-media--contained .project-media__viewport { aspect-ratio: 16 / 10; }
+.project-media--contained .project-media__viewport :deep(.base-progressive-image) { height: 100%; aspect-ratio: auto !important; }
+.project-media--contained .project-media__viewport :deep(img) { object-fit: contain; }
+.project-media--contained .project-media__viewport :deep(.base-progressive-image__placeholder) { inset: 0; background-size: contain; background-repeat: no-repeat; }
 .project-media__viewport > .project-media__plain,
 .project-media__viewport > .project-media__theme-light { display: block; }
 .project-media__viewport > .project-media__theme-dark { display: none; }

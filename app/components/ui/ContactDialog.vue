@@ -2,7 +2,6 @@
 import {
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogOverlay,
   DialogPortal,
   DialogRoot,
@@ -49,70 +48,65 @@ onBeforeUnmount(() => {
   <DialogRoot v-model:open="open">
     <DialogPortal>
       <DialogOverlay class="dialog-overlay" />
-      <DialogContent class="contact-dialog">
+      <DialogContent
+        class="contact-dialog"
+        aria-modal="true"
+        :aria-describedby="undefined"
+      >
         <div class="contact-dialog__top">
-          <span class="contact-dialog__eyebrow">{{ t('contact.eyebrow') }}</span>
+          <DialogTitle class="contact-dialog__title">
+            {{ t('contact.title') }}
+          </DialogTitle>
           <DialogClose as-child>
             <DialogCloseButton :label="t('contact.close')" />
           </DialogClose>
         </div>
 
-        <DialogTitle class="contact-dialog__title">
-          {{ t('contact.dialogTitle') }}
-        </DialogTitle>
-        <DialogDescription class="contact-dialog__description">
-          {{ t('contact.dialogDescription') }}
-        </DialogDescription>
+        <a
+          :href="`mailto:${profile.email}`"
+          class="contact-dialog__email"
+        >{{ profile.email }}</a>
 
-        <div class="contact-dialog__methods">
-          <a
-            :href="`mailto:${profile.email}`"
-            class="contact-dialog__method"
-          >
-            <span>Email</span>
-            <strong>{{ profile.email }}</strong>
-            <BaseIcon name="arrow-up-right" />
-          </a>
+        <div class="contact-dialog__other">
           <a
             :href="profile.telegram"
-            class="contact-dialog__method"
             target="_blank"
             rel="noopener noreferrer"
-          >
-            <span>Telegram</span>
-            <strong>{{ profile.telegramHandle }}</strong>
-            <BaseIcon name="arrow-up-right" />
-          </a>
-        </div>
-
-        <div class="contact-dialog__copy-row">
-          <BaseButton
-            variant="secondary"
+          >Telegram <span>{{ profile.telegramHandle }}</span></a>
+          <button
+            type="button"
             @click="copyEmail"
           >
+            <BaseIcon :name="feedback === 'copied' ? 'check' : 'copy'" />
             {{ t('contact.copy') }}
-            <template #icon>
-              <BaseIcon :name="feedback === 'copied' ? 'check' : 'copy'" />
-            </template>
-          </BaseButton>
-          <p
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            {{ feedback ? t(`contact.${feedback}`) : '' }}
-          </p>
+          </button>
         </div>
+        <p
+          class="contact-dialog__feedback"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          {{ feedback ? t(`contact.${feedback}`) : '' }}
+        </p>
       </DialogContent>
     </DialogPortal>
   </DialogRoot>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 .dialog-overlay {
   position: fixed;
   z-index: 1400;
   inset: 0;
   background: rgb(0 0 0 / 58%);
+}
+
+.dialog-overlay[data-state='open'] {
+  animation: contact-overlay-in 180ms ease-out both;
+}
+
+.dialog-overlay[data-state='closed'] {
+  animation: contact-overlay-out 140ms ease-in both;
 }
 
 .contact-dialog {
@@ -121,9 +115,9 @@ onBeforeUnmount(() => {
   top: 50%;
   left: 50%;
   box-sizing: border-box;
-  width: min(calc(100% - 2rem), 38rem);
+  width: min(calc(100% - 2rem), 32rem);
   max-height: calc(100svh - 2rem);
-  padding: clamp(1.25rem, 3.5vw, 2.5rem);
+  padding: clamp(1.25rem, 3vw, 2rem);
   overflow-y: auto;
   border: 1px solid var(--color-line);
   border-radius: 0;
@@ -132,55 +126,127 @@ onBeforeUnmount(() => {
   transform: translate(-50%, -50%);
 }
 
-.contact-dialog__top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.contact-dialog[data-state='open'] {
+  animation: contact-panel-in 180ms ease-out both;
+}
 
-.contact-dialog__eyebrow {
-  color: var(--color-text-muted);
-  font-family: var(--font-mono);
-  font-size: var(--font-size-ui);
+.contact-dialog[data-state='closed'] {
+  animation: contact-panel-out 140ms ease-in both;
+}
+
+.contact-dialog__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .contact-dialog__title {
-  margin: 2rem 0 0;
-  font-size: clamp(2rem, 5vw, 3rem);
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 1.75rem);
   font-weight: 600;
-  letter-spacing: -0.05em;
-  line-height: 1.08;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
 }
 
-.contact-dialog__description { max-width: 48ch; margin: 0.9rem 0 0; color: var(--color-text-muted); }
-.contact-dialog__methods { margin-top: 2rem; border-top: 1px solid var(--color-line); }
-
-.contact-dialog__method {
-  display: grid;
-  min-height: 4.5rem;
-  grid-template-columns: 5.5rem minmax(0, 1fr) auto;
+.contact-dialog__email {
+  display: inline-flex;
+  max-width: 100%;
+  min-height: 2.75rem;
   align-items: center;
-  gap: 1rem;
-  border-bottom: 1px solid var(--color-line);
+  margin-top: 1.75rem;
   color: var(--color-text);
-  text-decoration: none;
-}
-
-.contact-dialog__method:hover { color: var(--color-text-muted); }
-.contact-dialog__method > span { color: var(--color-text-muted); font-size: var(--font-size-ui); }
-
-.contact-dialog__method strong {
-  min-width: 0;
-  font-family: var(--font-mono);
-  font-size: clamp(0.85rem, 2.2vw, 1rem);
+  font-size: clamp(1.375rem, 4vw, 1.625rem);
   font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  text-decoration: none;
   overflow-wrap: anywhere;
 }
 
-.contact-dialog__copy-row { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem 1rem; margin-top: 1.5rem; }
-.contact-dialog__copy-row p { min-height: 1.4rem; margin: 0; color: var(--color-text-muted); font-size: var(--font-size-ui); }
+.contact-dialog__email:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.14em;
+}
+
+.contact-dialog__other {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 1.75rem;
+  margin-top: 1rem;
+}
+
+.contact-dialog__other :is(a, button) {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--font-size-small);
+  text-decoration: none;
+}
+
+.contact-dialog__other a span {
+  color: var(--color-text);
+}
+
+.contact-dialog__other :is(a, button):hover {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.contact-dialog__feedback {
+  min-height: 1.4rem;
+  margin: 0.25rem 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-ui);
+}
+
+.contact-dialog :is(a, button):focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+@keyframes contact-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes contact-overlay-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes contact-panel-in {
+  from { opacity: 0; transform: translate(-50%, calc(-50% + 0.5rem)); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+@keyframes contact-panel-out {
+  from { opacity: 1; transform: translate(-50%, -50%); }
+  to { opacity: 0; transform: translate(-50%, calc(-50% + 0.5rem)); }
+}
 
 @media (max-width: 540px) {
-  .contact-dialog { width: calc(100% - 1rem); max-height: calc(100svh - 1rem); padding: 1.25rem; }
-  .contact-dialog__method { grid-template-columns: minmax(0, 1fr) auto; gap: 0.3rem 1rem; padding: 0.9rem 0; }
-  .contact-dialog__method > span { grid-column: 1; }
-  .contact-dialog__method strong { grid-column: 1; }
-  .contact-dialog__method .base-icon { grid-column: 2; grid-row: 1 / 3; }
+  .contact-dialog {
+    width: calc(100% - 1rem);
+    max-height: calc(100svh - 1rem);
+    padding: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dialog-overlay,
+  .contact-dialog {
+    animation: none !important;
+  }
 }
 </style>

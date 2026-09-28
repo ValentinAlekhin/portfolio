@@ -1,22 +1,23 @@
 import { describe, expect, it } from 'vitest'
-import { ref } from 'vue'
+import { projects } from '../app/data/projects'
 import { useProjectReveal } from '../app/composables/useProjectReveal'
+import { useProjectSelection } from '../app/composables/useProjectSelection'
 
-describe('project reveal', () => {
-  it('opens for pointer or keyboard focus and closes when both leave', () => {
-    const reveal = useProjectReveal(ref(false))
-    expect(reveal.open.value).toBe(false)
-    reveal.setHovered(true)
-    expect(reveal.open.value).toBe(true)
-    reveal.setFocusInside(true)
-    reveal.setHovered(false)
-    expect(reveal.open.value).toBe(true)
-    reveal.setFocusInside(false)
-    expect(reveal.open.value).toBe(false)
+describe('project selection', () => {
+  it('starts with PowerSketch and keeps the chosen project until another is selected', () => {
+    const selection = useProjectSelection(projects)
+    expect(selection.selectedSlug.value).toBe('powersketch')
+    selection.select('nordhus')
+    expect(selection.selectedSlug.value).toBe('nordhus')
+    selection.select('missing')
+    expect(selection.selectedSlug.value).toBe('nordhus')
   })
+})
 
-  it('keeps a mobile row open after entering the reading area, but honors manual close', () => {
-    const reveal = useProjectReveal(ref(true))
+describe('mobile project reveal', () => {
+  it('opens after entering the reading area and remembers a manual close', () => {
+    const reveal = useProjectReveal()
+    expect(reveal.open.value).toBe(false)
     reveal.markVisible()
     expect(reveal.open.value).toBe(true)
     reveal.toggle()
@@ -24,16 +25,6 @@ describe('project reveal', () => {
     reveal.markVisible()
     expect(reveal.open.value).toBe(false)
     reveal.toggle()
-    expect(reveal.open.value).toBe(true)
-  })
-
-  it('clears a desktop manual override after the pointer and focus leave', () => {
-    const reveal = useProjectReveal(ref(false))
-    reveal.setHovered(true)
-    reveal.toggle()
-    expect(reveal.open.value).toBe(false)
-    reveal.setHovered(false)
-    reveal.setHovered(true)
     expect(reveal.open.value).toBe(true)
   })
 })

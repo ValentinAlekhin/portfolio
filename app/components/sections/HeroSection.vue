@@ -13,15 +13,12 @@ const contactOpen = useState<boolean>('contact-dialog-open', () => false)
   >
     <div class="site-container hero__grid">
       <div class="hero__copy">
-        <p class="hero__eyebrow">
+        <p class="hero__name-mobile">
           {{ t('profile.displayName') }}
         </p>
         <h1 id="hero-title">
           {{ t('hero.statement') }}
         </h1>
-        <p class="hero__description">
-          {{ t('hero.description') }}
-        </p>
         <div class="hero__actions">
           <BaseButton
             class="hero__primary"
@@ -47,25 +44,29 @@ const contactOpen = useState<boolean>('contact-dialog-open', () => false)
           <span aria-hidden="true" />{{ t('hero.available') }} · {{ t('hero.experienceCaption') }}
         </p>
       </div>
-      <pre
-        class="hero__ascii"
-        aria-hidden="true"
-      >{{ asciiArt }}</pre>
+      <figure class="hero__portrait">
+        <pre
+          class="hero__ascii"
+          aria-hidden="true"
+        >{{ asciiArt }}</pre>
+        <figcaption>{{ t('profile.displayName') }}</figcaption>
+      </figure>
     </div>
   </section>
 </template>
 
 <style scoped lang="scss">
-.hero { padding-block: calc(var(--header-height) + 3rem) 2rem; }
-.hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) 20rem; align-items: center; gap: clamp(2rem, 4vw, 4rem); }
+.hero { padding-block: calc(var(--header-height) + 3rem) 2.5rem; }
+.hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) 18rem; align-items: center; gap: clamp(2rem, 4vw, 4rem); }
 .hero__copy { min-width: 0; }
-.hero__eyebrow { margin: 0 0 0.9rem; color: var(--color-text-muted); font-size: 0.875rem; }
+.hero__name-mobile { display: none; }
 .hero h1 { max-width: 17ch; margin: 0; font-size: clamp(2.75rem, 4.2vw, 3.75rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.08; text-wrap: balance; }
-.hero__description { max-width: 54ch; margin: 1rem 0 0; color: var(--color-text-muted); font-size: clamp(1rem, 1.15vw, 1.125rem); line-height: 1.6; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
-.hero__availability { display: flex; align-items: center; gap: 0.65rem; margin: 1.75rem 0 0; padding-top: 0.9rem; border-top: 1px solid var(--color-line); color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.8rem; }
+.hero__availability { display: flex; align-items: center; gap: 0.65rem; margin: 1.75rem 0 0; color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.8rem; }
 .hero__availability span { width: 0.4rem; height: 0.4rem; flex: 0 0 auto; background: var(--color-text); }
-.hero__ascii { width: 20rem; margin: 0; color: var(--color-text); font-family: var(--font-mono); font-size: min(0.125vw, 1.3px); font-weight: 700; line-height: 1; white-space: pre; user-select: none; }
-@media (max-width: 1023px) { .hero__grid { grid-template-columns: 1fr; } .hero__ascii { display: none; } }
+.hero__portrait { width: 18rem; margin: 0; }
+.hero__ascii { width: 18rem; margin: 0; color: var(--color-text); font-family: var(--font-mono); font-size: 1.15px; font-weight: 700; line-height: 1; white-space: pre; user-select: none; }
+.hero__portrait figcaption { margin-top: 0.85rem; color: var(--color-text-muted); font-size: 0.875rem; text-align: right; }
+@media (max-width: 1023px) { .hero__grid { grid-template-columns: 1fr; } .hero__portrait { display: none; } .hero__name-mobile { display: block; margin: 0 0 1rem; color: var(--color-text-muted); font-size: 0.875rem; } }
 @media (max-width: 767px) { .hero { padding-block: calc(var(--header-height) + 2rem) 2rem; } .hero h1 { font-size: clamp(2.25rem, 8vw, 3rem); } .hero__actions :deep(.base-button) { flex: 1 1 100%; } .hero__availability { line-height: 1.5; } }
 </style>

@@ -25,7 +25,7 @@ for (const locale of Object.values(LocaleCode)) {
       await page.goto(home)
       await expect(page.locator('h1')).toHaveText(copy.hero.statement)
       expect(await page.locator('main > section').evaluateAll(nodes => nodes.map(node => node.id)))
-        .toEqual(['top', 'projects', 'services', 'about', 'process', 'contacts'])
+        .toEqual(['top', 'projects', 'services', 'process', 'contacts'])
       await expect(page.locator('.project-row')).toHaveCount(6)
       await expect(page.locator('#services article')).toHaveCount(4)
       if (width >= 1024) await expect(page.locator('.hero__ascii')).toBeVisible()
@@ -63,7 +63,7 @@ for (const locale of Object.values(LocaleCode)) {
     })
   }
 
-  test(`${locale}: project reveal responds to scroll, pointer, keyboard, and manual control`, async ({ page }) => {
+  test(`${locale}: project previews keep selection and mobile disclosures remember manual choice`, async ({ page }) => {
     await page.context().addCookies([{ name: 'i18n_redirected', value: locale, url: 'http://127.0.0.1:3000' }])
     await page.setViewportSize({ width: 390, height: 844 })
     await page.goto(home)
@@ -79,15 +79,21 @@ for (const locale of Object.values(LocaleCode)) {
     await expect(page).toHaveURL(new RegExp(`${home}projects/${projects[0]?.slug}/$`))
     await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto(home)
-    const desktopRow = page.locator('.project-row').first()
-    await desktopRow.hover()
-    await expect(desktopRow.locator('.project-row__toggle')).toHaveAttribute('aria-expanded', 'true')
-    await page.locator('h1').hover()
-    await expect(desktopRow.locator('.project-row__toggle')).toHaveAttribute('aria-expanded', 'false')
-    await desktopRow.locator('h3 a').focus()
-    await expect(desktopRow.locator('.project-row__toggle')).toHaveAttribute('aria-expanded', 'true')
+    const selectors = page.locator('.project-selector')
+    const panels = page.locator('.project-showcase__panels .project-preview')
+    await expect(selectors.first()).toHaveAttribute('aria-pressed', 'true')
+    await expect(panels.first()).toBeVisible()
+    await selectors.nth(1).hover()
+    await expect(selectors.nth(1)).toHaveAttribute('aria-pressed', 'true')
+    await expect(panels.nth(1)).toBeVisible()
+    await panels.nth(1).hover()
+    await expect(selectors.nth(1)).toHaveAttribute('aria-pressed', 'true')
+    await selectors.nth(2).focus()
+    await expect(selectors.nth(2)).toHaveAttribute('aria-pressed', 'true')
+    await page.keyboard.press('ArrowDown')
+    await expect(selectors.nth(3)).toHaveAttribute('aria-pressed', 'true')
     await page.locator('h1').focus()
-    await expect(desktopRow.locator('.project-row__toggle')).toHaveAttribute('aria-expanded', 'false')
+    await expect(selectors.nth(3)).toHaveAttribute('aria-pressed', 'true')
   })
 
   test(`${locale}: contact dialog and screenshot gallery remain keyboard accessible`, async ({ page }) => {

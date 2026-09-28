@@ -54,7 +54,6 @@ useSchemaOrg(pageSchema)
     <HeroSection />
     <ProjectsSection />
     <CapabilitiesSection />
-    <AboutSection />
     <ProcessSection />
     <ContactSection />
   </main>
