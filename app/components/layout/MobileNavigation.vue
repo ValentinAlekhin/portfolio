@@ -16,15 +16,29 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
 const open = ref(false)
+const pendingContact = ref(false)
 const homePath = computed(() => ensureTrailingSlash(localePath('/')))
 const contactOpen = useState<boolean>('contact-dialog-open', () => false)
 
 watch(() => route.fullPath, () => {
   open.value = false
+  pendingContact.value = false
+})
+
+watch(open, (isOpen) => {
+  if (isOpen) pendingContact.value = false
 })
 
 function openContact() {
+  pendingContact.value = true
   open.value = false
+}
+
+async function onPanelAfterLeave() {
+  if (!pendingContact.value || open.value) return
+  await nextTick()
+  if (!pendingContact.value || open.value) return
+  pendingContact.value = false
   contactOpen.value = true
 }
 </script>
@@ -42,7 +56,11 @@ function openContact() {
     </DialogTrigger>
     <DialogPortal>
       <DialogOverlay class="mobile-nav-overlay" />
-      <DialogContent class="mobile-nav-panel">
+      <DialogContent
+        class="mobile-nav-panel"
+        aria-modal="true"
+        @after-leave="onPanelAfterLeave"
+      >
         <div class="mobile-nav-panel__top">
           <DialogTitle>{{ t('nav.drawerTitle') }}</DialogTitle>
           <DialogDescription class="sr-only">
@@ -94,6 +112,14 @@ function openContact() {
   inset: 0;
 }
 
+.mobile-nav-overlay[data-state='open'] {
+  animation: mobile-nav-overlay-in 200ms ease-out both;
+}
+
+.mobile-nav-overlay[data-state='closed'] {
+  animation: mobile-nav-overlay-out 160ms ease-in both;
+}
+
 .mobile-nav-panel {
   position: fixed;
   z-index: 1301;
@@ -109,6 +135,14 @@ function openContact() {
   border-radius: 0;
   background: var(--color-bg);
   color: var(--color-text);
+}
+
+.mobile-nav-panel[data-state='open'] {
+  animation: mobile-nav-panel-in 200ms ease-out both;
+}
+
+.mobile-nav-panel[data-state='closed'] {
+  animation: mobile-nav-panel-out 160ms ease-in both;
 }
 
 .mobile-nav-panel__top {
@@ -152,7 +186,34 @@ function openContact() {
   text-align: left;
 }
 
+@keyframes mobile-nav-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes mobile-nav-overlay-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes mobile-nav-panel-in {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes mobile-nav-panel-out {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+
 @media (max-width: 1000px) {
   .mobile-menu-trigger { display: grid; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-nav-overlay,
+  .mobile-nav-panel {
+    animation: none !important;
+  }
 }
 </style>
