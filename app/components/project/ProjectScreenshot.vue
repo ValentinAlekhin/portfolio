@@ -1,36 +1,21 @@
 <script setup lang="ts">
 import type { ProjectMedia } from '~/types/content'
 
-const props = withDefaults(defineProps<{
-  media: ProjectMedia
-  priority?: boolean
-}>(), {
-  priority: false,
-})
-
+const props = withDefaults(defineProps<{ media: ProjectMedia, priority?: boolean }>(), { priority: false })
 const { t } = useI18n()
 const { localeCode } = usePortfolio()
-const { theme } = useTheme()
-const resolvedSrc = computed(() => {
-  const sources = props.media.sources?.[localeCode.value]
-  return sources ? sources[theme.value === 'phosphor' ? 'dark' : 'light'] : props.media.src
-})
+const localizedSources = computed(() => props.media.sources?.[localeCode.value])
 const dialog = ref<HTMLDialogElement | null>(null)
 const trigger = ref<HTMLElement | null>(null)
-const instanceId = useId()
-const titleId = `${instanceId}-title`
+const titleId = `${useId()}-caption`
 const sourceWidth = computed(() => `${props.media.width}px`)
 const phoneWidth = computed(() => `${Math.min(props.media.width, 464)}px`)
-const isScrollable = computed(() => (
-  props.media.display === 'full-page'
-  || (props.media.display === 'phone' && props.media.height / props.media.width > 3.2)
-))
+const isScrollable = computed(() => props.media.display === 'full-page' || (props.media.display === 'phone' && props.media.height / props.media.width > 3.2))
 let previousOverflow = ''
 let isNavigating = false
 
 function openDialog(event?: Event) {
   if (!dialog.value) return
-
   if (event?.currentTarget instanceof HTMLElement) trigger.value = event.currentTarget
   previousOverflow = document.documentElement.style.overflow
   document.documentElement.style.overflow = 'hidden'
@@ -56,20 +41,18 @@ function navigateDialog(direction: -1 | 1) {
   const currentFigure = dialog.value?.closest('.project-screenshot')
   const screenshots = Array.from(document.querySelectorAll<HTMLElement>('.project-screenshot'))
   const currentIndex = currentFigure ? screenshots.indexOf(currentFigure as HTMLElement) : -1
-
   if (currentIndex < 0 || screenshots.length < 2) return
-
   const nextIndex = (currentIndex + direction + screenshots.length) % screenshots.length
   const nextTrigger = screenshots[nextIndex]?.querySelector<HTMLButtonElement>('.project-screenshot__image-trigger')
-
   if (!nextTrigger) return
-
   isNavigating = true
+  dialog.value?.addEventListener('close', () => {
+    nextTick(() => {
+      nextTrigger.click()
+      isNavigating = false
+    })
+  }, { once: true })
   dialog.value?.close()
-  nextTick(() => {
-    nextTrigger.click()
-    isNavigating = false
-  })
 }
 
 function handleDialogKeydown(event: KeyboardEvent) {
@@ -80,33 +63,16 @@ function handleDialogKeydown(event: KeyboardEvent) {
 }
 
 onBeforeUnmount(() => {
-  document.documentElement.style.overflow = previousOverflow
+  if (dialog.value?.open) document.documentElement.style.overflow = previousOverflow
 })
 </script>
 
 <template>
   <figure
     class="project-screenshot"
-    :class="[
-      `project-screenshot--${media.display ?? 'viewport'}`,
-      { 'project-screenshot--scrollable': isScrollable },
-    ]"
-    :style="{
-      '--project-phone-width': phoneWidth,
-      '--project-source-width': sourceWidth,
-    }"
+    :class="[`project-screenshot--${media.display ?? 'viewport'}`, { 'project-screenshot--scrollable': isScrollable }]"
+    :style="{ '--project-phone-width': phoneWidth, '--project-source-width': sourceWidth }"
   >
-    <div class="project-screenshot__chrome system-label">
-      <span aria-hidden="true"><i /><i /><i /></span>
-      <span>{{ t(media.captionKey) }}</span>
-      <button
-        type="button"
-        @click="openDialog($event)"
-      >
-        [ {{ t('case.viewImage') }} ]
-      </button>
-    </div>
-
     <div
       class="project-screenshot__viewport"
       :tabindex="isScrollable ? 0 : undefined"
@@ -118,30 +84,50 @@ onBeforeUnmount(() => {
         :aria-label="t('case.viewImage')"
         @click="openDialog($event)"
       >
-        <img
-          :src="resolvedSrc"
+        <BaseProgressiveImage
+          v-if="!localizedSources"
+          :src="media.src"
+          class="project-screenshot__plain"
           :alt="t(media.altKey)"
           :width="media.width"
           :height="media.height"
-          :loading="priority ? 'eager' : 'lazy'"
-          :fetchpriority="priority ? 'high' : 'auto'"
-          decoding="async"
-        >
+          :priority="priority"
+        />
+        <BaseProgressiveImage
+          v-if="localizedSources"
+          :src="localizedSources.light"
+          class="project-screenshot__theme-light"
+          :alt="t(media.altKey)"
+          :width="media.width"
+          :height="media.height"
+          :priority="priority"
+        />
+        <BaseProgressiveImage
+          v-if="localizedSources"
+          :src="localizedSources.dark"
+          class="project-screenshot__theme-dark"
+          :alt="t(media.altKey)"
+          :width="media.width"
+          :height="media.height"
+          :priority="priority"
+        />
       </button>
     </div>
-
-    <figcaption
-      :id="titleId"
-      class="system-label"
-    >
-      <span>// {{ t(media.captionKey) }}</span>
-      <span>{{ media.width }}×{{ media.height }}</span>
+    <figcaption :id="titleId">
+      <span>{{ t(media.captionKey) }}</span>
+      <button
+        type="button"
+        @click="openDialog($event)"
+      >
+        {{ t('case.viewImage') }} <BaseIcon name="arrow-up-right" />
+      </button>
     </figcaption>
-
-    <p v-if="media.descriptionKey" class="project-screenshot__description">
+    <p
+      v-if="media.descriptionKey"
+      class="project-screenshot__description"
+    >
       {{ t(media.descriptionKey) }}
     </p>
-
     <dialog
       ref="dialog"
       class="project-screenshot__dialog"
@@ -151,115 +137,81 @@ onBeforeUnmount(() => {
       @keydown="handleDialogKeydown"
     >
       <div class="project-screenshot__dialog-panel">
-        <div class="project-screenshot__dialog-toolbar system-label">
+        <div class="project-screenshot__dialog-toolbar">
           <button
             type="button"
             :aria-label="t('case.previousImage')"
             @click="navigateDialog(-1)"
           >
-            [ ← ]
+            <BaseIcon name="arrow-left" />
           </button>
           <button
             type="button"
             @click="closeDialog"
           >
-            [ ESC ] {{ t('case.closeImage') }}
+            <BaseIcon name="close" /> {{ t('case.closeImage') }}
           </button>
           <button
             type="button"
             :aria-label="t('case.nextImage')"
             @click="navigateDialog(1)"
           >
-            [ → ]
+            <BaseIcon name="arrow-right" />
           </button>
         </div>
-        <img
-          :src="resolvedSrc"
+        <BaseProgressiveImage
+          v-if="!localizedSources"
+          :src="media.src"
+          class="project-screenshot__plain"
           :alt="t(media.altKey)"
           :width="media.width"
           :height="media.height"
-          loading="lazy"
-          decoding="async"
-        >
+        />
+        <BaseProgressiveImage
+          v-if="localizedSources"
+          :src="localizedSources.light"
+          class="project-screenshot__theme-light"
+          :alt="t(media.altKey)"
+          :width="media.width"
+          :height="media.height"
+        />
+        <BaseProgressiveImage
+          v-if="localizedSources"
+          :src="localizedSources.dark"
+          class="project-screenshot__theme-dark"
+          :alt="t(media.altKey)"
+          :width="media.width"
+          :height="media.height"
+        />
       </div>
     </dialog>
   </figure>
 </template>
 
 <style scoped lang="scss">
-.project-screenshot {
-  margin: 0;
-  overflow: hidden;
-  border: 1px solid var(--color-control-border);
-  background: var(--project-media-bg, var(--color-surface-strong));
-  box-shadow: var(--project-media-shadow, 0 30px 80px rgb(0 0 0 / 18%));
-}
-
-.project-screenshot__chrome,
-.project-screenshot figcaption {
-  display: grid;
-  min-height: 2.5rem;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 0.75rem;
-  padding-inline: 0.85rem;
-  color: var(--color-text-muted);
-  font-size: clamp(0.5rem, 0.65vw, 0.65rem);
-}
-
-.project-screenshot__chrome { border-bottom: 1px solid var(--color-line); }
-.project-screenshot__chrome > span:first-child { display: flex; gap: 0.3rem; }
-.project-screenshot__chrome > span:nth-child(2) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.project-screenshot__chrome button { justify-self: end; border: 0; background: transparent; color: var(--color-accent); font: inherit; cursor: pointer; white-space: nowrap; }
-.project-screenshot__chrome button:hover { color: var(--color-text); }
-.project-screenshot__chrome i { width: 0.42rem; height: 0.42rem; border: 1px solid var(--color-control-border); border-radius: 50%; }
-.project-screenshot__chrome i:first-child { border-color: var(--color-accent); background: var(--color-accent); }
-
-.project-screenshot__viewport {
-  overflow: hidden;
-  padding: clamp(0.3rem, 0.7vw, 0.7rem);
-  background: color-mix(in srgb, var(--project-media-bg, var(--color-surface-strong)) 82%, var(--color-bg));
-}
-
-.project-screenshot__viewport:focus-visible { outline: 2px solid var(--color-focus); outline-offset: -4px; }
-.project-screenshot__image-trigger { display: block; width: 100%; padding: 0; border: 0; background: transparent; color: inherit; cursor: zoom-in; }
-.project-screenshot__image-trigger:focus-visible { outline: 2px solid var(--color-focus); outline-offset: -2px; }
-.project-screenshot__image-trigger img { display: block; width: 100%; height: auto; background: #fff; }
-.project-screenshot--scrollable .project-screenshot__viewport { max-height: min(72svh, 54rem); overflow-y: auto; overscroll-behavior: contain; scrollbar-color: var(--color-accent) transparent; }
-.project-screenshot--phone { width: min(100%, var(--project-phone-width, 29rem)); margin-inline: auto; }
-.project-screenshot--phone .project-screenshot__viewport { background: color-mix(in srgb, var(--project-media-bg) 72%, var(--color-bg)); }
-
-.project-screenshot figcaption { grid-template-columns: 1fr auto; border-top: 1px solid var(--color-line); }
-.project-screenshot figcaption > span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.project-screenshot figcaption > span:last-child { justify-self: end; color: var(--color-accent); }
-.project-screenshot__description { margin: 0; padding: 1rem 1.25rem; border-top: 1px solid var(--color-line); color: var(--color-text-muted); font-size: var(--font-size-small); line-height: 1.6; }
-
-.project-screenshot__dialog {
-  width: min(96vw, var(--project-source-width));
-  max-width: none;
-  max-height: 94svh;
-  margin: auto;
-  padding: 0;
-  overflow: hidden;
-  border: 1px solid var(--color-control-border);
-  background: transparent;
-  color: var(--color-text);
-  box-shadow: 0 35px 120px rgb(0 0 0 / 55%);
-}
-
-.project-screenshot__dialog::backdrop { background: rgb(0 0 0 / 78%); backdrop-filter: blur(6px); }
-.project-screenshot__dialog-panel { position: relative; width: 100%; max-height: calc(94svh - 2px); overflow: auto; overscroll-behavior: contain; }
-.project-screenshot__dialog-panel img { display: block; width: 100%; height: auto; }
-.project-screenshot__dialog-toolbar { position: sticky; z-index: 2; top: 0; display: grid; grid-template-columns: auto 1fr auto; border-bottom: 1px solid var(--color-line); background: color-mix(in srgb, var(--color-bg) 94%, transparent); backdrop-filter: blur(12px); }
-.project-screenshot__dialog-toolbar button { min-width: 3.25rem; padding: 0.9rem 1rem; border: 0; background: transparent; color: var(--color-accent); font: inherit; cursor: pointer; }
-.project-screenshot__dialog-toolbar button:nth-child(2) { border-inline: 1px solid var(--color-line); text-align: center; }
-.project-screenshot__dialog-toolbar button:hover { background: var(--color-surface); color: var(--color-text); }
-.project-screenshot__dialog-toolbar button:focus-visible { outline: 2px solid var(--color-focus); outline-offset: -3px; }
-
-@media (max-width: 600px) {
-  .project-screenshot__chrome { grid-template-columns: auto minmax(0, 1fr) auto; }
-  .project-screenshot__chrome > span:nth-child(2) { justify-self: end; }
-  .project-screenshot__chrome button { padding: 0.5rem 0; text-align: right; }
-  .project-screenshot figcaption > span:last-child { display: none; }
-}
+.project-screenshot { min-width: 0; margin: 0; }
+.project-screenshot__viewport { overflow: hidden; border: 1px solid var(--color-line); background: var(--color-surface); }
+.project-screenshot__image-trigger { display: block; width: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
+.project-screenshot__image-trigger :deep(img) { display: block; width: 100%; height: 100%; }
+.project-screenshot .project-screenshot__plain,
+.project-screenshot .project-screenshot__theme-light { display: block; }
+.project-screenshot .project-screenshot__theme-dark { display: none; }
+html[data-theme='dark'] .project-screenshot .project-screenshot__theme-light { display: none; }
+html[data-theme='dark'] .project-screenshot .project-screenshot__theme-dark { display: block; }
+.project-screenshot--scrollable .project-screenshot__viewport { max-height: min(70svh, 48rem); overflow-y: auto; overscroll-behavior: contain; }
+.project-screenshot--phone { width: min(100%, var(--project-phone-width, 29rem)); }
+.project-screenshot figcaption { display: flex; align-items: start; justify-content: space-between; gap: 1rem; margin-top: 0.6rem; color: var(--color-text-muted); font-size: var(--font-size-ui); line-height: 1.5; }
+.project-screenshot figcaption button { display: inline-flex; min-height: 2.75rem; align-items: center; gap: 0.3rem; flex: 0 0 auto; padding: 0 0.4rem; border: 0; background: transparent; color: var(--color-text); cursor: pointer; font: inherit; text-decoration: underline; text-underline-offset: 0.2em; }
+.project-screenshot figcaption button :deep(svg) { width: 1rem; height: 1rem; }
+.project-screenshot__description { max-width: 70ch; margin: 0.7rem 0 0; color: var(--color-text-muted); font-size: var(--font-size-small); line-height: 1.6; }
+.project-screenshot :is(button, .project-screenshot__viewport):focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.project-screenshot__dialog { width: min(96vw, var(--project-source-width)); max-width: none; max-height: 94svh; margin: auto; padding: 0; overflow: hidden; border: 1px solid var(--color-line); border-radius: 0; background: var(--color-bg); color: var(--color-text); }
+.project-screenshot__dialog::backdrop { background: rgb(0 0 0 / 80%); }
+.project-screenshot__dialog-panel { max-height: 94svh; overflow: auto; overscroll-behavior: contain; }
+.project-screenshot__dialog-panel > :deep(span) { width: 100%; }
+.project-screenshot__dialog-panel :deep(img) { display: block; width: 100%; height: 100%; }
+.project-screenshot__dialog-toolbar { position: sticky; z-index: 1; top: 0; display: grid; grid-template-columns: auto 1fr auto; border-bottom: 1px solid var(--color-line); background: var(--color-bg); }
+.project-screenshot__dialog-toolbar button { display: inline-flex; min-width: 3rem; min-height: 3rem; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.7rem; border: 0; background: transparent; color: var(--color-text); cursor: pointer; font: inherit; }
+.project-screenshot__dialog-toolbar button + button { border-left: 1px solid var(--color-line); }
+.project-screenshot__dialog-toolbar button:hover { background: var(--color-surface); }
 </style>

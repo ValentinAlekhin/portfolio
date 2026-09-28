@@ -23,9 +23,9 @@
   "nav": {
     "label": "Main navigation",
     "sections": {
-      "projects": "My work",
-      "services": "What I do",
-      "process": "How I work",
+      "projects": "Work",
+      "services": "Services",
+      "process": "Process",
       "about": "About"
     },
     "contact": "Contact me",
@@ -69,8 +69,8 @@
       "qrAlt": "QR code linking to the alekhin.dev website"
     },
     "preview": {
-      "front": "01 / Front",
-      "back": "02 / Back"
+      "front": "Front",
+      "back": "Back"
     },
     "download": {
       "title": "Save the card",
@@ -704,6 +704,7 @@
       }
     },
     "view": "View project",
+    "collapse": "Collapse project",
     "windowTitle": "Projects and solutions"
   },
   "capabilities": {
@@ -821,6 +822,7 @@
     "write": "Write to me",
     "copy": "Copy email",
     "copied": "Email copied",
+    "copyFailed": "Could not copy. The address is shown alongside.",
     "dialogTitle": "Let’s discuss your project",
     "dialogDescription": "Choose where you would like to message me.",
     "compose": "Compose email",
@@ -828,7 +830,8 @@
     "ascii": "┌─[ NEW_SESSION ]─────────────────┐\n│  status: READY                 │\n│  handshake: waiting...         │\n└────────────────────────────────┘"
   },
   "footer": {
-    "role": "Websites and services for business"
+    "role": "Websites and services for business",
+    "backToTop": "Back to top"
   },
   "case": {
     "back": "Back to projects",
@@ -867,6 +870,9 @@
     "action": "Back to home"
   },
   "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "auto": "Auto",
     "system": "System",
     "phosphor": "Green",
     "display": "Theme"

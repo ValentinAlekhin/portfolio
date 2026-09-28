@@ -21,8 +21,8 @@ interface UseBusinessCardExportOptions {
 }
 
 const qrColors = {
-  dark: '#090b09ff',
-  light: '#a8ff60ff',
+  dark: '#000000ff',
+  light: '#ffffffff',
 } as const
 
 export function useBusinessCardExport(options: UseBusinessCardExportOptions) {
@@ -121,8 +121,9 @@ export function useBusinessCardExport(options: UseBusinessCardExportOptions) {
     fontEmbedCSS?: string,
   ): Promise<Blob> {
     const { getFontEmbedCSS, toBlob } = await import('html-to-image')
-    const embeddedFonts = fontEmbedCSS
-      ?? await getFontEmbedCSS(node, { preferredFontFormat: 'woff2' })
+    // The bundled variable fonts declare format('woff2-variations'). Filtering
+    // to 'woff2' drops those sources from html-to-image's exported SVG.
+    const embeddedFonts = fontEmbedCSS ?? await getFontEmbedCSS(node)
     const blob = await toBlob(node, {
       cacheBust: true,
       canvasHeight: size.height,
@@ -130,7 +131,6 @@ export function useBusinessCardExport(options: UseBusinessCardExportOptions) {
       fontEmbedCSS: embeddedFonts,
       height: node.offsetHeight,
       pixelRatio: 1,
-      preferredFontFormat: 'woff2',
       skipAutoScale: true,
       width: node.offsetWidth,
     })
@@ -171,7 +171,7 @@ export function useBusinessCardExport(options: UseBusinessCardExportOptions) {
         import('html-to-image'),
         import('jszip'),
       ])
-      const fontEmbedCSS = await getFontEmbedCSS(frontNode, { preferredFontFormat: 'woff2' })
+      const fontEmbedCSS = await getFontEmbedCSS(frontNode)
       const frontBlob = await renderPng(frontNode, businessCardPrintSpec.output, fontEmbedCSS)
       const backBlob = await renderPng(backNode, businessCardPrintSpec.output, fontEmbedCSS)
       const [frontPrintBlob, backPrintBlob] = await Promise.all([

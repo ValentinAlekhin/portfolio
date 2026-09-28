@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This repository is a statically generated Nuxt 4 portfolio for `alekhin.dev`. It uses Vue 3, strict TypeScript, SCSS, Nuxt i18n, GSAP, Vitest, and Playwright. The visual language is a restrained developer interface: terminal and editor motifs, phosphor-green accents, CRT details, and lightweight interactive elements. Preserve that system when extending the UI.
+This repository is a statically generated Nuxt 4 portfolio for `alekhin.dev`. It uses Vue 3, strict TypeScript, SCSS, Nuxt i18n, Reka UI, VueUse, Vitest, and Playwright. The visual language is minimal and monochrome: clear hierarchy, thin dividers, square Carbon icons, Manrope prose, and JetBrains Mono for technical information. Case pages may use a restrained project accent within their own content; the site canvas and navigation stay neutral.
 
 Russian is the default locale and is served without a prefix (`/`). English is served under `/en`. Project pages follow the same rule, for example `/projects/powersketch/` and `/en/projects/powersketch/`.
 
@@ -11,12 +11,10 @@ Russian is the default locale and is served without a prefix (`/`). English is s
 Application code lives in `app/`:
 
 - `app/components/base/` contains reusable primitives.
-- `app/components/layout/` contains the header, footer, navigation, and page transitions.
-- `app/components/motion/` contains focused animation helpers.
+- `app/components/layout/` contains the header, footer, and mobile navigation.
 - `app/components/project/` contains project-specific previews.
 - `app/components/sections/` contains top-level landing-page sections.
-- `app/components/ui/` contains controls, dialogs, switches, and the terminal.
-- `app/components/visual/` contains larger visual systems such as the code workbench, CRT frame, marquee, and Canvas game.
+- `app/components/ui/` contains controls, dialogs, and switches.
 - `app/composables/` contains reusable state and behavior; browser-only effects must be initialized and cleaned up through Vue lifecycle hooks.
 - `app/data/` stores typed, locale-independent portfolio data and translation-key references.
 - `app/pages/` contains the home page and dynamic project routes.
@@ -50,11 +48,11 @@ Use Nuxt auto-imports and the configured prefix-free component auto-imports. Kee
 
 Component presentation belongs in scoped SCSS. Reuse CSS custom properties from `app/assets/styles/settings/_tokens.scss`; do not hardcode theme colors when a suitable token exists. Add global rules only to the appropriate SCSS layer in `app/assets/styles/`. The project does not use Tailwind.
 
-For Canvas and animation work, cancel animation frames, observers, timers, and event listeners on unmount. Account for device pixel ratio, touch input, keyboard access, hidden tabs, and `prefers-reduced-motion`. Avoid hydration-dependent browser APIs outside client lifecycle hooks.
+For browser interaction, cancel animation frames, observers, timers, and event listeners on unmount. Account for touch input, keyboard access, and `prefers-reduced-motion`. Avoid hydration-dependent browser APIs outside client lifecycle hooks.
 
 ## Localization and Content
 
-Do not place translatable user-facing copy directly in Vue components or TypeScript data. Add aligned keys to both `i18n/locales/ru.json` and `i18n/locales/en.json`, then reference them with `t()` or `$t()`. Keep the two locale files structurally identical. Brand names, technology names, code fragments, and intentional terminal tokens may remain untranslated when appropriate.
+Do not place translatable user-facing copy directly in Vue components or TypeScript data. Add aligned keys to both `i18n/locales/ru.json` and `i18n/locales/en.json`, then reference them with `t()` or `$t()`. Keep the two locale files structurally identical. Brand names, technology names, and code fragments may remain untranslated when appropriate.
 
 Use `LocaleCode` and the locale maps from `app/types/i18n.ts`; do not scatter raw `'ru'` and `'en'` literals through the application. Preserve the `prefix_except_default` routing strategy and browser-language detection unless a task explicitly changes localization behavior.
 
@@ -67,10 +65,10 @@ Place unit tests in `tests/` or beside the relevant module as `*.spec.ts`. Add P
 After UI changes, manually verify:
 
 - `/` and `/en`, including project detail routes;
-- both `system` and `phosphor` themes;
+- light, dark, and auto theme preferences;
 - desktop, approximately 1100 px, and mobile layouts;
 - keyboard navigation, visible focus, and touch interaction;
-- dialogs, mobile navigation, terminal input, build flow, and Canvas controls when affected;
+- dialogs, mobile navigation, expanding theme/language controls, and project disclosure when affected;
 - reduced-motion behavior and absence of hydration or SSR errors.
 
 ## Commits and Pull Requests

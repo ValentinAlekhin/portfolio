@@ -1,18 +1,24 @@
-import type { ThemeName } from '~/types/content'
+import type { ResolvedTheme, ThemePreference } from '~/types/content'
+
+export const themePreferenceKey = 'va-theme-preference'
+export const legacyThemeKey = 'va-theme'
 
 export const browserThemeColors = {
-  phosphor: '#080a08',
-  system: '#d1cec9',
-} as const satisfies Record<ThemeName, string>
+  light: '#ffffff',
+  dark: '#111111',
+} as const satisfies Record<ResolvedTheme, string>
 
-export function isThemeName(value: string | null): value is ThemeName {
-  return value === 'system' || value === 'phosphor'
+export function isThemePreference(value: string | null): value is ThemePreference {
+  return value === 'light' || value === 'dark' || value === 'auto'
 }
 
-export function resolveInitialTheme(stored: string | null, prefersDark: boolean): ThemeName {
-  if (isThemeName(stored)) {
-    return stored
-  }
+export function resolveInitialPreference(stored: string | null, legacy: string | null): ThemePreference {
+  if (isThemePreference(stored)) return stored
+  if (legacy === 'system') return 'light'
+  if (legacy === 'phosphor') return 'dark'
+  return 'auto'
+}
 
-  return prefersDark ? 'phosphor' : 'system'
+export function resolveTheme(preference: ThemePreference, prefersDark: boolean): ResolvedTheme {
+  return preference === 'auto' ? (prefersDark ? 'dark' : 'light') : preference
 }

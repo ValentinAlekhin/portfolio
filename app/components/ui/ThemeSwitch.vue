@@ -1,178 +1,148 @@
 <script setup lang="ts">
-const props = defineProps<{ label: string }>()
-const { locale, t } = useI18n()
-const { theme, toggleTheme } = useTheme()
-const visibleLabel = ref('SYSTEM')
-const target = ref<HTMLButtonElement | null>(null)
-const cells = Array.from({ length: 32 }, (_, index) => index)
-const { scramble } = useScrambleText(locale)
-const { motionAllowed } = useMotionPreference()
-const localizedLabel = computed(() => t(`theme.${theme.value}`))
-const displayPrefix = computed(() => t('theme.display'))
+import { RovingFocusGroup, RovingFocusItem } from 'reka-ui'
+import type { ThemePreference } from '~/types/content'
 
-useMagnetic(target)
+defineProps<{ label: string }>()
 
-watch([theme, locale], () => {
-  visibleLabel.value = localizedLabel.value
-}, { immediate: true })
+const { t } = useI18n()
+const { preference, setPreference } = useTheme()
+const {
+  id, root, trigger, isOpen, onPointerEnter, onPointerLeave, onFocusOut,
+  onTriggerClick, onKeyboardIntent, focusOption, onEscape, onSelection,
+} = useExpandableControl()
 
-async function toggle(event: MouseEvent) {
-  const button = target.value
-  if (!button) {
-    toggleTheme()
-    return
-  }
+const preferences: ThemePreference[] = ['light', 'dark', 'auto']
+const iconByPreference = {
+  light: 'sun',
+  dark: 'moon',
+  auto: 'screen',
+} as const satisfies Record<ThemePreference, 'sun' | 'moon' | 'screen'>
+const alternatives = computed(() => preferences.filter(item => item !== preference.value))
 
-  const next = theme.value === 'system' ? 'phosphor' : 'system'
-  const nextLabel = t(`theme.${next}`)
-  if (!motionAllowed.value) {
-    toggleTheme()
-    visibleLabel.value = nextLabel
-    return
-  }
-
-  const { $gsap, $Flip } = useNuxtApp()
-  const state = $Flip.getState(button.querySelectorAll('[data-flip]'))
-  const rect = button.getBoundingClientRect()
-  button.style.setProperty('--click-x', `${event.clientX - rect.left}px`)
-  button.style.setProperty('--click-y', `${event.clientY - rect.top}px`)
-  button.dataset.switching = 'true'
-
-  await new Promise<void>((resolve) => {
-    $gsap.delayedCall(0.18, () => {
-      toggleTheme()
-      scramble(visibleLabel, nextLabel, 320)
-      resolve()
-    })
-  })
-
-  await $Flip.from(state, { duration: 0.26, ease: 'power2.out' })
-  window.setTimeout(() => {
-    delete button.dataset.switching
-  }, 180)
+function select(value: ThemePreference, event: MouseEvent) {
+  setPreference(value)
+  onSelection(event)
 }
 </script>
 
 <template>
-  <button
-    ref="target"
-    type="button"
-    class="theme-switch system-label"
-    :aria-label="`${props.label}: ${localizedLabel}`"
-    :aria-pressed="theme === 'phosphor'"
-    @click="toggle"
+  <div
+    ref="root"
+    class="compact-control"
+    :class="{ 'compact-control--open': isOpen }"
+    :aria-label="label"
+    @pointerenter="onPointerEnter"
+    @pointerleave="onPointerLeave"
+    @focusout="onFocusOut"
+    @keydown.capture="onKeyboardIntent"
+    @keydown.esc="onEscape"
   >
-    <span
-      class="theme-switch__matrix"
-      aria-hidden="true"
+    <button
+      ref="trigger"
+      type="button"
+      class="compact-control__trigger"
+      :aria-label="`${label}: ${t(`theme.${preference}`)}`"
+      :aria-expanded="isOpen"
+      :aria-controls="`${id}-options`"
+      @click="onTriggerClick"
+      @keydown.down.prevent="focusOption()"
+      @keydown.right.prevent="focusOption()"
     >
-      <i
-        v-for="cell in cells"
-        :key="cell"
-        :style="{ '--cell': cell }"
-      />
-    </span>
-    <span
-      class="theme-switch__prefix"
-      aria-hidden="true"
-    >{{ displayPrefix }}</span>
-    <span
-      class="theme-switch__rail"
-      aria-hidden="true"
-    >
-      <i
-        class="theme-switch__dot"
-        data-flip
-      />
-    </span>
-    <span
-      class="theme-switch__label"
-      data-flip
-      aria-hidden="true"
-    >{{ visibleLabel }}</span>
-    <span class="sr-only">{{ localizedLabel }}</span>
-  </button>
+      <BaseIcon :name="iconByPreference[preference]" />
+    </button>
+    <Transition name="compact-control">
+      <RovingFocusGroup
+        v-if="isOpen"
+        :id="`${id}-options`"
+        class="compact-control__options"
+        role="group"
+        :aria-label="label"
+        orientation="horizontal"
+        loop
+      >
+        <RovingFocusItem
+          v-for="option in alternatives"
+          :key="option"
+          as-child
+          :tab-stop-id="option"
+        >
+          <button
+            data-control-option
+            type="button"
+            class="compact-control__option"
+            :aria-label="t(`theme.${option}`)"
+            @click="select(option, $event)"
+          >
+            <BaseIcon :name="iconByPreference[option]" />
+          </button>
+        </RovingFocusItem>
+      </RovingFocusGroup>
+    </Transition>
+  </div>
 </template>
 
-<style scoped lang="scss">
-.theme-switch {
+<style lang="scss">
+.compact-control {
   position: relative;
   display: inline-flex;
-  min-width: 11.6rem;
-  min-height: 2.75rem;
-  align-items: center;
-  justify-content: center;
-  gap: 0.55rem;
-  padding: 0.45rem 0.65rem;
-  overflow: hidden;
-  border: 0;
-  background: transparent;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: none;
+}
+
+.compact-control__trigger,
+.compact-control__option {
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: none;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 0;
+  background: var(--color-bg);
   color: var(--color-text);
   cursor: pointer;
+  place-items: center;
 }
 
-.theme-switch::before,
-.theme-switch::after {
-  z-index: 1;
-  color: var(--color-accent);
-  font-size: var(--font-size-ui);
+.compact-control__trigger:hover,
+.compact-control__option:hover {
+  border-color: var(--color-line);
+  background: var(--color-surface);
 }
 
-.theme-switch::before { content: '['; }
-.theme-switch::after { content: ']'; }
+.compact-control--open .compact-control__trigger,
+.compact-control--open .compact-control__trigger:hover {
+  border-color: var(--color-line);
+  background: var(--color-text);
+  color: var(--color-bg);
+}
 
-.theme-switch__prefix { z-index: 1; color: var(--color-text-muted); font-size: 0.65rem; }
-
-.theme-switch__rail {
-  position: relative;
-  z-index: 1;
-  width: 1.9rem;
-  height: 0.78rem;
+.compact-control__options {
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  right: 100%;
+  display: flex;
+  height: 2.75rem;
   border: 1px solid var(--color-line);
+  border-right: 0;
   background: var(--color-bg);
 }
 
-.theme-switch__matrix {
-  position: absolute;
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  inset: 0;
-  pointer-events: none;
+.compact-control__option { height: 100%; border: 0; }
+.compact-control__option + .compact-control__option {
+  border-left: 1px solid var(--color-line);
 }
 
-.theme-switch__matrix i {
-  background: var(--color-phosphor);
+.compact-control-enter-active,
+.compact-control-leave-active {
+  transition: opacity var(--duration-fast) ease, transform var(--duration-fast) ease;
+}
+
+.compact-control-enter-from,
+.compact-control-leave-to {
   opacity: 0;
-  transform: scale(0.4);
-}
-
-.theme-switch[data-switching='true'] .theme-switch__matrix i {
-  animation: matrix-cell 320ms var(--ease-out) both;
-  animation-delay: calc(var(--cell) * 5ms);
-}
-
-.theme-switch__dot {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 0.38rem;
-  height: 0.38rem;
-  background: var(--color-accent);
-  box-shadow: 0 0 8px color-mix(in srgb, var(--color-accent) 55%, transparent);
-  transition: transform var(--duration-ui) var(--ease-out);
-}
-
-.theme-switch[aria-pressed='true'] .theme-switch__dot { transform: translateX(1.08rem); }
-
-.theme-switch__label {
-  z-index: 1;
-  min-width: 3.8rem;
-  color: var(--color-accent);
-  text-align: left;
-}
-
-@keyframes matrix-cell {
-  50% { opacity: 0.88; transform: scale(1); }
-  100% { opacity: 0; transform: scale(1); }
+  transform: translateX(0.35rem);
 }
 </style>

@@ -22,7 +22,7 @@ async function expectArtworkWithinFrame(artwork: Locator, story: boolean) {
     const scale = frame.width / 1080
     const top = frame.top + (isStory ? 180 * scale : 0)
     const bottom = frame.bottom - (isStory ? 240 * scale : 0)
-    return Array.from(node.querySelectorAll('h2, h3, p, strong, img')).flatMap((element) => {
+    return Array.from(node.querySelectorAll('h2, h3, p, strong, b, img')).flatMap((element) => {
       const rect = element.getBoundingClientRect()
       return rect.left < frame.left - 1 || rect.right > frame.right + 1
         || rect.top < top - 1 || rect.bottom > bottom + 1
@@ -71,12 +71,11 @@ for (const locale of Object.values(LocaleCode)) {
         expect(Array.from(bytes.subarray(0, 8))).toEqual([137, 80, 78, 71, 13, 10, 26, 10])
         expect(bytes.readUInt32BE(16)).toBe(1080)
         expect(bytes.readUInt32BE(20)).toBe(format === 'story' ? 1920 : 1080)
-        await download.saveAs(`/private/tmp/presentation-${locale}-${format}-${palette}.png`)
         await expect(page.locator('.presentation-page__status')).toHaveText(copy.download.success)
       }
     }
 
-    for (const theme of ['system', 'phosphor']) {
+    for (const theme of ['light', 'dark']) {
       await page.evaluate(value => document.documentElement.dataset.theme = value, theme)
       for (const width of [1440, 1100, 390, 320]) {
         await page.setViewportSize({ width, height: 1000 })
@@ -142,7 +141,8 @@ test('changing locale cancels an in-flight export', async ({ page }) => {
   await page.getByRole('button', { name: ru.presentation.download.button }).click()
   await expect(page.locator('input[value="square"]')).toBeDisabled()
   await expect(page.locator('.presentation-page__status')).toHaveText(ru.presentation.download.rendering)
-  await page.locator('.site-header a[href="/en/presentation/"]').click()
+  await page.locator('.site-header .locale-control > button').click()
+  await page.locator('.site-header .locale-control a[hreflang="en"]').click()
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(en.presentation.title)
   const pending = page.waitForEvent('download')
   await page.getByRole('button', { name: en.presentation.download.button }).click()

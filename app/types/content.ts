@@ -1,6 +1,7 @@
 import type { LocaleCode } from './i18n'
 
-export type ThemeName = 'system' | 'phosphor'
+export type ThemePreference = 'light' | 'dark' | 'auto'
+export type ResolvedTheme = 'light' | 'dark'
 
 export type ProjectCaseName = 'aerovista' | 'forma' | 'kineo' | 'nordhus' | 'planes-arch' | 'powersketch'
 export type ProjectThemeName = ProjectCaseName

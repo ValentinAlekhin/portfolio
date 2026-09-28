@@ -11,91 +11,43 @@ const props = withDefaults(defineProps<{
   locale: 'ru-RU',
 })
 
-const density = computed(() => {
-  if (props.title.length > 72)
-    return 'condensed'
-
-  if (props.title.length > 52)
-    return 'compact'
-
-  return 'default'
-})
-
-const eyebrowStyle = computed(() => ({
-  marginBottom: density.value === 'default' ? '26px' : '20px',
-}))
-
-const titleStyle = computed(() => {
-  if (density.value === 'condensed') {
-    return {
-      fontSize: '48px',
-      letterSpacing: '-0.045em',
-      lineHeight: '1',
-      textWrap: 'balance',
-    }
-  }
-
-  if (density.value === 'compact') {
-    return {
-      fontSize: '56px',
-      letterSpacing: '-0.05em',
-      lineHeight: '1.02',
-      textWrap: 'balance',
-    }
-  }
-
-  return {
-    fontSize: '68px',
-    letterSpacing: '-0.055em',
-    lineHeight: '1.04',
-    textWrap: 'balance',
-  }
-})
-
-const descriptionStyle = computed(() => ({
-  fontSize: density.value === 'condensed' ? '22px' : density.value === 'compact' ? '23px' : '25px',
-  lineHeight: density.value === 'condensed' ? '1.35' : density.value === 'compact' ? '1.4' : '1.5',
-  marginTop: density.value === 'default' ? '30px' : '22px',
+const titleStyle = computed(() => ({
+  fontSize: props.title.length > 72 ? '48px' : props.title.length > 52 ? '56px' : '68px',
+  lineHeight: '1.09',
+  letterSpacing: '-0.045em',
   textWrap: 'balance',
 }))
 </script>
 
 <template>
   <div
-    class="box-border flex h-full w-full flex-col bg-[#090b09] p-[64px] text-[#f0f1ec]"
-    style="font-family: 'JetBrains Mono Cyrillic', 'JetBrains Mono Latin', monospace;"
+    class="box-border flex h-full w-full flex-col bg-[#111111] p-[64px] text-[#f6f6f6]"
+    style="font-family: 'Manrope Cyrillic', 'Manrope Latin', sans-serif;"
   >
-    <div class="box-border flex h-[79px] shrink-0 items-center border-b border-[#2f3a31] pb-[26px]">
-      <div class="flex items-center gap-[18px]">
-        <div class="h-[52px] w-[52px] bg-[#a8ff60]">
-          <svg
-            aria-hidden="true"
-            height="52"
-            viewBox="0 0 52 52"
-            width="52"
-          >
-            <path
-              d="M14 15L25 22L14 29M29 35H39"
-              fill="none"
-              stroke="#090b09"
-              stroke-linecap="square"
-              stroke-linejoin="miter"
-              stroke-width="4"
-            />
-          </svg>
+    <div class="box-border flex h-[75px] shrink-0 items-center border-b border-[#555555] pb-[24px]">
+      <div class="flex items-center gap-[17px]">
+        <div
+          class="flex h-[44px] w-[44px] items-center justify-center border border-[#f6f6f6] text-[20px] font-semibold"
+          style="font-family: 'JetBrains Mono Cyrillic', 'JetBrains Mono Latin', monospace;"
+        >
+          &gt;_
         </div>
-        <span class="text-[24px] font-semibold tracking-[0.16em]">ALEKHIN.DEV</span>
+        <span
+          class="text-[21px] font-semibold"
+          style="font-family: 'JetBrains Mono Cyrillic', 'JetBrains Mono Latin', monospace;"
+        >alekhin.dev</span>
       </div>
-      <span class="ml-auto text-[18px] tracking-[0.12em] text-[#8f9b90]">STATIC OG / BUILD 03</span>
+      <span
+        class="ml-auto text-[17px] text-[#b9b9b9]"
+        style="font-family: 'JetBrains Mono Cyrillic', 'JetBrains Mono Latin', monospace;"
+      >{{ locale }}</span>
     </div>
 
-    <div class="box-border flex h-[372px] shrink-0 flex-col pt-[38px]">
+    <div class="box-border flex h-[375px] shrink-0 flex-col justify-center">
       <span
-        class="text-[20px] tracking-[0.12em] text-[#a8ff60]"
-        :style="eyebrowStyle"
-      >
-        [ {{ eyebrow }} ]
-      </span>
+        class="mb-[22px] text-[19px] text-[#b9b9b9]"
+        style="font-family: 'JetBrains Mono Cyrillic', 'JetBrains Mono Latin', monospace;"
+      >{{ eyebrow }}</span>
       <h1
         class="m-0 max-w-[1060px] font-semibold"
         :style="titleStyle"
@@ -104,19 +56,18 @@ const descriptionStyle = computed(() => ({
       </h1>
       <p
         v-if="description"
-        class="mb-0 max-w-[980px] text-[#a6ada7]"
-        :style="descriptionStyle"
+        class="mb-0 mt-[24px] max-w-[1000px] text-[24px] leading-[1.45] text-[#b9b9b9]"
       >
         {{ description }}
       </p>
     </div>
 
-    <div class="box-border flex h-[51px] shrink-0 items-center border-t border-[#2f3a31] pt-[24px] text-[18px] text-[#8f9b90]">
-      <div class="flex items-center gap-[12px]">
-        <span class="h-[10px] w-[10px] rounded-full bg-[#a8ff60]" />
-        <span class="uppercase">{{ availability }}</span>
-      </div>
-      <span class="ml-auto text-[#a8ff60]">{{ locale }}</span>
+    <div
+      class="box-border flex h-[52px] shrink-0 items-center border-t border-[#555555] pt-[23px] text-[18px] text-[#b9b9b9]"
+      style="font-family: 'JetBrains Mono Cyrillic', 'JetBrains Mono Latin', monospace;"
+    >
+      <span>{{ availability }}</span>
+      <span class="ml-auto">alekhin.dev</span>
     </div>
   </div>
 </template>

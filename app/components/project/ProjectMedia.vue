@@ -16,19 +16,9 @@ const props = withDefaults(defineProps<{
 
 const { t } = useI18n()
 const { localeCode } = usePortfolio()
-const { theme } = useTheme()
 const resolvedAlt = computed(() => props.alt ?? t(props.media.altKey))
 const resolvedCaption = computed(() => props.caption ?? t(props.media.captionKey))
-const resolvedSrc = computed(() => {
-  const sources = props.media.sources?.[localeCode.value]
-
-  if (!sources) {
-    return props.media.src
-  }
-
-  return theme.value === 'phosphor' ? sources.dark : sources.light
-})
-const resolvedExtension = computed(() => resolvedSrc.value.split('.').pop() ?? 'png')
+const localizedSources = computed(() => props.media.sources?.[localeCode.value])
 </script>
 
 <template>
@@ -36,84 +26,51 @@ const resolvedExtension = computed(() => resolvedSrc.value.split('.').pop() ?? '
     class="project-media"
     :class="{ 'project-media--compact': compact }"
   >
-    <div class="project-media__chrome system-label">
-      <span aria-hidden="true"><i /><i /><i /></span>
-      <span v-if="!compact">{{ media.id }}.{{ resolvedExtension }}</span>
-      <span v-if="!compact">{{ media.width }}×{{ media.height }}</span>
-    </div>
     <div class="project-media__viewport">
-      <NuxtImg
+      <BaseProgressiveImage
         v-if="!media.sources"
-        :src="resolvedSrc"
+        :src="media.src"
+        class="project-media__plain"
         :alt="resolvedAlt"
         :width="media.width"
         :height="media.height"
+        :priority="priority"
+        use-nuxt-image
         sizes="100vw lg:1440px"
-        :loading="priority ? 'eager' : 'lazy'"
       />
-      <img
-        v-else
-        :src="resolvedSrc"
+      <BaseProgressiveImage
+        v-if="localizedSources"
+        :src="localizedSources.light"
+        class="project-media__theme-light"
         :alt="resolvedAlt"
         :width="media.width"
         :height="media.height"
-        :loading="priority ? 'eager' : 'lazy'"
-        decoding="async"
-      >
+        :priority="priority"
+      />
+      <BaseProgressiveImage
+        v-if="localizedSources"
+        :src="localizedSources.dark"
+        class="project-media__theme-dark"
+        :alt="resolvedAlt"
+        :width="media.width"
+        :height="media.height"
+        :priority="priority"
+      />
     </div>
-    <figcaption class="system-label">
-      <span>// {{ resolvedCaption }}</span>
-      <span>{{ media.id }}</span>
+    <figcaption v-if="!compact">
+      {{ resolvedCaption }}
     </figcaption>
   </figure>
 </template>
 
 <style scoped lang="scss">
-.project-media {
-  margin: 0;
-  overflow: hidden;
-  border: 1px solid var(--color-control-border);
-  background: var(--project-media-bg, var(--color-surface-strong));
-  box-shadow: var(--project-media-shadow, 0 30px 80px rgb(0 0 0 / 18%));
-}
-
-.project-media__chrome,
-.project-media figcaption {
-  display: grid;
-  min-height: 2.55rem;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 0.75rem;
-  padding-inline: 0.85rem;
-  color: var(--color-text-muted);
-  font-size: clamp(0.5rem, 0.65vw, 0.65rem);
-}
-
-.project-media__chrome { border-bottom: 1px solid var(--color-line); }
-.project-media__chrome > span:first-child { display: flex; gap: 0.3rem; }
-.project-media__chrome > span:last-child,
-.project-media figcaption > span:last-child { justify-self: end; color: var(--color-accent); }
-.project-media__chrome i { width: 0.42rem; height: 0.42rem; border: 1px solid var(--color-control-border); border-radius: 50%; }
-.project-media__chrome i:first-child { border-color: var(--color-accent); background: var(--color-accent); }
-
-.project-media__viewport {
-  overflow: hidden;
-  padding: clamp(0.35rem, 0.8vw, 0.8rem);
-  background: color-mix(in srgb, var(--project-media-bg, var(--color-surface-strong)) 82%, var(--color-bg));
-}
-
-.project-media__viewport :deep(img) { width: 100%; height: auto; background: #fff; }
-.project-media figcaption { grid-template-columns: 1fr auto; border-top: 1px solid var(--color-line); }
-.project-media figcaption > span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-.project-media--compact .project-media__chrome { min-height: 2rem; }
-.project-media--compact figcaption { display: none; }
-.project-media--compact .project-media__viewport { padding: 0.35rem; }
-
-@media (max-width: 600px) {
-  .project-media__chrome { grid-template-columns: auto 1fr; }
-  .project-media__chrome > span:nth-child(2) { justify-self: end; }
-  .project-media__chrome > span:last-child { display: none; }
-  .project-media figcaption > span:last-child { display: none; }
-}
+.project-media { margin: 0; min-width: 0; }
+.project-media__viewport { overflow: hidden; border: 1px solid var(--color-line); background: var(--color-surface); }
+.project-media__viewport :deep(img) { display: block; width: 100%; height: 100%; object-fit: cover; }
+.project-media__viewport > .project-media__plain,
+.project-media__viewport > .project-media__theme-light { display: block; }
+.project-media__viewport > .project-media__theme-dark { display: none; }
+html[data-theme='dark'] .project-media__viewport > .project-media__theme-light { display: none; }
+html[data-theme='dark'] .project-media__viewport > .project-media__theme-dark { display: block; }
+.project-media figcaption { margin-top: 0.55rem; color: var(--color-text-muted); font-size: var(--font-size-ui); }
 </style>

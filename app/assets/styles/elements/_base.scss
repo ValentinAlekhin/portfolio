@@ -7,27 +7,12 @@ html {
 body {
   overflow-x: hidden;
   background-color: var(--color-bg);
-  background-image: linear-gradient(color-mix(in srgb, var(--color-line) 28%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--color-line) 22%, transparent) 1px, transparent 1px);
-  background-position: center top;
-  background-size: 4rem 4rem;
   color: var(--color-text);
   font-family: var(--font-sans);
   font-size: var(--font-size-body);
-  line-height: 1.62;
+  line-height: 1.6;
   text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;
-}
-
-body::before {
-  position: fixed;
-  z-index: 1000;
-  height: 1px;
-  background: var(--color-accent);
-  content: '';
-  inset: 0 auto auto 0;
-  pointer-events: none;
-  transition: width 80ms linear;
-  width: var(--scroll-progress, 0%);
 }
 
 a {
@@ -39,8 +24,8 @@ button {
 }
 
 ::selection {
-  background: var(--color-phosphor);
-  color: var(--color-accent-ink);
+  background: var(--color-text);
+  color: var(--color-bg);
 }
 
 :focus-visible {

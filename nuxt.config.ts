@@ -27,16 +27,19 @@ export default defineNuxtConfig({
       titleTemplate: '%s · alekhin.dev',
       meta: [
         { name: 'color-scheme', content: 'light dark' },
+        { name: 'theme-color', content: '#ffffff' },
+      ],
+      script: [
+        {
+          innerHTML: '(function(){var d=document.documentElement,p=\'auto\';try{var s=localStorage.getItem(\'va-theme-preference\');if(s===\'light\'||s===\'dark\'||s===\'auto\')p=s;else{var l=localStorage.getItem(\'va-theme\');if(l===\'system\')p=\'light\';if(l===\'phosphor\')p=\'dark\'}}catch(e){}var t=p===\'auto\'?(matchMedia(\'(prefers-color-scheme: dark)\').matches?\'dark\':\'light\'):p;d.dataset.theme=t;d.style.colorScheme=t;var m=document.querySelector(\'meta[name="theme-color"]\');if(m)m.content=t===\'dark\'?\'#111111\':\'#ffffff\'})();',
+          tagPosition: 'head',
+        },
       ],
       link: [
         { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
         { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
         { rel: 'manifest', href: '/site.webmanifest' },
       ],
-    },
-    pageTransition: {
-      name: 'system-page',
-      mode: 'out-in',
     },
   },
 
@@ -103,6 +106,20 @@ export default defineNuxtConfig({
 
   fonts: {
     families: [
+      {
+        global: true,
+        name: 'Manrope Cyrillic',
+        src: '/fonts/manrope-cyrillic-wght-normal.woff2',
+        style: 'normal',
+        weight: [200, 800],
+      },
+      {
+        global: true,
+        name: 'Manrope Latin',
+        src: '/fonts/manrope-latin-wght-normal.woff2',
+        style: 'normal',
+        weight: [200, 800],
+      },
       {
         global: true,
         name: 'JetBrains Mono Cyrillic',

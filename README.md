@@ -2,7 +2,7 @@
 
 Персональное портфолио Валентина Алёхина — независимого senior full-stack разработчика. Сайт знакомит с подходом к работе, услугами и проектами, а каждый проект раскрывается на отдельной странице кейса.
 
-Визуальная система построена вокруг интерфейсов терминала и редактора: моноширинная типографика, phosphor-green акценты, CRT-эффекты, интерактивная консоль и Canvas-игра. При этом сайт остаётся доступным с клавиатуры, учитывает `prefers-reduced-motion` и адаптирован для мобильных устройств.
+Визуальная система минималистична и монохромна: Manrope для обычного текста, JetBrains Mono для технических деталей, прямые углы и тонкие разделители. На страницах кейсов используются небольшие акценты цвета проекта. Интерфейс доступен с клавиатуры, учитывает `prefers-reduced-motion` и адаптирован для мобильных устройств.
 
 - Production: [alekhin.dev](https://alekhin.dev)
 - Русская версия по умолчанию: `/`
@@ -17,10 +17,9 @@
 
 - две локали с `prefix_except_default`: русский без префикса и английский под `/en`;
 - главная страница с секциями проектов, услуг, типов задач, информации об авторе и контактов;
-- шесть локализованных проектных кейсов с собственными визуальными темами и адаптивными галереями;
-- режимы `system` и `phosphor` с ранней инициализацией темы без заметной вспышки палитры;
-- интерактивный терминал с командами навигации, переключением темы и историей ввода;
-- Canvas-игра с управлением с клавиатуры и сенсорных устройств;
+- шесть локализованных проектных кейсов с локальными цветовыми акцентами и адаптивными галереями;
+- светлая, тёмная и автоматическая тема с ранней инициализацией без заметной вспышки палитры;
+- раскрываемые карточки проектов и компактные переключатели темы и языка;
 - локализованные SEO-метаданные, Open Graph, canonical/alternate links и Schema.org graph;
 - автоматически генерируемые sitemap и robots.txt с проверкой ссылок при сборке;
 - статическая генерация всех локализованных маршрутов.
@@ -32,9 +31,9 @@
 - `@nuxtjs/i18n`;
 - `@nuxtjs/seo` для Site Config, статических OG-карточек, sitemap, robots, Schema.org и проверки ссылок;
 - SCSS и централизованные CSS custom properties;
-- GSAP для анимаций;
+- Reka UI для доступных элементов управления, VueUse для браузерных взаимодействий;
+- Carbon Icons для строгой иконографии;
 - `@nuxt/image` для изображений;
-- Reka UI для доступных UI-примитивов;
 - Vitest и Vue Test Utils;
 - Playwright и axe-core для браузерных и accessibility-тестов;
 - ESLint и Stylelint.
@@ -73,6 +72,7 @@ Development-сервер по умолчанию доступен на `http://l
 | `pnpm typecheck` | Проверить типы Nuxt, Vue и TypeScript |
 | `pnpm build` | Создать production server build |
 | `pnpm generate` | Предварительно сгенерировать статический сайт |
+| `pnpm images:placeholders` | Обновить лёгкие плейсхолдеры скриншотов после замены медиа |
 | `pnpm preview` | Локально запустить сгенерированный production-результат |
 
 Перед отправкой изменений выполните:
@@ -90,10 +90,10 @@ pnpm generate
 
 ```text
 app/
-  app.vue                         # общая оболочка, header/footer, диалоги и эффекты
+  app.vue                         # общая оболочка, header/footer и диалог контактов
   error.vue                       # локализованная страница ошибки
   assets/
-    asciiart.txt                  # ASCII-графика для hero/workbench
+    asciiart.txt                  # ASCII-графика для desktop hero
     styles/
       main.scss                   # точка входа глобальных SCSS-слоёв
       settings/                   # токены, breakpoints, типографика, темы кейсов
@@ -104,12 +104,10 @@ app/
       utilities/                  # accessibility и reduced motion
   components/
     base/                         # кнопки и заголовки секций
-    layout/                       # header, footer, mobile nav, page transition
-    motion/                       # небольшие animation-компоненты
+    layout/                       # header, footer и mobile nav
     project/                      # страницы и общие блоки проектных кейсов
     sections/                     # секции главной страницы
-    ui/                           # theme/locale controls, dialog, terminal
-    visual/                       # CRT, workbench, marquee и Canvas-игра
+    ui/                           # theme/locale controls и dialog
   composables/                    # переиспользуемое состояние и browser-only поведение
   data/
     navigation.ts                # locale-independent навигация
@@ -118,8 +116,6 @@ app/
   pages/
     index.vue                    # главная страница
     projects/[slug].vue          # динамический маршрут проектного кейса
-  plugins/
-    gsap.client.ts               # клиентская регистрация GSAP
   types/                         # общие типы контента и локалей
   utils/                         # framework-independent helpers
 i18n/locales/
@@ -187,12 +183,14 @@ Locale-independent данные разделены по назначению:
 
 - стабильный `slug`, индекс, название, период и статус;
 - ключи локализованного текста и scope;
-- имя компонента и тему кейса;
+- тему кейса;
 - Schema.org-тип (`SoftwareApplication` или `WebSite`);
 - cover, Open Graph image, метрики, стек и массив медиа;
 - внешний URL, только если опубликованный проект действительно доступен.
 
 Медиа хранятся в `public/projects/<slug>/`. Для каждого элемента указываются реальные размеры, ключи локализованных `alt` и caption, а при необходимости — вариант отображения (`viewport`, `full-page`, `phone` или `modal`). Для изображений, зависящих от локали и темы, используйте `ProjectMediaSources`.
+
+Лёгкие плейсхолдеры скриншотов собираются Sharp в `app/data/projectPlaceholders.generated.ts`. Команды `pnpm dev`, `pnpm build` и `pnpm generate` запускают генератор автоматически; отдельная команда `pnpm images:placeholders` полезна после добавления новых файлов.
 
 ### Добавление проекта
 
@@ -210,33 +208,27 @@ Locale-independent данные разделены по назначению:
 
 Глобальные стили подключаются через `app/assets/styles/main.scss` и разбиты на SCSS-слои. Основные токены определены в `app/assets/styles/settings/_tokens.scss`.
 
-Поддерживаются два значения темы:
+Поддерживаются три предпочтения: `light`, `dark` и `auto`. В автоматическом режиме страница следует системной цветовой схеме и меняется вместе с ней. Выбор хранится в `localStorage` под ключом `va-theme-preference`; прежние значения `va-theme` переносятся один раз. Синхронный скрипт в `nuxt.config.ts` применяет тему до гидратации.
 
-- `system` — основная светлая палитра;
-- `phosphor` — тёмная CRT-палитра с phosphor-green акцентом.
-
-При первом посещении начальное значение выбирается с учётом системной цветовой схемы, затем выбор хранится в `localStorage` под ключом `va-theme`. Синхронный скрипт в `nuxt.config.ts` применяет тему до гидратации.
-
-У каждого кейса может быть собственная палитра. Она задаётся через `data-project-theme` и токены в `app/assets/styles/settings/_project-themes.scss`, а не через случайные цвета внутри компонентов.
+Локальный акцент кейса задаётся через `.project-case[data-project-theme]` и токены в `app/assets/styles/settings/_project-themes.scss`. Фон сайта и шапка остаются монохромными.
 
 При изменении интерфейса:
 
 - используйте существующие CSS custom properties;
 - сохраняйте видимый focus и достаточный контраст;
-- проверяйте `system` и `phosphor`;
+- проверяйте `light`, `dark` и `auto`;
 - проверяйте desktop, ширину около 1100 px и mobile;
 - не ломайте layout длинными русскими или английскими строками;
 - учитывайте `prefers-reduced-motion`.
 
 ## Browser-only поведение
 
-DOM API, Canvas, observers, timers и event listeners инициализируются только внутри клиентского lifecycle. На unmount необходимо отменять animation frames, отключать observers и удалять listeners.
+DOM API, observers, timers и event listeners инициализируются только внутри клиентского lifecycle. На unmount необходимо отключать observers и удалять listeners.
 
 Особое внимание требуется для:
 
-- `TerminalConsole` — открывается кнопкой, `Cmd/Ctrl + K` или клавишей `` ` ``;
-- `FlightGameCanvas` — учитывает DPR, resize, keyboard/touch input, видимость вкладки и reduced motion;
-- GSAP-анимаций и page transitions;
+- раскрытия карточек проектов при наведении, фокусе и прокрутке на телефоне;
+- управления компактными переключателями темы и языка мышью, касанием и клавиатурой;
 - диалога контактов и мобильной навигации;
 - переключения локали и темы без hydration warnings.
 
@@ -307,16 +299,15 @@ Build command: pnpm generate
 Publish directory: .output/public
 ```
 
-После публикации откройте `/` и `/en/`, затем все страницы проектов в обеих локалях. Проверьте прямое открытие и обновление вложенных маршрутов, переключатели языка и темы, контакты, terminal, Canvas-игру, canonical/alternate links, `robots.txt`, `sitemap_index.xml` и Open Graph preview.
+После публикации откройте `/` и `/en/`, затем все страницы проектов в обеих локалях. Проверьте прямое открытие и обновление вложенных маршрутов, переключатели языка и темы, контакты, раскрытие проектов, canonical/alternate links, `robots.txt`, `sitemap_index.xml` и Open Graph preview.
 
 ## Финальная проверка UI
 
 - обе локали на главной и всех project routes;
-- обе темы, включая индивидуальные палитры кейсов;
+- светлую, тёмную и автоматическую тему, включая акценты кейсов;
 - desktop, примерно 1100 px и mobile;
 - keyboard navigation, skip link и видимый focus;
-- mobile navigation, contact dialog и terminal input;
-- Canvas controls с клавиатуры и touch;
+- mobile navigation, contact dialog, тему, язык и раскрытие проектов;
 - `prefers-reduced-motion`;
 - отсутствие SSR/hydration ошибок и горизонтального scroll;
 - корректные локализованные title, description, canonical, alternate и Schema.org graph;

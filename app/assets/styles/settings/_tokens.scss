@@ -1,66 +1,66 @@
 :root {
   color-scheme: light;
-  --color-bg: #edeae4;
-  --color-surface: #f7f5ef;
-  --color-surface-strong: #e2e1da;
-  --color-text: #11130f;
-  --color-text-muted: #5d6259;
-  --color-line: #c9ccc2;
-  --color-control-border: #7a8174;
-  --color-accent: #2b7330;
-  --color-phosphor: #a8ff60;
-  --color-accent-ink: #0a0c09;
-  --color-focus: #245f29;
-  --color-danger: #a63c35;
+  --color-bg: #fff;
+  --color-surface: #f7f7f7;
+  --color-surface-strong: #ededed;
+  --color-text: #171717;
+  --color-text-muted: #595959;
+  --color-line: #d7d7d7;
+  --color-control-border: #858585;
+  --color-accent: #171717;
+  --color-phosphor: #171717;
+  --color-accent-ink: #fff;
+  --color-focus: #171717;
+  --color-danger: #171717;
+  --color-code-blue: #171717;
+  --color-code-string: #4a4a4a;
   --font-sans: 'Manrope Variable', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono Variable', monospace;
-  --card-paper: #f1eee7;
-  --card-light-ink: #11130f;
-  --card-light-muted: #565d53;
-  --card-light-line: #bfc5b9;
-  --card-light-accent: #2b7330;
-  --card-accent-ink: #090b09;
-  --card-dark-bg: #090b09;
-  --card-dark-text: #f0f2ea;
-  --card-dark-muted: #a6ad9e;
-  --card-dark-line: #34402f;
-  --card-phosphor: #a8ff60;
-  --card-share-bg: #d9ddd4;
-  --font-size-body: clamp(1.0625rem, 1.2vw, 1.25rem);
-  --font-size-small: clamp(0.875rem, 0.95vw, 1rem);
-  --font-size-ui: clamp(0.75rem, 0.85vw, 0.875rem);
-  --color-code-string: #765600;
-  --duration-instant: 100ms;
+  --font-size-body: clamp(1rem, 1.1vw, 1.125rem);
+  --font-size-small: 0.875rem;
+  --font-size-ui: 0.75rem;
+  --duration-instant: 80ms;
   --duration-fast: 160ms;
-  --duration-ui: 280ms;
-  --duration-section: 650ms;
-  --duration-page: 720ms;
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-  --layout-width: 90rem;
-  --layout-gutter: clamp(1.5rem, 4.5vw, 4.5rem);
-  --header-height: 5.25rem;
+  --duration-ui: 180ms;
+  --duration-section: 180ms;
+  --duration-page: 180ms;
+  --ease-out: ease-out;
+  --ease-in-out: ease-in-out;
+  --layout-width: 75rem;
+  --layout-gutter: clamp(1.25rem, 4vw, 3rem);
+  --header-height: 4rem;
+  --card-paper: #fff;
+  --card-light-ink: #171717;
+  --card-light-muted: #595959;
+  --card-light-line: #d7d7d7;
+  --card-light-accent: #171717;
+  --card-accent-ink: #fff;
+  --card-dark-bg: #111;
+  --card-dark-text: #f5f5f5;
+  --card-dark-muted: #b4b4b4;
+  --card-dark-line: #444;
+  --card-phosphor: #fff;
+  --card-share-bg: #ededed;
 }
 
-html[data-theme='phosphor'] {
+html[data-theme='dark'] {
   color-scheme: dark;
-  --color-bg: #090b09;
-  --color-surface: #10140f;
-  --color-surface-strong: #171d15;
-  --color-text: #f0f2ea;
-  --color-text-muted: #a6ad9e;
-  --color-line: #283025;
-  --color-control-border: #5c6b55;
-  --color-accent: #a8ff60;
-  --color-phosphor: #a8ff60;
-  --color-accent-ink: #0a0c09;
-  --color-focus: #c9ff9b;
-  --color-danger: #ff8d82;
-  --color-code-string: #f0c86a;
+  --color-bg: #111;
+  --color-surface: #191919;
+  --color-surface-strong: #252525;
+  --color-text: #f5f5f5;
+  --color-text-muted: #b4b4b4;
+  --color-line: #414141;
+  --color-control-border: #909090;
+  --color-accent: #f5f5f5;
+  --color-phosphor: #f5f5f5;
+  --color-accent-ink: #111;
+  --color-focus: #fff;
+  --color-danger: #f5f5f5;
+  --color-code-blue: #f5f5f5;
+  --color-code-string: #ccc;
 }
 
 @media (max-width: 767px) {
-  :root {
-    --header-height: 3.5rem;
-  }
+  :root { --header-height: 3.5rem; }
 }

@@ -1,10 +1,9 @@
 <script setup lang="ts">
-const props = withDefaults(defineProps<{
+withDefaults(defineProps<{
   href?: string
   to?: string
   variant?: 'primary' | 'secondary' | 'text'
   external?: boolean
-  magnetic?: boolean
   disabled?: boolean
 }>(), {
   disabled: false,
@@ -12,20 +11,12 @@ const props = withDefaults(defineProps<{
   to: undefined,
   variant: 'primary',
   external: false,
-  magnetic: true,
 })
-
-const target = ref<HTMLElement | null>(null)
-
-if (props.magnetic) {
-  useMagnetic(target)
-}
 </script>
 
 <template>
   <component
     :is="to ? resolveComponent('NuxtLink') : href ? 'a' : 'button'"
-    ref="target"
     :to="to"
     :href="href"
     :target="external ? '_blank' : undefined"
@@ -40,94 +31,83 @@ if (props.magnetic) {
       v-if="$slots.icon"
       class="base-button__icon"
       aria-hidden="true"
-    ><slot name="icon" /></span>
+    >
+      <slot name="icon" />
+    </span>
   </component>
 </template>
 
 <style scoped lang="scss">
 .base-button {
-  --magnetic-x: 0px;
-  --magnetic-y: 0px;
-  --magnetic-inner-x: 0px;
-  --magnetic-inner-y: 0px;
-  position: relative;
   display: inline-flex;
+  min-height: 3rem;
   align-items: center;
   justify-content: center;
-  min-height: 3rem;
-  gap: 0.35rem;
-  padding: 0.72rem 0.2rem;
-  border: 0;
-  background: transparent;
-  color: var(--color-accent);
+  gap: 0.6rem;
+  padding: 0.65rem 1rem;
+  border: 1px solid var(--color-text);
+  border-radius: 0;
+  background: var(--color-text);
+  color: var(--color-bg);
   cursor: pointer;
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
-  font-weight: 580;
-  letter-spacing: 0.025em;
-  line-height: 1;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-ui);
+  font-weight: 650;
+  line-height: 1.25;
+  text-align: center;
   text-decoration: none;
-  transform: translate3d(var(--magnetic-x), var(--magnetic-y), 0);
-  transition: color var(--duration-fast) ease, transform var(--duration-ui) var(--ease-out);
-}
-
-.base-button::before,
-.base-button::after {
-  color: var(--color-text-muted);
-  transition: color var(--duration-fast) ease, transform var(--duration-fast) ease;
-}
-
-.base-button::before { content: '['; }
-.base-button::after { content: ']'; }
-
-.base-button__label,
-.base-button__icon {
-  position: relative;
-  z-index: 1;
-}
-
-.base-button__label {
-  transform: translate3d(var(--magnetic-inner-x), var(--magnetic-inner-y), 0);
-}
-
-.base-button__icon {
-  display: none;
+  white-space: nowrap;
+  transition: background var(--duration-fast) ease, color var(--duration-fast) ease, border-color var(--duration-fast) ease;
 }
 
 .base-button:hover {
+  border-color: var(--color-text-muted);
+  background: var(--color-text-muted);
+}
+
+.base-button--secondary {
+  padding-inline: 0;
+  border-color: transparent;
+  background: transparent;
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-color: var(--color-line);
+  text-underline-offset: 0.35em;
+}
+
+.base-button--secondary:hover {
+  border-color: transparent;
+  background: transparent;
+  text-decoration-color: currentcolor;
+}
+
+.base-button--text {
+  padding-inline: 0;
+  border-color: transparent;
+  background: transparent;
   color: var(--color-text);
 }
 
-.base-button:disabled {
-  color: var(--color-text-muted);
-  cursor: wait;
-  opacity: 0.58;
-  transform: none;
-}
-
-.base-button:disabled::before,
-.base-button:disabled::after {
-  color: var(--color-line);
-  transform: none;
-}
-
-.base-button:hover::before { color: var(--color-accent); transform: translateX(-0.2rem); }
-.base-button:hover::after { color: var(--color-accent); transform: translateX(0.2rem); }
-.base-button--primary::before { content: '['; }
-.base-button--secondary { color: var(--color-text-muted); }
-
-.base-button--text {
-  min-height: 2.75rem;
-  padding-inline: 0;
-}
-
 .base-button--text:hover {
-  color: var(--color-accent);
+  border-color: transparent;
+  background: transparent;
+  color: var(--color-text-muted);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .base-button {
-    transform: none;
-  }
+.base-button:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
 }
+
+.base-button:disabled {
+  border-color: var(--color-line);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.base-button__icon { display: inline-flex; }
+.base-button__label { white-space: nowrap; }
+.base-button__icon :deep(svg) { flex: none; }
 </style>

@@ -11,7 +11,7 @@
 
 .page-section {
   position: relative;
-  padding-block: clamp(5rem, 9vw, 9rem);
+  padding-block: clamp(2rem, 2.5vw, 2.5rem);
   scroll-margin-top: calc(var(--header-height) + 1rem);
 }
 
@@ -20,9 +20,8 @@
   font-size: var(--font-size-ui);
   font-variant-ligatures: none;
   font-variant-numeric: tabular-nums;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.015em;
   line-height: 1.4;
-  text-transform: uppercase;
 }
 
 .section-rule {
@@ -33,4 +32,8 @@
   color: var(--color-accent);
   font-family: var(--font-mono);
   font-size: 0.75rem;
+}
+
+@media (max-width: 767px) {
+  .page-section { padding-block: 1.5rem; }
 }

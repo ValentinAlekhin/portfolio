@@ -79,7 +79,7 @@ useHead(() => ({
     >
       <div class="business-card-page__copy">
         <p class="business-card-page__eyebrow system-label">
-          <span>//</span> {{ t('businessCard.eyebrow') }}
+          {{ t('businessCard.eyebrow') }}
         </p>
         <h1 id="business-card-title">
           {{ t('businessCard.title') }}
@@ -132,9 +132,6 @@ useHead(() => ({
       aria-labelledby="business-card-download-title"
     >
       <div>
-        <p class="system-label">
-          DOWNLOAD / EXPORT
-        </p>
         <h2 id="business-card-download-title">
           {{ t('businessCard.download.title') }}
         </h2>
@@ -240,14 +237,14 @@ useHead(() => ({
 <style scoped lang="scss">
 .business-card-page {
   min-height: 100svh;
-  padding: calc(var(--header-height) + clamp(3rem, 6vw, 6rem)) 0 clamp(5rem, 9vw, 8rem);
+  padding: calc(var(--header-height) + clamp(2.5rem, 4vw, 4rem)) 0 clamp(3rem, 5vw, 4rem);
 }
 
 .business-card-page__intro {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.62fr);
   align-items: end;
-  gap: clamp(2.5rem, 7vw, 8rem);
+  gap: clamp(2rem, 5vw, 5rem);
 }
 
 .business-card-page__eyebrow {
@@ -255,23 +252,18 @@ useHead(() => ({
   color: var(--color-text-muted);
 }
 
-.business-card-page__eyebrow span,
-.business-card-page__download > div:first-child > p {
-  color: var(--color-accent);
-}
-
 .business-card-page__copy h1 {
   max-width: 12ch;
   margin: 0;
-  font-size: clamp(3rem, 7.5vw, 7rem);
-  font-weight: 540;
-  letter-spacing: -0.07em;
-  line-height: 0.92;
+  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
 }
 
 .business-card-page__copy > p:last-child {
   max-width: 50ch;
-  margin: 1.5rem 0 0;
+  margin: 1rem 0 0;
   color: var(--color-text-muted);
 }
 
@@ -304,7 +296,7 @@ useHead(() => ({
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(1.5rem, 3vw, 3rem);
-  margin-top: clamp(4rem, 8vw, 7rem);
+  margin-top: clamp(2.5rem, 5vw, 4rem);
 }
 
 .business-card-page__preview figure {
@@ -314,31 +306,22 @@ useHead(() => ({
 
 .business-card-page__preview figcaption {
   display: flex;
-  min-height: 2.6rem;
+  min-height: 2.8rem;
   align-items: center;
-  padding-inline: 0.85rem;
-  border: 1px solid var(--color-control-border);
-  border-bottom: 0;
+  padding-inline: 0;
   color: var(--color-text-muted);
 }
 
 .business-card-page__card-frame {
-  padding: clamp(0.35rem, 0.8vw, 0.65rem);
-  border: 1px solid var(--color-control-border);
-  background: var(--color-surface-strong);
-  box-shadow: 0 30px 80px rgb(0 0 0 / 16%);
-}
-
-.business-card-page__card-frame :deep(.business-card) {
-  box-shadow: 0 12px 32px rgb(0 0 0 / 15%);
+  border: 1px solid var(--color-line);
 }
 
 .business-card-page__download {
   display: grid;
   grid-template-columns: minmax(0, 0.82fr) minmax(30rem, 1.18fr);
   gap: clamp(2.5rem, 8vw, 8rem);
-  margin-top: clamp(4rem, 8vw, 7rem);
-  padding-block: clamp(2rem, 5vw, 4rem);
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding-block: clamp(1.5rem, 3vw, 2.5rem);
   border-top: 1px solid var(--color-line);
   border-bottom: 1px solid var(--color-line);
 }
@@ -346,10 +329,10 @@ useHead(() => ({
 .business-card-page__download h2 {
   max-width: 14ch;
   margin: 0.7rem 0 0;
-  font-size: clamp(2rem, 4vw, 3.8rem);
-  font-weight: 540;
-  letter-spacing: -0.055em;
-  line-height: 1;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1.1;
 }
 
 .business-card-page__download > div:first-child > p:last-child {
@@ -368,27 +351,25 @@ useHead(() => ({
 .business-card-page__download-actions > div {
   display: grid;
   align-content: center;
-  padding: 1.2rem;
-  border: 1px solid var(--color-line);
-  background: color-mix(in srgb, var(--color-surface) 86%, transparent);
+  gap: 0.35rem;
 }
 
 .business-card-page__download-actions :deep(.base-button) {
-  width: 100%;
+  justify-self: start;
 }
 
 .business-card-page__download-actions > div > span {
-  margin-top: 0.4rem;
+  margin-top: 0;
   color: var(--color-text-muted);
   font-size: 0.62rem;
-  text-align: center;
+  text-align: left;
 }
 
 .business-card-page__status {
   min-height: 1.3rem;
   grid-column: 1 / -1;
   margin: 0;
-  color: var(--color-accent);
+  color: var(--color-text-muted);
 }
 
 .business-card-page__contact {
@@ -419,15 +400,7 @@ useHead(() => ({
   align-content: start;
   gap: 94px;
   padding: 60px;
-  background:
-    linear-gradient(color-mix(in srgb, var(--card-light-line) 42%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--card-light-line) 42%, transparent) 1px, transparent 1px),
-    var(--card-share-bg);
-  background-size: 48px 48px;
-}
-
-.business-card-share-export__card {
-  box-shadow: 0 28px 70px rgb(0 0 0 / 18%);
+  background: var(--card-share-bg);
 }
 
 .business-card-share-export__card :deep(.business-card),
@@ -457,7 +430,7 @@ useHead(() => ({
 
 @media (max-width: 760px) {
   .business-card-page__copy h1 {
-    font-size: clamp(3rem, 14vw, 5rem);
+    font-size: clamp(2.25rem, 10vw, 3.5rem);
   }
 
   .business-card-page__preview,
@@ -479,8 +452,5 @@ useHead(() => ({
     grid-template-columns: 5.5rem 1fr;
   }
 
-  .business-card-page__card-frame {
-    margin-inline: calc(var(--layout-gutter) * -0.5);
-  }
 }
 </style>

@@ -1,19 +1,5 @@
 <script setup lang="ts">
 const { t } = useI18n()
-const paragraphKeys = ['about.paragraphs.product', 'about.paragraphs.workflow'] as const
-const principleKeys = [
-  'about.principles.interface',
-  'about.principles.prototype',
-  'about.principles.automation',
-  'about.principles.launch',
-] as const
-const paragraphs = computed(() => paragraphKeys.map(key => t(key)))
-const principles = computed(() => principleKeys.map(key => t(key)))
-const nowItems = [
-  { id: 'building', labelKey: 'about.now.building.label', valueKey: 'about.now.building.value' },
-  { id: 'exploring', labelKey: 'about.now.exploring.label', valueKey: 'about.now.exploring.value' },
-  { id: 'available', labelKey: 'about.now.available.label', valueKey: 'about.now.available.value' },
-] as const
 </script>
 
 <template>
@@ -22,98 +8,24 @@ const nowItems = [
     class="page-section section-rule about-section"
     aria-labelledby="about-title"
   >
-    <div class="site-container">
-      <MotionReveal>
-        <BaseSectionHeading
-          index="05"
-          :eyebrow="t('about.eyebrow')"
-          :title="t('about.title')"
-          title-id="about-title"
-        />
-      </MotionReveal>
-
-      <div class="about-file system-label">
-        <span>{{ t('about.fileLabel') }}</span>
-        <span>UTF-8 / LF</span>
+    <div class="site-container about-section__grid">
+      <div>
+        <h2 id="about-title">
+          {{ t('about.title') }}
+        </h2>
       </div>
-      <div class="about-grid">
-        <MotionReveal class="about-copy">
-          <p class="about-copy__prompt">
-            {{ t('profile.displayName') }}
-          </p>
-          <p
-            v-for="paragraph in paragraphs"
-            :key="paragraph"
-          >
-            {{ paragraph }}
-          </p>
-        </MotionReveal>
-
-        <MotionReveal
-          :delay="0.08"
-          class="about-principles"
-        >
-          <p class="system-label">
-            {{ t('about.principlesLabel') }}
-          </p>
-          <ol>
-            <li
-              v-for="(principle, index) in principles"
-              :key="principle"
-            >
-              <span class="system-label">{{ index + 1 }}:</span><span>{{ principle }}</span>
-            </li>
-          </ol>
-        </MotionReveal>
-      </div>
-
-      <div class="now-panel">
-        <p class="now-panel__title system-label">
-          {{ t('about.nowTitle') }}
-        </p>
-        <MotionReveal class="now-board">
-          <div
-            v-for="item in nowItems"
-            :key="item.id"
-            class="now-board__item"
-          >
-            <span class="system-label">{{ t(item.labelKey) }}</span>
-            <strong>{{ t(item.valueKey) }}</strong>
-          </div>
-        </MotionReveal>
+      <div class="about-section__copy">
+        <p>{{ t('about.paragraphs.product') }}</p>
+        <p>{{ t('about.paragraphs.workflow') }}</p>
       </div>
     </div>
   </section>
 </template>
 
 <style scoped lang="scss">
-.about-file { display: flex; min-height: 2.6rem; align-items: center; justify-content: space-between; padding-inline: 0.9rem; border: 1px solid var(--color-control-border); border-bottom: 0; color: var(--color-text-muted); }
-.about-file span:first-child { color: var(--color-accent); }
-.about-grid { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(3rem, 9vw, 9rem); padding: clamp(1.5rem, 4vw, 3.5rem); border: 1px solid var(--color-control-border); background: color-mix(in srgb, var(--color-bg) 92%, #000); }
-.about-copy { font-size: clamp(1.2rem, 2vw, 1.65rem); line-height: 1.48; }
-.about-copy p { margin: 0; }
-.about-copy p + p { margin-top: 1.5rem; color: var(--color-text-muted); }
-.about-copy .about-copy__prompt { margin-bottom: 2rem; color: var(--color-accent); font-family: var(--font-mono); font-size: var(--font-size-small); }
-.about-principles > p { margin: 0 0 1rem; color: var(--color-text-muted); }
-.about-principles > p span { color: #c67be5; }
-.about-principles ol { margin: 0; list-style: none; border-top: 1px solid var(--color-line); }
-.about-principles li { display: grid; min-height: 4.7rem; grid-template-columns: 3rem minmax(0, 1fr); align-items: center; border-bottom: 1px solid var(--color-line); }
-.about-principles li > span:first-child { color: var(--color-accent); }
-.about-principles li q { color: var(--color-code-string); quotes: '"' '"'; }
-.now-panel { margin-top: 3.25rem; }
-.now-panel__title { margin: 0 0 0.75rem; color: var(--color-accent); }
-.now-board { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--color-line); }
-.now-board__item { min-height: 10rem; padding: 1.3rem; border-right: 1px solid var(--color-line); background: var(--color-surface); }
-.now-board__item:last-child { border-right: 0; }
-.now-board__item span { display: block; color: var(--color-text-muted); }
-.now-board__item strong { display: block; margin-top: 3rem; color: var(--color-code-string); font-family: var(--font-mono); font-size: clamp(1rem, 1.6vw, 1.25rem); font-weight: 500; line-height: 1.35; }
-
-@media (max-width: 820px) {
-  .about-grid { grid-template-columns: 1fr; }
-  .about-principles li { min-height: 0; grid-template-columns: 2.25rem minmax(0, 1fr); align-items: start; padding-block: 1rem; }
-  .now-board { grid-template-columns: 1fr; }
-  .now-board__item { min-height: 8rem; border-right: 0; border-bottom: 1px solid var(--color-line); }
-  .now-board__item:last-child { border-bottom: 0; }
-  .now-board__item strong { margin-top: 2rem; }
-}
+.about-section__grid { display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr); gap: clamp(2rem, 4vw, 4rem); }
+.about-section h2 { margin: 0; font-size: clamp(2rem, 2.8vw, 2.5rem); font-weight: 600; letter-spacing: -0.025em; }
+.about-section__copy p { max-width: 59ch; margin: 0; font-size: clamp(1rem, 1.2vw, 1.125rem); line-height: 1.6; }
+.about-section__copy p + p { margin-top: 1rem; color: var(--color-text-muted); }
+@media (max-width: 767px) { .about-section__grid { grid-template-columns: 1fr; gap: 1.25rem; } }
 </style>

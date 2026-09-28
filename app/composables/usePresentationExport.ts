@@ -60,11 +60,10 @@ export function usePresentationExport(options: PresentationExportOptions) {
     const request = ++qrRequest
     const url = getPresentationHomeUrl(options.localeCode.value)
     const { default: QRCode } = await import('qrcode')
-    const styles = getComputedStyle(document.documentElement)
     const result = await QRCode.toDataURL(url, {
       color: {
-        dark: styles.getPropertyValue('--card-light-ink').trim(),
-        light: styles.getPropertyValue('--card-paper').trim(),
+        dark: '#000000ff',
+        light: '#ffffffff',
       },
       errorCorrectionLevel: 'H',
       margin: 4,

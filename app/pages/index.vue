@@ -52,11 +52,10 @@ useSchemaOrg(pageSchema)
     tabindex="-1"
   >
     <HeroSection />
-    <CapabilitiesSection />
     <ProjectsSection />
-    <ProcessSection />
+    <CapabilitiesSection />
     <AboutSection />
+    <ProcessSection />
     <ContactSection />
-    <FlightGameSection />
   </main>
 </template>

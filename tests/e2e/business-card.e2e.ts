@@ -51,9 +51,9 @@ test('renders both localized card sides accessibly', async ({ page }) => {
   await expect(page.locator('.business-card-page__preview article')).toHaveCount(2)
   await expect(page.locator('.business-card-page__preview img')).toBeVisible()
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow')
-  await expect(
-    page.getByRole('banner').getByRole('link', { name: /Switch language|Переключить язык/ }),
-  ).toHaveAttribute('href', '/en/card/')
+  await page.locator('.site-header .locale-control > button').click()
+  await expect(page.locator('.site-header .locale-control a[hreflang="en"]'))
+    .toHaveAttribute('href', '/en/card/')
 
   const accessibility = await new AxeBuilder({ page })
     .include('#main-content')

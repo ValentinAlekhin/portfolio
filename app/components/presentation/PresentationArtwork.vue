@@ -20,58 +20,49 @@ const services = ['websites', 'bots', 'tools'] as const
   >
     <div class="presentation-artwork__content">
       <header class="presentation-artwork__brand">
-        <strong><span aria-hidden="true">&gt;_</span> {{ profile.domain }}</strong>
-        <span>{{ t('presentation.artwork.eyebrow') }}</span>
+        <span
+          class="presentation-artwork__mark"
+          aria-hidden="true"
+        >&gt;_</span>
+        <strong>{{ profile.domain }}</strong>
+        <span class="presentation-artwork__experience">
+          {{ t('presentation.artwork.experience', { years: profile.experienceYears }) }}
+        </span>
       </header>
 
       <div class="presentation-artwork__offer">
-        <h2>
-          <span>{{ t('presentation.artwork.headline') }}</span>
-          {{ t('presentation.artwork.headlineEnd') }}
-        </h2>
+        <h2>{{ t('presentation.artwork.headline') }} {{ t('presentation.artwork.headlineEnd') }}</h2>
         <p>{{ t('presentation.artwork.support') }}</p>
       </div>
 
       <ul class="presentation-artwork__services">
         <li
-          v-for="(service, index) in services"
+          v-for="service in services"
           :key="service"
         >
-          <span
-            class="presentation-artwork__number"
-            aria-hidden="true"
-          >0{{ index + 1 }}</span>
-          <div>
-            <h3>{{ t(`presentation.artwork.services.${service}.title`) }}</h3>
-            <p>{{ t(`presentation.artwork.services.${service}.description`) }}</p>
-          </div>
+          <h3>{{ t(`presentation.artwork.services.${service}.title`) }}</h3>
+          <p>{{ t(`presentation.artwork.services.${service}.description`) }}</p>
         </li>
       </ul>
 
       <footer class="presentation-artwork__footer">
         <div class="presentation-artwork__identity">
           <strong>{{ t('profile.displayName') }}</strong>
-          <span>{{ t('presentation.artwork.experience', { years: profile.experienceYears }) }}</span>
+          <span>{{ t('presentation.artwork.cta') }}</span>
+          <b>{{ profile.telegramHandle }}</b>
         </div>
-        <div class="presentation-artwork__contact">
-          <div>
-            <p>{{ t('presentation.artwork.cta') }}</p>
-            <strong>{{ profile.telegramHandle }}</strong>
-            <span>{{ t('presentation.artwork.portfolio') }} — {{ profile.domain }}</span>
-          </div>
-          <div class="presentation-artwork__qr">
-            <img
-              v-if="qrSrc"
-              :src="qrSrc"
-              :alt="t('presentation.artwork.qrAlt')"
-              width="512"
-              height="512"
-            >
-            <span
-              v-else
-              aria-hidden="true"
-            />
-          </div>
+        <div class="presentation-artwork__qr">
+          <img
+            v-if="qrSrc"
+            :src="qrSrc"
+            :alt="t('presentation.artwork.qrAlt')"
+            width="512"
+            height="512"
+          >
+          <span
+            v-else
+            aria-hidden="true"
+          />
         </div>
       </footer>
     </div>
@@ -84,20 +75,14 @@ const services = ['websites', 'bots', 'tools'] as const
   --art-text: var(--card-dark-text);
   --art-muted: var(--card-dark-muted);
   --art-line: var(--card-dark-line);
-  --art-accent: var(--card-phosphor);
   position: relative;
   width: 100%;
   aspect-ratio: 9 / 16;
   overflow: hidden;
   container-type: inline-size;
-  background-color: var(--art-bg);
-  background-image:
-    linear-gradient(color-mix(in srgb, var(--art-line) 38%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--art-line) 38%, transparent) 1px, transparent 1px);
-  background-size: 5% 2.8125%;
+  background: var(--art-bg);
   color: var(--art-text);
   font-family: var(--font-sans);
-  font-variant-ligatures: none;
   line-height: 1.25;
 }
 
@@ -106,223 +91,141 @@ const services = ['websites', 'bots', 'tools'] as const
   --art-text: var(--card-light-ink);
   --art-muted: var(--card-light-muted);
   --art-line: var(--card-light-line);
-  --art-accent: var(--card-light-accent);
 }
 
 .presentation-artwork__content {
   position: absolute;
   inset: 0;
   display: flex;
+  box-sizing: border-box;
   flex-direction: column;
   padding: 16.6667cqw 5.9259cqw 22.2222cqw;
-}
-
-.presentation-artwork__content > * {
-  flex-shrink: 0;
-}
-
-.presentation-artwork__content::before,
-.presentation-artwork__content::after {
-  position: absolute;
-  width: 3cqw;
-  height: 3cqw;
-  border-color: var(--art-accent);
-  border-style: solid;
-  content: '';
-}
-
-.presentation-artwork__content::before {
-  top: 12.5cqw;
-  left: 2.7cqw;
-  border-width: 1px 0 0 1px;
-}
-
-.presentation-artwork__content::after {
-  right: 2.7cqw;
-  bottom: 18cqw;
-  border-width: 0 1px 1px 0;
 }
 
 .presentation-artwork__brand {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 2cqw;
-  padding-bottom: 2.5cqw;
+  gap: 1.6cqw;
+  padding-bottom: 2.3cqw;
   border-bottom: 1px solid var(--art-line);
   font-family: var(--font-mono);
-  font-size: 2.5cqw;
+  font-size: 2.55cqw;
 }
 
-.presentation-artwork__brand strong {
-  display: flex;
-  align-items: center;
-  gap: 1.5cqw;
-  font-weight: 600;
-}
+.presentation-artwork__brand strong { font-weight: 600; }
 
-.presentation-artwork__brand strong > span {
+.presentation-artwork__mark {
   display: grid;
-  width: 4.5cqw;
-  height: 4.5cqw;
-  background: var(--art-accent);
-  color: var(--art-bg);
-  font-size: 2.3cqw;
+  width: 4.2cqw;
+  aspect-ratio: 1;
+  border: 1px solid currentcolor;
+  font-size: 1.9cqw;
+  font-weight: 700;
   place-items: center;
 }
 
-.presentation-artwork__brand > span {
+.presentation-artwork__experience {
+  margin-left: auto;
   color: var(--art-muted);
   font-size: 2.1cqw;
 }
 
-.presentation-artwork__offer {
-  margin-top: 6.2cqw;
-}
+.presentation-artwork__offer { margin-top: 6cqw; }
 
 .presentation-artwork__offer h2 {
+  max-width: 18ch;
   margin: 0;
-  font-size: 9.5cqw;
+  font-size: 8.8cqw;
   font-weight: 650;
-  letter-spacing: -0.065em;
-  line-height: 1.03;
-}
-
-.presentation-artwork__offer h2 > span {
-  display: block;
-  color: var(--art-accent);
+  letter-spacing: -0.06em;
+  line-height: 1.06;
+  text-wrap: balance;
 }
 
 .presentation-artwork__offer p {
-  max-width: 35ch;
-  margin: 3.2cqw 0 0;
+  margin: 2.3cqw 0 0;
   color: var(--art-muted);
-  font-size: 3.8cqw;
+  font-size: 3.25cqw;
   line-height: 1.4;
 }
 
 .presentation-artwork__services {
   display: grid;
-  gap: 3cqw;
-  margin: 6cqw 0;
+  margin: 6cqw 0 0;
   padding: 0;
   list-style: none;
 }
 
 .presentation-artwork__services li {
   display: grid;
-  grid-template-columns: 4.8cqw 1fr;
+  grid-template-columns: 36% minmax(0, 1fr);
+  align-items: baseline;
   gap: 2cqw;
-  padding-top: 2.5cqw;
+  padding: 2.25cqw 0;
   border-top: 1px solid var(--art-line);
-}
-
-.presentation-artwork__number {
-  padding-top: 0.5cqw;
-  color: var(--art-accent);
-  font-family: var(--font-mono);
-  font-size: 2.3cqw;
 }
 
 .presentation-artwork__services h3 {
   margin: 0;
-  font-size: 3.8cqw;
-  font-weight: 650;
-  letter-spacing: -0.035em;
+  font-size: 3.15cqw;
+  font-weight: 600;
+  letter-spacing: -0.03em;
 }
 
 .presentation-artwork__services p {
-  margin: 0.7cqw 0 0;
-  color: var(--art-muted);
-  font-size: 3.1cqw;
-  line-height: 1.4;
-}
-
-.presentation-artwork__footer {
-  margin-top: auto;
-}
-
-.presentation-artwork__identity {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 1cqw 2cqw;
-  padding-bottom: 2.6cqw;
-  font-size: 3.1cqw;
-}
-
-.presentation-artwork__identity strong {
-  font-weight: 600;
-}
-
-.presentation-artwork__identity > span {
-  color: var(--art-muted);
-  font-size: 2.5cqw;
-}
-
-.presentation-artwork__contact {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 18cqw;
-  align-items: center;
-  gap: 3cqw;
-  padding-top: 3cqw;
-  border-top: 1px solid var(--art-accent);
-}
-
-.presentation-artwork__contact p {
-  max-width: 28ch;
   margin: 0;
-  font-size: 3.1cqw;
+  color: var(--art-muted);
+  font-size: 2.65cqw;
   line-height: 1.35;
 }
 
-.presentation-artwork__contact strong {
-  display: block;
-  margin-top: 1.4cqw;
-  color: var(--art-accent);
-  font-family: var(--font-mono);
-  font-size: 5cqw;
-  font-weight: 600;
-  letter-spacing: -0.055em;
+.presentation-artwork__footer {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 3cqw;
+  margin-top: auto;
+  padding-top: 3cqw;
+  border-top: 1px solid var(--art-line);
 }
 
-.presentation-artwork__contact div > span {
-  display: block;
-  margin-top: 1.6cqw;
-  color: var(--art-muted);
-  font-size: 2.4cqw;
+.presentation-artwork__identity { display: grid; gap: 1.2cqw; }
+.presentation-artwork__identity strong { font-size: 3.1cqw; font-weight: 600; }
+.presentation-artwork__identity span { color: var(--art-muted); font-size: 2.5cqw; }
+
+.presentation-artwork__identity b {
+  font-family: var(--font-mono);
+  font-size: 4.3cqw;
+  font-weight: 600;
+  letter-spacing: -0.045em;
 }
 
 .presentation-artwork__qr {
+  flex: 0 0 18cqw;
   width: 18cqw;
-  height: 18cqw;
-  background: var(--card-paper);
+  aspect-ratio: 1;
+  background: #fff;
 }
 
-.presentation-artwork__qr img {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
+.presentation-artwork__qr img { display: block; width: 100%; height: 100%; }
 
 .presentation-artwork--square {
   aspect-ratio: 1;
-  background-size: 5% 5%;
 
   .presentation-artwork__content { padding: 5.9259cqw; }
-  .presentation-artwork__content::before { top: 2.7cqw; }
-  .presentation-artwork__content::after { bottom: 2.7cqw; }
-  .presentation-artwork__brand { padding-bottom: 1.8cqw; }
-  .presentation-artwork__offer { margin-top: 2.6cqw; }
-  .presentation-artwork__offer h2 { font-size: 7cqw; }
-  .presentation-artwork__offer p { max-width: none; margin-top: 1.5cqw; font-size: 2.9cqw; line-height: 1.35; }
-  .presentation-artwork__services { gap: 1cqw; margin: 1.8cqw 0; }
-  .presentation-artwork__services li { padding-top: 1cqw; }
-  .presentation-artwork__services h3 { font-size: 2.85cqw; line-height: 1.1; }
-  .presentation-artwork__services p { margin-top: 0.3cqw; font-size: 2.65cqw; line-height: 1.25; }
-  .presentation-artwork__identity { padding-bottom: 1.8cqw; font-size: 2.8cqw; }
-  .presentation-artwork__contact { padding-top: 2cqw; }
-  .presentation-artwork__contact p { max-width: none; font-size: 2.7cqw; }
-  .presentation-artwork__contact strong { font-size: 4.5cqw; }
+  .presentation-artwork__brand { padding-bottom: 1.6cqw; }
+  .presentation-artwork__offer { margin-top: 3cqw; }
+  .presentation-artwork__offer h2 { max-width: 21ch; font-size: 6.3cqw; }
+  .presentation-artwork__offer p { margin-top: 1cqw; font-size: 2.8cqw; }
+  .presentation-artwork__services { margin-top: 3.2cqw; }
+  .presentation-artwork__services li { padding: 1.55cqw 0; }
+  .presentation-artwork__services h3 { font-size: 2.8cqw; }
+  .presentation-artwork__services p { font-size: 2.5cqw; }
+  .presentation-artwork__footer { padding-top: 2cqw; }
+  .presentation-artwork__identity { gap: 0.8cqw; }
+  .presentation-artwork__identity strong { font-size: 2.7cqw; }
+  .presentation-artwork__identity span { font-size: 2.3cqw; }
+  .presentation-artwork__identity b { font-size: 3.8cqw; }
+  .presentation-artwork__qr { flex-basis: 15cqw; width: 15cqw; }
 }
 </style>

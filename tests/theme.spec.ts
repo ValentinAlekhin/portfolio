@@ -1,19 +1,23 @@
 import { describe, expect, it } from 'vitest'
-import { isThemeName, resolveInitialTheme } from '../app/utils/theme'
+import { isThemePreference, resolveInitialPreference, resolveTheme } from '../app/utils/theme'
 
 describe('theme resolution', () => {
-  it('uses a stored valid theme', () => {
-    expect(resolveInitialTheme('system', true)).toBe('system')
-    expect(resolveInitialTheme('phosphor', false)).toBe('phosphor')
+  it('uses a saved preference before a legacy value', () => {
+    expect(resolveInitialPreference('auto', 'phosphor')).toBe('auto')
+    expect(resolveInitialPreference('dark', 'system')).toBe('dark')
   })
 
-  it('falls back to the system preference', () => {
-    expect(resolveInitialTheme(null, true)).toBe('phosphor')
-    expect(resolveInitialTheme('invalid', false)).toBe('system')
+  it('migrates legacy values and defaults to auto', () => {
+    expect(resolveInitialPreference(null, 'system')).toBe('light')
+    expect(resolveInitialPreference(null, 'phosphor')).toBe('dark')
+    expect(resolveInitialPreference('invalid', null)).toBe('auto')
   })
 
-  it('validates persisted values', () => {
-    expect(isThemeName('system')).toBe(true)
-    expect(isThemeName('dark')).toBe(false)
+  it('tracks the system setting only in auto mode', () => {
+    expect(resolveTheme('auto', true)).toBe('dark')
+    expect(resolveTheme('auto', false)).toBe('light')
+    expect(resolveTheme('light', true)).toBe('light')
+    expect(isThemePreference('auto')).toBe(true)
+    expect(isThemePreference('phosphor')).toBe(false)
   })
 })

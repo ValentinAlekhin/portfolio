@@ -1,17 +1,10 @@
 <script setup lang="ts">
 import { profile } from '~/data/profile'
 import { browserThemeColors } from '~/utils/theme'
-import { ensureTrailingSlash } from '~/utils/url'
 
-const appRoot = ref<HTMLElement | null>(null)
-const route = useRoute()
-const { initializeTheme, theme } = useTheme()
+const { initializeTheme, resolvedTheme, stopThemeListeners } = useTheme()
 const { t } = useI18n()
-const themeColor = computed(() => browserThemeColors[theme.value])
-const showCrtOverlay = computed(() => {
-  const path = ensureTrailingSlash(route.path)
-  return !path.includes('/projects/') && !path.endsWith('/card/') && !path.endsWith('/presentation/')
-})
+const themeColor = computed(() => browserThemeColors[resolvedTheme.value])
 const personSchema = computed(() => [
   definePerson({
     name: t('profile.displayName'),
@@ -34,28 +27,15 @@ useHead({
   ],
 })
 
-usePointerField(appRoot)
-
-const updateProgress = () => {
-  const max = document.documentElement.scrollHeight - window.innerHeight
-  const progress = max > 0 ? (window.scrollY / max) * 100 : 0
-  document.documentElement.style.setProperty('--scroll-progress', `${progress}%`)
-}
-
 onMounted(() => {
   initializeTheme()
-  updateProgress()
-  window.addEventListener('scroll', updateProgress, { passive: true })
 })
 
-onBeforeUnmount(() => window.removeEventListener('scroll', updateProgress))
+onBeforeUnmount(stopThemeListeners)
 </script>
 
 <template>
-  <div
-    ref="appRoot"
-    class="site-shell"
-  >
+  <div class="site-shell">
     <NuxtRouteAnnouncer />
     <a
       class="skip-link"
@@ -65,25 +45,6 @@ onBeforeUnmount(() => window.removeEventListener('scroll', updateProgress))
     <NuxtPage />
     <SiteFooter />
     <ContactDialog />
-    <PageTransitionLayer />
-    <LazyTerminalConsole />
-    <CrtOverlay v-if="showCrtOverlay" />
-    <div
-      class="site-noise"
-      aria-hidden="true"
-    />
     <span class="sr-only">{{ t('seo.title') }} · {{ profile.domain }}</span>
   </div>
 </template>
-
-<style lang="scss">
-.site-noise {
-  position: fixed;
-  z-index: 100;
-  opacity: 0.032;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.72'/%3E%3C/svg%3E");
-  content: '';
-  inset: 0;
-  pointer-events: none;
-}
-</style>

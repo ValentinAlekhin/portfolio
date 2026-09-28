@@ -1,10 +1,4 @@
 <script setup lang="ts">
-import AerovistaCaseStudy from '~/components/project/AerovistaCaseStudy.vue'
-import FormaCaseStudy from '~/components/project/FormaCaseStudy.vue'
-import KineoCaseStudy from '~/components/project/KineoCaseStudy.vue'
-import NordhusCaseStudy from '~/components/project/NordhusCaseStudy.vue'
-import PlanesArchCaseStudy from '~/components/project/PlanesArchCaseStudy.vue'
-import PowerSketchCaseStudy from '~/components/project/PowerSketchCaseStudy.vue'
 import { profile } from '~/data/profile'
 import { localeLanguageTag } from '~/types/i18n'
 import { ensureTrailingSlash } from '~/utils/url'
@@ -19,15 +13,6 @@ if (!project.value) {
   throw createError({ statusCode: 404, statusMessage: 'Project not found' })
 }
 
-const caseComponents = {
-  'aerovista': AerovistaCaseStudy,
-  'forma': FormaCaseStudy,
-  'kineo': KineoCaseStudy,
-  'nordhus': NordhusCaseStudy,
-  'planes-arch': PlanesArchCaseStudy,
-  'powersketch': PowerSketchCaseStudy,
-} as const
-const caseComponent = computed(() => caseComponents[project.value!.caseName])
 const summary = computed(() => t(`${project.value!.translationKey}.summary`))
 const pageTitle = computed(() => `${project.value!.title} — ${t(`${project.value!.translationKey}.eyebrow`)}`)
 const ogImage = computed(() => project.value!.ogImage)
@@ -73,7 +58,7 @@ defineOgImage('Portfolio.takumi', {
   title: pageTitle.value,
   availability: t('seo.ogAvailability'),
   description: summary.value,
-  eyebrow: `CASE ${project.value.index}`,
+  eyebrow: profile.domain,
   locale: localeLanguageTag[localeCode.value],
 })
 
@@ -89,7 +74,6 @@ useSeoMeta({
 useHead(() => ({
   htmlAttrs: {
     ...i18nHead.value.htmlAttrs,
-    'data-project-theme': project.value!.theme,
   },
   link: (i18nHead.value.link ?? [])
     .filter(link => link.rel !== 'canonical')
@@ -104,8 +88,7 @@ useSchemaOrg(schemaNodes)
 </script>
 
 <template>
-  <component
-    :is="caseComponent"
+  <ProjectCaseStudy
     v-if="project"
     :project="project"
   />
