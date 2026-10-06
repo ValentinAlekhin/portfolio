@@ -5,6 +5,7 @@ import { ensureTrailingSlash } from '~/utils/url'
 
 const props = defineProps<{ project: Project }>()
 const { t, te } = useI18n()
+const contactOpen = useState<boolean>('contact-dialog-open', () => false)
 const { localeCode } = usePortfolio()
 const localePath = useLocalePath()
 const homeProjects = computed(() => `${ensureTrailingSlash(localePath('/'))}#projects`)
@@ -139,7 +140,10 @@ const period = computed(() => props.project.period.replace('NOW', t('case.presen
         <div class="project-case__next">
           <h2>{{ t('case.nextTitle') }}</h2>
           <p>{{ t('case.nextText') }}</p>
-          <a href="#contacts">{{ t('hero.primary') }} <BaseIcon name="arrow-up-right" /></a>
+          <button
+            type="button"
+            @click="contactOpen = true"
+          >{{ t('hero.primary') }} <BaseIcon name="arrow-up-right" /></button>
         </div>
       </div>
     </section>
@@ -151,7 +155,7 @@ const period = computed(() => props.project.period.replace('NOW', t('case.presen
 .project-case { color: var(--color-text); background: var(--color-bg); }
 .project-case__top { display: flex; justify-content: space-between; gap: 1rem; padding-top: calc(var(--header-height) + 2rem); padding-bottom: 0.75rem; border-bottom: 1px solid var(--color-line); color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.8125rem; }
 .project-case__top a { color: var(--project-accent, var(--color-text)); text-decoration: none; }
-.project-case__top a:hover, .project-case__external:hover, .project-case__next a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+.project-case__top a:hover, .project-case__external:hover, .project-case__next button:hover { text-decoration: underline; text-underline-offset: 0.2em; }
 .project-case__header { max-width: 58rem; padding-block: 2rem 0; }
 .project-case__eyebrow { margin: 0 0 0.75rem; color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.8125rem; }
 .project-case h1 { margin: 0; font-size: clamp(2.75rem, 4.5vw, 4rem); font-weight: 600; letter-spacing: -0.025em; line-height: 1.08; overflow-wrap: anywhere; }
@@ -178,9 +182,10 @@ const period = computed(() => props.project.period.replace('NOW', t('case.presen
 .technical-details summary::-webkit-details-marker { display: none; }
 .technical-details[open] summary :deep(svg) { transform: rotate(180deg); }
 .technical-details p { max-width: 65ch; color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.7; }
+.project-case__next button:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
 .project-case__next h2 { margin: 0; font-size: clamp(1.8rem, 2.5vw, 2.25rem); font-weight: 600; letter-spacing: -0.025em; }
 .project-case__next p { max-width: 42ch; color: var(--color-text-muted); line-height: 1.6; }
-.project-case__next a { display: inline-flex; gap: 0.5rem; align-items: center; color: var(--project-accent, var(--color-text)); text-decoration: none; }
+.project-case__next button { padding: 0; border: 0; background: transparent; font: inherit; cursor: pointer; display: inline-flex; gap: 0.5rem; align-items: center; color: var(--project-accent, var(--color-text)); text-decoration: none; }
 .project-case :is(a, summary):focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
 @media (max-width: 767px) { .project-case__top { padding-top: calc(var(--header-height) + 1.5rem); } .project-case h1 { font-size: clamp(2.25rem, 9vw, 3rem); } .project-case__cover { margin-block: 2rem; } .project-case__gallery, .project-case__details-grid, .project-case__items { grid-template-columns: 1fr; } .project-case__gallery > :last-child:nth-child(odd) { grid-column: 1; } }
 </style>

@@ -42,7 +42,7 @@ const cover = computed(() => props.project.media.find(item => item.src === props
     />
     <div class="project-preview__details">
       <p class="project-preview__stack">
-        {{ project.stack.join(' / ') }}
+        {{ project.stack.slice(0, 4).join(' / ') }}
       </p>
       <NuxtLink
         :to="casePath"
@@ -63,7 +63,7 @@ const cover = computed(() => props.project.media.find(item => item.src === props
 .project-preview__media { width: 100%; }
 .project-preview__media--reserve { aspect-ratio: 16 / 10; border: 1px solid transparent; }
 .project-preview__details { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.65rem 2rem; align-items: start; padding-top: 1rem; }
-.project-preview__stack { grid-column: 1; margin: 0; color: var(--color-text-muted); font-family: var(--font-mono); font-size: var(--font-size-ui); line-height: 1.55; overflow-wrap: anywhere; }
+.project-preview__stack { grid-column: 1; margin: 0; color: var(--color-text-muted); font-family: var(--font-mono); font-size: var(--font-size-ui); line-height: 1.55; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .project-preview__link { display: inline-flex; grid-column: 2; grid-row: 1; gap: 0.4rem; align-items: center; min-height: 2.75rem; white-space: nowrap; color: var(--color-text); font-size: var(--font-size-small); text-decoration: underline; text-decoration-color: var(--color-line); text-underline-offset: 0.3em; }
 .project-preview__link:hover { text-decoration-color: var(--color-text); }
 .project-preview__link:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
