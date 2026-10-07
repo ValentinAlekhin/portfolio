@@ -4,6 +4,7 @@ import type { Project, ProjectMedia } from '~/types/content'
 import { ensureTrailingSlash } from '~/utils/url'
 
 const props = defineProps<{ project: Project }>()
+const galleryRoot = ref<HTMLElement | null>(null)
 const { t, te } = useI18n()
 const contactOpen = useState<boolean>('contact-dialog-open', () => false)
 const { localeCode } = usePortfolio()
@@ -35,11 +36,14 @@ const technicalKeys = computed(() => ['architecture', 'constraints', 'implementa
   .map(suffix => `${props.project.translationKey}.${suffix}`)
   .filter(key => te(key)))
 const period = computed(() => props.project.period.replace('NOW', t('case.present')))
+const galleryMedia = computed(() => [cover.value, ...sections.value.flatMap(section => section.media)])
+const { openGallery } = useProjectGallery(galleryRoot, galleryMedia)
 </script>
 
 <template>
   <main
     id="main-content"
+    ref="galleryRoot"
     class="project-case"
     :data-project-theme="project.theme"
     tabindex="-1"
@@ -83,6 +87,7 @@ const period = computed(() => props.project.period.replace('NOW', t('case.presen
         class="project-case__cover"
         :media="cover"
         priority
+        @open="openGallery"
       />
     </div>
 
@@ -118,6 +123,7 @@ const period = computed(() => props.project.period.replace('NOW', t('case.presen
             v-for="item in section.media"
             :key="item.id"
             :media="item"
+            @open="openGallery"
           />
         </div>
       </div>

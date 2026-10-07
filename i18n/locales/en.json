@@ -722,6 +722,16 @@
     "previousImage": "Previous image",
     "nextImage": "Next image",
     "scrollImage": "Scrollable full-page screenshot",
+    "gallery": {
+      "title": "Project screenshots",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out",
+      "actualSize": "View actual size",
+      "maximize": "Maximize gallery",
+      "download": "Download image",
+      "playVideo": "Play video",
+      "loadFailed": "Could not load the image"
+    },
     "labels": {
       "role": "My role",
       "stack": "Stack",

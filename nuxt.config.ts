@@ -43,12 +43,22 @@ export default defineNuxtConfig({
     },
   },
 
-  css: ['~/assets/styles/main.scss'],
+  css: [
+    'lightgallery/css/lightgallery.css',
+    'lightgallery/css/lg-zoom.css',
+    '~/assets/styles/main.scss',
+  ],
 
   site: {
     url: `https://${profile.domain}`,
     name: profile.domain,
     trailingSlash: true,
+  },
+
+  runtimeConfig: {
+    public: {
+      lightgalleryLicenseKey: '',
+    },
   },
 
   routeRules: {

@@ -12,6 +12,7 @@ Personal portfolio of Valentin Alekhin at [alekhin.dev](https://alekhin.dev). It
 | Nuxt i18n | Translated content and locale-aware routing. |
 | SCSS and CSS custom properties | Shared design tokens, responsive layouts, and themes. |
 | Reka UI and VueUse | Accessible interface primitives and browser interactions. |
+| lightGallery | Project screenshot navigation, touch gestures, and zoom with Carbon icons. |
 | Three.js and WebGL | Interactive ASCII portrait rendered from a 3D model. |
 | Nuxt Image and Sharp | Image handling and lightweight screenshot placeholders. |
 | Nuxt SEO and Takumi | Metadata, structured data, sitemaps, and generated social preview images. |
@@ -26,6 +27,8 @@ Content is separate from presentation. Typed records describe projects, media, a
 Russian uses unprefixed routes, while English lives under `/en/`. The same structure applies to project pages: `/projects/<slug>/` and `/en/projects/<slug>/`. Metadata and social previews use the corresponding locale.
 
 The interface uses a monochrome canvas, Manrope for prose, JetBrains Mono for technical text, and Carbon icons. Project pages can introduce a restrained accent. Shared tokens support light, dark, and system themes; browser effects account for reduced-motion preferences.
+
+Project screenshots open in lightGallery. Set `NUXT_PUBLIC_LIGHTGALLERY_LICENSE_KEY` before `pnpm generate` to include a production license key in the static build. Without a key, the library uses its temporary evaluation key. See [lightGallery licensing](https://www.lightgalleryjs.com/license/) for the applicable GPLv3 or commercial license.
 
 ## 3D ASCII portrait
 

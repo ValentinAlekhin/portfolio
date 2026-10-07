@@ -90,6 +90,7 @@ useSchemaOrg(schemaNodes)
 <template>
   <ProjectCaseStudy
     v-if="project"
+    :key="`${localeCode}-${project.slug}`"
     :project="project"
   />
 </template>
