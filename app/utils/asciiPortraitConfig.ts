@@ -3,8 +3,8 @@ export const asciiDensity = {
   cellWidthPx: 3,
   // Height of one character in CSS pixels. Increase it for fewer rows and less detail.
   cellHeightPx: 5,
-  // Relative character count; 1.25 adds 25% more cells while keeping their proportions.
-  characterCountMultiplier: 1.25,
+  // Relative character count: three times the base grid, preserving cell proportions.
+  characterCountMultiplier: 3,
   // Glyphs ordered from empty to dense; their order determines the tonal ramp.
   characters: ' .:-=+*#%@',
   // Values below 1 give midtones denser glyphs, helping the face remain readable.
