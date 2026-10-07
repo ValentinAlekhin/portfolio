@@ -143,7 +143,9 @@ const period = computed(() => props.project.period.replace('NOW', t('case.presen
           <button
             type="button"
             @click="contactOpen = true"
-          >{{ t('hero.primary') }} <BaseIcon name="arrow-up-right" /></button>
+          >
+            {{ t('hero.primary') }} <BaseIcon name="arrow-up-right" />
+          </button>
         </div>
       </div>
     </section>

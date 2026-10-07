@@ -94,6 +94,17 @@ export default defineNuxtConfig({
     strict: true,
   },
 
+  hooks: {
+    'build:manifest': (manifest) => {
+      for (const [key, chunk] of Object.entries(manifest)) {
+        if (!key.endsWith('/asciiPortrait.ts') && !chunk.src?.endsWith('/asciiPortrait.ts')) continue
+        // Keep the desktop-only renderer out of Nuxt's automatic prefetch links.
+        chunk.prefetch = false
+        chunk.preload = false
+      }
+    },
+  },
+
   eslint: {
     config: {
       stylistic: {

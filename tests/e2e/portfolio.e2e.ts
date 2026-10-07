@@ -8,6 +8,13 @@ import ru from '../../i18n/locales/ru.json' with { type: 'json' }
 const translations = { [LocaleCode.Ru]: ru, [LocaleCode.En]: en }
 const widths = [320, 390, 768, 1100, 1440]
 
+async function waitForHydration(page: Page) {
+  await page.waitForFunction(() => {
+    const browser = window as Window & { useNuxtApp?: () => { isHydrating: boolean } }
+    return browser.useNuxtApp?.().isHydrating === false
+  })
+}
+
 async function expectNoOverflow(page: Page) {
   await page.evaluate(() => document.fonts.ready)
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
@@ -67,6 +74,7 @@ for (const locale of Object.values(LocaleCode)) {
     await page.context().addCookies([{ name: 'i18n_redirected', value: locale, url: 'http://127.0.0.1:3000' }])
     await page.setViewportSize({ width: 390, height: 844 })
     await page.goto(home)
+    await waitForHydration(page)
     const row = page.locator('.project-row').first()
     await row.locator('.project-row__head').scrollIntoViewIfNeeded()
     await expect(row.locator('.project-row__toggle')).toHaveAttribute('aria-expanded', 'true')
@@ -79,6 +87,7 @@ for (const locale of Object.values(LocaleCode)) {
     await expect(page).toHaveURL(new RegExp(`${home}projects/${projects[0]?.slug}/$`))
     await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto(home)
+    await waitForHydration(page)
     const selectors = page.locator('.project-selector')
     const panels = page.locator('.project-showcase__panels .project-preview')
     await expect(selectors.first()).toHaveClass(/project-selector--active/)
@@ -101,6 +110,7 @@ for (const locale of Object.values(LocaleCode)) {
   test(`${locale}: contact dialog and screenshot gallery remain keyboard accessible`, async ({ page }) => {
     await page.context().addCookies([{ name: 'i18n_redirected', value: locale, url: 'http://127.0.0.1:3000' }])
     await page.goto(home)
+    await waitForHydration(page)
     const contact = page.locator('.hero__primary')
     await contact.focus()
     await page.keyboard.press('Enter')
@@ -110,6 +120,7 @@ for (const locale of Object.values(LocaleCode)) {
     await page.keyboard.press('Escape')
     await expect(dialog).toBeHidden()
     await page.goto(`${home}projects/forma/`)
+    await waitForHydration(page)
     const enlarge = page.getByRole('button', { name: copy.case.viewImage, exact: true }).first()
     await enlarge.focus()
     await page.keyboard.press('Enter')
