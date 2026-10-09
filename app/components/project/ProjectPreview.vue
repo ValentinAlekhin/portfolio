@@ -14,6 +14,15 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 const casePath = computed(() => localePath(`/projects/${props.project.slug}`))
 const cover = computed(() => props.project.media.find(item => item.src === props.project.cover) ?? props.project.media[0]!)
+
+if (import.meta.prerender && !cover.value.sources) {
+  // Inactive previews are not rendered, so NuxtImg cannot register their image routes.
+  const { src, srcset } = useImage().getSizes(cover.value.src, {
+    sizes: '100vw lg:1440px',
+    modifiers: { width: cover.value.width, height: cover.value.height },
+  })
+  prerenderRoutes([src, ...srcset.split(', ').map(candidate => candidate.split(' ')[0]!)])
+}
 </script>
 
 <template>
