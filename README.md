@@ -12,7 +12,7 @@ Personal portfolio of Valentin Alekhin at [alekhin.dev](https://alekhin.dev). It
 | Nuxt i18n | Translated content and locale-aware routing. |
 | SCSS and CSS custom properties | Shared design tokens, responsive layouts, and themes. |
 | Reka UI and VueUse | Accessible interface primitives and browser interactions. |
-| lightGallery | Project screenshot navigation, touch gestures, and zoom with Carbon icons. |
+| PhotoSwipe | Project screenshot navigation, touch gestures, and zoom with Carbon icons. |
 | Three.js and WebGL | Interactive ASCII portrait rendered from a 3D model. |
 | Nuxt Image and Sharp | Image handling and lightweight screenshot placeholders. |
 | Nuxt SEO and Takumi | Metadata, structured data, sitemaps, and generated social preview images. |
@@ -28,7 +28,7 @@ Russian uses unprefixed routes, while English lives under `/en/`. The same struc
 
 The interface uses a monochrome canvas, Manrope for prose, JetBrains Mono for technical text, and Carbon icons. Project pages can introduce a restrained accent. Shared tokens support light, dark, and system themes; browser effects account for reduced-motion preferences.
 
-Project screenshots open in lightGallery. Set `NUXT_PUBLIC_LIGHTGALLERY_LICENSE_KEY` before `pnpm generate` to include a production license key in the static build. Without a key, the library uses its temporary evaluation key. See [lightGallery licensing](https://www.lightgalleryjs.com/license/) for the applicable GPLv3 or commercial license.
+Project screenshots open in PhotoSwipe with its default interface, gestures, zoom, and keyboard navigation. Carbon icons replace the default control icons; image sources follow the selected language and theme.
 
 ## 3D ASCII portrait
 
@@ -59,3 +59,9 @@ The rendering pipeline lives in [asciiPortrait.ts](app/utils/asciiPortrait.ts), 
 When extending the site, keep portfolio data separate from components and update both locale files together. Use shared style tokens, keep component styles scoped, and initialize and clean up browser effects through Vue lifecycle hooks. Preserve keyboard access and reduced-motion support.
 
 [AGENTS.md](AGENTS.md) contains the detailed repository conventions. `.nuxt/` and `.output/` are generated artifacts, not source files.
+
+## Browser tests
+
+Playwright is included as a development dependency. Install its Chromium browser with `pnpm exec playwright install chromium`, then run `pnpm test:e2e`. The configuration starts the Nuxt development server automatically and reuses an existing server at `http://127.0.0.1:3000`.
+
+On systems that use a separately installed Chromium browser, such as NixOS, set `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` to its executable path. For example: `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/etc/profiles/per-user/valentin/bin/google-chrome pnpm test:e2e`.

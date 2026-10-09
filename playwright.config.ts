@@ -15,6 +15,9 @@ export default defineConfig({
   testMatch: '**/*.e2e.ts',
   use: {
     baseURL: 'http://127.0.0.1:3000',
+    launchOptions: {
+      executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || undefined,
+    },
     trace: 'retain-on-failure',
   },
   workers: 1,

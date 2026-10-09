@@ -44,8 +44,7 @@ export default defineNuxtConfig({
   },
 
   css: [
-    'lightgallery/css/lightgallery.css',
-    'lightgallery/css/lg-zoom.css',
+    'photoswipe/style.css',
     '~/assets/styles/main.scss',
   ],
 
@@ -53,12 +52,6 @@ export default defineNuxtConfig({
     url: `https://${profile.domain}`,
     name: profile.domain,
     trailingSlash: true,
-  },
-
-  runtimeConfig: {
-    public: {
-      lightgalleryLicenseKey: '',
-    },
   },
 
   routeRules: {
@@ -97,6 +90,12 @@ export default defineNuxtConfig({
           `/${LocaleCode.En}/projects/${slug}/`,
         ]),
       ],
+    },
+  },
+
+  vite: {
+    optimizeDeps: {
+      include: ['photoswipe', 'photoswipe/lightbox'],
     },
   },
 

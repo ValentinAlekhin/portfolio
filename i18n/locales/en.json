@@ -724,6 +724,7 @@
     "scrollImage": "Scrollable full-page screenshot",
     "gallery": {
       "title": "Project screenshots",
+      "zoom": "Zoom",
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out",
       "actualSize": "View actual size",
