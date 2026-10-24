@@ -29,7 +29,9 @@ Personal portfolio of Valentin Alekhin at [alekhin.dev](https://alekhin.dev). It
 
 Before submitting changes, run `pnpm lint`, `pnpm format:check`, `pnpm test`, `pnpm typecheck`, and `pnpm generate`.
 
-Oxlint checks Vue script blocks; it does not lint templates. `pnpm typecheck` still checks Vue single-file components, including their templates, and `pnpm generate` runs the build link checker. These checks complement linting. TypeScript is pinned to `6.0.3` for compatibility with `vue-tsc`; upgrade it separately after verifying compatibility.
+Oxlint checks Vue script blocks; it does not lint templates. `pnpm typecheck` runs `nuxt typecheck --checker=golar` with the Vue plugin registered in `golar.config.ts`, checking TypeScript and Vue templates across Nuxt's project references. `pnpm generate` runs the build link checker.
+
+Golar bundles the native TypeScript 7 checker. TypeScript `6.0.3` remains installed for editor support and tools that use the classic compiler API. Keep `golar` and `@golar/vue` on matching pinned versions.
 
 ## How it works
 

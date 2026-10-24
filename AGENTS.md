@@ -34,7 +34,7 @@ Use pnpm 10 and a supported Node version (`^22.12.0`, `^24.11.0`, or `>=26.0.0`)
 - `pnpm format` formats supported source files with Oxfmt; `pnpm format:check` checks formatting without changing files.
 - `pnpm test` runs the Vitest suite.
 - `pnpm test:e2e` runs Playwright tests when browser specs are present.
-- `pnpm typecheck` validates Vue and TypeScript types.
+- `pnpm typecheck` validates Vue templates and TypeScript types with Golar through Nuxt.
 - `pnpm build` creates a server build.
 - `pnpm generate` prerenders the static site into `.output/public`.
 - `pnpm preview` serves the production build for final review.
