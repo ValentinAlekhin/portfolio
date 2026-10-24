@@ -6,17 +6,30 @@ Personal portfolio of Valentin Alekhin at [alekhin.dev](https://alekhin.dev). It
 
 ## Technologies
 
-| Technology | Role |
-| --- | --- |
-| Nuxt, Vue, TypeScript | Page routing, reusable components, typed content, and static generation. |
-| Nuxt i18n | Translated content and locale-aware routing. |
-| SCSS and CSS custom properties | Shared design tokens, responsive layouts, and themes. |
-| Reka UI and VueUse | Accessible interface primitives and browser interactions. |
-| PhotoSwipe | Project screenshot navigation, touch gestures, and zoom with Carbon icons. |
-| Three.js and WebGL | Interactive ASCII portrait rendered from a 3D model. |
-| Nuxt Image and Sharp | Image handling and lightweight screenshot placeholders. |
-| Nuxt SEO and Takumi | Metadata, structured data, sitemaps, and generated social preview images. |
-| Vitest, Playwright, and axe-core | Unit, browser, and accessibility checks. |
+| Technology                       | Role                                                                       |
+| -------------------------------- | -------------------------------------------------------------------------- |
+| Nuxt, Vue, TypeScript            | Page routing, reusable components, typed content, and static generation.   |
+| Nuxt i18n                        | Translated content and locale-aware routing.                               |
+| SCSS and CSS custom properties   | Shared design tokens, responsive layouts, and themes.                      |
+| Reka UI and VueUse               | Accessible interface primitives and browser interactions.                  |
+| PhotoSwipe                       | Project screenshot navigation, touch gestures, and zoom with Carbon icons. |
+| Three.js and WebGL               | Interactive ASCII portrait rendered from a 3D model.                       |
+| Nuxt Image and Sharp             | Image handling and lightweight screenshot placeholders.                    |
+| Nuxt SEO and Takumi              | Metadata, structured data, sitemaps, and generated social preview images.  |
+| Vitest, Playwright, and axe-core | Unit, browser, and accessibility checks.                                   |
+
+## Development checks
+
+| Command             | Purpose                                                    |
+| ------------------- | ---------------------------------------------------------- |
+| `pnpm lint`         | Check JavaScript, TypeScript, and Vue scripts with Oxlint. |
+| `pnpm lint:fix`     | Apply available safe lint fixes.                           |
+| `pnpm format`       | Format supported source files with Oxfmt.                  |
+| `pnpm format:check` | Check formatting without changing files.                   |
+
+Before submitting changes, run `pnpm lint`, `pnpm format:check`, `pnpm test`, `pnpm typecheck`, and `pnpm generate`.
+
+Oxlint checks Vue script blocks; it does not lint templates. `pnpm typecheck` still checks Vue single-file components, including their templates, and `pnpm generate` runs the build link checker. These checks complement linting. TypeScript is pinned to `6.0.3` for compatibility with `vue-tsc`; upgrade it separately after verifying compatibility.
 
 ## How it works
 
@@ -45,16 +58,16 @@ The rendering pipeline lives in [asciiPortrait.ts](app/utils/asciiPortrait.ts), 
 
 ## Source structure
 
-| Location | Responsibility |
-| --- | --- |
-| `app/pages/` and `app/components/` | Routes, page sections, and reusable interface elements. |
-| `app/data/` and `app/types/` | Portfolio records, case study structure, and shared types. |
-| `i18n/locales/` | Russian and English copy with matching translation keys. |
-| `app/composables/` and `app/utils/` | Reusable state, browser effects, rendering, and framework-independent helpers. |
-| `app/assets/` | Bundled assets and global SCSS layers, including design tokens. |
-| `public/` | Images, fonts, models, icons, and other assets with stable public URLs. |
-| `tests/` | Content integrity, logic, interaction, and accessibility checks. |
-| `nuxt.config.ts` | Framework modules, localization, prerendering, and site metadata configuration. |
+| Location                            | Responsibility                                                                  |
+| ----------------------------------- | ------------------------------------------------------------------------------- |
+| `app/pages/` and `app/components/`  | Routes, page sections, and reusable interface elements.                         |
+| `app/data/` and `app/types/`        | Portfolio records, case study structure, and shared types.                      |
+| `i18n/locales/`                     | Russian and English copy with matching translation keys.                        |
+| `app/composables/` and `app/utils/` | Reusable state, browser effects, rendering, and framework-independent helpers.  |
+| `app/assets/`                       | Bundled assets and global SCSS layers, including design tokens.                 |
+| `public/`                           | Images, fonts, models, icons, and other assets with stable public URLs.         |
+| `tests/`                            | Content integrity, logic, interaction, and accessibility checks.                |
+| `nuxt.config.ts`                    | Framework modules, localization, prerendering, and site metadata configuration. |
 
 When extending the site, keep portfolio data separate from components and update both locale files together. Use shared style tokens, keep component styles scoped, and initialize and clean up browser effects through Vue lifecycle hooks. Preserve keyboard access and reduced-motion support.
 

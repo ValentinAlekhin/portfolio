@@ -9,7 +9,6 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@nuxtjs/seo',
     '@nuxt/image',
-    '@nuxt/eslint',
     'nuxt-yandex-metrika',
   ],
 
@@ -111,16 +110,6 @@ export default defineNuxtConfig({
         chunk.prefetch = false
         chunk.preload = false
       }
-    },
-  },
-
-  eslint: {
-    config: {
-      stylistic: {
-        quotes: 'single',
-        semi: false,
-        commaDangle: 'always-multiline',
-      },
     },
   },
 

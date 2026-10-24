@@ -30,7 +30,8 @@ Use pnpm 10 and a supported Node version (`^22.12.0`, `^24.11.0`, or `>=26.0.0`)
 
 - `pnpm install` installs dependencies and prepares Nuxt types.
 - `pnpm dev` starts the local development server.
-- `pnpm lint` checks ESLint rules; `pnpm lint:fix` applies safe fixes.
+- `pnpm lint` checks Oxlint rules; `pnpm lint:fix` applies safe fixes.
+- `pnpm format` formats supported source files with Oxfmt; `pnpm format:check` checks formatting without changing files.
 - `pnpm test` runs the Vitest suite.
 - `pnpm test:e2e` runs Playwright tests when browser specs are present.
 - `pnpm typecheck` validates Vue and TypeScript types.
@@ -38,7 +39,7 @@ Use pnpm 10 and a supported Node version (`^22.12.0`, `^24.11.0`, or `>=26.0.0`)
 - `pnpm generate` prerenders the static site into `.output/public`.
 - `pnpm preview` serves the production build for final review.
 
-Before submitting changes, run `pnpm lint`, `pnpm test`, `pnpm typecheck`, and `pnpm generate`. Run relevant Playwright tests when e2e coverage exists for the changed behavior.
+Before submitting changes, run `pnpm lint`, `pnpm format:check`, `pnpm test`, `pnpm typecheck`, and `pnpm generate`. Run relevant Playwright tests when e2e coverage exists for the changed behavior.
 
 ## Coding Style
 
