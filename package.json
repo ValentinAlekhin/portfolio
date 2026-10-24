@@ -29,6 +29,7 @@
     "@nuxtjs/i18n": "10.4.1",
     "@nuxtjs/seo": "^5.3.6",
     "@takumi-rs/core": "^2.5.0",
+    "@vue-flow/core": "^1.48.2",
     "@vueuse/core": "^15.0.0",
     "html-to-image": "^1.11.13",
     "jszip": "^3.10.1",

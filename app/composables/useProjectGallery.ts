@@ -6,7 +6,7 @@ import type { ProjectMedia } from '~/types/content'
 
 function iconMarkup(component: Component) {
   const mount = document.createElement('div')
-  render(h(component, { class: 'pswp__icn', 'aria-hidden': 'true', focusable: 'false' }), mount)
+  render(h(component, { 'class': 'pswp__icn', 'aria-hidden': 'true', 'focusable': 'false' }), mount)
   const markup = mount.innerHTML
   render(null, mount)
   return markup

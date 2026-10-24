@@ -1,4 +1,5 @@
 import type { ProjectCaseName } from '../types/content'
+import type { ProjectDiagramName } from './projectDiagrams'
 
 export interface CaseSectionDefinition {
   titleSuffix: string
@@ -6,6 +7,7 @@ export interface CaseSectionDefinition {
   mediaIds: readonly string[]
   itemsPrefix?: string
   itemNames?: readonly string[]
+  diagram?: ProjectDiagramName
 }
 
 export const caseSections: Record<ProjectCaseName, readonly CaseSectionDefinition[]> = {
@@ -42,5 +44,14 @@ export const caseSections: Record<ProjectCaseName, readonly CaseSectionDefinitio
     { titleSuffix: 'overview.title', textSuffix: 'overview.text', mediaIds: ['homeFull', 'catalogFull', 'aboutFull', 'productCupFull', 'productBowlFull'] },
     { titleSuffix: 'responsive.title', textSuffix: 'responsive.text', mediaIds: ['homeMobileFull', 'catalogMobileFull', 'careMobileFull', 'productVaseMobileFull'] },
     { titleSuffix: 'interactions.title', textSuffix: 'interactions.text', mediaIds: ['cart', 'checkout', 'cartMobile', 'checkoutMobile', 'filtersMobile'] },
+  ],
+  'cnp': [
+    { titleSuffix: 'system.title', textSuffix: 'system.description', diagram: 'cnp-system', mediaIds: ['screenLayouts', 'tabletVideowall'] },
+    { titleSuffix: 'deployment.title', textSuffix: 'deployment.description', mediaIds: ['tabletControl', 'tabletRoom', 'controlDesk'] },
+    { titleSuffix: 'usage.title', textSuffix: 'usage.description', mediaIds: ['meetingParticipants', 'meetingRoom', 'meetingVideowall'] },
+    { titleSuffix: 'workflow.title', textSuffix: 'workflow.description', diagram: 'cnp-workflow', mediaIds: ['presentationWall'] },
+    { titleSuffix: 'exhibition.title', textSuffix: 'exhibition.description', mediaIds: ['exhibitionRoom', 'exhibitionVisitors'] },
+    { titleSuffix: 'complexity.title', textSuffix: 'complexity.description', mediaIds: [], itemsPrefix: 'complexity.items', itemNames: ['sources', 'sync', 'layouts', 'access'] },
+    { titleSuffix: 'interface.title', textSuffix: 'interface.description', mediaIds: ['home', 'presentation', 'desktopEditor'] },
   ],
 }

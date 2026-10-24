@@ -72,6 +72,18 @@ const isScrollable = computed(() => props.media.display === 'full-page' || (prop
     >
       {{ t(media.descriptionKey) }}
     </p>
+    <p
+      v-if="media.attribution"
+      class="project-screenshot__source"
+    >
+      <a
+        :href="media.attribution.url"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {{ t(media.attribution.labelKey) }} <BaseIcon name="arrow-up-right" />
+      </a>
+    </p>
   </figure>
 </template>
 
@@ -91,5 +103,9 @@ html[data-theme='dark'] .project-screenshot .project-screenshot__theme-dark { di
 .project-screenshot figcaption button { display: inline-flex; min-height: 2.75rem; align-items: center; gap: 0.3rem; flex: 0 0 auto; padding: 0 0.4rem; border: 0; background: transparent; color: var(--color-text); cursor: pointer; font: inherit; text-decoration: underline; text-underline-offset: 0.2em; }
 .project-screenshot figcaption button :deep(svg) { width: 1rem; height: 1rem; }
 .project-screenshot__description { max-width: 70ch; margin: 0.7rem 0 0; color: var(--color-text-muted); font-size: var(--font-size-small); line-height: 1.6; }
+.project-screenshot__source { margin: 0.65rem 0 0; font-size: var(--font-size-ui); line-height: 1.6; }
+.project-screenshot__source a { display: inline-flex; align-items: center; gap: 0.25rem; color: var(--color-text-muted); text-decoration: underline; text-underline-offset: 0.2em; }
+.project-screenshot__source :deep(svg) { width: 0.875rem; height: 0.875rem; }
+.project-screenshot__source a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
 .project-screenshot :is(button, .project-screenshot__viewport):focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
 </style>

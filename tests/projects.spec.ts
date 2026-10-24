@@ -27,8 +27,8 @@ function translated(locale: Record<string, unknown>, key: string): boolean {
 }
 
 describe('portfolio projects', () => {
-  it('defines six uniquely addressable projects', () => {
-    expect(projects).toHaveLength(6)
+  it('defines seven uniquely addressable projects', () => {
+    expect(projects).toHaveLength(7)
     expect(new Set(projects.map(project => project.slug)).size).toBe(projects.length)
     expect(new Set(projects.map(project => project.index)).size).toBe(projects.length)
     expect(new Set(projects.map(project => project.caseName)).size).toBe(projects.length)
@@ -46,6 +46,11 @@ describe('portfolio projects', () => {
         expect(translated(en, media.altKey)).toBe(true)
         expect(translated(ru, media.captionKey)).toBe(true)
         expect(translated(en, media.captionKey)).toBe(true)
+        if (media.attribution) {
+          expect(translated(ru, media.attribution.labelKey)).toBe(true)
+          expect(translated(en, media.attribution.labelKey)).toBe(true)
+          expect(new URL(media.attribution.url).protocol).toBe('https:')
+        }
       }
     }
   })
@@ -89,7 +94,7 @@ describe('portfolio projects', () => {
   it('allows completed portfolio-only projects without external URLs', () => {
     const completed = projects.filter(project => project.status === 'completed')
 
-    expect(completed.map(project => project.slug)).toEqual(['nordhus', 'aerovista', 'kineo', 'forma'])
+    expect(completed.map(project => project.slug)).toEqual(['cnp', 'nordhus', 'aerovista', 'kineo', 'forma'])
     expect(completed.every(project => project.externalUrl === undefined)).toBe(true)
   })
 

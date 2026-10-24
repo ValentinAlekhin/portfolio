@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { caseSections } from '../app/data/caseSections'
 import { projects } from '../app/data/projects'
+import { projectDiagrams } from '../app/data/projectDiagrams'
 import en from '../i18n/locales/en.json'
 import ru from '../i18n/locales/ru.json'
 
@@ -19,6 +20,19 @@ describe('case study sections', () => {
       const sections = caseSections[project.caseName]
       expect(sections.length).toBeGreaterThan(0)
       for (const section of sections) {
+        if (section.diagram) {
+          const diagram = projectDiagrams[section.diagram]
+          for (const node of diagram.nodes) {
+            for (const suffix of ['title', 'summary', 'detail']) {
+              expect(textAt(ru, `${node.copyKey}.${suffix}`)).toBe(true)
+              expect(textAt(en, `${node.copyKey}.${suffix}`)).toBe(true)
+            }
+          }
+          for (const edge of diagram.edges) {
+            expect(diagram.nodes.some(node => node.id === edge.from)).toBe(true)
+            expect(diagram.nodes.some(node => node.id === edge.to)).toBe(true)
+          }
+        }
         const keys = [section.titleSuffix, section.textSuffix]
         for (const itemName of section.itemNames ?? []) {
           keys.push(`${section.itemsPrefix}.${itemName}.title`, `${section.itemsPrefix}.${itemName}.description`)

@@ -18,7 +18,7 @@ function planesArchMediaSources(id: string): ProjectMediaSources {
   }
 }
 
-type VisualProjectSlug = 'aerovista' | 'forma' | 'kineo' | 'nordhus'
+type VisualProjectSlug = 'aerovista' | 'cnp' | 'forma' | 'kineo' | 'nordhus'
 
 function visualProjectMedia(
   project: VisualProjectSlug,
@@ -40,11 +40,56 @@ function visualProjectMedia(
   }
 }
 
+function cnpPublishedPhoto(id: string, file: string, width: number, height: number, url: string): ProjectMedia {
+  return {
+    ...visualProjectMedia('cnp', id, width, height, 'viewport', file),
+    attribution: { labelKey: `projects.entries.cnp.media.${id}.source`, url },
+  }
+}
+
 export const projects: Project[] = [
+  {
+    slug: 'cnp',
+    index: '01',
+    title: 'CNP',
+    period: '2021',
+    status: 'completed',
+    translationKey: 'projects.entries.cnp',
+    brief: { taskKey: 'projects.entries.cnp.brief.task', solutionKey: 'projects.entries.cnp.brief.solution', resultKey: 'projects.entries.cnp.brief.result' },
+    scopeKey: 'projects.entries.cnp.scope',
+    caseName: 'cnp',
+    theme: 'cnp',
+    schemaType: 'SoftwareApplication',
+    applicationCategory: 'BusinessApplication',
+    cover: '/projects/cnp/room-overview.webp',
+    ogImage: '/projects/cnp/room-overview.webp',
+    metrics: [
+      { value: '4', labelKey: 'projects.entries.cnp.metrics.components' },
+      { value: '3', labelKey: 'projects.entries.cnp.metrics.modes' },
+    ],
+    media: [
+      visualProjectMedia('cnp', 'roomOverview', 2560, 1920, 'viewport', 'room-overview'),
+      visualProjectMedia('cnp', 'tabletControl', 1920, 2560, 'viewport', 'tablet-control'),
+      visualProjectMedia('cnp', 'controlDesk', 2560, 1920, 'viewport', 'control-desk'),
+      visualProjectMedia('cnp', 'screenLayouts', 2560, 1920, 'viewport', 'screen-layouts'),
+      visualProjectMedia('cnp', 'tabletVideowall', 2560, 1920, 'viewport', 'tablet-videowall'),
+      visualProjectMedia('cnp', 'tabletRoom', 1920, 2560, 'viewport', 'tablet-room'),
+      visualProjectMedia('cnp', 'presentationWall', 2560, 1920, 'viewport', 'presentation-wall'),
+      cnpPublishedPhoto('meetingParticipants', 'meeting-participants', 1527, 1030, 'https://t.me/government_rus/1083'),
+      cnpPublishedPhoto('meetingRoom', 'meeting-room', 1536, 1024, 'https://t.me/government_rus/1083'),
+      cnpPublishedPhoto('meetingVideowall', 'meeting-videowall', 1672, 941, 'https://primeminister.kz/en/news/a-mamin-rf-ukimetinin-toragasy-m-mishustinmen-kelissoz-zhurgizdi-2104212'),
+      cnpPublishedPhoto('exhibitionRoom', 'exhibition-room', 1448, 1086, 'https://tochka.press/2023/11/10/100380/'),
+      cnpPublishedPhoto('exhibitionVisitors', 'exhibition-visitors', 1448, 1086, 'https://vshssn.msu.ru/posts/ekskursiya-na-vystavku-koordinacionnogo-centra-pri-pravitel-stve-rf-na-vdnh'),
+      visualProjectMedia('cnp', 'home', 2200, 1650, 'viewport'),
+      visualProjectMedia('cnp', 'presentation', 2200, 1650, 'viewport'),
+      visualProjectMedia('cnp', 'desktopEditor', 2200, 1650, 'viewport', 'desktop-editor'),
+    ],
+    stack: ['Vue', 'Nuxt', 'Vuex', 'Socket.IO', 'TypeScript', 'NestJS', 'PostgreSQL', 'Redis', 'Electron'],
+  },
   {
     slug: 'powersketch',
     statisticsPeriodKey: 'projects.entries.powersketch.metrics.period',
-    index: '01',
+    index: '02',
     title: 'PowerSketch',
     period: '2024—NOW',
     status: 'live',
@@ -176,7 +221,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'planes-arch',
-    index: '02',
+    index: '03',
     title: 'PLANES architects',
     period: '2026—NOW',
     status: 'live',
@@ -241,7 +286,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'nordhus',
-    index: '03',
+    index: '04',
     title: 'NORDHUS',
     period: '2026',
     status: 'completed',
@@ -275,7 +320,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'aerovista',
-    index: '04',
+    index: '05',
     title: 'AEROVISTA Inspect',
     period: '2026',
     status: 'completed',
@@ -304,7 +349,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'kineo',
-    index: '05',
+    index: '06',
     title: 'KINEO',
     period: '2026',
     status: 'completed',
@@ -336,7 +381,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'forma',
-    index: '06',
+    index: '07',
     title: 'FORMA',
     period: '2026',
     status: 'completed',
@@ -375,4 +420,5 @@ export const projects: Project[] = [
     ],
     stack: ['Vue', 'Vite', 'Vue Router', 'Tailwind CSS'],
   },
+
 ]

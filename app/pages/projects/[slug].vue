@@ -33,7 +33,7 @@ const schemaNodes = computed(() => {
   const projectEntity = project.value!.schemaType === 'SoftwareApplication'
     ? defineSoftwareApp({
         ...shared,
-        applicationCategory: 'DesignApplication',
+        applicationCategory: project.value!.applicationCategory ?? 'DesignApplication',
         operatingSystem: 'Web',
       })
     : defineWebSite(shared)

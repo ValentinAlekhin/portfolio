@@ -4,9 +4,9 @@ import { useProjectReveal } from '../app/composables/useProjectReveal'
 import { useProjectSelection } from '../app/composables/useProjectSelection'
 
 describe('project selection', () => {
-  it('starts with PowerSketch and keeps the chosen project until another is selected', () => {
+  it('starts with CNP and keeps the chosen project until another is selected', () => {
     const selection = useProjectSelection(projects)
-    expect(selection.selectedSlug.value).toBe('powersketch')
+    expect(selection.selectedSlug.value).toBe('cnp')
     selection.select('nordhus')
     expect(selection.selectedSlug.value).toBe('nordhus')
     selection.select('missing')

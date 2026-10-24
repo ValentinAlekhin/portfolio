@@ -21,7 +21,7 @@ if (import.meta.prerender && !cover.value.sources) {
     sizes: '100vw lg:1440px',
     modifiers: { width: cover.value.width, height: cover.value.height },
   })
-  prerenderRoutes([src, ...srcset.split(', ').map(candidate => candidate.split(' ')[0]!)])
+  prerenderRoutes([...(src ? [src] : []), ...srcset.split(', ').map(candidate => candidate.split(' ')[0]!)])
 }
 </script>
 

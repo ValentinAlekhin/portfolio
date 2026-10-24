@@ -657,6 +657,212 @@
           "result": "Customers can compare pieces, add them to the cart and proceed to checkout."
         },
         "implementation": "Vue Router connects the catalogue, product pages and editorial pages. The cart persists in the browser, and filters, cart and checkout have dedicated mobile layouts."
+      },
+      "cnp": {
+        "eyebrow": "For the Government Coordination Center",
+        "scope": "Public sector / Operator console / Frontend",
+        "summary": "A media content management system for preparing meetings and controlling a video wall from a tablet.",
+        "description": "The Media Content Management System was developed for the Analytical Center for the Government of the Russian Federation and is used at the Government Coordination Center. It connects meeting preparation with live display control: documents, video, cameras, web applications and dashboards can be shown on a large video wall.",
+        "audience": "Operators, speakers and specialists preparing meetings, presentations and analytical materials for the Coordination Center.",
+        "role": "Contributed to the operator web console: scenario preparation, material controls and communication with the server and display system.",
+        "brief": {
+          "task": "Give operators convenient control over different materials on a video wall during meetings and presentations.",
+          "solution": "A tablet web console for preparing a scenario, arranging materials on the screen and controlling the display.",
+          "result": "Preparation and live display form one workflow: operators choose materials and control the screen from a tablet."
+        },
+        "metrics": {
+          "label": "System contents",
+          "components": "applications in the system",
+          "modes": "content modes",
+          "sources": "materials and data"
+        },
+        "deployment": {
+          "title": "From the operator’s tablet to a government meeting room",
+          "description": "The project’s working environment is the Government Coordination Center. Presentations, documents, video calls and indicators share a room, with content and layouts that operators can change as the meeting progresses."
+        },
+        "system": {
+          "title": "How the system fits together",
+          "description": "The operator uses a tablet. The server connects their actions with materials and the display system, while a player sends the selected content to the video wall. The current display state returns to the console."
+        },
+        "workflow": {
+          "title": "From meeting preparation to the room display",
+          "description": "Materials and the presentation sequence are prepared in advance. During the meeting, the operator switches episodes, controls individual screen areas and sees the display state in the console."
+        },
+        "complexity": {
+          "title": "What has to come together behind one operator action",
+          "description": "Selecting a material on a tablet coordinates several applications, different sources and independent areas of a large screen.",
+          "items": {
+            "sources": {
+              "title": "Different sources in one display",
+              "description": "Documents, video, cameras, web pages and updating widgets need different loading, viewing and control methods."
+            },
+            "sync": {
+              "title": "The console shares the screen’s state",
+              "description": "Commands pass through the server, while the screen state returns to the operator: the active scenario, material pages, audio and timers."
+            },
+            "layouts": {
+              "title": "Each area has its own content",
+              "description": "The large screen is divided into areas and columns. Materials can have their own pages, playlist order and playback duration."
+            },
+            "access": {
+              "title": "Clear control over the display",
+              "description": "Roles and permissions determine access to materials and actions. Operators can hand control to one another."
+            }
+          }
+        },
+        "interface": {
+          "title": "A closer look at the operator console",
+          "description": "The console brings together scenarios, the material library, screen layouts and display controls. The images below show the interface with demo content."
+        },
+        "architecture": "The operator console, administration panel and display player share one server. The HTTP API handles material uploads and scenario changes, while Socket.IO carries control commands and the current display state. The server checks permissions and connects users and screens belonging to each venue.",
+        "constraints": "Touch controls need to remain clear while several materials are open on the video wall. Document pages, video, audio and timers share the display state. When several operators are working, roles, permissions and control handover determine who can change the screen content.",
+        "implementation": "The operator console uses Nuxt, Vue, Vuex and Vuetify; the administration panel uses React. A NestJS server with TypeORM and PostgreSQL stores materials, scenarios and access settings. Redis and Bull queues handle background data updates and material processing. The Electron, Nuxt and Vue display player receives commands and shows content in the specified screen areas.",
+        "diagram": {
+          "hint": "Select a diagram element to learn more",
+          "close": "Close description",
+          "systemLabel": "Connections between the console, materials, server and video wall",
+          "workflowLabel": "Preparation, selection, display and screen state feedback",
+          "feedback": "Display state returns to the console",
+          "nodes": {
+            "operator": {
+              "title": "Operator console",
+              "summary": "Preparation and control from a tablet",
+              "detail": "The operator builds a scenario, selects materials and controls the display: switching episodes and pages, and working with video, audio and timers."
+            },
+            "sources": {
+              "title": "Materials and data",
+              "summary": "Documents, video, cameras and widgets",
+              "detail": "The library contains different material types. Widgets receive data from connected sources, while documents and media are used in scenarios and layouts."
+            },
+            "server": {
+              "title": "System server",
+              "summary": "Materials, permissions, commands and state",
+              "detail": "The server stores scenarios and material information, checks user permissions and passes commands between the console and the display system."
+            },
+            "player": {
+              "title": "Player",
+              "summary": "Preparing content for the display",
+              "detail": "The display application receives selected content and control commands, places materials in screen areas and reports the display state."
+            },
+            "wall": {
+              "title": "Video wall",
+              "summary": "A shared screen for the meeting",
+              "detail": "Selected materials appear on the large screen. Several areas can show, for example, a presentation, a document and a dashboard at the same time."
+            }
+          },
+          "steps": {
+            "prepare": {
+              "title": "Prepare",
+              "summary": "Gather materials and build a scenario",
+              "detail": "Before a meeting, materials can be selected from the library, episodes placed in order and speaker notes prepared for the teleprompter."
+            },
+            "select": {
+              "title": "Select",
+              "summary": "Open the right episode on the tablet",
+              "detail": "During the meeting, the operator selects a scenario or episode and controls materials in individual screen areas."
+            },
+            "deliver": {
+              "title": "Display",
+              "summary": "Send a command to the video wall",
+              "detail": "The server passes the command to the display system. The player shows materials in the chosen layout and carries out playback commands."
+            },
+            "confirm": {
+              "title": "See the state",
+              "summary": "Receive the screen state",
+              "detail": "The console receives screen state, including the active scenario, pages, audio and timers. This gives the operator context for their next action."
+            }
+          }
+        },
+        "media": {
+          "roomOverview": {
+            "alt": "Government Coordination Center room with a panoramic video wall, analytical widgets and workstations",
+            "caption": "The video wall at the Coordination Center",
+            "description": "The panoramic screen combines several analytical panels, with workstations arranged in front of it. Photo from the project materials."
+          },
+          "tabletControl": {
+            "alt": "Tablet with presentation controls in front of a screen showing the same material at the Coordination Center",
+            "caption": "One presentation on the console and screen",
+            "description": "The tablet shows the scenario’s episodes, while the screen behind it displays the selected material. Photo from the project materials."
+          },
+          "controlDesk": {
+            "alt": "Tablet with the operator console in front of three monitors and rows of Coordination Center workstations",
+            "caption": "The operator workstation in the room",
+            "description": "The tablet console sits alongside workstation monitors and equipment, with rows of participant workstations behind them. Photo from the project materials."
+          },
+          "screenLayouts": {
+            "alt": "Coordination Center video wall divided into areas showing a camera, documents and a web application",
+            "caption": "Several sources on one video wall",
+            "description": "A camera, documents and a web application occupy separate areas of the large screen. Photo from the project materials."
+          },
+          "tabletVideowall": {
+            "alt": "Tablet with an analytical widget layout in front of monitors showing charts and statistics",
+            "caption": "Widget layouts and analytical panels",
+            "description": "The console shows the desktop structure, while the screens display charts, indicators and statistics. Photo from the project materials."
+          },
+          "tabletRoom": {
+            "alt": "Operator tablet on a desk in front of several monitors at the Coordination Center",
+            "caption": "The console beside the room screens",
+            "description": "The touch console is used alongside working monitors and room equipment. Photo from the project materials."
+          },
+          "presentationWall": {
+            "alt": "Presentation materials on the panoramic video wall at the Government Coordination Center",
+            "caption": "A presentation on the large screen",
+            "description": "Presentation materials appear on the video wall in front of participants’ workstations. Photo from the project materials."
+          },
+          "presentation": {
+            "alt": "Demonstration presentation control interface with episodes and materials",
+            "caption": "Presentation controls (demo content)",
+            "description": "The active episode, materials and scenario navigation share one screen. All data and materials shown on the screen were created for the interface demonstration."
+          },
+          "desktopEditor": {
+            "alt": "Demonstration desktop layout editor with a placement grid and widget library",
+            "caption": "Desktop layout editor (demo content)",
+            "description": "Widgets are selected from the library and placed in the display grid. All data and materials shown on the screen were created for the interface demonstration."
+          },
+          "home": {
+            "alt": "Demonstration operator console home screen with presentations, statuses and desktops",
+            "caption": "Console home screen (demo content)",
+            "description": "From the home screen, the operator opens presentations, statuses and desktops. All data and materials shown on the screen were created for the interface demonstration."
+          },
+          "meetingParticipants": {
+            "alt": "Russian and Kazakh meeting participants seated behind monitors and conference microphones at the Coordination Center",
+            "caption": "Meeting participants at the Coordination Center",
+            "description": "Delegations at their workstations during the talks on 2 November 2021.",
+            "source": "Government of Russia · 2 November 2021"
+          },
+          "meetingRoom": {
+            "alt": "Rows of meeting participants at the Coordination Center facing a video wall showing a document",
+            "caption": "The room during intergovernmental talks",
+            "description": "Participants’ workstations face a shared screen with presentation materials. Photograph published on 2 November 2021.",
+            "source": "Government of Russia · 2 November 2021"
+          },
+          "meetingVideowall": {
+            "alt": "Meeting participants at the Coordination Center with a remote speaker and transport map on the panoramic video wall",
+            "caption": "A remote speaker and map on one screen",
+            "description": "During a discussion of transport infrastructure, the video wall shows the speaker and a route map at the same time. Photograph published on 2 November 2021.",
+            "source": "Press Service of the Government of Kazakhstan · 2 November 2021"
+          },
+          "exhibitionRoom": {
+            "alt": "Situation room in the Coordination Center pavilion at the RUSSIA exhibition with a panoramic video wall and meeting workstations",
+            "caption": "The exhibition pavilion’s situation room",
+            "description": "A panoramic video wall and workstations with conference microphones introduce visitors to the Coordination Center’s meeting environment.",
+            "source": "Alexander Tochka / Tochka Zreniya · 10 November 2023"
+          },
+          "exhibitionVisitors": {
+            "alt": "Visitors to the Coordination Center pavilion at the RUSSIA exhibition beside a digital map and touch terminals",
+            "caption": "Visitors at the interactive screens",
+            "description": "A tour of the exhibition: a map of Russia, display materials and touch terminals introduce visitors to the work of the government venue.",
+            "source": "VShSSN, Lomonosov Moscow State University · 7 December 2023"
+          }
+        },
+        "usage": {
+          "title": "The room in use: participants, presentations and shared screens",
+          "description": "These public photographs show talks between the heads of government of Russia and Kazakhstan at the Coordination Center on 2 November 2021. Participants use workstations with monitors and microphones. The photographs show different display arrangements: a document on the shared screen, and a remote speaker alongside a transport map."
+        },
+        "exhibition": {
+          "title": "At the RUSSIA exhibition at VDNH",
+          "description": "The project team also took part in the RUSSIA exhibition and forum at VDNH. The Coordination Center’s exhibition introduced visitors to the government venue through a situation room, large screens and interactive areas."
+        }
       }
     },
     "view": "View project",

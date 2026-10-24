@@ -115,7 +115,12 @@ const { openGallery } = useProjectGallery(galleryRoot, galleryMedia)
             <p>{{ t(`${project.translationKey}.${section.itemsPrefix}.${itemName}.description`) }}</p>
           </li>
         </ul>
+        <ProjectArchitectureDiagram
+          v-if="section.diagram"
+          :diagram="section.diagram"
+        />
         <div
+          v-if="section.media.length"
           class="project-case__gallery"
           :class="{ 'project-case__gallery--single': section.media.length === 1 }"
         >

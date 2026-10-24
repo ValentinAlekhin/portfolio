@@ -33,7 +33,7 @@ for (const locale of Object.values(LocaleCode)) {
       await expect(page.locator('h1')).toHaveText(copy.hero.statement)
       expect(await page.locator('main > section').evaluateAll(nodes => nodes.map(node => node.id)))
         .toEqual(['top', 'projects', 'services', 'process', 'contacts'])
-      await expect(page.locator('.project-row')).toHaveCount(6)
+      await expect(page.locator('.project-row')).toHaveCount(projects.length)
       await expect(page.locator('#services article')).toHaveCount(4)
       if (width >= 1024) await expect(page.locator('.hero__ascii')).toBeVisible()
       else await expect(page.locator('.hero__ascii')).toBeHidden()
@@ -71,6 +71,7 @@ for (const locale of Object.values(LocaleCode)) {
   }
 
   test(`${locale}: project previews keep selection and mobile disclosures remember manual choice`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
     await page.context().addCookies([{ name: 'i18n_redirected', value: locale, url: 'http://127.0.0.1:3000' }])
     await page.setViewportSize({ width: 390, height: 844 })
     await page.goto(home)

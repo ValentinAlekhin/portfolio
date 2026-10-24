@@ -3,7 +3,7 @@ import type { LocaleCode } from './i18n'
 export type ThemePreference = 'light' | 'dark' | 'auto'
 export type ResolvedTheme = 'light' | 'dark'
 
-export type ProjectCaseName = 'aerovista' | 'forma' | 'kineo' | 'nordhus' | 'planes-arch' | 'powersketch'
+export type ProjectCaseName = 'aerovista' | 'cnp' | 'forma' | 'kineo' | 'nordhus' | 'planes-arch' | 'powersketch'
 export type ProjectThemeName = ProjectCaseName
 export type ProjectSchemaType = 'SoftwareApplication' | 'WebSite'
 export type ProjectMediaTheme = 'light' | 'dark'
@@ -35,6 +35,10 @@ export interface ProjectMedia {
   captionKey: string
   descriptionKey?: string
   display?: ProjectMediaDisplay
+  attribution?: {
+    labelKey: string
+    url: string
+  }
 }
 
 export interface LiteralProjectMetric {
@@ -65,6 +69,7 @@ export interface Project {
   caseName: ProjectCaseName
   theme: ProjectThemeName
   schemaType: ProjectSchemaType
+  applicationCategory?: 'BusinessApplication' | 'DesignApplication'
   cover: string
   ogImage: string
   metrics: ProjectMetric[]
