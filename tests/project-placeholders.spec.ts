@@ -12,10 +12,11 @@ const projectRoot = fileURLToPath(new URL('../public/projects/', import.meta.url
 const imageExtensions = new Set(['.png', '.webp', '.jpg', '.jpeg'])
 
 function imagePaths(directory: string): string[] {
-  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+  return readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
     const path = join(directory, entry.name)
     if (entry.isDirectory()) return imagePaths(path)
-    return entry.isFile() && imageExtensions.has(entry.name.slice(entry.name.lastIndexOf('.')).toLowerCase())
+    return entry.isFile() &&
+      imageExtensions.has(entry.name.slice(entry.name.lastIndexOf('.')).toLowerCase())
       ? [`/projects/${relative(projectRoot, path).split(sep).join('/')}`]
       : []
   })
@@ -52,7 +53,10 @@ describe('progressive image readiness', () => {
     const pending = image.markLoaded({
       complete: true,
       naturalWidth: 24,
-      decode: () => new Promise<void>((resolve) => { finishDecode = resolve }),
+      decode: () =>
+        new Promise<void>(resolve => {
+          finishDecode = resolve
+        }),
     })
 
     expect(image.status.value).toBe('loading')
@@ -73,7 +77,10 @@ describe('progressive image readiness', () => {
     const pending = image.markLoaded({
       complete: true,
       naturalWidth: 24,
-      decode: () => new Promise<void>((resolve) => { finishDecode = resolve }),
+      decode: () =>
+        new Promise<void>(resolve => {
+          finishDecode = resolve
+        }),
     })
 
     source.value = '/projects/two.webp'

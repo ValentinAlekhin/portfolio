@@ -1,20 +1,23 @@
 <script setup lang="ts">
 import type { ProjectMedia } from '~/types/content'
 
-const props = withDefaults(defineProps<{
-  media: ProjectMedia
-  alt?: string
-  caption?: string
-  priority?: boolean
-  compact?: boolean
-  contained?: boolean
-}>(), {
-  alt: undefined,
-  caption: undefined,
-  priority: false,
-  compact: false,
-  contained: false,
-})
+const props = withDefaults(
+  defineProps<{
+    media: ProjectMedia
+    alt?: string
+    caption?: string
+    priority?: boolean
+    compact?: boolean
+    contained?: boolean
+  }>(),
+  {
+    alt: undefined,
+    caption: undefined,
+    priority: false,
+    compact: false,
+    contained: false,
+  },
+)
 
 const { t } = useI18n()
 const { localeCode } = usePortfolio()
@@ -66,17 +69,52 @@ const localizedSources = computed(() => props.media.sources?.[localeCode.value])
 </template>
 
 <style scoped lang="scss">
-.project-media { margin: 0; min-width: 0; }
-.project-media__viewport { overflow: hidden; border: 1px solid var(--color-line); background: var(--color-surface); }
-.project-media__viewport :deep(img) { display: block; width: 100%; height: 100%; object-fit: cover; }
-.project-media--contained .project-media__viewport { aspect-ratio: 16 / 10; }
-.project-media--contained .project-media__viewport :deep(.base-progressive-image) { height: 100%; aspect-ratio: auto !important; }
-.project-media--contained .project-media__viewport :deep(img) { object-fit: contain; }
-.project-media--contained .project-media__viewport :deep(.base-progressive-image__placeholder) { inset: 0; background-size: contain; background-repeat: no-repeat; }
+.project-media {
+  margin: 0;
+  min-width: 0;
+}
+.project-media__viewport {
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+}
+.project-media__viewport :deep(img) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.project-media--contained .project-media__viewport {
+  aspect-ratio: 16 / 10;
+}
+.project-media--contained .project-media__viewport :deep(.base-progressive-image) {
+  height: 100%;
+  aspect-ratio: auto !important;
+}
+.project-media--contained .project-media__viewport :deep(img) {
+  object-fit: contain;
+}
+.project-media--contained .project-media__viewport :deep(.base-progressive-image__placeholder) {
+  inset: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
 .project-media__viewport > .project-media__plain,
-.project-media__viewport > .project-media__theme-light { display: block; }
-.project-media__viewport > .project-media__theme-dark { display: none; }
-html[data-theme='dark'] .project-media__viewport > .project-media__theme-light { display: none; }
-html[data-theme='dark'] .project-media__viewport > .project-media__theme-dark { display: block; }
-.project-media figcaption { margin-top: 0.55rem; color: var(--color-text-muted); font-size: var(--font-size-ui); }
+.project-media__viewport > .project-media__theme-light {
+  display: block;
+}
+.project-media__viewport > .project-media__theme-dark {
+  display: none;
+}
+html[data-theme='dark'] .project-media__viewport > .project-media__theme-light {
+  display: none;
+}
+html[data-theme='dark'] .project-media__viewport > .project-media__theme-dark {
+  display: block;
+}
+.project-media figcaption {
+  margin-top: 0.55rem;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-ui);
+}
 </style>

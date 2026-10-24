@@ -1,7 +1,13 @@
 import { useEventListener } from '@vueuse/core'
 import type { ShallowRef } from 'vue'
 import type { AsciiPortraitRenderer } from '~/utils/asciiPortrait'
-import { asciiAssembly, asciiGlyphAtlas, asciiMotion, asciiRendering, asciiScene } from '~/utils/asciiPortraitConfig'
+import {
+  asciiAssembly,
+  asciiGlyphAtlas,
+  asciiMotion,
+  asciiRendering,
+  asciiScene,
+} from '~/utils/asciiPortraitConfig'
 import { getAsciiNodPitch, getAsciiNodRoll } from '~/utils/asciiNod'
 import { createAsciiHeadMotion } from '~/utils/asciiHeadMotion'
 
@@ -23,7 +29,10 @@ export function useAsciiPortrait(
 
   watch(resolvedTheme, () => {
     if (!graphics || !host.value) return
-    graphics.setTheme(getComputedStyle(host.value).getPropertyValue('--color-text').trim(), resolvedTheme.value)
+    graphics.setTheme(
+      getComputedStyle(host.value).getPropertyValue('--color-text').trim(),
+      resolvedTheme.value,
+    )
     requestFrame?.()
   })
 
@@ -92,7 +101,9 @@ export function useAsciiPortrait(
         nodElapsed = Math.min(asciiMotion.nodDurationSeconds, nodElapsed + elapsed * nodSpeed)
       }
       lastFrame = timestamp
-      const progress = reducedMotion.matches ? 1 : Math.min(1, assemblyElapsed / asciiAssembly.durationSeconds)
+      const progress = reducedMotion.matches
+        ? 1
+        : Math.min(1, assemblyElapsed / asciiAssembly.durationSeconds)
       if (progress === 1) assemblyElapsed = asciiAssembly.durationSeconds
       // A hover during loading waits for the portrait to finish assembling.
       if (nodQueued && progress === 1) {
@@ -100,7 +111,9 @@ export function useAsciiPortrait(
         nodElapsed = 0
         // Sample once per gesture; changing random values every frame creates jitter.
         nodStrength = asciiMotion.minNodStrength + Math.random() * (1 - asciiMotion.minNodStrength)
-        nodSpeed = asciiMotion.minNodSpeed + Math.random() * (asciiMotion.maxNodSpeed - asciiMotion.minNodSpeed)
+        nodSpeed =
+          asciiMotion.minNodSpeed +
+          Math.random() * (asciiMotion.maxNodSpeed - asciiMotion.minNodSpeed)
       }
       const nodding = nodElapsed < asciiMotion.nodDurationSeconds
       const moving = headMotion.update(targetPitch, targetYaw, elapsed)
@@ -113,8 +126,7 @@ export function useAsciiPortrait(
         graphics.setAssemblyProgress(progress)
         graphics.render()
         state.value = progress < 1 ? 'assembling' : 'ready'
-      }
-      catch {
+      } catch {
         fail()
         return
       }
@@ -129,7 +141,14 @@ export function useAsciiPortrait(
     }
 
     requestNod = () => {
-      if (!active() || failed || reducedMotion.matches || nodQueued || nodElapsed < asciiMotion.nodDurationSeconds) return
+      if (
+        !active() ||
+        failed ||
+        reducedMotion.matches ||
+        nodQueued ||
+        nodElapsed < asciiMotion.nodDurationSeconds
+      )
+        return
       nodQueued = true
       requestFrame?.()
     }
@@ -151,13 +170,15 @@ export function useAsciiPortrait(
       try {
         const [module, data] = await Promise.all([
           import('~/utils/asciiPortrait'),
-          fetch(asciiScene.modelUrl, { signal: controller.signal }).then((response) => {
+          fetch(asciiScene.modelUrl, { signal: controller.signal }).then(response => {
             if (!response.ok) throw new Error('ASCII portrait model is unavailable')
             return response.arrayBuffer()
           }),
         ])
         const fontFamily = getComputedStyle(element!).getPropertyValue('--font-mono').trim()
-        await document.fonts.load(`${asciiGlyphAtlas.fontWeight} ${asciiGlyphAtlas.fontSizePx}px ${fontFamily}`)
+        await document.fonts.load(
+          `${asciiGlyphAtlas.fontWeight} ${asciiGlyphAtlas.fontSizePx}px ${fontFamily}`,
+        )
         if (currentGeneration !== generation || controller.signal.aborted) return
         const created = await module.createAsciiPortrait(surface!, data, fontFamily)
         if (currentGeneration !== generation || controller.signal.aborted) {
@@ -165,13 +186,14 @@ export function useAsciiPortrait(
           return
         }
         graphics = created
-        graphics.setTheme(getComputedStyle(element!).getPropertyValue('--color-text').trim(), resolvedTheme.value)
+        graphics.setTheme(
+          getComputedStyle(element!).getPropertyValue('--color-text').trim(),
+          resolvedTheme.value,
+        )
         resize()
-      }
-      catch {
+      } catch {
         if (currentGeneration === generation && !controller.signal.aborted) fail()
-      }
-      finally {
+      } finally {
         if (abortController === controller) abortController = undefined
       }
     }
@@ -200,10 +222,16 @@ export function useAsciiPortrait(
     }
 
     function onPointerMove(event: PointerEvent) {
-      if (event.pointerType !== 'mouse' || !finePointer.matches || reducedMotion.matches
-        || !desktop.matches || state.value !== 'ready') return
-      const x = Math.max(-1, Math.min(1, event.clientX / window.innerWidth * 2 - 1))
-      const y = Math.max(-1, Math.min(1, event.clientY / window.innerHeight * 2 - 1))
+      if (
+        event.pointerType !== 'mouse' ||
+        !finePointer.matches ||
+        reducedMotion.matches ||
+        !desktop.matches ||
+        state.value !== 'ready'
+      )
+        return
+      const x = Math.max(-1, Math.min(1, (event.clientX / window.innerWidth) * 2 - 1))
+      const y = Math.max(-1, Math.min(1, (event.clientY / window.innerHeight) * 2 - 1))
       targetYaw = x * asciiMotion.maxYawRadians
       // The scan faces -Z before presentation; negative local X tilts it downwards.
       targetPitch = -y * asciiMotion.maxPitchRadians
@@ -222,8 +250,15 @@ export function useAsciiPortrait(
     finePointer.addEventListener('change', resetRotation)
     document.addEventListener('visibilitychange', reconcile)
     window.addEventListener('blur', resetRotation)
-    const stopPointerMove = useEventListener(window, 'pointermove', onPointerMove, { passive: true, capture: true })
-    const stopPointerLeave = useEventListener(document.documentElement, 'pointerleave', resetRotation)
+    const stopPointerMove = useEventListener(window, 'pointermove', onPointerMove, {
+      passive: true,
+      capture: true,
+    })
+    const stopPointerLeave = useEventListener(
+      document.documentElement,
+      'pointerleave',
+      resetRotation,
+    )
     const onContextLost = () => {
       if (graphics) fail()
     }

@@ -9,26 +9,22 @@ defineProps<{
 
 <template>
   <header class="section-heading">
-    <p
-      v-if="eyebrow"
-      class="section-heading__eyebrow"
-    >
+    <p v-if="eyebrow" class="section-heading__eyebrow">
       {{ eyebrow }}
     </p>
     <h2 :id="titleId">
       {{ title }}
     </h2>
-    <p
-      v-if="description"
-      class="section-heading__description"
-    >
+    <p v-if="description" class="section-heading__description">
       {{ description }}
     </p>
   </header>
 </template>
 
 <style scoped lang="scss">
-.section-heading { margin-bottom: clamp(1.5rem, 2.5vw, 2rem); }
+.section-heading {
+  margin-bottom: clamp(1.5rem, 2.5vw, 2rem);
+}
 
 .section-heading__eyebrow {
   margin: 0 0 0.5rem;

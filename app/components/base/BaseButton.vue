@@ -1,17 +1,20 @@
 <script setup lang="ts">
-withDefaults(defineProps<{
-  href?: string
-  to?: string
-  variant?: 'primary' | 'secondary' | 'text'
-  external?: boolean
-  disabled?: boolean
-}>(), {
-  disabled: false,
-  href: undefined,
-  to: undefined,
-  variant: 'primary',
-  external: false,
-})
+withDefaults(
+  defineProps<{
+    href?: string
+    to?: string
+    variant?: 'primary' | 'secondary' | 'text'
+    external?: boolean
+    disabled?: boolean
+  }>(),
+  {
+    disabled: false,
+    href: undefined,
+    to: undefined,
+    variant: 'primary',
+    external: false,
+  },
+)
 </script>
 
 <template>
@@ -27,11 +30,7 @@ withDefaults(defineProps<{
     :type="!href && !to ? 'button' : undefined"
   >
     <span class="base-button__label"><slot /></span>
-    <span
-      v-if="$slots.icon"
-      class="base-button__icon"
-      aria-hidden="true"
-    >
+    <span v-if="$slots.icon" class="base-button__icon" aria-hidden="true">
       <slot name="icon" />
     </span>
   </component>
@@ -57,7 +56,10 @@ withDefaults(defineProps<{
   text-align: center;
   text-decoration: none;
   white-space: nowrap;
-  transition: background var(--duration-fast) ease, color var(--duration-fast) ease, border-color var(--duration-fast) ease;
+  transition:
+    background var(--duration-fast) ease,
+    color var(--duration-fast) ease,
+    border-color var(--duration-fast) ease;
 }
 
 .base-button:hover {
@@ -107,7 +109,13 @@ withDefaults(defineProps<{
   opacity: 0.65;
 }
 
-.base-button__icon { display: inline-flex; }
-.base-button__label { white-space: nowrap; }
-.base-button__icon :deep(svg) { flex: none; }
+.base-button__icon {
+  display: inline-flex;
+}
+.base-button__label {
+  white-space: nowrap;
+}
+.base-button__icon :deep(svg) {
+  flex: none;
+}
 </style>

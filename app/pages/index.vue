@@ -47,10 +47,7 @@ useSchemaOrg(pageSchema)
 </script>
 
 <template>
-  <main
-    id="main-content"
-    tabindex="-1"
-  >
+  <main id="main-content" tabindex="-1">
     <HeroSection />
     <ProjectsSection />
     <CapabilitiesSection />

@@ -17,31 +17,20 @@ function sectionHref(id: string) {
 <template>
   <header class="site-header">
     <div class="site-container site-header__inner">
-      <NuxtLink
-        :to="homePath"
-        class="site-brand"
-        :aria-label="t('profile.displayName')"
-      >alekhin.dev</NuxtLink>
-
-      <nav
-        class="site-nav"
-        :aria-label="t('nav.label')"
+      <NuxtLink :to="homePath" class="site-brand" :aria-label="t('profile.displayName')"
+        >alekhin.dev</NuxtLink
       >
-        <a
-          v-for="item in navigationItems"
-          :key="item.id"
-          :href="sectionHref(item.id)"
-        >{{ t(item.labelKey) }}</a>
+
+      <nav class="site-nav" :aria-label="t('nav.label')">
+        <a v-for="item in navigationItems" :key="item.id" :href="sectionHref(item.id)">{{
+          t(item.labelKey)
+        }}</a>
       </nav>
 
       <div class="site-header__actions">
         <LocaleSwitcher :label="t('nav.language')" />
         <ThemeSwitch :label="t('nav.theme')" />
-        <button
-          type="button"
-          class="site-header__contact"
-          @click="contactOpen = true"
-        >
+        <button type="button" class="site-header__contact" @click="contactOpen = true">
           {{ t('nav.contact') }}
         </button>
         <MobileNavigation />
@@ -103,9 +92,14 @@ function sectionHref(id: string) {
 }
 
 .site-nav a:hover,
-.site-nav a:focus-visible { color: var(--color-text); }
+.site-nav a:focus-visible {
+  color: var(--color-text);
+}
 
-.site-header__actions { flex: none; gap: 0.15rem; }
+.site-header__actions {
+  flex: none;
+  gap: 0.15rem;
+}
 
 .site-header__contact {
   min-height: 2.75rem;
@@ -128,11 +122,17 @@ function sectionHref(id: string) {
 
 @media (max-width: 1000px) {
   .site-nav,
-  .site-header__contact { display: none; }
+  .site-header__contact {
+    display: none;
+  }
 }
 
 @media (max-width: 380px) {
-  .site-brand { font-size: 0.91rem; }
-  .site-header__actions { gap: 0; }
+  .site-brand {
+    font-size: 0.91rem;
+  }
+  .site-header__actions {
+    gap: 0;
+  }
 }
 </style>

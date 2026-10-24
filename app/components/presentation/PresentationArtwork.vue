@@ -20,23 +20,19 @@ const services = ['websites', 'bots', 'tools'] as const
   >
     <div class="presentation-artwork__content">
       <header class="presentation-artwork__brand">
-        <span
-          class="presentation-artwork__mark"
-          aria-hidden="true"
-        >&gt;_</span>
+        <span class="presentation-artwork__mark" aria-hidden="true">&gt;_</span>
         <strong>{{ profile.domain }}</strong>
       </header>
 
       <div class="presentation-artwork__offer">
-        <h2>{{ t('presentation.artwork.headline') }} {{ t('presentation.artwork.headlineEnd') }}</h2>
+        <h2>
+          {{ t('presentation.artwork.headline') }} {{ t('presentation.artwork.headlineEnd') }}
+        </h2>
         <p>{{ t('presentation.artwork.support') }}</p>
       </div>
 
       <ul class="presentation-artwork__services">
-        <li
-          v-for="service in services"
-          :key="service"
-        >
+        <li v-for="service in services" :key="service">
           <h3>{{ t(`presentation.artwork.services.${service}.title`) }}</h3>
           <p>{{ t(`presentation.artwork.services.${service}.description`) }}</p>
         </li>
@@ -55,11 +51,8 @@ const services = ['websites', 'bots', 'tools'] as const
             :alt="t('presentation.artwork.qrAlt')"
             width="512"
             height="512"
-          >
-          <span
-            v-else
-            aria-hidden="true"
           />
+          <span v-else aria-hidden="true" />
         </div>
       </footer>
     </div>
@@ -109,7 +102,9 @@ const services = ['websites', 'bots', 'tools'] as const
   font-size: 2.55cqw;
 }
 
-.presentation-artwork__brand strong { font-weight: 600; }
+.presentation-artwork__brand strong {
+  font-weight: 600;
+}
 
 .presentation-artwork__mark {
   display: grid;
@@ -121,7 +116,9 @@ const services = ['websites', 'bots', 'tools'] as const
   place-items: center;
 }
 
-.presentation-artwork__offer { margin-top: 6cqw; }
+.presentation-artwork__offer {
+  margin-top: 6cqw;
+}
 
 .presentation-artwork__offer h2 {
   max-width: 18ch;
@@ -180,9 +177,18 @@ const services = ['websites', 'bots', 'tools'] as const
   border-top: 1px solid var(--art-line);
 }
 
-.presentation-artwork__identity { display: grid; gap: 1.2cqw; }
-.presentation-artwork__identity strong { font-size: 3.1cqw; font-weight: 600; }
-.presentation-artwork__identity span { color: var(--art-muted); font-size: 2.5cqw; }
+.presentation-artwork__identity {
+  display: grid;
+  gap: 1.2cqw;
+}
+.presentation-artwork__identity strong {
+  font-size: 3.1cqw;
+  font-weight: 600;
+}
+.presentation-artwork__identity span {
+  color: var(--art-muted);
+  font-size: 2.5cqw;
+}
 
 .presentation-artwork__identity b {
   font-family: var(--font-mono);
@@ -198,25 +204,62 @@ const services = ['websites', 'bots', 'tools'] as const
   background: #fff;
 }
 
-.presentation-artwork__qr img { display: block; width: 100%; height: 100%; }
+.presentation-artwork__qr img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 
 .presentation-artwork--square {
   aspect-ratio: 1;
 
-  .presentation-artwork__content { padding: 5.9259cqw; }
-  .presentation-artwork__brand { padding-bottom: 1.6cqw; }
-  .presentation-artwork__offer { margin-top: 3cqw; }
-  .presentation-artwork__offer h2 { max-width: 21ch; font-size: 6.3cqw; }
-  .presentation-artwork__offer p { margin-top: 1cqw; font-size: 2.8cqw; }
-  .presentation-artwork__services { margin-top: 3.2cqw; }
-  .presentation-artwork__services li { padding: 1.55cqw 0; }
-  .presentation-artwork__services h3 { font-size: 2.8cqw; }
-  .presentation-artwork__services p { font-size: 2.5cqw; }
-  .presentation-artwork__footer { padding-top: 2cqw; }
-  .presentation-artwork__identity { gap: 0.8cqw; }
-  .presentation-artwork__identity strong { font-size: 2.7cqw; }
-  .presentation-artwork__identity span { font-size: 2.3cqw; }
-  .presentation-artwork__identity b { font-size: 3.8cqw; }
-  .presentation-artwork__qr { flex-basis: 15cqw; width: 15cqw; }
+  .presentation-artwork__content {
+    padding: 5.9259cqw;
+  }
+  .presentation-artwork__brand {
+    padding-bottom: 1.6cqw;
+  }
+  .presentation-artwork__offer {
+    margin-top: 3cqw;
+  }
+  .presentation-artwork__offer h2 {
+    max-width: 21ch;
+    font-size: 6.3cqw;
+  }
+  .presentation-artwork__offer p {
+    margin-top: 1cqw;
+    font-size: 2.8cqw;
+  }
+  .presentation-artwork__services {
+    margin-top: 3.2cqw;
+  }
+  .presentation-artwork__services li {
+    padding: 1.55cqw 0;
+  }
+  .presentation-artwork__services h3 {
+    font-size: 2.8cqw;
+  }
+  .presentation-artwork__services p {
+    font-size: 2.5cqw;
+  }
+  .presentation-artwork__footer {
+    padding-top: 2cqw;
+  }
+  .presentation-artwork__identity {
+    gap: 0.8cqw;
+  }
+  .presentation-artwork__identity strong {
+    font-size: 2.7cqw;
+  }
+  .presentation-artwork__identity span {
+    font-size: 2.3cqw;
+  }
+  .presentation-artwork__identity b {
+    font-size: 3.8cqw;
+  }
+  .presentation-artwork__qr {
+    flex-basis: 15cqw;
+    width: 15cqw;
+  }
 }
 </style>

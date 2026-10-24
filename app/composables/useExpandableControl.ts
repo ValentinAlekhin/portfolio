@@ -73,7 +73,10 @@ export function useExpandableControl() {
   }
 
   onClickOutside(root, () => close())
-  watch(() => route.fullPath, () => close())
+  watch(
+    () => route.fullPath,
+    () => close(),
+  )
 
   return {
     id,

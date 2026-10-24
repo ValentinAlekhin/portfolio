@@ -13,10 +13,14 @@ export function useProgressiveImage(source: Ref<string>) {
   const status = ref<ProgressiveImageStatus>('loading')
   let generation = 0
 
-  watch(source, () => {
-    generation += 1
-    status.value = 'loading'
-  }, { flush: 'sync' })
+  watch(
+    source,
+    () => {
+      generation += 1
+      status.value = 'loading'
+    },
+    { flush: 'sync' },
+  )
 
   function markError() {
     status.value = 'error'
@@ -33,13 +37,13 @@ export function useProgressiveImage(source: Ref<string>) {
 
     try {
       await image.decode?.()
-    }
-    catch {
+    } catch {
       if (requestedSource === source.value && requestedGeneration === generation) markError()
       return
     }
 
-    if (requestedSource === source.value && requestedGeneration === generation) status.value = 'loaded'
+    if (requestedSource === source.value && requestedGeneration === generation)
+      status.value = 'loaded'
   }
 
   function checkCached(image: DecodableImage | null) {

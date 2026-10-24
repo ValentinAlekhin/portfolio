@@ -20,12 +20,15 @@ const pendingContact = ref(false)
 const homePath = computed(() => ensureTrailingSlash(localePath('/')))
 const contactOpen = useState<boolean>('contact-dialog-open', () => false)
 
-watch(() => route.fullPath, () => {
-  open.value = false
-  pendingContact.value = false
-})
+watch(
+  () => route.fullPath,
+  () => {
+    open.value = false
+    pendingContact.value = false
+  },
+)
 
-watch(open, (isOpen) => {
+watch(open, isOpen => {
   if (isOpen) pendingContact.value = false
 })
 
@@ -46,21 +49,13 @@ async function onPanelAfterLeave() {
 <template>
   <DialogRoot v-model:open="open">
     <DialogTrigger as-child>
-      <button
-        type="button"
-        class="mobile-menu-trigger"
-        :aria-label="t('nav.open')"
-      >
+      <button type="button" class="mobile-menu-trigger" :aria-label="t('nav.open')">
         <BaseIcon name="menu" />
       </button>
     </DialogTrigger>
     <DialogPortal>
       <DialogOverlay class="mobile-nav-overlay" />
-      <DialogContent
-        class="mobile-nav-panel"
-        aria-modal="true"
-        @after-leave="onPanelAfterLeave"
-      >
+      <DialogContent class="mobile-nav-panel" aria-modal="true" @after-leave="onPanelAfterLeave">
         <div class="mobile-nav-panel__top">
           <DialogTitle>{{ t('nav.drawerTitle') }}</DialogTitle>
           <DialogDescription class="sr-only">
@@ -71,19 +66,11 @@ async function onPanelAfterLeave() {
           </DialogClose>
         </div>
         <nav :aria-label="t('nav.label')">
-          <DialogClose
-            v-for="item in navigationItems"
-            :key="item.id"
-            as-child
-          >
+          <DialogClose v-for="item in navigationItems" :key="item.id" as-child>
             <a :href="`${homePath}#${item.id}`">{{ t(item.labelKey) }}</a>
           </DialogClose>
         </nav>
-        <button
-          type="button"
-          class="mobile-nav-panel__contact"
-          @click="openContact"
-        >
+        <button type="button" class="mobile-nav-panel__contact" @click="openContact">
           {{ t('nav.contact') }}
           <BaseIcon name="arrow-up-right" />
         </button>
@@ -154,8 +141,15 @@ async function onPanelAfterLeave() {
   border-bottom: 1px solid var(--color-line);
 }
 
-.mobile-nav-panel__top h2 { margin: 0; font-size: 1.125rem; font-weight: 700; }
-.mobile-nav-panel nav { display: grid; margin-top: 1.5rem; }
+.mobile-nav-panel__top h2 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+.mobile-nav-panel nav {
+  display: grid;
+  margin-top: 1.5rem;
+}
 
 .mobile-nav-panel nav a {
   display: flex;
@@ -167,7 +161,9 @@ async function onPanelAfterLeave() {
   text-decoration: none;
 }
 
-.mobile-nav-panel nav a:hover { background: var(--color-surface); }
+.mobile-nav-panel nav a:hover {
+  background: var(--color-surface);
+}
 
 .mobile-nav-panel__contact {
   display: flex;
@@ -187,27 +183,45 @@ async function onPanelAfterLeave() {
 }
 
 @keyframes mobile-nav-overlay-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes mobile-nav-overlay-out {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 @keyframes mobile-nav-panel-in {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 @keyframes mobile-nav-panel-out {
-  from { transform: translateX(0); }
-  to { transform: translateX(100%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
 }
 
 @media (max-width: 1000px) {
-  .mobile-menu-trigger { display: grid; }
+  .mobile-menu-trigger {
+    display: grid;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

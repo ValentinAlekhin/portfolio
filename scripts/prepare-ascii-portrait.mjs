@@ -28,7 +28,12 @@ const io = new NodeIO()
 await Promise.all([MeshoptEncoder.ready, MeshoptDecoder.ready])
 const document = await io.read(source)
 const rigBefore = snapshotRig(document)
-if (!document.getRoot().listNodes().some(node => node.getName() === 'Head')) {
+if (
+  !document
+    .getRoot()
+    .listNodes()
+    .some(node => node.getName() === 'Head')
+) {
   throw new Error('Portrait source must contain the exported Head pivot')
 }
 
@@ -48,24 +53,42 @@ await document.transform(
 
 // Apply the lossless codec directly, without meshopt()'s quantization or any
 // simplification, flattening or welding that could change the authored rig.
-document.createExtension(EXTMeshoptCompression)
+document
+  .createExtension(EXTMeshoptCompression)
   .setRequired(true)
   .setEncoderOptions({ method: EXTMeshoptCompression.EncoderMethod.QUANTIZE })
 const binary = await io.writeBinary(document)
-deepStrictEqual(snapshotRig(await io.readBinary(binary)), rigBefore, 'Portrait compression changed the rig')
+deepStrictEqual(
+  snapshotRig(await io.readBinary(binary)),
+  rigBefore,
+  'Portrait compression changed the rig',
+)
 await mkdir(dirname(destination), { recursive: true })
 await writeFile(destination, binary)
-const triangles = document.getRoot().listMeshes().reduce((total, mesh) => total + mesh.listPrimitives()
-  .reduce((count, primitive) => count + primitive.getIndices().getCount() / 3, 0), 0)
+const triangles = document
+  .getRoot()
+  .listMeshes()
+  .reduce(
+    (total, mesh) =>
+      total +
+      mesh
+        .listPrimitives()
+        .reduce((count, primitive) => count + primitive.getIndices().getCount() / 3, 0),
+    0,
+  )
 const { size } = await stat(destination)
-process.stdout.write(`Portrait: ${triangles.toLocaleString('en-US')} triangles, ${(size / bytesPerMebibyte).toFixed(2)} MiB\n`)
+process.stdout.write(
+  `Portrait: ${triangles.toLocaleString('en-US')} triangles, ${(size / bytesPerMebibyte).toFixed(2)} MiB\n`,
+)
 
 function snapshotRig(document) {
   const root = document.getRoot()
-  const hashAccessor = (accessor) => {
+  const hashAccessor = accessor => {
     const array = accessor?.getArray()
     if (!array) return null
-    return createHash('sha256').update(Buffer.from(array.buffer, array.byteOffset, array.byteLength)).digest('hex')
+    return createHash('sha256')
+      .update(Buffer.from(array.buffer, array.byteOffset, array.byteLength))
+      .digest('hex')
   }
   return {
     nodes: root.listNodes().map(node => ({
@@ -88,9 +111,11 @@ function snapshotRig(document) {
       name: mesh.getName(),
       primitives: mesh.listPrimitives().map(primitive => ({
         triangles: primitive.getIndices().getCount() / 3,
-        attributes: Object.fromEntries(primitive.listSemantics().map(semantic => [
-          semantic, hashAccessor(primitive.getAttribute(semantic)),
-        ])),
+        attributes: Object.fromEntries(
+          primitive
+            .listSemantics()
+            .map(semantic => [semantic, hashAccessor(primitive.getAttribute(semantic))]),
+        ),
       })),
     })),
   }

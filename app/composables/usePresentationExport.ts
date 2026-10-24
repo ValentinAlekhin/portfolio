@@ -1,7 +1,11 @@
 import type { ComputedRef, Ref } from 'vue'
 import type { LocaleCode } from '~/types/i18n'
 import { presentationSizes } from '~/types/presentation'
-import type { PresentationExportState, PresentationFormat, PresentationPalette } from '~/types/presentation'
+import type {
+  PresentationExportState,
+  PresentationFormat,
+  PresentationPalette,
+} from '~/types/presentation'
 import { getPresentationFilename, getPresentationHomeUrl } from '~/utils/presentation'
 
 interface PresentationExportOptions {
@@ -27,13 +31,16 @@ function waitForResource<T>(promise: Promise<T>, signal: AbortSignal): Promise<T
     }, 20000)
 
     signal.addEventListener('abort', abort, { once: true })
-    promise.then((value) => {
-      finish()
-      resolve(value)
-    }, (error: unknown) => {
-      finish()
-      reject(error)
-    })
+    promise.then(
+      value => {
+        finish()
+        resolve(value)
+      },
+      (error: unknown) => {
+        finish()
+        reject(error)
+      },
+    )
     if (signal.aborted) abort()
   })
 }
@@ -44,13 +51,16 @@ export function usePresentationExport(options: PresentationExportOptions) {
   const state = ref<PresentationExportState>('idle')
   const mounted = ref(false)
   const leaving = ref(false)
-  const canDownload = computed(() => mounted.value
-    && !leaving.value
-    && state.value !== 'rendering'
-    && (qrSrc.value !== '' || state.value === 'error'))
-  const statusMessage = computed(() => state.value === 'idle'
-    ? ''
-    : t(`presentation.download.${state.value}`))
+  const canDownload = computed(
+    () =>
+      mounted.value &&
+      !leaving.value &&
+      state.value !== 'rendering' &&
+      (qrSrc.value !== '' || state.value === 'error'),
+  )
+  const statusMessage = computed(() =>
+    state.value === 'idle' ? '' : t(`presentation.download.${state.value}`),
+  )
   const objectUrls = new Set<string>()
   const timers = new Set<ReturnType<typeof setTimeout>>()
   let qrRequest = 0
@@ -81,8 +91,7 @@ export function usePresentationExport(options: PresentationExportOptions) {
     const locale = options.localeCode.value
     try {
       await generateQr()
-    }
-    catch {
+    } catch {
       if (mounted.value && locale === options.localeCode.value) state.value = 'error'
     }
   }
@@ -123,29 +132,36 @@ export function usePresentationExport(options: PresentationExportOptions) {
       if (!qrSrc.value) await waitForResource(generateQr(), signal)
       await nextTick()
       await waitForResource(document.fonts.ready, signal)
-      await waitForResource(Promise.all(Array.from(node.querySelectorAll('img')).map(async (image) => {
-        await image.decode()
-        if (!image.naturalWidth) throw new Error('Presentation image is empty')
-      })), signal)
+      await waitForResource(
+        Promise.all(
+          Array.from(node.querySelectorAll('img')).map(async image => {
+            await image.decode()
+            if (!image.naturalWidth) throw new Error('Presentation image is empty')
+          }),
+        ),
+        signal,
+      )
       const { getFontEmbedCSS, toBlob } = await waitForResource(import('html-to-image'), signal)
       // The local variable fonts use format('woff2-variations'); filtering to
       // 'woff2' would silently remove their sources from the exported image.
       const fontEmbedCSS = await waitForResource(getFontEmbedCSS(node), signal)
-      const blob = await waitForResource(toBlob(node, {
-        width: size.width,
-        height: size.height,
-        canvasWidth: size.width,
-        canvasHeight: size.height,
-        pixelRatio: 1,
-        fontEmbedCSS,
-        skipAutoScale: true,
-      }), signal)
+      const blob = await waitForResource(
+        toBlob(node, {
+          width: size.width,
+          height: size.height,
+          canvasWidth: size.width,
+          canvasHeight: size.height,
+          pixelRatio: 1,
+          fontEmbedCSS,
+          skipAutoScale: true,
+        }),
+        signal,
+      )
       if (!blob) throw new Error('Presentation rendering returned an empty image')
       if (signal.aborted || !mounted.value) return
       saveBlob(blob, filename)
       state.value = 'success'
-    }
-    catch (error) {
+    } catch (error) {
       if (signal.aborted || !mounted.value) return
       console.error('Unable to export presentation', error)
       state.value = 'error'
@@ -153,10 +169,14 @@ export function usePresentationExport(options: PresentationExportOptions) {
   }
 
   watch(options.localeCode, refreshQr, { flush: 'sync' })
-  watch([options.format, options.palette], () => {
-    controller?.abort()
-    state.value = qrSrc.value ? 'idle' : state.value
-  }, { flush: 'sync' })
+  watch(
+    [options.format, options.palette],
+    () => {
+      controller?.abort()
+      state.value = qrSrc.value ? 'idle' : state.value
+    },
+    { flush: 'sync' },
+  )
   onMounted(() => {
     mounted.value = true
     void refreshQr()

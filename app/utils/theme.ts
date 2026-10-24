@@ -12,7 +12,10 @@ export function isThemePreference(value: string | null): value is ThemePreferenc
   return value === 'light' || value === 'dark' || value === 'auto'
 }
 
-export function resolveInitialPreference(stored: string | null, legacy: string | null): ThemePreference {
+export function resolveInitialPreference(
+  stored: string | null,
+  legacy: string | null,
+): ThemePreference {
   if (isThemePreference(stored)) return stored
   if (legacy === 'system') return 'light'
   if (legacy === 'phosphor') return 'dark'

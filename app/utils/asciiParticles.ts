@@ -31,10 +31,15 @@ export function createAsciiParticleLayout(
     const y = Math.floor(index / columns)
     let outside = true
     for (let dy = -asciiAssembly.originPaddingCells; dy <= asciiAssembly.originPaddingCells; dy++) {
-      for (let dx = -asciiAssembly.originPaddingCells; dx <= asciiAssembly.originPaddingCells; dx++) {
+      for (
+        let dx = -asciiAssembly.originPaddingCells;
+        dx <= asciiAssembly.originPaddingCells;
+        dx++
+      ) {
         const nx = x + dx
         const ny = y + dy
-        if (nx >= 0 && nx < columns && ny >= 0 && ny < rows && mask[ny * columns + nx]) outside = false
+        if (nx >= 0 && nx < columns && ny >= 0 && ny < rows && mask[ny * columns + nx])
+          outside = false
       }
     }
     if (outside) clear[index] = 1
@@ -45,7 +50,7 @@ export function createAsciiParticleLayout(
   const timing = new Float32Array(count * 2)
   const curves = new Float32Array(count * 3)
   for (let index = 0; index < count; index++) {
-    const x = (index % columns + 0.5) * cellWidth
+    const x = ((index % columns) + 0.5) * cellWidth
     const y = (Math.floor(index / columns) + 0.5) * cellHeight
     let originX = x
     let originY = y
@@ -55,12 +60,19 @@ export function createAsciiParticleLayout(
       // Keep the origin off the silhouette and allow diagonals and crossing paths.
       for (let attempt = 0; attempt < asciiAssembly.maxOriginAttempts; attempt++) {
         const angle = random() * Math.PI * 2
-        const radius = Math.sqrt(asciiAssembly.minOriginDistancePx ** 2
-          + random() * (asciiAssembly.maxOriginDistancePx ** 2 - asciiAssembly.minOriginDistancePx ** 2))
+        const radius = Math.sqrt(
+          asciiAssembly.minOriginDistancePx ** 2 +
+            random() *
+              (asciiAssembly.maxOriginDistancePx ** 2 - asciiAssembly.minOriginDistancePx ** 2),
+        )
         const candidateX = x + Math.cos(angle) * radius
         const candidateY = y + Math.sin(angle) * radius
-        if (candidateX < 0 || candidateX >= width || candidateY < 0 || candidateY >= height) continue
-        if (!clear[Math.floor(candidateY / cellHeight) * columns + Math.floor(candidateX / cellWidth)]) continue
+        if (candidateX < 0 || candidateX >= width || candidateY < 0 || candidateY >= height)
+          continue
+        if (
+          !clear[Math.floor(candidateY / cellHeight) * columns + Math.floor(candidateX / cellWidth)]
+        )
+          continue
         originX = candidateX
         originY = candidateY
         found = true
@@ -71,7 +83,7 @@ export function createAsciiParticleLayout(
       if (!found) {
         let closestDistance = Infinity
         for (const candidate of exterior) {
-          const candidateX = (candidate % columns + 0.5) * cellWidth
+          const candidateX = ((candidate % columns) + 0.5) * cellWidth
           const candidateY = (Math.floor(candidate / columns) + 0.5) * cellHeight
           const distance = (candidateX - x) ** 2 + (candidateY - y) ** 2
           if (distance >= closestDistance) continue
@@ -89,23 +101,28 @@ export function createAsciiParticleLayout(
         { distance: y, x, y: -cellHeight / 2 },
         { distance: height - y, x, y: height + cellHeight / 2 },
       ]
-      const edge = edges.reduce((closest, candidate) => candidate.distance < closest.distance ? candidate : closest)
+      const edge = edges.reduce((closest, candidate) =>
+        candidate.distance < closest.distance ? candidate : closest,
+      )
       originX = edge.x
       originY = edge.y
     }
     origins[index * 2] = originX / width
     origins[index * 2 + 1] = originY / height
     timing[index * 2] = random() * asciiAssembly.maxStartProgress
-    timing[index * 2 + 1] = asciiAssembly.minFinishProgress + random() * (1 - asciiAssembly.minFinishProgress)
+    timing[index * 2 + 1] =
+      asciiAssembly.minFinishProgress + random() * (1 - asciiAssembly.minFinishProgress)
 
     const angle = random() * Math.PI * 2
     const distance = Math.hypot(originX - x, originY - y)
-    const bend = Math.min(asciiAssembly.maxCurveBendPx, distance * asciiAssembly.maxCurveBendRatio)
-      * (asciiAssembly.minCurveBendStrength + random() * (1 - asciiAssembly.minCurveBendStrength))
-    curves[index * 3] = Math.cos(angle) * bend / width
-    curves[index * 3 + 1] = Math.sin(angle) * bend / height
-    curves[index * 3 + 2] = asciiAssembly.minEaseExponent
-      + random() * (asciiAssembly.maxEaseExponent - asciiAssembly.minEaseExponent)
+    const bend =
+      Math.min(asciiAssembly.maxCurveBendPx, distance * asciiAssembly.maxCurveBendRatio) *
+      (asciiAssembly.minCurveBendStrength + random() * (1 - asciiAssembly.minCurveBendStrength))
+    curves[index * 3] = (Math.cos(angle) * bend) / width
+    curves[index * 3 + 1] = (Math.sin(angle) * bend) / height
+    curves[index * 3 + 2] =
+      asciiAssembly.minEaseExponent +
+      random() * (asciiAssembly.maxEaseExponent - asciiAssembly.minEaseExponent)
   }
   return { origins, timing, curves }
 }

@@ -13,7 +13,9 @@ const { t } = useI18n()
 const state = useState<boolean>('contact-dialog-open', () => false)
 const open = computed({
   get: () => state.value,
-  set: (value) => { state.value = value },
+  set: value => {
+    state.value = value
+  },
 })
 const feedback = ref<'copied' | 'copyFailed' | null>(null)
 let feedbackTimer: ReturnType<typeof setTimeout> | undefined
@@ -24,8 +26,7 @@ async function copyEmail() {
     if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable')
     await navigator.clipboard.writeText(profile.email)
     feedback.value = 'copied'
-  }
-  catch {
+  } catch {
     feedback.value = 'copyFailed'
   }
   feedbackTimer = setTimeout(() => {
@@ -33,7 +34,7 @@ async function copyEmail() {
   }, 3500)
 }
 
-watch(open, (isOpen) => {
+watch(open, isOpen => {
   if (isOpen) return
   if (feedbackTimer) clearTimeout(feedbackTimer)
   feedback.value = null
@@ -48,11 +49,7 @@ onBeforeUnmount(() => {
   <DialogRoot v-model:open="open">
     <DialogPortal>
       <DialogOverlay class="dialog-overlay" />
-      <DialogContent
-        class="contact-dialog"
-        aria-modal="true"
-        :aria-describedby="undefined"
-      >
+      <DialogContent class="contact-dialog" aria-modal="true" :aria-describedby="undefined">
         <div class="contact-dialog__top">
           <DialogTitle class="contact-dialog__title">
             {{ t('contact.title') }}
@@ -62,30 +59,18 @@ onBeforeUnmount(() => {
           </DialogClose>
         </div>
 
-        <a
-          :href="`mailto:${profile.email}`"
-          class="contact-dialog__email"
-        >{{ profile.email }}</a>
+        <a :href="`mailto:${profile.email}`" class="contact-dialog__email">{{ profile.email }}</a>
 
         <div class="contact-dialog__other">
-          <a
-            :href="profile.telegram"
-            target="_blank"
-            rel="noopener noreferrer"
-          >Telegram <span>{{ profile.telegramHandle }}</span></a>
-          <button
-            type="button"
-            @click="copyEmail"
+          <a :href="profile.telegram" target="_blank" rel="noopener noreferrer"
+            >Telegram <span>{{ profile.telegramHandle }}</span></a
           >
+          <button type="button" @click="copyEmail">
             <BaseIcon :name="feedback === 'copied' ? 'check' : 'copy'" />
             {{ t('contact.copy') }}
           </button>
         </div>
-        <p
-          class="contact-dialog__feedback"
-          aria-live="polite"
-          aria-atomic="true"
-        >
+        <p class="contact-dialog__feedback" aria-live="polite" aria-atomic="true">
           {{ feedback ? t(`contact.${feedback}`) : '' }}
         </p>
       </DialogContent>
@@ -216,23 +201,43 @@ onBeforeUnmount(() => {
 }
 
 @keyframes contact-overlay-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes contact-overlay-out {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 @keyframes contact-panel-in {
-  from { opacity: 0; transform: translate(-50%, calc(-50% + 0.5rem)); }
-  to { opacity: 1; transform: translate(-50%, -50%); }
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 0.5rem));
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
 }
 
 @keyframes contact-panel-out {
-  from { opacity: 1; transform: translate(-50%, -50%); }
-  to { opacity: 0; transform: translate(-50%, calc(-50% + 0.5rem)); }
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 0.5rem));
+  }
 }
 
 @media (max-width: 540px) {

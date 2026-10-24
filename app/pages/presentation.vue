@@ -51,11 +51,7 @@ useHead(() => ({
 </script>
 
 <template>
-  <main
-    id="main-content"
-    class="presentation-page site-container"
-    tabindex="-1"
-  >
+  <main id="main-content" class="presentation-page site-container" tabindex="-1">
     <header class="presentation-page__intro">
       <p class="system-label">
         {{ t('presentation.eyebrow') }}
@@ -65,105 +61,55 @@ useHead(() => ({
     </header>
 
     <div class="presentation-page__workspace">
-      <section
-        class="presentation-page__controls"
-        :aria-label="t('presentation.settings')"
-      >
+      <section class="presentation-page__controls" :aria-label="t('presentation.settings')">
         <fieldset :disabled="state === 'rendering'">
           <legend>{{ t('presentation.format') }}</legend>
-          <label
-            v-for="option in formats"
-            :key="option"
-            class="presentation-page__option"
-          >
-            <input
-              v-model="format"
-              type="radio"
-              name="presentation-format"
-              :value="option"
-            >
+          <label v-for="option in formats" :key="option" class="presentation-page__option">
+            <input v-model="format" type="radio" name="presentation-format" :value="option" />
             <span>{{ t(`presentation.formats.${option}`) }}</span>
-            <small>{{ presentationSizes[option].width }} × {{ presentationSizes[option].height }}</small>
+            <small
+              >{{ presentationSizes[option].width }} × {{ presentationSizes[option].height }}</small
+            >
           </label>
         </fieldset>
 
         <fieldset :disabled="state === 'rendering'">
           <legend>{{ t('presentation.palette') }}</legend>
-          <label
-            v-for="option in palettes"
-            :key="option"
-            class="presentation-page__option"
-          >
-            <input
-              v-model="palette"
-              type="radio"
-              name="presentation-palette"
-              :value="option"
-            >
+          <label v-for="option in palettes" :key="option" class="presentation-page__option">
+            <input v-model="palette" type="radio" name="presentation-palette" :value="option" />
             <span>{{ t(`presentation.palettes.${option}`) }}</span>
-            <i
-              :class="`presentation-page__swatch--${option}`"
-              aria-hidden="true"
-            />
+            <i :class="`presentation-page__swatch--${option}`" aria-hidden="true" />
           </label>
         </fieldset>
 
         <div class="presentation-page__download">
-          <BaseButton
-            :disabled="!canDownload"
-            :aria-busy="state === 'rendering'"
-            @click="download"
-          >
-            {{ t(state === 'error' ? 'presentation.download.retry' : 'presentation.download.button') }}
+          <BaseButton :disabled="!canDownload" :aria-busy="state === 'rendering'" @click="download">
+            {{
+              t(state === 'error' ? 'presentation.download.retry' : 'presentation.download.button')
+            }}
           </BaseButton>
           <span class="system-label">PNG · {{ size.width }} × {{ size.height }}</span>
           <p>{{ t('presentation.download.hint') }}</p>
-          <p
-            class="presentation-page__status"
-            role="status"
-            aria-live="polite"
-            aria-atomic="true"
-          >
+          <p class="presentation-page__status" role="status" aria-live="polite" aria-atomic="true">
             {{ statusMessage }}
           </p>
         </div>
       </section>
 
-      <figure
-        class="presentation-page__preview"
-        :class="`presentation-page__preview--${format}`"
-      >
+      <figure class="presentation-page__preview" :class="`presentation-page__preview--${format}`">
         <figcaption class="system-label">
           <span>{{ t('presentation.preview') }}</span>
           <span>{{ format === 'story' ? '9:16' : '1:1' }}</span>
         </figcaption>
-        <div
-          class="presentation-page__frame"
-          :aria-busy="!qrSrc && state !== 'error'"
-        >
-          <PresentationArtwork
-            :format="format"
-            :palette="palette"
-            :qr-src="qrSrc"
-          />
+        <div class="presentation-page__frame" :aria-busy="!qrSrc && state !== 'error'">
+          <PresentationArtwork :format="format" :palette="palette" :qr-src="qrSrc" />
         </div>
       </figure>
     </div>
 
-    <div
-      class="presentation-page__export"
-      aria-hidden="true"
-      inert
-    >
-      <div
-        ref="exportNode"
-        :style="{ width: `${size.width}px`, height: `${size.height}px` }"
-      >
-        <PresentationArtwork
-          :format="format"
-          :palette="palette"
-          :qr-src="qrSrc"
-        />
+    <div class="presentation-page__export" aria-hidden="true" inert>
+      <div ref="exportNode" :style="{ width: `${size.width}px`, height: `${size.height}px` }">
+        <PresentationArtwork :format="format" :palette="palette" :qr-src="qrSrc" />
       </div>
     </div>
   </main>
@@ -176,7 +122,10 @@ useHead(() => ({
   padding-bottom: clamp(3rem, 5vw, 4rem);
 }
 
-.presentation-page__intro > .system-label { margin: 0 0 1rem; color: var(--color-text-muted); }
+.presentation-page__intro > .system-label {
+  margin: 0 0 1rem;
+  color: var(--color-text-muted);
+}
 
 .presentation-page__intro h1 {
   max-width: 15ch;
@@ -203,7 +152,9 @@ useHead(() => ({
   border-top: 1px solid var(--color-line);
 }
 
-.presentation-page__controls { max-width: 28rem; }
+.presentation-page__controls {
+  max-width: 28rem;
+}
 
 .presentation-page__controls fieldset {
   min-width: 0;
@@ -241,21 +192,54 @@ useHead(() => ({
   outline-offset: 3px;
 }
 
-.presentation-page__option:has(:disabled) { cursor: wait; opacity: 0.65; }
-.presentation-page__option input { flex: 0 0 auto; width: 1rem; height: 1rem; accent-color: var(--color-text); }
-.presentation-page__option small { margin-left: auto; color: var(--color-text-muted); font-family: var(--font-mono); font-size: 0.7rem; }
-.presentation-page__option i { width: 1.4rem; height: 1.4rem; margin-left: auto; border: 1px solid var(--color-control-border); }
-.presentation-page__swatch--dark { background: var(--card-dark-bg); }
-.presentation-page__swatch--light { background: var(--card-paper); }
+.presentation-page__option:has(:disabled) {
+  cursor: wait;
+  opacity: 0.65;
+}
+.presentation-page__option input {
+  flex: 0 0 auto;
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--color-text);
+}
+.presentation-page__option small {
+  margin-left: auto;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+}
+.presentation-page__option i {
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-left: auto;
+  border: 1px solid var(--color-control-border);
+}
+.presentation-page__swatch--dark {
+  background: var(--card-dark-bg);
+}
+.presentation-page__swatch--light {
+  background: var(--card-paper);
+}
 
 .presentation-page__download {
   padding-top: 1rem;
   border-top: 1px solid var(--color-line);
 }
 
-.presentation-page__download > span { display: block; margin-top: 0.35rem; color: var(--color-text-muted); }
-.presentation-page__download > p { margin: 1rem 0 0; color: var(--color-text-muted); font-size: 0.9rem; }
-.presentation-page__download .presentation-page__status { min-height: 2.5em; color: var(--color-text-muted); }
+.presentation-page__download > span {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--color-text-muted);
+}
+.presentation-page__download > p {
+  margin: 1rem 0 0;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+.presentation-page__download .presentation-page__status {
+  min-height: 2.5em;
+  color: var(--color-text-muted);
+}
 
 .presentation-page__preview {
   width: 100%;
@@ -265,18 +249,46 @@ useHead(() => ({
   margin: 0;
 }
 
-.presentation-page__preview--square { max-width: 39rem; }
-.presentation-page__preview figcaption { display: flex; justify-content: space-between; gap: 1rem; padding: 0.85rem 0; color: var(--color-text-muted); }
-.presentation-page__frame { border: 1px solid var(--color-line); }
-.presentation-page__export { position: fixed; top: 0; left: -100000px; z-index: -1; pointer-events: none; }
+.presentation-page__preview--square {
+  max-width: 39rem;
+}
+.presentation-page__preview figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  color: var(--color-text-muted);
+}
+.presentation-page__frame {
+  border: 1px solid var(--color-line);
+}
+.presentation-page__export {
+  position: fixed;
+  top: 0;
+  left: -100000px;
+  z-index: -1;
+  pointer-events: none;
+}
 
 @media (max-width: 760px) {
-  .presentation-page__workspace { grid-template-columns: 1fr; gap: 2rem; }
-  .presentation-page__controls { width: 100%; max-width: none; }
+  .presentation-page__workspace {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .presentation-page__controls {
+    width: 100%;
+    max-width: none;
+  }
 }
 
 @media (max-width: 380px) {
-  .presentation-page__option { flex-wrap: wrap; gap: 0.6rem; padding-inline: 0.6rem; }
-  .presentation-page__option small { font-size: 0.62rem; }
+  .presentation-page__option {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding-inline: 0.6rem;
+  }
+  .presentation-page__option small {
+    font-size: 0.62rem;
+  }
 }
 </style>

@@ -29,7 +29,13 @@ import { Pass } from 'three/addons/postprocessing/Pass.js'
 import type { ResolvedTheme } from '~/types/content'
 import { createAsciiParticleLayout } from '~/utils/asciiParticles'
 import { createAsciiHeadRotation } from '~/utils/asciiHeadRotation'
-import { asciiAssembly, asciiDensity, asciiGlyphAtlas, asciiRendering, asciiScene } from '~/utils/asciiPortraitConfig'
+import {
+  asciiAssembly,
+  asciiDensity,
+  asciiGlyphAtlas,
+  asciiRendering,
+  asciiScene,
+} from '~/utils/asciiPortraitConfig'
 
 export interface AsciiPortraitRenderer {
   resize: (width: number, height: number) => void
@@ -84,13 +90,17 @@ class AsciiParticlePass extends Pass {
       initialGlyphScale: { value: asciiAssembly.initialGlyphScale },
     }
     // Two triangles form a unit quad; UV pairs cover exactly one atlas glyph.
-    this.geometry.setAttribute('position', new Float32BufferAttribute([
-      -0.5, -0.5, 0, 0.5, -0.5, 0, 0.5, 0.5, 0,
-      -0.5, -0.5, 0, 0.5, 0.5, 0, -0.5, 0.5, 0,
-    ], 3))
-    this.geometry.setAttribute('uv', new Float32BufferAttribute([
-      0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1,
-    ], 2))
+    this.geometry.setAttribute(
+      'position',
+      new Float32BufferAttribute(
+        [-0.5, -0.5, 0, 0.5, -0.5, 0, 0.5, 0.5, 0, -0.5, -0.5, 0, 0.5, 0.5, 0, -0.5, 0.5, 0],
+        3,
+      ),
+    )
+    this.geometry.setAttribute(
+      'uv',
+      new Float32BufferAttribute([0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1], 2),
+    )
     this.material = new ShaderMaterial({
       name: 'AsciiPortraitParticles',
       uniforms: this.uniforms,
@@ -164,8 +174,8 @@ class AsciiParticlePass extends Pass {
     this.height = height
     // Distribute the count multiplier over both axes, preserving glyph proportions.
     const densityScale = Math.sqrt(asciiDensity.characterCountMultiplier)
-    const columns = Math.max(1, Math.floor(width / asciiDensity.cellWidthPx * densityScale))
-    const rows = Math.max(1, Math.floor(height / asciiDensity.cellHeightPx * densityScale))
+    const columns = Math.max(1, Math.floor((width / asciiDensity.cellWidthPx) * densityScale))
+    const rows = Math.max(1, Math.floor((height / asciiDensity.cellHeightPx) * densityScale))
     if (this.uniforms.grid.value.equals(new Vector2(columns, rows))) return
     const targets = new Float32Array(columns * rows * 2)
     for (let row = 0; row < rows; row++) {
@@ -190,9 +200,10 @@ class AsciiParticlePass extends Pass {
     const mask = new Uint8Array(columns * rows)
     for (let row = 0; row < rows; row++) {
       for (let column = 0; column < columns; column++) {
-        const x = Math.floor((column + 0.5) / columns * source.width)
-        const y = Math.floor((row + 0.5) / rows * source.height)
-        mask[row * columns + column] = pixels[(y * source.width + x) * rgbaChannels + alphaChannelIndex]! > 0 ? 1 : 0
+        const x = Math.floor(((column + 0.5) / columns) * source.width)
+        const y = Math.floor(((row + 0.5) / rows) * source.height)
+        mask[row * columns + column] =
+          pixels[(y * source.width + x) * rgbaChannels + alphaChannelIndex]! > 0 ? 1 : 0
       }
     }
     const layout = createAsciiParticleLayout(mask, columns, rows, this.width, this.height)
@@ -202,7 +213,11 @@ class AsciiParticlePass extends Pass {
     this.originsReady = true
   }
 
-  override render(renderer: WebGLRenderer, writeBuffer: WebGLRenderTarget, readBuffer: WebGLRenderTarget) {
+  override render(
+    renderer: WebGLRenderer,
+    writeBuffer: WebGLRenderTarget,
+    readBuffer: WebGLRenderTarget,
+  ) {
     this.uniforms.tDiffuse.value = readBuffer.texture
     if (!this.originsReady) this.prepareOrigins(renderer, readBuffer)
     renderer.setRenderTarget(this.renderToScreen ? null : writeBuffer)
@@ -227,7 +242,11 @@ function createGlyphTexture(fontFamily: string) {
   context.textBaseline = 'middle'
   context.fillStyle = glyphCoverageColor
   for (let index = 0; index < asciiDensity.characters.length; index++) {
-    context.fillText(asciiDensity.characters[index]!, (index + 0.5) * asciiGlyphAtlas.cellWidthPx, asciiGlyphAtlas.cellHeightPx / 2)
+    context.fillText(
+      asciiDensity.characters[index]!,
+      (index + 0.5) * asciiGlyphAtlas.cellWidthPx,
+      asciiGlyphAtlas.cellHeightPx / 2,
+    )
   }
   return new CanvasTexture(canvas)
 }
@@ -236,7 +255,7 @@ function disposeModel(root: Object3D) {
   const materials = new Set<Material>()
   const textures = new Set<Texture>()
   const skeletons = new Set<Skeleton>()
-  root.traverse((object) => {
+  root.traverse(object => {
     if (!(object instanceof Mesh)) return
     if (object instanceof SkinnedMesh) skeletons.add(object.skeleton)
     object.geometry.dispose()
@@ -264,7 +283,12 @@ export async function createAsciiPortrait(
   data: ArrayBuffer,
   fontFamily: string,
 ): Promise<AsciiPortraitRenderer> {
-  const renderer = new WebGLRenderer({ canvas, alpha: true, antialias: false, powerPreference: 'low-power' })
+  const renderer = new WebGLRenderer({
+    canvas,
+    alpha: true,
+    antialias: false,
+    powerPreference: 'low-power',
+  })
   renderer.setClearColor(0, 0)
   renderer.debug.onShaderError = () => {
     throw new Error('ASCII portrait shader could not compile')
@@ -323,8 +347,8 @@ export async function createAsciiPortrait(
         effect.setSize(width, height)
         const aspect = width / height
         const viewHeight = Math.max(size.y, size.x / aspect) * asciiScene.framingScale
-        camera.left = -viewHeight * aspect / 2
-        camera.right = viewHeight * aspect / 2
+        camera.left = (-viewHeight * aspect) / 2
+        camera.right = (viewHeight * aspect) / 2
         camera.top = viewHeight / 2
         camera.bottom = -viewHeight / 2
         camera.updateProjectionMatrix()
@@ -341,13 +365,13 @@ export async function createAsciiPortrait(
         uniforms.progress.value = progress
       },
       render() {
-        if (renderer.getContext().isContextLost()) throw new Error('ASCII portrait context was lost')
+        if (renderer.getContext().isContextLost())
+          throw new Error('ASCII portrait context was lost')
         effect.render()
       },
       dispose,
     }
-  }
-  catch (error) {
+  } catch (error) {
     dispose()
     throw error
   }

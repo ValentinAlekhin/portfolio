@@ -2,14 +2,17 @@
 import { profile } from '~/data/profile'
 import type { BusinessCardSide } from '~/types/business-card'
 
-const props = withDefaults(defineProps<{
-  bleed?: boolean
-  qrSrc?: string
-  side: BusinessCardSide
-}>(), {
-  bleed: false,
-  qrSrc: '',
-})
+const props = withDefaults(
+  defineProps<{
+    bleed?: boolean
+    qrSrc?: string
+    side: BusinessCardSide
+  }>(),
+  {
+    bleed: false,
+    qrSrc: '',
+  },
+)
 
 const { t } = useI18n()
 const isFront = computed(() => props.side === 'front')
@@ -23,10 +26,7 @@ const isFront = computed(() => props.side === 'front')
   >
     <div class="business-card__trim">
       <header class="business-card__header">
-        <span
-          class="business-card__mark"
-          aria-hidden="true"
-        >&gt;_</span>
+        <span class="business-card__mark" aria-hidden="true">&gt;_</span>
         <strong>{{ profile.domain }}</strong>
       </header>
 
@@ -63,11 +63,8 @@ const isFront = computed(() => props.side === 'front')
               :alt="t('businessCard.artwork.qrAlt')"
               width="512"
               height="512"
-            >
-            <span
-              v-else
-              aria-hidden="true"
             />
+            <span v-else aria-hidden="true" />
           </div>
         </div>
         <footer class="business-card__footer">
@@ -97,7 +94,9 @@ const isFront = computed(() => props.side === 'front')
   color: var(--card-dark-text);
 }
 
-.business-card--bleed { aspect-ratio: 96 / 56; }
+.business-card--bleed {
+  aspect-ratio: 96 / 56;
+}
 
 .business-card__trim {
   display: grid;
@@ -129,9 +128,14 @@ const isFront = computed(() => props.side === 'front')
 }
 
 .business-card--back .business-card__header,
-.business-card--back .business-card__footer { border-color: var(--card-dark-line); }
+.business-card--back .business-card__footer {
+  border-color: var(--card-dark-line);
+}
 
-.business-card__header strong { margin-right: auto; font-weight: 600; }
+.business-card__header strong {
+  margin-right: auto;
+  font-weight: 600;
+}
 
 .business-card__mark {
   display: grid;
@@ -151,7 +155,9 @@ const isFront = computed(() => props.side === 'front')
   gap: 5cqw;
 }
 
-.business-card__front-content > div { min-width: 0; }
+.business-card__front-content > div {
+  min-width: 0;
+}
 
 .business-card__label {
   margin: 0;
@@ -161,7 +167,9 @@ const isFront = computed(() => props.side === 'front')
   line-height: 1.45;
 }
 
-.business-card--back .business-card__label { color: var(--card-dark-muted); }
+.business-card--back .business-card__label {
+  color: var(--card-dark-muted);
+}
 
 .business-card__front-content h2 {
   max-width: 12ch;
@@ -183,8 +191,14 @@ const isFront = computed(() => props.side === 'front')
   text-wrap: balance;
 }
 
-.business-card__contacts { display: grid; gap: 1.6cqw; min-width: 0; }
-.business-card__contacts .business-card__label { margin-bottom: 1.25cqw; }
+.business-card__contacts {
+  display: grid;
+  gap: 1.6cqw;
+  min-width: 0;
+}
+.business-card__contacts .business-card__label {
+  margin-bottom: 1.25cqw;
+}
 
 .business-card__contacts > span {
   width: fit-content;
@@ -201,7 +215,11 @@ const isFront = computed(() => props.side === 'front')
   background: #fff;
 }
 
-.business-card__qr img { display: block; width: 100%; height: 100%; }
+.business-card__qr img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 
 .business-card__footer {
   padding-top: 1.65cqw;
@@ -210,5 +228,7 @@ const isFront = computed(() => props.side === 'front')
   font-size: 1.25cqw;
 }
 
-.business-card--back .business-card__footer { color: var(--card-dark-muted); }
+.business-card--back .business-card__footer {
+  color: var(--card-dark-muted);
+}
 </style>

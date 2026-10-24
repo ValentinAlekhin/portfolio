@@ -35,23 +35,23 @@ The strongest visible result is a working SaaS editor with a large real-world ca
 
 All selected images are stored in `public/projects/powersketch/`.
 
-| File | Best use |
-| --- | --- |
-| `landing-hero.png` | Product positioning and the public interactive demo |
-| `landing-library.png` | Catalog scale and manufacturer coverage |
-| `landing-features.png` | Public overview of the complete workflow |
-| `app-dashboard.png` | Authenticated workspace overview with projects, custom devices, and releases |
-| `project-list.png` | Searchable project management table and public-access state |
-| `editor-overview.png` | Primary case-study hero: real board, devices, pins, wires, and catalog |
-| `editor-library.png` | Hierarchical catalog navigation inside the editor |
-| `editor-layers.png` | Layer management shown in the context of a real scheme |
-| `layers-panel.png` | Focused layer-management detail |
-| `custom-device-list.png` | Custom-device management with dimensions and pin counts |
-| `device-report.png` | Generated device bill/report |
-| `wire-report.png` | Connection report with lengths and endpoints |
-| `sharing.png` | View-only public access workflow; no public URL is exposed |
-| `export.png` | SVG export settings and live scheme preview |
-| `subscription.png` | Current plan details and side-by-side tariff limits |
+| File                     | Best use                                                                     |
+| ------------------------ | ---------------------------------------------------------------------------- |
+| `landing-hero.png`       | Product positioning and the public interactive demo                          |
+| `landing-library.png`    | Catalog scale and manufacturer coverage                                      |
+| `landing-features.png`   | Public overview of the complete workflow                                     |
+| `app-dashboard.png`      | Authenticated workspace overview with projects, custom devices, and releases |
+| `project-list.png`       | Searchable project management table and public-access state                  |
+| `editor-overview.png`    | Primary case-study hero: real board, devices, pins, wires, and catalog       |
+| `editor-library.png`     | Hierarchical catalog navigation inside the editor                            |
+| `editor-layers.png`      | Layer management shown in the context of a real scheme                       |
+| `layers-panel.png`       | Focused layer-management detail                                              |
+| `custom-device-list.png` | Custom-device management with dimensions and pin counts                      |
+| `device-report.png`      | Generated device bill/report                                                 |
+| `wire-report.png`        | Connection report with lengths and endpoints                                 |
+| `sharing.png`            | View-only public access workflow; no public URL is exposed                   |
+| `export.png`             | SVG export settings and live scheme preview                                  |
+| `subscription.png`       | Current plan details and side-by-side tariff limits                          |
 
 The authenticated screenshots do not show the account email or the public project URL. The project title visible in editor frames is `Однушка`.
 

@@ -14,7 +14,9 @@ if (!project.value) {
 }
 
 const summary = computed(() => t(`${project.value!.translationKey}.summary`))
-const pageTitle = computed(() => `${project.value!.title} — ${t(`${project.value!.translationKey}.eyebrow`)}`)
+const pageTitle = computed(
+  () => `${project.value!.title} — ${t(`${project.value!.translationKey}.eyebrow`)}`,
+)
 const ogImage = computed(() => project.value!.ogImage)
 const i18nHead = useLocaleHead({ dir: true, lang: true, seo: true })
 const schemaNodes = computed(() => {
@@ -30,13 +32,14 @@ const schemaNodes = computed(() => {
     url: project.value!.externalUrl ?? canonicalPath,
   }
 
-  const projectEntity = project.value!.schemaType === 'SoftwareApplication'
-    ? defineSoftwareApp({
-        ...shared,
-        applicationCategory: project.value!.applicationCategory ?? 'DesignApplication',
-        operatingSystem: 'Web',
-      })
-    : defineWebSite(shared)
+  const projectEntity =
+    project.value!.schemaType === 'SoftwareApplication'
+      ? defineSoftwareApp({
+          ...shared,
+          applicationCategory: project.value!.applicationCategory ?? 'DesignApplication',
+          operatingSystem: 'Web',
+        })
+      : defineWebSite(shared)
 
   return [
     defineWebPage({
@@ -88,9 +91,5 @@ useSchemaOrg(schemaNodes)
 </script>
 
 <template>
-  <ProjectCaseStudy
-    v-if="project"
-    :key="`${localeCode}-${project.slug}`"
-    :project="project"
-  />
+  <ProjectCaseStudy v-if="project" :key="`${localeCode}-${project.slug}`" :project="project" />
 </template>

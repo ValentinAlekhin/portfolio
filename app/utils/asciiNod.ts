@@ -7,10 +7,12 @@ const keyframes = asciiMotion.nodKeyframes.map((keyframe, index, frames) => {
   // Share acceleration at each reversal instead of flattening both strokes there.
   // Six is the endpoint curvature of a cubic Hermite stroke with zero end speeds;
   // the smaller adjacent limit keeps the quintic curve within the authored poses.
-  const curvature = Math.sign(next.pitch - keyframe.pitch) * Math.min(
-    6 * Math.abs(keyframe.pitch - previous.pitch) / (keyframe.time - previous.time) ** 2,
-    6 * Math.abs(next.pitch - keyframe.pitch) / (next.time - keyframe.time) ** 2,
-  )
+  const curvature =
+    Math.sign(next.pitch - keyframe.pitch) *
+    Math.min(
+      (6 * Math.abs(keyframe.pitch - previous.pitch)) / (keyframe.time - previous.time) ** 2,
+      (6 * Math.abs(next.pitch - keyframe.pitch)) / (next.time - keyframe.time) ** 2,
+    )
   return { ...keyframe, curvature }
 })
 
@@ -31,7 +33,9 @@ export function getAsciiNodPitch(elapsedSeconds: number) {
     const cubic = 10 * difference - 1.5 * fromAcceleration + 0.5 * toAcceleration
     const quartic = -15 * difference + 1.5 * fromAcceleration - toAcceleration
     const quintic = 6 * difference - 0.5 * fromAcceleration + 0.5 * toAcceleration
-    const pitch = from.pitch + phase ** 2 * (fromAcceleration / 2 + phase * (cubic + phase * (quartic + phase * quintic)))
+    const pitch =
+      from.pitch +
+      phase ** 2 * (fromAcceleration / 2 + phase * (cubic + phase * (quartic + phase * quintic)))
     return pitch * asciiMotion.maxNodPitchRadians
   }
   return 0

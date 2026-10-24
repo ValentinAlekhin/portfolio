@@ -19,21 +19,14 @@ const specs = [
   { labelKey: 'businessCard.specs.qrLabel', valueKey: 'businessCard.specs.qrValue' },
 ] as const
 
-const {
-  canDownload,
-  downloadPrintZip,
-  downloadSharePng,
-  qrReady,
-  qrSrc,
-  state,
-  statusMessage,
-} = useBusinessCardExport({
-  backPrintNode,
-  frontPrintNode,
-  localeCode,
-  qrUrl,
-  shareNode,
-})
+const { canDownload, downloadPrintZip, downloadSharePng, qrReady, qrSrc, state, statusMessage } =
+  useBusinessCardExport({
+    backPrintNode,
+    frontPrintNode,
+    localeCode,
+    qrUrl,
+    shareNode,
+  })
 
 defineOgImage('Portfolio.takumi', {
   title: t('businessCard.seoTitle'),
@@ -68,15 +61,8 @@ useHead(() => ({
 </script>
 
 <template>
-  <main
-    id="main-content"
-    class="business-card-page"
-    tabindex="-1"
-  >
-    <section
-      class="site-container business-card-page__intro"
-      aria-labelledby="business-card-title"
-    >
+  <main id="main-content" class="business-card-page" tabindex="-1">
+    <section class="site-container business-card-page__intro" aria-labelledby="business-card-title">
       <div class="business-card-page__copy">
         <p class="business-card-page__eyebrow system-label">
           {{ t('businessCard.eyebrow') }}
@@ -88,10 +74,7 @@ useHead(() => ({
       </div>
 
       <dl class="business-card-page__specs">
-        <div
-          v-for="spec in specs"
-          :key="spec.labelKey"
-        >
+        <div v-for="spec in specs" :key="spec.labelKey">
           <dt class="system-label">
             {{ t(spec.labelKey) }}
           </dt>
@@ -119,10 +102,7 @@ useHead(() => ({
           {{ t('businessCard.preview.back') }}
         </figcaption>
         <div class="business-card-page__card-frame">
-          <BusinessCardArtwork
-            side="back"
-            :qr-src="qrSrc"
-          />
+          <BusinessCardArtwork side="back" :qr-src="qrSrc" />
         </div>
       </figure>
     </section>
@@ -160,11 +140,7 @@ useHead(() => ({
           </BaseButton>
           <span class="system-label">{{ t('businessCard.download.printMeta') }}</span>
         </div>
-        <p
-          class="business-card-page__status system-label"
-          aria-live="polite"
-          aria-atomic="true"
-        >
+        <p class="business-card-page__status system-label" aria-live="polite" aria-atomic="true">
           {{ statusMessage }}
         </p>
       </div>
@@ -176,17 +152,12 @@ useHead(() => ({
     >
       <span>{{ profile.domain }}</span>
       <a :href="`mailto:${profile.email}`">{{ profile.email }}</a>
-      <a
-        :href="profile.telegram"
-        target="_blank"
-        rel="noopener noreferrer"
-      >{{ profile.telegramHandle }}</a>
+      <a :href="profile.telegram" target="_blank" rel="noopener noreferrer">{{
+        profile.telegramHandle
+      }}</a>
     </section>
 
-    <div
-      class="business-card-export-root"
-      aria-hidden="true"
-    >
+    <div class="business-card-export-root" aria-hidden="true">
       <div
         ref="shareNode"
         class="business-card-share-export"
@@ -204,31 +175,15 @@ useHead(() => ({
             height: `${businessCardShareSpec.card.height}px`,
           }"
         >
-          <BusinessCardArtwork
-            :side="side"
-            :qr-src="side === 'back' ? qrSrc : ''"
-          />
+          <BusinessCardArtwork :side="side" :qr-src="side === 'back' ? qrSrc : ''" />
         </div>
       </div>
 
-      <div
-        ref="frontPrintNode"
-        class="business-card-print-export"
-      >
-        <BusinessCardArtwork
-          bleed
-          side="front"
-        />
+      <div ref="frontPrintNode" class="business-card-print-export">
+        <BusinessCardArtwork bleed side="front" />
       </div>
-      <div
-        ref="backPrintNode"
-        class="business-card-print-export"
-      >
-        <BusinessCardArtwork
-          bleed
-          side="back"
-          :qr-src="qrSrc"
-        />
+      <div ref="backPrintNode" class="business-card-print-export">
+        <BusinessCardArtwork bleed side="back" :qr-src="qrSrc" />
       </div>
     </div>
   </main>
@@ -451,6 +406,5 @@ useHead(() => ({
   .business-card-page__specs > div {
     grid-template-columns: 5.5rem 1fr;
   }
-
 }
 </style>

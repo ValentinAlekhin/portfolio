@@ -13,10 +13,7 @@ async function readDownload(download: Download): Promise<Buffer> {
   return Buffer.concat(chunks)
 }
 
-async function downloadFrom(
-  page: Page,
-  buttonName: string,
-) {
+async function downloadFrom(page: Page, buttonName: string) {
   const pendingDownload = page.waitForEvent('download')
   await page.getByRole('button', { name: buttonName }).click()
   return pendingDownload
@@ -52,18 +49,22 @@ test('renders both localized card sides accessibly', async ({ page }) => {
   await expect(page.locator('.business-card-page__preview img')).toBeVisible()
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow')
   await page.locator('.site-header .locale-control > button').click()
-  await expect(page.locator('.site-header .locale-control a[hreflang="en"]'))
-    .toHaveAttribute('href', '/en/card/')
+  await expect(page.locator('.site-header .locale-control a[hreflang="en"]')).toHaveAttribute(
+    'href',
+    '/en/card/',
+  )
 
-  const accessibility = await new AxeBuilder({ page })
-    .include('#main-content')
-    .analyze()
+  const accessibility = await new AxeBuilder({ page }).include('#main-content').analyze()
   expect(accessibility.violations).toEqual([])
 
   await page.goto('/en/card/')
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('A business card without the jargon')
-  await expect(page.locator('.business-card-page__preview img'))
-    .toHaveAttribute('alt', 'QR code linking to the alekhin.dev website')
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'A business card without the jargon',
+  )
+  await expect(page.locator('.business-card-page__preview img')).toHaveAttribute(
+    'alt',
+    'QR code linking to the alekhin.dev website',
+  )
 })
 
 test('downloads the combined share image at the documented size', async ({ page }) => {
@@ -89,11 +90,7 @@ test('downloads two 300 DPI print sides in a ZIP archive', async ({ page }) => {
   const frontName = 'valentin-alekhin-business-card-front-en-90x50-300dpi.png'
   const backName = 'valentin-alekhin-business-card-back-en-90x50-300dpi.png'
 
-  expect(Object.keys(archive.files).sort()).toEqual([
-    'README.txt',
-    backName,
-    frontName,
-  ])
+  expect(Object.keys(archive.files).sort()).toEqual(['README.txt', backName, frontName])
 
   for (const filename of [frontName, backName]) {
     const bytes = await archive.file(filename)!.async('uint8array')

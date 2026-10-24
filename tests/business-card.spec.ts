@@ -1,8 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import {
-  businessCardPrintSpec,
-  businessCardShareSpec,
-} from '../app/types/business-card'
+import { businessCardPrintSpec, businessCardShareSpec } from '../app/types/business-card'
 import { LocaleCode } from '../app/types/i18n'
 import {
   getBusinessCardArchiveFilename,
@@ -57,12 +54,15 @@ describe('business card exports', () => {
   })
 
   it('builds stable localized filenames and QR targets', () => {
-    expect(getBusinessCardShareFilename(LocaleCode.Ru))
-      .toBe('valentin-alekhin-business-card-ru.png')
-    expect(getBusinessCardPrintFilename(LocaleCode.En, 'back'))
-      .toBe('valentin-alekhin-business-card-back-en-90x50-300dpi.png')
-    expect(getBusinessCardArchiveFilename(LocaleCode.Ru))
-      .toBe('valentin-alekhin-business-card-print-ru.zip')
+    expect(getBusinessCardShareFilename(LocaleCode.Ru)).toBe(
+      'valentin-alekhin-business-card-ru.png',
+    )
+    expect(getBusinessCardPrintFilename(LocaleCode.En, 'back')).toBe(
+      'valentin-alekhin-business-card-back-en-90x50-300dpi.png',
+    )
+    expect(getBusinessCardArchiveFilename(LocaleCode.Ru)).toBe(
+      'valentin-alekhin-business-card-print-ru.zip',
+    )
     expect(getBusinessCardHomeUrl(LocaleCode.Ru)).toBe('https://alekhin.dev/')
     expect(getBusinessCardHomeUrl(LocaleCode.En)).toBe('https://alekhin.dev/en/')
   })

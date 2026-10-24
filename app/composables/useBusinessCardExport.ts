@@ -1,9 +1,6 @@
 import type { ComputedRef, Ref } from 'vue'
 import type { BusinessCardDownloadState } from '~/types/business-card'
-import {
-  businessCardPrintSpec,
-  businessCardShareSpec,
-} from '~/types/business-card'
+import { businessCardPrintSpec, businessCardShareSpec } from '~/types/business-card'
 import type { LocaleCode } from '~/types/i18n'
 import {
   getBusinessCardArchiveFilename,
@@ -71,8 +68,7 @@ export function useBusinessCardExport(options: UseBusinessCardExportOptions) {
         qrSrc.value = result
         if (state.value === 'error') state.value = 'idle'
       }
-    }
-    catch (error) {
+    } catch (error) {
       if (request === qrRequest) {
         console.error('Unable to generate business card QR code', error)
         setStatus('error')
@@ -85,16 +81,22 @@ export function useBusinessCardExport(options: UseBusinessCardExportOptions) {
     await document.fonts.ready
 
     const images = Array.from(node.querySelectorAll('img'))
-    await Promise.all(images.map(async (image) => {
-      if (!image.complete) {
-        await new Promise<void>((resolve, reject) => {
-          image.addEventListener('load', () => resolve(), { once: true })
-          image.addEventListener('error', () => reject(new Error('Artwork image failed to load')), { once: true })
-        })
-      }
+    await Promise.all(
+      images.map(async image => {
+        if (!image.complete) {
+          await new Promise<void>((resolve, reject) => {
+            image.addEventListener('load', () => resolve(), { once: true })
+            image.addEventListener(
+              'error',
+              () => reject(new Error('Artwork image failed to load')),
+              { once: true },
+            )
+          })
+        }
 
-      await image.decode().catch(() => undefined)
-    }))
+        await image.decode().catch(() => undefined)
+      }),
+    )
   }
 
   function saveBlob(blob: Blob, filename: string) {
@@ -117,13 +119,13 @@ export function useBusinessCardExport(options: UseBusinessCardExportOptions) {
 
   async function renderPng(
     node: HTMLElement,
-    size: { width: number, height: number },
+    size: { width: number; height: number },
     fontEmbedCSS?: string,
   ): Promise<Blob> {
     const { getFontEmbedCSS, toBlob } = await import('html-to-image')
     // The bundled variable fonts declare format('woff2-variations'). Filtering
     // to 'woff2' drops those sources from html-to-image's exported SVG.
-    const embeddedFonts = fontEmbedCSS ?? await getFontEmbedCSS(node)
+    const embeddedFonts = fontEmbedCSS ?? (await getFontEmbedCSS(node))
     const blob = await toBlob(node, {
       cacheBust: true,
       canvasHeight: size.height,
@@ -148,8 +150,7 @@ export function useBusinessCardExport(options: UseBusinessCardExportOptions) {
       const blob = await renderPng(options.shareNode.value, businessCardShareSpec.output)
       saveBlob(blob, getBusinessCardShareFilename(options.localeCode.value))
       setStatus('success')
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Unable to render share business card', error)
       setStatus('error')
     }
@@ -162,10 +163,7 @@ export function useBusinessCardExport(options: UseBusinessCardExportOptions) {
     setStatus('rendering')
 
     try {
-      await Promise.all([
-        waitForArtwork(frontNode),
-        waitForArtwork(backNode),
-      ])
+      await Promise.all([waitForArtwork(frontNode), waitForArtwork(backNode)])
 
       const [{ getFontEmbedCSS }, { default: JSZip }] = await Promise.all([
         import('html-to-image'),
@@ -180,20 +178,17 @@ export function useBusinessCardExport(options: UseBusinessCardExportOptions) {
       ])
       const zip = new JSZip()
 
+      zip.file(getBusinessCardPrintFilename(options.localeCode.value, 'front'), frontPrintBlob)
+      zip.file(getBusinessCardPrintFilename(options.localeCode.value, 'back'), backPrintBlob)
       zip.file(
-        getBusinessCardPrintFilename(options.localeCode.value, 'front'),
-        frontPrintBlob,
+        'README.txt',
+        t('businessCard.download.readme', {
+          bleed: businessCardPrintSpec.bleedMm,
+          dpi: businessCardPrintSpec.dpi,
+          height: businessCardPrintSpec.trimMm.height,
+          width: businessCardPrintSpec.trimMm.width,
+        }),
       )
-      zip.file(
-        getBusinessCardPrintFilename(options.localeCode.value, 'back'),
-        backPrintBlob,
-      )
-      zip.file('README.txt', t('businessCard.download.readme', {
-        bleed: businessCardPrintSpec.bleedMm,
-        dpi: businessCardPrintSpec.dpi,
-        height: businessCardPrintSpec.trimMm.height,
-        width: businessCardPrintSpec.trimMm.width,
-      }))
 
       const archive = await zip.generateAsync({
         compression: 'DEFLATE',
@@ -202,8 +197,7 @@ export function useBusinessCardExport(options: UseBusinessCardExportOptions) {
       })
       saveBlob(archive, getBusinessCardArchiveFilename(options.localeCode.value))
       setStatus('success')
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Unable to render print business card', error)
       setStatus('error')
     }

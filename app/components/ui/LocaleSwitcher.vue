@@ -7,16 +7,32 @@ defineProps<{ label: string }>()
 const { locale, t } = useI18n()
 const route = useRoute()
 const switchLocalePath = useSwitchLocalePath()
-const targetLocale = computed(() => locale.value === LocaleCode.Ru ? LocaleCode.En : LocaleCode.Ru)
+const targetLocale = computed(() =>
+  locale.value === LocaleCode.Ru ? LocaleCode.En : LocaleCode.Ru,
+)
 const targetPath = computed(() => {
   const path = switchLocalePath(targetLocale.value) || '/'
   return path.includes('#') ? path : `${path}${route.hash}`
 })
-const currentLabel = computed(() => locale.value === LocaleCode.Ru ? t('locale.russian') : t('locale.english'))
-const targetLabel = computed(() => targetLocale.value === LocaleCode.Ru ? t('locale.russian') : t('locale.english'))
+const currentLabel = computed(() =>
+  locale.value === LocaleCode.Ru ? t('locale.russian') : t('locale.english'),
+)
+const targetLabel = computed(() =>
+  targetLocale.value === LocaleCode.Ru ? t('locale.russian') : t('locale.english'),
+)
 const {
-  id, root, trigger, isOpen, onPointerEnter, onPointerLeave, onFocusOut,
-  onTriggerClick, onKeyboardIntent, focusOption, onEscape, onSelection,
+  id,
+  root,
+  trigger,
+  isOpen,
+  onPointerEnter,
+  onPointerLeave,
+  onFocusOut,
+  onTriggerClick,
+  onKeyboardIntent,
+  focusOption,
+  onEscape,
+  onSelection,
 } = useExpandableControl()
 </script>
 
@@ -62,7 +78,8 @@ const {
             class="compact-control__option locale-control__text"
             data-control-option
             @click="onSelection"
-          >{{ targetLocale.toUpperCase() }}</NuxtLink>
+            >{{ targetLocale.toUpperCase() }}</NuxtLink
+          >
         </RovingFocusItem>
       </RovingFocusGroup>
     </Transition>

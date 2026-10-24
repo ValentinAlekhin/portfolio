@@ -7,8 +7,18 @@ defineProps<{ label: string }>()
 const { t } = useI18n()
 const { preference, setPreference } = useTheme()
 const {
-  id, root, trigger, isOpen, onPointerEnter, onPointerLeave, onFocusOut,
-  onTriggerClick, onKeyboardIntent, focusOption, onEscape, onSelection,
+  id,
+  root,
+  trigger,
+  isOpen,
+  onPointerEnter,
+  onPointerLeave,
+  onFocusOut,
+  onTriggerClick,
+  onKeyboardIntent,
+  focusOption,
+  onEscape,
+  onSelection,
 } = useExpandableControl()
 
 const preferences: ThemePreference[] = ['light', 'dark', 'auto']
@@ -130,14 +140,19 @@ function select(value: ThemePreference, event: MouseEvent) {
   background: var(--color-bg);
 }
 
-.compact-control__option { height: 100%; border: 0; }
+.compact-control__option {
+  height: 100%;
+  border: 0;
+}
 .compact-control__option + .compact-control__option {
   border-left: 1px solid var(--color-line);
 }
 
 .compact-control-enter-active,
 .compact-control-leave-active {
-  transition: opacity var(--duration-fast) ease, transform var(--duration-fast) ease;
+  transition:
+    opacity var(--duration-fast) ease,
+    transform var(--duration-fast) ease;
 }
 
 .compact-control-enter-from,

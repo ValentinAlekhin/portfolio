@@ -11,7 +11,9 @@ for (const locale of Object.values(LocaleCode)) {
     const home = locale === LocaleCode.Ru ? '/' : '/en/'
     await page.emulateMedia({ colorScheme: 'light', reducedMotion: 'reduce' })
     await page.addInitScript(() => localStorage.setItem('va-theme-preference', 'light'))
-    await page.context().addCookies([{ name: 'i18n_redirected', value: locale, url: 'http://127.0.0.1:3000' }])
+    await page
+      .context()
+      .addCookies([{ name: 'i18n_redirected', value: locale, url: 'http://127.0.0.1:3000' }])
     await page.goto(`${home}projects/planes-arch/`)
     await page.waitForFunction(() => {
       const browser = window as Window & { useNuxtApp?: () => { isHydrating: boolean } }
@@ -23,8 +25,13 @@ for (const locale of Object.values(LocaleCode)) {
     const gallery = page.getByRole('dialog', { name: copy.case.gallery.title })
     await expect(gallery).toBeVisible()
     await expect(gallery).toBeFocused()
-    const image = gallery.locator('.pswp__item[aria-hidden="false"] .pswp__img:not(.pswp__img--placeholder)')
-    await expect(image).toHaveAttribute('src', `/projects/planes-arch/planes-arch-landing-${locale}-light.webp`)
+    const image = gallery.locator(
+      '.pswp__item[aria-hidden="false"] .pswp__img:not(.pswp__img--placeholder)',
+    )
+    await expect(image).toHaveAttribute(
+      'src',
+      `/projects/planes-arch/planes-arch-landing-${locale}-light.webp`,
+    )
     await expect(image).toHaveAttribute('alt', copy.projects.entries.planesArch.media.landing.alt)
 
     const close = gallery.getByRole('button', { name: copy.case.closeImage, exact: true })

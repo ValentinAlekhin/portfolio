@@ -22,11 +22,13 @@ async function expectArtworkWithinFrame(artwork: Locator, story: boolean) {
     const scale = frame.width / 1080
     const top = frame.top + (isStory ? 180 * scale : 0)
     const bottom = frame.bottom - (isStory ? 240 * scale : 0)
-    return Array.from(node.querySelectorAll('h2, h3, p, strong, b, img')).flatMap((element) => {
+    return Array.from(node.querySelectorAll('h2, h3, p, strong, b, img')).flatMap(element => {
       const rect = element.getBoundingClientRect()
-      return rect.left < frame.left - 1 || rect.right > frame.right + 1
-        || rect.top < top - 1 || rect.bottom > bottom + 1
-        || element.scrollWidth > element.clientWidth + 1
+      return rect.left < frame.left - 1 ||
+        rect.right > frame.right + 1 ||
+        rect.top < top - 1 ||
+        rect.bottom > bottom + 1 ||
+        element.scrollWidth > element.clientWidth + 1
         ? [element.textContent || element.tagName]
         : []
     })
@@ -42,7 +44,7 @@ for (const locale of Object.values(LocaleCode)) {
     test.setTimeout(90000)
     const errors: string[] = []
     page.on('pageerror', error => errors.push(error.message))
-    page.on('console', (message) => {
+    page.on('console', message => {
       if (/hydration/i.test(message.text())) errors.push(message.text())
     })
     await page.emulateMedia({ reducedMotion: 'reduce' })
@@ -54,19 +56,30 @@ for (const locale of Object.values(LocaleCode)) {
     await expect(preview.locator('img')).toBeVisible()
     await expect(page.locator('input[value="story"]')).toBeChecked()
     await expect(page.locator('input[value="dark"]')).toBeChecked()
-    expect((await new AxeBuilder({ page }).include('#main-content').analyze()).violations).toEqual([])
+    expect((await new AxeBuilder({ page }).include('#main-content').analyze()).violations).toEqual(
+      [],
+    )
 
     for (const format of ['story', 'square']) {
-      await page.getByRole('radio', { name: new RegExp(copy.formats[format as keyof typeof copy.formats]) }).check()
+      await page
+        .getByRole('radio', { name: new RegExp(copy.formats[format as keyof typeof copy.formats]) })
+        .check()
       await expect(preview).toHaveClass(new RegExp(`presentation-artwork--${format}`))
       for (const palette of ['dark', 'light']) {
-        await page.getByRole('radio', { name: copy.palettes[palette as keyof typeof copy.palettes], exact: true }).check()
+        await page
+          .getByRole('radio', {
+            name: copy.palettes[palette as keyof typeof copy.palettes],
+            exact: true,
+          })
+          .check()
         await expectArtworkWithinFrame(preview, format === 'story')
         await expectArtworkWithinFrame(exported, format === 'story')
         const pending = page.waitForEvent('download')
         await page.getByRole('button', { name: copy.download.button }).click()
         const download = await pending
-        expect(download.suggestedFilename()).toBe(`valentin-alekhin-presentation-${locale}-${format}-${palette}.png`)
+        expect(download.suggestedFilename()).toBe(
+          `valentin-alekhin-presentation-${locale}-${format}-${palette}.png`,
+        )
         const bytes = await readDownload(download)
         expect(Array.from(bytes.subarray(0, 8))).toEqual([137, 80, 78, 71, 13, 10, 26, 10])
         expect(bytes.readUInt32BE(16)).toBe(1080)
@@ -76,14 +89,16 @@ for (const locale of Object.values(LocaleCode)) {
     }
 
     for (const theme of ['light', 'dark']) {
-      await page.evaluate(value => document.documentElement.dataset.theme = value, theme)
+      await page.evaluate(value => (document.documentElement.dataset.theme = value), theme)
       for (const width of [1440, 1100, 390, 320]) {
         await page.setViewportSize({ width, height: 1000 })
         for (const format of ['story', 'square']) {
           await page.locator(`input[value="${format}"]`).check()
           await expect(preview).toHaveClass(new RegExp(`presentation-artwork--${format}`))
           await expectArtworkWithinFrame(preview, format === 'story')
-          expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
+          expect(
+            await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
+          ).toBe(true)
         }
       }
     }
@@ -119,11 +134,17 @@ test('image decoding failure can be retried without reloading', async ({ page })
   })
   await page.goto('/presentation/')
   await page.getByRole('button', { name: ru.presentation.download.button }).click()
-  await expect(page.locator('.presentation-page__status')).toHaveText(ru.presentation.download.error)
+  await expect(page.locator('.presentation-page__status')).toHaveText(
+    ru.presentation.download.error,
+  )
   const pending = page.waitForEvent('download')
   await page.getByRole('button', { name: ru.presentation.download.retry }).click()
-  expect((await pending).suggestedFilename()).toBe('valentin-alekhin-presentation-ru-story-dark.png')
-  await expect(page.locator('.presentation-page__status')).toHaveText(ru.presentation.download.success)
+  expect((await pending).suggestedFilename()).toBe(
+    'valentin-alekhin-presentation-ru-story-dark.png',
+  )
+  await expect(page.locator('.presentation-page__status')).toHaveText(
+    ru.presentation.download.success,
+  )
 })
 
 test('changing locale cancels an in-flight export', async ({ page }) => {
@@ -140,12 +161,16 @@ test('changing locale cancels an in-flight export', async ({ page }) => {
   await page.goto('/presentation/')
   await page.getByRole('button', { name: ru.presentation.download.button }).click()
   await expect(page.locator('input[value="square"]')).toBeDisabled()
-  await expect(page.locator('.presentation-page__status')).toHaveText(ru.presentation.download.rendering)
+  await expect(page.locator('.presentation-page__status')).toHaveText(
+    ru.presentation.download.rendering,
+  )
   await page.locator('.site-header .locale-control > button').click()
   await page.locator('.site-header .locale-control a[hreflang="en"]').click()
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(en.presentation.title)
   const pending = page.waitForEvent('download')
   await page.getByRole('button', { name: en.presentation.download.button }).click()
-  expect((await pending).suggestedFilename()).toBe('valentin-alekhin-presentation-en-story-dark.png')
+  expect((await pending).suggestedFilename()).toBe(
+    'valentin-alekhin-presentation-en-story-dark.png',
+  )
   expect(downloads).toEqual(['valentin-alekhin-presentation-en-story-dark.png'])
 })

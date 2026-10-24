@@ -14,9 +14,7 @@ function getCrcTable(): Uint32Array {
   for (let index = 0; index < 256; index += 1) {
     let value = index
     for (let bit = 0; bit < 8; bit += 1) {
-      value = (value & 1) === 1
-        ? 0xedb88320 ^ (value >>> 1)
-        : value >>> 1
+      value = (value & 1) === 1 ? 0xedb88320 ^ (value >>> 1) : value >>> 1
     }
     crcTable[index] = value >>> 0
   }
@@ -80,8 +78,10 @@ function parseChunks(bytes: Uint8Array): PngChunk[] {
     if (type === 'IEND') break
   }
 
-  if (!chunks.some(chunk => chunk.type === 'IHDR')
-    || !chunks.some(chunk => chunk.type === 'IEND')) {
+  if (
+    !chunks.some(chunk => chunk.type === 'IHDR') ||
+    !chunks.some(chunk => chunk.type === 'IEND')
+  ) {
     throw new Error('Incomplete PNG data')
   }
 

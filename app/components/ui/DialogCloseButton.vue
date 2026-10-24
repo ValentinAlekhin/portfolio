@@ -7,12 +7,7 @@ defineProps<{
 </script>
 
 <template>
-  <button
-    v-bind="$attrs"
-    type="button"
-    class="dialog-close-button"
-    :aria-label="label"
-  >
+  <button v-bind="$attrs" type="button" class="dialog-close-button" :aria-label="label">
     <BaseIcon name="close" />
   </button>
 </template>
@@ -32,6 +27,11 @@ defineProps<{
   transition: background var(--duration-fast) ease;
 }
 
-.dialog-close-button:hover { background: var(--color-surface); }
-.dialog-close-button:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.dialog-close-button:hover {
+  background: var(--color-surface);
+}
+.dialog-close-button:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
 </style>

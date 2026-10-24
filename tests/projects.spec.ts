@@ -59,7 +59,10 @@ describe('portfolio projects', () => {
 
   it('provides a localized task, solution, result and optional statistics period', () => {
     for (const project of projects) {
-      const keys = [...Object.values(project.brief), ...(project.statisticsPeriodKey ? [project.statisticsPeriodKey] : [])]
+      const keys = [
+        ...Object.values(project.brief),
+        ...(project.statisticsPeriodKey ? [project.statisticsPeriodKey] : []),
+      ]
       for (const key of keys) {
         expect(translated(ru, key)).toBe(true)
         expect(translated(en, key)).toBe(true)
@@ -86,7 +89,14 @@ describe('portfolio projects', () => {
   it('allows completed portfolio-only projects without external URLs', () => {
     const completed = projects.filter(project => project.status === 'completed')
 
-    expect(completed.map(project => project.slug)).toEqual(['cnp', 'fgisu', 'nordhus', 'aerovista', 'kineo', 'forma'])
+    expect(completed.map(project => project.slug)).toEqual([
+      'cnp',
+      'fgisu',
+      'nordhus',
+      'aerovista',
+      'kineo',
+      'forma',
+    ])
     expect(completed.every(project => project.externalUrl === undefined)).toBe(true)
   })
 

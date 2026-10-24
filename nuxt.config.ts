@@ -1,16 +1,19 @@
 import { profile } from './app/data/profile'
 import { localeLanguageTag, LocaleCode } from './app/types/i18n'
 
-const projectSlugs = ['cnp', 'fgisu', 'powersketch', 'planes-arch', 'nordhus', 'aerovista', 'kineo', 'forma'] as const
+const projectSlugs = [
+  'cnp',
+  'fgisu',
+  'powersketch',
+  'planes-arch',
+  'nordhus',
+  'aerovista',
+  'kineo',
+  'forma',
+] as const
 
 export default defineNuxtConfig({
-  modules: [
-    '@nuxtjs/i18n',
-    '@nuxt/fonts',
-    '@nuxtjs/seo',
-    '@nuxt/image',
-    'nuxt-yandex-metrika',
-  ],
+  modules: ['@nuxtjs/i18n', '@nuxt/fonts', '@nuxtjs/seo', '@nuxt/image', 'nuxt-yandex-metrika'],
 
   components: [
     {
@@ -30,7 +33,8 @@ export default defineNuxtConfig({
       ],
       script: [
         {
-          innerHTML: '(function(){var d=document.documentElement,p=\'auto\';try{var s=localStorage.getItem(\'va-theme-preference\');if(s===\'light\'||s===\'dark\'||s===\'auto\')p=s;else{var l=localStorage.getItem(\'va-theme\');if(l===\'system\')p=\'light\';if(l===\'phosphor\')p=\'dark\'}}catch(e){}var t=p===\'auto\'?(matchMedia(\'(prefers-color-scheme: dark)\').matches?\'dark\':\'light\'):p;d.dataset.theme=t;d.style.colorScheme=t;var m=document.querySelector(\'meta[name="theme-color"]\');if(m)m.content=t===\'dark\'?\'#111111\':\'#ffffff\'})();',
+          innerHTML:
+            "(function(){var d=document.documentElement,p='auto';try{var s=localStorage.getItem('va-theme-preference');if(s==='light'||s==='dark'||s==='auto')p=s;else{var l=localStorage.getItem('va-theme');if(l==='system')p='light';if(l==='phosphor')p='dark'}}catch(e){}var t=p==='auto'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):p;d.dataset.theme=t;d.style.colorScheme=t;var m=document.querySelector('meta[name=\"theme-color\"]');if(m)m.content=t==='dark'?'#111111':'#ffffff'})();",
           tagPosition: 'head',
         },
       ],
@@ -42,10 +46,7 @@ export default defineNuxtConfig({
     },
   },
 
-  css: [
-    'photoswipe/style.css',
-    '~/assets/styles/main.scss',
-  ],
+  css: ['photoswipe/style.css', '~/assets/styles/main.scss'],
 
   site: {
     url: `https://${profile.domain}`,
@@ -94,7 +95,15 @@ export default defineNuxtConfig({
 
   vite: {
     optimizeDeps: {
-      include: ['@carbon/icons-vue', '@unhead/schema-org/vue', '@vue-flow/core', '@vueuse/core', 'photoswipe', 'photoswipe/lightbox', 'reka-ui'],
+      include: [
+        '@carbon/icons-vue',
+        '@unhead/schema-org/vue',
+        '@vue-flow/core',
+        '@vueuse/core',
+        'photoswipe',
+        'photoswipe/lightbox',
+        'reka-ui',
+      ],
     },
   },
 
@@ -103,9 +112,10 @@ export default defineNuxtConfig({
   },
 
   hooks: {
-    'build:manifest': (manifest) => {
+    'build:manifest': manifest => {
       for (const [key, chunk] of Object.entries(manifest)) {
-        if (!key.endsWith('/asciiPortrait.ts') && !chunk.src?.endsWith('/asciiPortrait.ts')) continue
+        if (!key.endsWith('/asciiPortrait.ts') && !chunk.src?.endsWith('/asciiPortrait.ts'))
+          continue
         // Keep the desktop-only renderer out of Nuxt's automatic prefetch links.
         chunk.prefetch = false
         chunk.preload = false

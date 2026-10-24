@@ -9,16 +9,8 @@ defineExpose({ nod })
 </script>
 
 <template>
-  <div
-    ref="host"
-    class="hero__ascii ascii-portrait"
-    :data-state="state"
-    aria-hidden="true"
-  >
-    <pre
-      v-show="state === 'fallback'"
-      class="ascii-portrait__fallback"
-    >{{ asciiArt }}</pre>
+  <div ref="host" class="hero__ascii ascii-portrait" :data-state="state" aria-hidden="true">
+    <pre v-show="state === 'fallback'" class="ascii-portrait__fallback">{{ asciiArt }}</pre>
     <canvas
       v-show="state === 'assembling' || state === 'ready'"
       ref="canvas"
@@ -44,8 +36,26 @@ $torso-fade-end: 74%;
   color: var(--color-text);
   user-select: none;
   pointer-events: none;
-  mask-image: radial-gradient(circle farthest-corner at 50% $torso-fade-center-y, #000 $torso-fade-start, transparent $torso-fade-end);
+  mask-image: radial-gradient(
+    circle farthest-corner at 50% $torso-fade-center-y,
+    #000 $torso-fade-start,
+    transparent $torso-fade-end
+  );
 }
-.ascii-portrait__fallback { position: absolute; inset: 0; overflow: hidden; margin: 0; font-family: var(--font-mono); font-size: $fallback-font-size; font-weight: 700; line-height: 1; white-space: pre; }
-.ascii-portrait__canvas { display: block; width: 100%; height: 100%; }
+.ascii-portrait__fallback {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: $fallback-font-size;
+  font-weight: 700;
+  line-height: 1;
+  white-space: pre;
+}
+.ascii-portrait__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 </style>

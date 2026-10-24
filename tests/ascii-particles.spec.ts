@@ -24,7 +24,7 @@ describe('ASCII particle assembly', () => {
       const originY = Math.floor(origins[index * 2 + 1]! * rows)
       expect(mask[originY * columns + originX]).toBe(0)
       const distance = Math.hypot(
-        origins[index * 2]! * 384 - (index % columns + 0.5) * 16,
+        origins[index * 2]! * 384 - ((index % columns) + 0.5) * 16,
         origins[index * 2 + 1]! * 512 - (Math.floor(index / columns) + 0.5) * 16,
       )
       expect(distance).toBeLessThanOrEqual(180.001)
@@ -47,11 +47,11 @@ describe('ASCII particle assembly', () => {
       for (let x = 56; x < 72; x++) {
         const index = y * columns + x
         const dx = origins[index * 2]! * 384 - (x + 0.5) * 3
-        const dy = origins[index * 2 + 1]! * 512 - (y + 0.5) * 512 / rows
+        const dy = origins[index * 2 + 1]! * 512 - ((y + 0.5) * 512) / rows
         if (dx < 0) fromLeft++
         else fromRight++
         if (Math.abs(dy) > 24) diagonal++
-        bands.add(Math.floor(origins[index * 2 + 1]! * 512 / 20))
+        bands.add(Math.floor((origins[index * 2 + 1]! * 512) / 20))
       }
     }
     expect(fromLeft).toBeGreaterThan(50)
@@ -67,7 +67,7 @@ describe('ASCII particle assembly', () => {
     const easing = new Set<number>()
     for (let index = 30; index < 70; index++) {
       const distance = Math.hypot(
-        origins[index * 2]! * 100 - (index % 10 + 0.5) * 10,
+        origins[index * 2]! * 100 - ((index % 10) + 0.5) * 10,
         origins[index * 2 + 1]! * 100 - (Math.floor(index / 10) + 0.5) * 10,
       )
       const bend = Math.hypot(curves[index * 3]! * 100, curves[index * 3 + 1]! * 100)
@@ -81,7 +81,14 @@ describe('ASCII particle assembly', () => {
   })
 
   it('varies both start and finish times within the animation bounds', () => {
-    const { timing } = createAsciiParticleLayout(new Uint8Array(100), 10, 10, 100, 100, seededRandom())
+    const { timing } = createAsciiParticleLayout(
+      new Uint8Array(100),
+      10,
+      10,
+      100,
+      100,
+      seededRandom(),
+    )
     const starts = new Set<number>()
     const finishes = new Set<number>()
     for (let index = 0; index < 100; index++) {
@@ -100,7 +107,14 @@ describe('ASCII particle assembly', () => {
   })
 
   it('uses the closest frame edge when the model fills the entire frame', () => {
-    const { origins } = createAsciiParticleLayout(new Uint8Array(16).fill(1), 4, 4, 40, 40, seededRandom())
+    const { origins } = createAsciiParticleLayout(
+      new Uint8Array(16).fill(1),
+      4,
+      4,
+      40,
+      40,
+      seededRandom(),
+    )
     for (let index = 0; index < 16; index++) {
       const x = origins[index * 2]!
       const y = origins[index * 2 + 1]!

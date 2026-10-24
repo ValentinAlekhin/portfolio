@@ -1,7 +1,16 @@
 import { describe, expect, it } from 'vitest'
 import {
-  Bone, BufferGeometry, Euler, Float32BufferAttribute, Group,
-  MeshBasicMaterial, Quaternion, Skeleton, SkinnedMesh, Uint16BufferAttribute, Vector3,
+  Bone,
+  BufferGeometry,
+  Euler,
+  Float32BufferAttribute,
+  Group,
+  MeshBasicMaterial,
+  Quaternion,
+  Skeleton,
+  SkinnedMesh,
+  Uint16BufferAttribute,
+  Vector3,
 } from 'three'
 import { createAsciiHeadRotation } from '../app/utils/asciiHeadRotation'
 
@@ -20,7 +29,9 @@ describe('ASCII head rotation', () => {
     const rotate = createAsciiHeadRotation(model)
     rotate(0.15, 0.2, 0.01)
     const turned = head.quaternion.clone()
-    const expected = restRotation.clone().multiply(new Quaternion().setFromEuler(new Euler(0.15, 0.2, 0.01, 'YXZ')))
+    const expected = restRotation
+      .clone()
+      .multiply(new Quaternion().setFromEuler(new Euler(0.15, 0.2, 0.01, 'YXZ')))
     expect(turned.toArray()).toEqual(expected.toArray())
     rotate(0.15, 0.2, 0.01)
     expect(head.quaternion.equals(turned)).toBe(true)

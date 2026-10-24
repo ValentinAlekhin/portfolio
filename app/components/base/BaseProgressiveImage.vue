@@ -1,19 +1,22 @@
 <script setup lang="ts">
 import { getProjectPlaceholder } from '~/utils/project-placeholder'
 
-const props = withDefaults(defineProps<{
-  src: string
-  alt: string
-  width: number
-  height: number
-  priority?: boolean
-  useNuxtImage?: boolean
-  sizes?: string
-}>(), {
-  priority: false,
-  useNuxtImage: false,
-  sizes: undefined,
-})
+const props = withDefaults(
+  defineProps<{
+    src: string
+    alt: string
+    width: number
+    height: number
+    priority?: boolean
+    useNuxtImage?: boolean
+    sizes?: string
+  }>(),
+  {
+    priority: false,
+    useNuxtImage: false,
+    sizes: undefined,
+  },
+)
 
 const root = ref<HTMLElement | null>(null)
 const source = computed(() => props.src)
@@ -25,9 +28,8 @@ const imageStyle = computed(() => ({
 }))
 
 function handleLoad(event: Event) {
-  const image = event.target instanceof HTMLImageElement
-    ? event.target
-    : root.value?.querySelector('img')
+  const image =
+    event.target instanceof HTMLImageElement ? event.target : root.value?.querySelector('img')
   if (image) void markLoaded(image)
 }
 
@@ -39,9 +41,13 @@ onMounted(() => {
   nextTick(checkCurrentImage)
 })
 
-watch(source, () => {
-  nextTick(checkCurrentImage)
-}, { flush: 'post' })
+watch(
+  source,
+  () => {
+    nextTick(checkCurrentImage)
+  },
+  { flush: 'post' },
+)
 </script>
 
 <template>
@@ -85,7 +91,7 @@ watch(source, () => {
       decoding="async"
       @load="handleLoad"
       @error="markError"
-    >
+    />
   </span>
 </template>
 
@@ -120,11 +126,17 @@ watch(source, () => {
   transition: opacity 240ms ease;
 }
 
-.base-progressive-image--loaded .base-progressive-image__placeholder { opacity: 0; }
-.base-progressive-image--loaded :deep(.base-progressive-image__image) { opacity: 1; }
+.base-progressive-image--loaded .base-progressive-image__placeholder {
+  opacity: 0;
+}
+.base-progressive-image--loaded :deep(.base-progressive-image__image) {
+  opacity: 1;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .base-progressive-image__placeholder,
-  .base-progressive-image :deep(.base-progressive-image__image) { transition: none; }
+  .base-progressive-image :deep(.base-progressive-image__image) {
+    transition: none;
+  }
 }
 </style>

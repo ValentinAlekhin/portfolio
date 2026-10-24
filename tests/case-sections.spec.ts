@@ -22,7 +22,13 @@ describe('case study sections', () => {
       for (const section of sections) {
         if (section.diagram) {
           const diagram = projectDiagrams[section.diagram]
-          for (const key of [diagram.labelKey, diagram.descriptionKey, diagram.hintKey, diagram.closeKey, diagram.legendKey].filter((key): key is string => Boolean(key))) {
+          for (const key of [
+            diagram.labelKey,
+            diagram.descriptionKey,
+            diagram.hintKey,
+            diagram.closeKey,
+            diagram.legendKey,
+          ].filter((key): key is string => Boolean(key))) {
             expect(textAt(ru, key), key).toBe(true)
             expect(textAt(en, key), key).toBe(true)
           }
@@ -44,7 +50,10 @@ describe('case study sections', () => {
         }
         const keys = [section.titleSuffix, section.textSuffix]
         for (const itemName of section.itemNames ?? []) {
-          keys.push(`${section.itemsPrefix}.${itemName}.title`, `${section.itemsPrefix}.${itemName}.description`)
+          keys.push(
+            `${section.itemsPrefix}.${itemName}.title`,
+            `${section.itemsPrefix}.${itemName}.description`,
+          )
         }
         for (const suffix of keys) {
           const key = `${project.translationKey}.${suffix}`
@@ -70,9 +79,14 @@ describe('case study sections', () => {
   it('retains distinct product capabilities and two PLANES theme examples', () => {
     const power = caseSections.powersketch
     const planes = caseSections['planes-arch']
-    expect(power.find(section => section.itemsPrefix === 'workflow.steps')?.itemNames).toHaveLength(5)
+    expect(power.find(section => section.itemsPrefix === 'workflow.steps')?.itemNames).toHaveLength(
+      5,
+    )
     expect(power.find(section => section.itemsPrefix === 'features')?.itemNames).toHaveLength(4)
     expect(planes.find(section => section.itemsPrefix === 'features')?.itemNames).toHaveLength(4)
-    expect(planes.find(section => section.titleSuffix === 'themes.title')?.mediaIds).toEqual(['landing:light', 'landing:dark'])
+    expect(planes.find(section => section.titleSuffix === 'themes.title')?.mediaIds).toEqual([
+      'landing:light',
+      'landing:dark',
+    ])
   })
 })

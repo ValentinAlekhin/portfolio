@@ -25,32 +25,27 @@ const icons = {
   'arrow-left': ArrowLeft20,
   'arrow-right': ArrowRight20,
   'arrow-up-right': ArrowUpRight20,
-  'check': Checkmark20,
+  check: Checkmark20,
   'chevron-down': ChevronDown20,
   'chevron-left': ChevronLeft20,
   'chevron-right': ChevronRight20,
-  'close': Close20,
-  'copy': Copy20,
-  'email': Email20,
-  'github': LogoGithub20,
-  'menu': Menu20,
-  'minus': Subtract20,
-  'moon': Moon20,
-  'plus': Add20,
-  'screen': Screen20,
-  'sun': Sun20,
+  close: Close20,
+  copy: Copy20,
+  email: Email20,
+  github: LogoGithub20,
+  menu: Menu20,
+  minus: Subtract20,
+  moon: Moon20,
+  plus: Add20,
+  screen: Screen20,
+  sun: Sun20,
 } as const
 
 defineProps<{ name: keyof typeof icons }>()
 </script>
 
 <template>
-  <component
-    :is="icons[name]"
-    class="base-icon"
-    aria-hidden="true"
-    focusable="false"
-  />
+  <component :is="icons[name]" class="base-icon" aria-hidden="true" focusable="false" />
 </template>
 
 <style scoped>

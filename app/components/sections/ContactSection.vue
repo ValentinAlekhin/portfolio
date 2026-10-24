@@ -11,8 +11,7 @@ async function copyEmail() {
   try {
     await copy(profile.email)
     feedback.value = t('contact.copied')
-  }
-  catch {
+  } catch {
     feedback.value = t('contact.copyFailed')
   }
   if (feedbackTimer) clearTimeout(feedbackTimer)
@@ -27,43 +26,21 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <section
-    id="contacts"
-    class="page-section contact-section"
-    aria-labelledby="contact-title"
-  >
+  <section id="contacts" class="page-section contact-section" aria-labelledby="contact-title">
     <div class="site-container contact-section__grid">
       <h2 id="contact-title">
         {{ t('contact.title') }}
       </h2>
       <div class="contact-section__body">
-        <a
-          class="contact-section__email"
-          :href="`mailto:${profile.email}`"
-        >{{ profile.email }}</a>
+        <a class="contact-section__email" :href="`mailto:${profile.email}`">{{ profile.email }}</a>
         <div class="contact-section__other">
-          <a
-            :href="profile.telegram"
-            target="_blank"
-            rel="noopener noreferrer"
-          >Telegram</a>
-          <a
-            :href="profile.github"
-            target="_blank"
-            rel="noopener noreferrer"
-          >GitHub</a>
-          <button
-            type="button"
-            @click="copyEmail"
-          >
+          <a :href="profile.telegram" target="_blank" rel="noopener noreferrer">Telegram</a>
+          <a :href="profile.github" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <button type="button" @click="copyEmail">
             {{ t('contact.copy') }}
           </button>
         </div>
-        <p
-          class="contact-section__feedback"
-          aria-live="polite"
-          aria-atomic="true"
-        >
+        <p class="contact-section__feedback" aria-live="polite" aria-atomic="true">
           {{ feedback }}
         </p>
       </div>

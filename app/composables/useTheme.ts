@@ -1,5 +1,10 @@
 import type { ThemePreference } from '~/types/content'
-import { legacyThemeKey, resolveInitialPreference, resolveTheme, themePreferenceKey } from '~/utils/theme'
+import {
+  legacyThemeKey,
+  resolveInitialPreference,
+  resolveTheme,
+  themePreferenceKey,
+} from '~/utils/theme'
 
 let stopBrowserListeners: (() => void) | undefined
 
@@ -20,8 +25,7 @@ export function useTheme() {
     if (!import.meta.client) return
     try {
       localStorage.setItem(themePreferenceKey, value)
-    }
-    catch {
+    } catch {
       // Restricted storage must not break theme selection.
     }
   }
@@ -33,8 +37,7 @@ export function useTheme() {
     try {
       stored = localStorage.getItem(themePreferenceKey)
       legacy = localStorage.getItem(legacyThemeKey)
-    }
-    catch {
+    } catch {
       // The device setting remains available when storage is blocked.
     }
 

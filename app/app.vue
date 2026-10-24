@@ -37,10 +37,7 @@ onBeforeUnmount(stopThemeListeners)
 <template>
   <div class="site-shell">
     <NuxtRouteAnnouncer />
-    <a
-      class="skip-link"
-      href="#main-content"
-    >{{ $t('common.skip') }}</a>
+    <a class="skip-link" href="#main-content">{{ $t('common.skip') }}</a>
     <SiteHeader />
     <NuxtPage />
     <SiteFooter />

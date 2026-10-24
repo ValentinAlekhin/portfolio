@@ -5,10 +5,7 @@ export function getBusinessCardShareFilename(locale: LocaleCode): string {
   return `valentin-alekhin-business-card-${locale}.png`
 }
 
-export function getBusinessCardPrintFilename(
-  locale: LocaleCode,
-  side: BusinessCardSide,
-): string {
+export function getBusinessCardPrintFilename(locale: LocaleCode, side: BusinessCardSide): string {
   return `valentin-alekhin-business-card-${side}-${locale}-90x50-300dpi.png`
 }
 
@@ -17,7 +14,5 @@ export function getBusinessCardArchiveFilename(locale: LocaleCode): string {
 }
 
 export function getBusinessCardHomeUrl(locale: LocaleCode): string {
-  return locale === LocaleCode.En
-    ? 'https://alekhin.dev/en/'
-    : 'https://alekhin.dev/'
+  return locale === LocaleCode.En ? 'https://alekhin.dev/en/' : 'https://alekhin.dev/'
 }
