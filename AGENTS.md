@@ -84,7 +84,7 @@ After UI changes, manually verify:
 
 ## Commits and Pull Requests
 
-Follow concise conventional commits such as `feat: add canvas flight game` or `fix: improve responsive interface layout`. Keep each commit focused and use an imperative summary. Do not commit unless explicitly requested.
+Commit messages must follow the Conventional Commits convention: `type(optional-scope): description`, such as `feat: add canvas flight game` or `fix: improve responsive interface layout`. Keep each commit focused and use a concise, imperative summary. Do not commit unless explicitly requested.
 
 Pull requests should describe the user-visible result, list verification commands, link related issues, and include before-and-after screenshots for visual changes. Call out localization, accessibility, configuration, and content changes explicitly.
 
