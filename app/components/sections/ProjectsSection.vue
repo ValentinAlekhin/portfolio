@@ -113,19 +113,19 @@ function onSelectorKeydown(event: KeyboardEvent, index: number) {
   text-align: left;
   text-decoration: none;
   cursor: pointer;
-  position: relative;
 }
-.project-selector::before {
+.project-selector__title::before {
   position: absolute;
-  top: 2.65rem;
-  left: 0.1rem;
+  top: 50%;
+  left: -1.1rem;
   width: 0.4rem;
   height: 0.4rem;
+  transform: translateY(-50%);
   background: var(--color-text);
   content: '';
   opacity: 0;
 }
-.project-selector--active::before {
+.project-selector--active .project-selector__title::before {
   opacity: 1;
 }
 .project-selector__category {
@@ -138,6 +138,7 @@ function onSelectorKeydown(event: KeyboardEvent, index: number) {
   line-height: 1.4;
 }
 .project-selector__title {
+  position: relative;
   display: block;
   font-size: clamp(1.35rem, 2vw, 1.75rem);
   font-weight: 500;
