@@ -28,3 +28,7 @@ logs
 # Browser test artifacts
 test-results/
 playwright-report/
+
+# Local preparation assets for the FGISU case study
+/scripts/fgisu-demo/
+/scripts/fgisu-cover.prompt.txt

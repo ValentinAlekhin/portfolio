@@ -58,6 +58,17 @@ Use `LocaleCode` and the locale maps from `app/types/i18n.ts`; do not scatter ra
 
 Use `Alekhin` for the surname in English copy and `alekhin.dev` for the site brand. Verify public contact details and external project links before changing them.
 
+## Adding Portfolio Projects
+
+- Describe the author's full, verified contribution across architecture, backend, interfaces, desktop software, and other relevant work. Use the supplied scope and commit history to distinguish personal responsibility from the whole team's work.
+- Explain the business context: who uses the project, what it solves, and where it is used. Name a government customer explicitly when applicable.
+- Explain complex systems through concrete workflows and simple interactive diagrams while preserving the site's minimal design. Write technical sections for readers: components, technologies, and interactions, without discussing repositories, source research, or case preparation.
+- For complex systems, prioritize verified photographs of actual sites, equipment, and people; interface screenshots supplement that context. Include verified exhibition or event participation with relevant photographs when available. Do not imply participation based on unrelated events or generic images.
+- Public photographs may come from official sources or news publications. Link and credit the original source.
+- Check the image cache before processing again. Improve actual detail and clarity, remove distracting clutter, and check screen and text orientation; increasing pixel dimensions alone is not a quality improvement. Do not mention retouching, upscaling, or regeneration in public case copy.
+- Label demonstration content directly in screenshot captions. Use fictional data and omit screenshot preparation and capture dates.
+- Take the year and list position from the task. Use the already running server for browser verification.
+
 ## Testing and Manual Verification
 
 Place unit tests in `tests/` or beside the relevant module as `*.spec.ts`. Add Playwright specs for critical browser-only behavior when appropriate.

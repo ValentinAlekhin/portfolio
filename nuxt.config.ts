@@ -1,7 +1,7 @@
 import { profile } from './app/data/profile'
 import { localeLanguageTag, LocaleCode } from './app/types/i18n'
 
-const projectSlugs = ['cnp', 'powersketch', 'planes-arch', 'nordhus', 'aerovista', 'kineo', 'forma'] as const
+const projectSlugs = ['cnp', 'fgisu', 'powersketch', 'planes-arch', 'nordhus', 'aerovista', 'kineo', 'forma'] as const
 
 export default defineNuxtConfig({
   modules: [

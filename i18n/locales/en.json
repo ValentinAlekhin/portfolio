@@ -90,6 +90,202 @@
       "completed": "completed"
     },
     "entries": {
+      "fgisu": {
+        "status": "Contribution completed",
+        "eyebrow": "Government cloud resource management",
+        "scope": "Architecture / Microservices / Business processes / Interfaces",
+        "summary": "Requests, contracts and cloud resource consumption tracking for government information systems.",
+        "description": "The federal information system “Management of the Unified State Cloud Platform” connects an agency’s computing needs with approvals, contracts and service provision. The government customer is Russia’s Ministry of Digital Development, Communications and Mass Media.",
+        "audience": "The system manages the government cloud: agencies request resources for their information systems, suppliers manage service provision, and the regulator reviews requirements and monitors usage.",
+        "role": "Designed the microservice architecture and developed services with Node.js and NestJS. Wrote code for backend services, integrations and account interfaces. Responsible for business process automation with Zeebe and the contract microservice; maintained a shared service library.",
+        "brief": {
+          "task": "Connect agency requests, contract terms, infrastructure and actual cloud service consumption within a shared workflow.",
+          "solution": "Approval automation with Zeebe, microservices and shared rules for exchanging data, connected to account interfaces, resource records and analytics.",
+          "result": "A resource requirement passes through approval and becomes the basis for an order. Participants can track its status, agreed volumes and resource usage."
+        },
+        "sources": {
+          "purpose": "Voskhod Research Institute: system purpose",
+          "customer": "Public information about the government customer"
+        },
+        "context": {
+          "title": "Who uses the system and why",
+          "description": "Cloud resources support government information systems, budgets and contractual obligations. Participants need to know who requested computing capacity, the terms of provision and how it is used. The system brings these records and workflows together.",
+          "items": {
+            "consumer": {
+              "title": "Consumer agency",
+              "description": "Defines its information system’s computing, storage and other service requirements. Tracks approvals, orders and consumption."
+            },
+            "supplier": {
+              "title": "Resource supplier",
+              "description": "Works with services, contract terms and orders. Matches requested volumes to available infrastructure."
+            },
+            "regulator": {
+              "title": "Regulator and analyst",
+              "description": "Review requirements, take part in approvals and analyse resource usage. Reports help compare ordered volumes with actual consumption."
+            }
+          }
+        },
+        "workflow": {
+          "title": "From a request to consumption tracking",
+          "description": "An agency needs additional resources for its information system. It submits a request and agrees its contents; the approved volumes then form the basis for orders. After services are provided, the system helps track usage. Select a step for details."
+        },
+        "contribution": {
+          "title": "My contribution",
+          "description": "Designed microservice interactions and implemented them in code. My main responsibilities were business process automation with Zeebe, the contract service and a shared service library. I also developed requests, resource records, reporting and account interfaces.",
+          "items": {
+            "zeebe": {
+              "title": "Zeebe and business processes",
+              "description": "Developed the Zeebe integration, business process diagrams and task handlers. Connected approvals, revision requests, reminders and stage transitions to actions in the account interface."
+            },
+            "contracts": {
+              "title": "Contract microservice",
+              "description": "Developed the contract microservice and its integrations: services and pricing, volume limits, consumer access, attachments, invoices and service quality terms."
+            },
+            "common": {
+              "title": "Shared service library",
+              "description": "Maintained the shared library: data exchange between services, data structures, access checks and Zeebe integration. Shared modules were used across the system’s services."
+            },
+            "requests": {
+              "title": "Requests and resource records",
+              "description": "Developed the request service and its processes. Extended the infrastructure inventory (CMDB): request versions, approved resource sets and links between volumes and orders. Worked on technical support processes."
+            },
+            "frontend": {
+              "title": "Account interfaces and integrations",
+              "description": "Extended the Nuxt/Vue portal’s account overview for each user role, consumption forecasts and technical support. Developed the shared entry point for interface requests (API gateway) and data exchange with services."
+            },
+            "analytics": {
+              "title": "Reports and documents",
+              "description": "Worked on reporting services, Cube.js models, the report builder interface and government agency IT resource records. Extended document generation, file storage and the change log."
+            }
+          }
+        },
+        "system": {
+          "title": "Microservices with clear responsibilities",
+          "description": "The account interface sends requests to a shared entry point: the API gateway. Node.js and NestJS services handle requests, resources and contracts, while Zeebe manages approvals and participants’ tasks. Select a block to learn its role."
+        },
+        "coordination": {
+          "title": "Keeping decisions and resources consistent",
+          "description": "A single request brings together the agency, supplier and regulator. Resource requirements can change during approval. The system needs to preserve the agreed version, offer each participant the right actions and carry the approved volumes into the order.",
+          "items": {
+            "versions": {
+              "title": "Requirement versions",
+              "description": "Revised requirements must preserve the approved resource set. Saved versions connect participants’ decisions to specific resources."
+            },
+            "permissions": {
+              "title": "Roles and access",
+              "description": "Consumers, suppliers and regulators work with the same request but have different actions available. Access checks apply in the interface and on the server."
+            },
+            "handoff": {
+              "title": "Long-running approvals",
+              "description": "A process waits for a human decision, returns a request for revision and resumes after a response. Zeebe stores its state and assigns work to task handlers."
+            },
+            "traceability": {
+              "title": "Connection to orders",
+              "description": "Requests, selected resources, services and orders are linked. The change log records actions, while notifications keep participants informed."
+            }
+          }
+        },
+        "analytics": {
+          "title": "Ordered resources and actual consumption",
+          "description": "Work continues after approval: participants need to see how the supplied capacity is used. Analytics combines resource records and metrics for reports and consumption forecasts. The report builder offers measures, groupings and filters; the document generator produces forms and exports."
+        },
+        "architecture": "The backend uses Node.js, NestJS and TypeScript. The API gateway accepts interface requests and routes them to the appropriate microservice. Services exchange data through gRPC, a protocol that lets one service call functions in another. A shared service library provides data structures, data exchange modules and access checks.",
+        "constraints": "Zeebe manages approvals and long-running business processes: assigns tasks, waits for decisions and moves requests to the next stage. RabbitMQ and WebSocket deliver notifications so participants can see changes in their accounts.",
+        "implementation": "Nuxt and Vue power account interfaces; PostgreSQL stores business data; ClickHouse and Cube.js serve analytics and forecasts. Separate services generate documents and handle files in MinIO/S3.",
+        "media": {
+          "cover": {
+            "alt": "Illustration of a server aisle with rows of enclosed racks",
+            "caption": "Server infrastructure. Illustration.",
+            "description": "A server aisle represents the cloud infrastructure whose resources FGISU manages."
+          },
+          "requests": {
+            "alt": "Demonstration list of cloud resource requests",
+            "caption": "Request management. Demonstration interface; organisations and data are fictional.",
+            "description": "Example request list with filters, information systems, consumers and approval statuses. No confidential customer data is used."
+          },
+          "request": {
+            "alt": "Demonstration resource request with its contents and approval stages",
+            "caption": "Request contents and approval. Demonstration interface with fictional data.",
+            "description": "Example resource requirement with its contents, approval participants and order link. All values illustrate the workflow."
+          },
+          "analytics": {
+            "alt": "Demonstration cloud resource consumption report",
+            "caption": "Consumption analytics. Demonstration interface; all figures are illustrative.",
+            "description": "Example comparison of ordered and consumed resources. Figures and charts illustrate a workflow and do not represent operational system metrics."
+          }
+        },
+        "diagram": {
+          "systemLabel": "Interactive FGISU component diagram",
+          "workflowLabel": "Interactive resource request workflow",
+          "hint": "Select a block to learn its role. Keyboard: Tab, then Enter; Escape closes the description.",
+          "close": "Close component description",
+          "connections": "Main components and their interactions.",
+          "nodes": {
+            "interface": {
+              "title": "Account interface",
+              "summary": "Consumer, supplier, regulator",
+              "detail": "A shared Nuxt and Vue workspace. Participants create requests, make decisions, work with orders and track resource status."
+            },
+            "gateway": {
+              "title": "API gateway",
+              "summary": "Shared entry point",
+              "detail": "A shared entry point for account requests. Checks access and routes each request to the right service, so the interface can work through a single endpoint."
+            },
+            "requests": {
+              "title": "Requests",
+              "summary": "Requirements and approvals",
+              "detail": "Stores an information system’s resource requirements and connects them to an approval workflow. Participants see status, request contents and available actions."
+            },
+            "resources": {
+              "title": "Resources",
+              "summary": "Infrastructure and volumes",
+              "detail": "Tracks infrastructure, resource contents and relationships. Preserves approved resource sets and helps account for volumes allocated through orders."
+            },
+            "contracts": {
+              "title": "Contracts",
+              "summary": "Services, terms and orders",
+              "detail": "Manages services, prices, limits and consumer access. Connects resource provision to contract terms, invoices and service quality requirements."
+            },
+            "zeebe": {
+              "title": "Processes",
+              "summary": "Approvals and tasks",
+              "detail": "Zeebe manages business processes: approvals, revisions and stage transitions. Preserves process state while participants make decisions, then assigns work to services."
+            },
+            "analytics": {
+              "title": "Analytics",
+              "summary": "Consumption and forecasts",
+              "detail": "Compares ordered resources with consumption. ClickHouse and Cube.js support measures and reports; the report builder provides groupings and filters."
+            },
+            "documents": {
+              "title": "Documents",
+              "summary": "Forms and attachments",
+              "detail": "Generates documents using service data, prepares exports and stores attachments. Forms are built from templates, with MinIO/S3 handling file storage."
+            }
+          },
+          "steps": {
+            "request": {
+              "title": "Define requirements",
+              "summary": "System, resources and volumes",
+              "detail": "The consumer selects an information system and describes its needs. The request lists the resources and services, their parameters and volumes."
+            },
+            "approval": {
+              "title": "Approve",
+              "summary": "Decisions and revisions",
+              "detail": "Zeebe manages stages and user tasks. Participants approve requirements or return them for revision, with process state preserved between decisions."
+            },
+            "allocation": {
+              "title": "Link to an order",
+              "summary": "Agreed resources and contract",
+              "detail": "After approval, the system preserves the agreed resource set and volumes. These form the basis for orders under a contract."
+            },
+            "monitoring": {
+              "title": "Monitor",
+              "summary": "Records, consumption and reports",
+              "detail": "Participants track order status, consumption and efficiency measures. Reports help compare allocated volumes with actual usage."
+            }
+          }
+        }
+      },
       "powersketch": {
         "eyebrow": "Electrical diagram service",
         "scope": "SaaS / Product / Full-stack",

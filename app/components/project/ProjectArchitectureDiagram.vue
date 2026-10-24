@@ -18,6 +18,10 @@ const hoveredNode = ref<string | null>(null)
 const focusedNode = ref<string | null>(null)
 const openNode = ref<string | null>(null)
 const activeNode = computed(() => openNode.value ?? focusedNode.value ?? hoveredNode.value)
+const activeColor = computed(() => {
+  const color = graph.value.nodes.find(node => node.id === activeNode.value)?.color
+  return color ? `var(--diagram-${color})` : 'var(--color-text)'
+})
 const diagramId = useId()
 const descriptionId = `${diagramId}-description`
 const ports = { top: Position.Top, right: Position.Right, bottom: Position.Bottom, left: Position.Left }
@@ -30,7 +34,7 @@ const nodes = computed<Node[]>(() => graph.value.nodes.map((node, index) => {
     position: { x: canvasWidth.value * layout.x / 1000, y: layout.y },
     width: canvasWidth.value * layout.width / 1000,
     height: layout.height,
-    data: { copyKey: node.copyKey, index },
+    data: { copyKey: node.copyKey, index, color: node.color },
     draggable: false,
     connectable: false,
     selectable: false,
@@ -47,7 +51,7 @@ const edges = computed<Edge[]>(() => graph.value.edges.map((edge) => {
   const active = isActiveEdge(edge)
   const marker = {
     type: MarkerType.Arrow,
-    color: active ? 'var(--color-text)' : 'var(--color-control-border)',
+    color: active ? 'var(--diagram-active-color)' : 'var(--color-control-border)',
     width: 8,
     height: 8,
     strokeWidth: 1.5,
@@ -77,12 +81,13 @@ const edges = computed<Edge[]>(() => graph.value.edges.map((edge) => {
   <div
     class="architecture-diagram"
     :class="`architecture-diagram--${graph.layout}`"
+    :style="{ '--diagram-active-color': activeColor }"
     role="group"
     :aria-label="t(graph.labelKey)"
     :aria-describedby="descriptionId"
   >
     <p class="architecture-diagram__hint">
-      {{ t('projects.entries.cnp.diagram.hint') }}
+      {{ t(graph.hintKey ?? 'projects.entries.cnp.diagram.hint') }}
     </p>
     <p
       :id="descriptionId"
@@ -151,6 +156,7 @@ const edges = computed<Edge[]>(() => graph.value.edges.map((edge) => {
                   type="button"
                   class="architecture-diagram__node nodrag nopan"
                   :class="[`architecture-diagram__node--${id}`, { 'architecture-diagram__node--active': activeNode === id }]"
+                  :data-domain-color="data.color"
                   :aria-label="t(`${data.copyKey}.title`)"
                   :aria-describedby="`${diagramId}-${id}-summary`"
                   @pointerenter="hoveredNode = id"
@@ -185,7 +191,7 @@ const edges = computed<Edge[]>(() => graph.value.edges.map((edge) => {
                 >
                   <div class="architecture-diagram__popover-head">
                     <h3>{{ t(`${data.copyKey}.title`) }}</h3>
-                    <PopoverClose :aria-label="t('projects.entries.cnp.diagram.close')">
+                    <PopoverClose :aria-label="t(graph.closeKey ?? 'projects.entries.cnp.diagram.close')">
                       <BaseIcon name="close" />
                     </PopoverClose>
                   </div>
@@ -212,7 +218,10 @@ const edges = computed<Edge[]>(() => graph.value.edges.map((edge) => {
       v-if="graph.layout === 'system'"
       class="architecture-diagram__legend"
     >
-      <span aria-hidden="true" />{{ t('projects.entries.cnp.diagram.feedback') }}
+      <span
+        v-if="graph.edges.some(edge => edge.feedback)"
+        aria-hidden="true"
+      />{{ t(graph.legendKey ?? 'projects.entries.cnp.diagram.feedback') }}
     </p>
   </div>
 </template>
@@ -229,10 +238,17 @@ const edges = computed<Edge[]>(() => graph.value.edges.map((edge) => {
 .architecture-diagram__canvas :deep(.vue-flow__handle) { width: 1px; height: 1px; min-width: 0; min-height: 0; opacity: 0; pointer-events: none; }
 .architecture-diagram__canvas :deep(.architecture-diagram__edge) { pointer-events: none; cursor: default; }
 .architecture-diagram__canvas :deep(.architecture-diagram__edge .vue-flow__edge-path) { stroke: var(--color-control-border); stroke-width: 1; }
-.architecture-diagram__canvas :deep(.architecture-diagram__edge--active .vue-flow__edge-path) { stroke: var(--color-text); stroke-width: 2; }
+.architecture-diagram__canvas :deep(.architecture-diagram__edge--active .vue-flow__edge-path) { stroke: var(--diagram-active-color); stroke-width: 2; }
 .architecture-diagram__canvas :deep(.architecture-diagram__edge--feedback .vue-flow__edge-path) { stroke-dasharray: 5 5; }
 .architecture-diagram__node { position: relative; display: flex; flex-direction: column; justify-content: center; gap: 0.65rem; width: 100%; height: 100%; padding: 1rem; border: 1px solid var(--color-control-border); border-radius: 0; background: var(--color-bg); color: var(--color-text); text-align: left; cursor: pointer; pointer-events: auto; font: inherit; }
 .architecture-diagram__node--active { border-color: var(--color-text); background: var(--color-surface); }
+.architecture-diagram__node[data-domain-color='blue'] { --node-accent: var(--diagram-blue); }
+.architecture-diagram__node[data-domain-color='teal'] { --node-accent: var(--diagram-teal); }
+.architecture-diagram__node[data-domain-color='amber'] { --node-accent: var(--diagram-amber); }
+.architecture-diagram__node[data-domain-color='violet'] { --node-accent: var(--diagram-violet); }
+.architecture-diagram__node[data-domain-color] { border-color: color-mix(in srgb, var(--node-accent) 50%, var(--color-line)); border-top: 2px solid var(--node-accent); background: color-mix(in srgb, var(--node-accent) 5%, var(--color-bg)); }
+.architecture-diagram__node[data-domain-color].architecture-diagram__node--active { border-color: var(--node-accent); background: color-mix(in srgb, var(--node-accent) 11%, var(--color-bg)); }
+.architecture-diagram__node[data-domain-color] .architecture-diagram__more { color: var(--node-accent); }
 .architecture-diagram__node:focus-visible, .architecture-diagram__popover button:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; }
 .architecture-diagram__title { font-size: 0.9375rem; font-weight: 600; line-height: 1.35; }
 .architecture-diagram__summary { color: var(--color-text-muted); font-size: var(--font-size-ui); line-height: 1.65; }

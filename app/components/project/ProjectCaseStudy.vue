@@ -104,6 +104,21 @@ const { openGallery } = useProjectGallery(galleryRoot, galleryMedia)
           </div>
         </div>
         <ul
+          v-if="section.links?.length"
+          class="project-case__sources"
+        >
+          <li
+            v-for="link in section.links"
+            :key="link.url"
+          >
+            <a
+              :href="link.url"
+              target="_blank"
+              rel="noopener noreferrer"
+            >{{ t(link.labelKey) }} <BaseIcon name="arrow-up-right" /></a>
+          </li>
+        </ul>
+        <ul
           v-if="section.itemsPrefix && section.itemNames?.length"
           class="project-case__items"
         >
@@ -181,6 +196,8 @@ const { openGallery } = useProjectGallery(galleryRoot, galleryMedia)
 .project-case__section-head { max-width: 54rem; }
 .project-case__section-head h2 { max-width: 28ch; margin: 0; font-size: clamp(2rem, 2.5vw, 2.25rem); font-weight: 600; letter-spacing: -0.025em; line-height: 1.16; }
 .project-case__section-head p { max-width: 60ch; margin: 1rem 0 0; color: var(--color-text-muted); line-height: 1.7; }
+.project-case__sources { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; margin: 1.25rem 0 0; padding: 0; list-style: none; }
+.project-case__sources a { display: inline-flex; gap: 0.35rem; align-items: center; color: var(--project-accent); font-size: var(--font-size-small); text-underline-offset: 0.2em; }
 .project-case__items { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 2rem; margin: 2rem 0 0; padding: 0; border-top: 1px solid var(--color-line); list-style: none; }
 .project-case__items li { padding: 1rem 0; border-bottom: 1px solid var(--color-line); }
 .project-case__items h3 { margin: 0 0 0.5rem; font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; }

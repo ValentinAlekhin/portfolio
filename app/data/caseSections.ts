@@ -8,9 +8,25 @@ export interface CaseSectionDefinition {
   itemsPrefix?: string
   itemNames?: readonly string[]
   diagram?: ProjectDiagramName
+  links?: readonly { labelKey: string, url: string }[]
 }
 
 export const caseSections: Record<ProjectCaseName, readonly CaseSectionDefinition[]> = {
+  'fgisu': [
+    {
+      titleSuffix: 'context.title', textSuffix: 'context.description', mediaIds: [],
+      itemsPrefix: 'context.items', itemNames: ['consumer', 'supplier', 'regulator'],
+      links: [
+        { labelKey: 'projects.entries.fgisu.sources.purpose', url: 'https://www.voskhod.ru/projects/scsmev/' },
+        { labelKey: 'projects.entries.fgisu.sources.customer', url: 'https://www.voskhod.ru/news/press/gosorgany-pereezzhayut-v-oblaka/' },
+      ],
+    },
+    { titleSuffix: 'workflow.title', textSuffix: 'workflow.description', diagram: 'fgisu-workflow', mediaIds: ['requests'] },
+    { titleSuffix: 'contribution.title', textSuffix: 'contribution.description', mediaIds: [], itemsPrefix: 'contribution.items', itemNames: ['zeebe', 'contracts', 'common', 'requests', 'frontend', 'analytics'] },
+    { titleSuffix: 'system.title', textSuffix: 'system.description', diagram: 'fgisu-system', mediaIds: [] },
+    { titleSuffix: 'coordination.title', textSuffix: 'coordination.description', mediaIds: ['request'], itemsPrefix: 'coordination.items', itemNames: ['versions', 'permissions', 'handoff', 'traceability'] },
+    { titleSuffix: 'analytics.title', textSuffix: 'analytics.description', mediaIds: ['analytics'] },
+  ],
   'powersketch': [
     { titleSuffix: 'workflow.title', textSuffix: 'workflow.description', mediaIds: ['dashboard'], itemsPrefix: 'workflow.steps', itemNames: ['create', 'compose', 'connect', 'report', 'share'] },
     { titleSuffix: 'systemTitle', textSuffix: 'approach', mediaIds: ['editor', 'library', 'layers'], itemsPrefix: 'features', itemNames: ['scene', 'catalog', 'layers', 'data'] },

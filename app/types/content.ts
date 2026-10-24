@@ -3,7 +3,7 @@ import type { LocaleCode } from './i18n'
 export type ThemePreference = 'light' | 'dark' | 'auto'
 export type ResolvedTheme = 'light' | 'dark'
 
-export type ProjectCaseName = 'aerovista' | 'cnp' | 'forma' | 'kineo' | 'nordhus' | 'planes-arch' | 'powersketch'
+export type ProjectCaseName = 'aerovista' | 'cnp' | 'fgisu' | 'forma' | 'kineo' | 'nordhus' | 'planes-arch' | 'powersketch'
 export type ProjectThemeName = ProjectCaseName
 export type ProjectSchemaType = 'SoftwareApplication' | 'WebSite'
 export type ProjectMediaTheme = 'light' | 'dark'
@@ -61,6 +61,7 @@ export interface Project {
   title: string
   period: string
   status: 'live' | 'in-progress' | 'archived' | 'completed'
+  statusKey?: string
   externalUrl?: string
   translationKey: string
   brief: { taskKey: string, solutionKey: string, resultKey: string }

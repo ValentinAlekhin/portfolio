@@ -28,7 +28,7 @@ for (const locale of Object.values(LocaleCode)) {
         const browser = window as Window & { useNuxtApp?: () => { isHydrating: boolean } }
         return browser.useNuxtApp?.().isHydrating === false
       })
-      await expect(page.locator('.project-case__top > span')).toHaveText('2021')
+      await expect(page.locator('.project-case__top > span')).toHaveText('2021—2024')
       await expect(page.locator('.project-case__intro').first()).toHaveText(copy.projects.entries.cnp.description)
       await expect(page.locator('.architecture-diagram')).toHaveCount(2)
       const diagram = page.getByRole('group', { name: copy.projects.entries.cnp.diagram.systemLabel })

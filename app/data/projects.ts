@@ -18,7 +18,7 @@ function planesArchMediaSources(id: string): ProjectMediaSources {
   }
 }
 
-type VisualProjectSlug = 'aerovista' | 'cnp' | 'forma' | 'kineo' | 'nordhus'
+type VisualProjectSlug = 'aerovista' | 'cnp' | 'fgisu' | 'forma' | 'kineo' | 'nordhus'
 
 function visualProjectMedia(
   project: VisualProjectSlug,
@@ -52,7 +52,7 @@ export const projects: Project[] = [
     slug: 'cnp',
     index: '01',
     title: 'CNP',
-    period: '2021',
+    period: '2021—2024',
     status: 'completed',
     translationKey: 'projects.entries.cnp',
     brief: { taskKey: 'projects.entries.cnp.brief.task', solutionKey: 'projects.entries.cnp.brief.solution', resultKey: 'projects.entries.cnp.brief.result' },
@@ -87,9 +87,34 @@ export const projects: Project[] = [
     stack: ['Vue', 'NestJS', 'Electron', 'TypeScript', 'Nuxt', 'Vuex', 'Socket.IO', 'PostgreSQL', 'Redis'],
   },
   {
+    slug: 'fgisu',
+    index: '02',
+    title: 'ФГИС «Управление ГЕОП»',
+    period: '2022—2024',
+    status: 'completed',
+    statusKey: 'projects.entries.fgisu.status',
+    translationKey: 'projects.entries.fgisu',
+    brief: { taskKey: 'projects.entries.fgisu.brief.task', solutionKey: 'projects.entries.fgisu.brief.solution', resultKey: 'projects.entries.fgisu.brief.result' },
+    scopeKey: 'projects.entries.fgisu.scope',
+    caseName: 'fgisu',
+    theme: 'fgisu',
+    schemaType: 'SoftwareApplication',
+    applicationCategory: 'BusinessApplication',
+    cover: '/projects/fgisu/datacenter-cover.webp',
+    ogImage: '/projects/fgisu/datacenter-cover.webp',
+    metrics: [],
+    media: [
+      visualProjectMedia('fgisu', 'cover', 1536, 1024, 'viewport', 'datacenter-cover'),
+      visualProjectMedia('fgisu', 'requests', 2400, 1500, 'viewport', 'requests-demo'),
+      visualProjectMedia('fgisu', 'request', 2400, 1500, 'viewport', 'request-demo'),
+      visualProjectMedia('fgisu', 'analytics', 2400, 1500, 'viewport', 'analytics-demo'),
+    ],
+    stack: ['NestJS', 'TypeScript', 'Zeebe', 'gRPC', 'Vue', 'Nuxt', 'PostgreSQL', 'ClickHouse', 'Cube.js', 'RabbitMQ'],
+  },
+  {
     slug: 'powersketch',
     statisticsPeriodKey: 'projects.entries.powersketch.metrics.period',
-    index: '02',
+    index: '03',
     title: 'PowerSketch',
     period: '2024—NOW',
     status: 'live',
@@ -221,7 +246,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'planes-arch',
-    index: '03',
+    index: '04',
     title: 'PLANES architects',
     period: '2026—NOW',
     status: 'live',
@@ -286,7 +311,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'nordhus',
-    index: '04',
+    index: '05',
     title: 'NORDHUS',
     period: '2026',
     status: 'completed',
@@ -320,7 +345,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'aerovista',
-    index: '05',
+    index: '06',
     title: 'AEROVISTA Inspect',
     period: '2026',
     status: 'completed',
@@ -349,7 +374,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'kineo',
-    index: '06',
+    index: '07',
     title: 'KINEO',
     period: '2026',
     status: 'completed',
@@ -381,7 +406,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'forma',
-    index: '07',
+    index: '08',
     title: 'FORMA',
     period: '2026',
     status: 'completed',

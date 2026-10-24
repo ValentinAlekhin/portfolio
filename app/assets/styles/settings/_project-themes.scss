@@ -22,6 +22,13 @@ html[data-theme='dark'] {
 
 /* Case colors are intentionally local. Site chrome and the page canvas stay neutral. */
 .project-case[data-project-theme='powersketch'] { --project-accent: #17629d; }
+.project-case[data-project-theme='fgisu'] {
+  --project-accent: #126c9f;
+  --diagram-blue: #2575a8;
+  --diagram-teal: #247b70;
+  --diagram-amber: #9d7024;
+  --diagram-violet: #7962a5;
+}
 .project-case[data-project-theme='planes-arch'] { --project-accent: #476b69; }
 .project-case[data-project-theme='nordhus'] { --project-accent: #965129; }
 .project-case[data-project-theme='aerovista'] { --project-accent: #ae4b10; }
@@ -29,6 +36,13 @@ html[data-theme='dark'] {
 .project-case[data-project-theme='forma'] { --project-accent: #67594a; }
 
 html[data-theme='dark'] .project-case[data-project-theme='powersketch'] { --project-accent: #8bc6f2; }
+html[data-theme='dark'] .project-case[data-project-theme='fgisu'] {
+  --project-accent: #8bc6f2;
+  --diagram-blue: #81b8e0;
+  --diagram-teal: #75b9ad;
+  --diagram-amber: #d9b36f;
+  --diagram-violet: #baa6e4;
+}
 html[data-theme='dark'] .project-case[data-project-theme='planes-arch'] { --project-accent: #a9cdcb; }
 html[data-theme='dark'] .project-case[data-project-theme='nordhus'] { --project-accent: #e1aa82; }
 html[data-theme='dark'] .project-case[data-project-theme='aerovista'] { --project-accent: #ffb084; }

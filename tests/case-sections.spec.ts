@@ -22,6 +22,10 @@ describe('case study sections', () => {
       for (const section of sections) {
         if (section.diagram) {
           const diagram = projectDiagrams[section.diagram]
+          for (const key of [diagram.labelKey, diagram.descriptionKey, diagram.hintKey, diagram.closeKey, diagram.legendKey].filter((key): key is string => Boolean(key))) {
+            expect(textAt(ru, key), key).toBe(true)
+            expect(textAt(en, key), key).toBe(true)
+          }
           for (const node of diagram.nodes) {
             for (const suffix of ['title', 'summary', 'detail']) {
               expect(textAt(ru, `${node.copyKey}.${suffix}`)).toBe(true)
@@ -32,6 +36,11 @@ describe('case study sections', () => {
             expect(diagram.nodes.some(node => node.id === edge.from)).toBe(true)
             expect(diagram.nodes.some(node => node.id === edge.to)).toBe(true)
           }
+        }
+        for (const link of section.links ?? []) {
+          expect(textAt(ru, link.labelKey), link.labelKey).toBe(true)
+          expect(textAt(en, link.labelKey), link.labelKey).toBe(true)
+          expect(new URL(link.url).protocol).toBe('https:')
         }
         const keys = [section.titleSuffix, section.textSuffix]
         for (const itemName of section.itemNames ?? []) {

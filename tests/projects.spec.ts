@@ -27,11 +27,13 @@ function translated(locale: Record<string, unknown>, key: string): boolean {
 }
 
 describe('portfolio projects', () => {
-  it('defines seven uniquely addressable projects', () => {
-    expect(projects).toHaveLength(7)
+  it('defines eight uniquely addressable projects', () => {
+    expect(projects).toHaveLength(8)
     expect(new Set(projects.map(project => project.slug)).size).toBe(projects.length)
     expect(new Set(projects.map(project => project.index)).size).toBe(projects.length)
     expect(new Set(projects.map(project => project.caseName)).size).toBe(projects.length)
+    expect(projects[0]).toMatchObject({ slug: 'cnp', index: '01', period: '2021—2024' })
+    expect(projects[1]).toMatchObject({ slug: 'fgisu', index: '02', period: '2022—2024' })
   })
 
   it('keeps project media and translations complete', () => {
@@ -94,7 +96,7 @@ describe('portfolio projects', () => {
   it('allows completed portfolio-only projects without external URLs', () => {
     const completed = projects.filter(project => project.status === 'completed')
 
-    expect(completed.map(project => project.slug)).toEqual(['cnp', 'nordhus', 'aerovista', 'kineo', 'forma'])
+    expect(completed.map(project => project.slug)).toEqual(['cnp', 'fgisu', 'nordhus', 'aerovista', 'kineo', 'forma'])
     expect(completed.every(project => project.externalUrl === undefined)).toBe(true)
   })
 

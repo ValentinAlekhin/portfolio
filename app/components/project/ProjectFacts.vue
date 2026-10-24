@@ -15,7 +15,7 @@ const period = computed(() => props.project.period.replace('NOW', t('case.presen
     <dl class="project-facts__overview">
       <div><dt>{{ t('case.labels.scope') }}</dt><dd>{{ t(project.scopeKey) }}</dd></div>
       <div><dt>{{ t('case.labels.period') }}</dt><dd>{{ period }}</dd></div>
-      <div><dt>{{ t('case.labels.status') }}</dt><dd>{{ t(`projects.status.${project.status}`) }}</dd></div>
+      <div><dt>{{ t('case.labels.status') }}</dt><dd>{{ t(project.statusKey ?? `projects.status.${project.status}`) }}</dd></div>
     </dl>
     <div class="project-facts__stack">
       <h2>{{ t('case.labels.stack') }}</h2>
