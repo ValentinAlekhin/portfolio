@@ -58,6 +58,10 @@ const edges = computed<Edge[]>(() => graph.value.edges.map((edge) => {
     orient: 'auto-start-reverse',
   }
   const connection = edge.connection[viewport.value]
+  // Keep side connections inside the frame on narrow screens.
+  const offset = edge.feedback
+    ? (isMobile.value ? canvasWidth.value * 0.1 : 80)
+    : (isMobile.value ? 12 : 20)
   return {
     id: `${edge.from}-${edge.to}`,
     source: edge.from,
@@ -65,7 +69,7 @@ const edges = computed<Edge[]>(() => graph.value.edges.map((edge) => {
     sourceHandle: `source-${connection.sourcePort}`,
     targetHandle: `target-${connection.targetPort}`,
     type: 'smoothstep',
-    pathOptions: { borderRadius: 6, offset: edge.feedback ? (isMobile.value ? canvasWidth.value * 0.1 : 80) : 20 },
+    pathOptions: { borderRadius: 6, offset },
     markerEnd: marker,
     markerStart: edge.bidirectional ? marker : undefined,
     class: { 'architecture-diagram__edge': true, 'architecture-diagram__edge--active': active, 'architecture-diagram__edge--feedback': Boolean(edge.feedback) },

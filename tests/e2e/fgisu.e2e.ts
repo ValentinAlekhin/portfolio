@@ -7,8 +7,8 @@ const translations = { [LocaleCode.Ru]: ru, [LocaleCode.En]: en }
 test.use({ hasTouch: true })
 
 for (const locale of Object.values(LocaleCode)) {
-  for (const width of [390, 1440]) {
-    test(`${locale} / ${width}: FGISU diagrams and demonstration gallery are accessible`, async ({ page }) => {
+  for (const width of [320, 390, 899, 900, 1100, 1440]) {
+    test(`${locale} / ${width}: FGISU diagrams fit their frames and remain accessible`, async ({ page }) => {
       const copy = translations[locale]
       const prefix = locale === LocaleCode.Ru ? '' : '/en'
       const errors: string[] = []
@@ -26,6 +26,17 @@ for (const locale of Object.values(LocaleCode)) {
       await expect(page.locator('.project-case__top > span')).toHaveText('2022—2024')
       const diagram = page.getByRole('group', { name: copy.projects.entries.fgisu.diagram.systemLabel })
       await expect(diagram.locator('[data-domain-color]')).toHaveCount(8)
+      await expect(diagram.locator('.vue-flow__edge-path').first()).toHaveAttribute('d', /^M/)
+      await expect.poll(() => diagram.evaluate((root) => {
+        const frame = root.getBoundingClientRect()
+        return Array.from(root.querySelectorAll('.vue-flow__node, .vue-flow__edge-path'))
+          .filter((element) => {
+            const bounds = element.getBoundingClientRect()
+            return bounds.left < frame.left + 2 || bounds.right > frame.right - 2
+              || bounds.top < frame.top + 2 || bounds.bottom > frame.bottom - 2
+          })
+          .map(element => element.getAttribute('data-id') ?? element.id ?? element.tagName)
+      })).toEqual([])
       const processes = diagram.getByRole('button', { name: copy.projects.entries.fgisu.diagram.nodes.zeebe.title, exact: true })
       await processes.focus()
       await page.keyboard.press('Enter')
