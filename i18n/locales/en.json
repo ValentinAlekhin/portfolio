@@ -660,14 +660,14 @@
       },
       "cnp": {
         "eyebrow": "For the Government Coordination Center",
-        "scope": "Public sector / Operator console / Frontend",
+        "scope": "System architecture / Backend / Frontend / Electron",
         "summary": "A media content management system for preparing meetings and controlling a video wall from a tablet.",
         "description": "The Media Content Management System was developed for the Analytical Center for the Government of the Russian Federation and is used at the Government Coordination Center. It connects meeting preparation with live display control: documents, video, cameras, web applications and dashboards can be shown on a large video wall.",
         "audience": "Operators, speakers and specialists preparing meetings, presentations and analytical materials for the Coordination Center.",
-        "role": "Contributed to the operator web console: scenario preparation, material controls and communication with the server and display system.",
+        "role": "Designed the architecture of the entire system and developed the backend, operator web console and Electron application for displaying content on the video wall.",
         "brief": {
           "task": "Give operators convenient control over different materials on a video wall during meetings and presentations.",
-          "solution": "A tablet web console for preparing a scenario, arranging materials on the screen and controlling the display.",
+          "solution": "Designed the system architecture and developed the backend, tablet operator console and Electron application for displaying content on the video wall.",
           "result": "Preparation and live display form one workflow: operators choose materials and control the screen from a tablet."
         },
         "metrics": {

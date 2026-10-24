@@ -84,7 +84,7 @@ export const projects: Project[] = [
       visualProjectMedia('cnp', 'presentation', 2200, 1650, 'viewport'),
       visualProjectMedia('cnp', 'desktopEditor', 2200, 1650, 'viewport', 'desktop-editor'),
     ],
-    stack: ['Vue', 'Nuxt', 'Vuex', 'Socket.IO', 'TypeScript', 'NestJS', 'PostgreSQL', 'Redis', 'Electron'],
+    stack: ['Vue', 'NestJS', 'Electron', 'TypeScript', 'Nuxt', 'Vuex', 'Socket.IO', 'PostgreSQL', 'Redis'],
   },
   {
     slug: 'powersketch',
