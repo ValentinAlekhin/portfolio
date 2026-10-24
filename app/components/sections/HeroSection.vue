@@ -48,7 +48,7 @@ function onDiscussFocus(event: FocusEvent) {
           </BaseButton>
         </div>
         <p class="hero__availability">
-          <span aria-hidden="true" />{{ t('hero.available') }} · {{ t('hero.experienceCaption') }}
+          <span aria-hidden="true" />{{ t('hero.available') }}
         </p>
       </div>
       <figure class="hero__portrait">

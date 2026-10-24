@@ -1,7 +1,6 @@
 export const profile = {
   name: 'Valentin Alekhin',
   role: 'Website and web service developer',
-  experienceYears: 6,
   available: true,
   timeZone: 'Europe/Moscow',
   email: 'alekhin.v99@gmail.com',

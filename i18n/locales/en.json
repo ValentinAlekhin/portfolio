@@ -36,8 +36,7 @@
     "statement": "I build websites and services for business",
     "primary": "Discuss your project",
     "secondary": "View my work",
-    "available": "Taking on new projects",
-    "experienceCaption": "6+ years in development"
+    "available": "Taking on new projects"
   },
   "businessCard": {
     "seoTitle": "Valentin Alekhin’s business card",
@@ -53,7 +52,6 @@
       "role": "Website & web service developer",
       "offer": "Websites, web apps, bots, and automation — end to end.",
       "support": "From idea and interface to launch",
-      "experience": "{years}+ years of experience",
       "contactsTitle": "Get in touch",
       "scan": "Scan to open the portfolio",
       "qrAlt": "QR code linking to the alekhin.dev website"
@@ -1160,7 +1158,6 @@
           "description": "Cut repetitive tasks and manual data entry."
         }
       },
-      "experience": "{years}+ years of experience",
       "cta": "Tell me what you need on Telegram",
       "qrAlt": "QR code linking to the alekhin.dev portfolio"
     },

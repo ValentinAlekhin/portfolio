@@ -44,7 +44,6 @@ const isFront = computed(() => props.side === 'front')
         </div>
         <footer class="business-card__footer">
           <span>{{ t('businessCard.artwork.support') }}</span>
-          <span>{{ t('businessCard.artwork.experience', { years: profile.experienceYears }) }}</span>
         </footer>
       </template>
 

@@ -25,9 +25,6 @@ const services = ['websites', 'bots', 'tools'] as const
           aria-hidden="true"
         >&gt;_</span>
         <strong>{{ profile.domain }}</strong>
-        <span class="presentation-artwork__experience">
-          {{ t('presentation.artwork.experience', { years: profile.experienceYears }) }}
-        </span>
       </header>
 
       <div class="presentation-artwork__offer">
@@ -122,12 +119,6 @@ const services = ['websites', 'bots', 'tools'] as const
   font-size: 1.9cqw;
   font-weight: 700;
   place-items: center;
-}
-
-.presentation-artwork__experience {
-  margin-left: auto;
-  color: var(--art-muted);
-  font-size: 2.1cqw;
 }
 
 .presentation-artwork__offer { margin-top: 6cqw; }
