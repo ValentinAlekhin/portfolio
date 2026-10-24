@@ -83,16 +83,6 @@ describe('portfolio projects', () => {
     }
   })
 
-  it('localizes the Forma cart persistence metric', () => {
-    const forma = projects.find(project => project.slug === 'forma')
-    const cartMetric = forma?.metrics.find(metric => metric.labelKey.endsWith('.cart'))
-
-    expect(cartMetric).toEqual({
-      valueKey: 'projects.entries.forma.metrics.cartValue',
-      labelKey: 'projects.entries.forma.metrics.cart',
-    })
-  })
-
   it('allows completed portfolio-only projects without external URLs', () => {
     const completed = projects.filter(project => project.status === 'completed')
 

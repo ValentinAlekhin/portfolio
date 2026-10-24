@@ -63,10 +63,7 @@ export const projects: Project[] = [
     applicationCategory: 'BusinessApplication',
     cover: '/projects/cnp/room-overview.webp',
     ogImage: '/projects/cnp/room-overview.webp',
-    metrics: [
-      { value: '4', labelKey: 'projects.entries.cnp.metrics.components' },
-      { value: '3', labelKey: 'projects.entries.cnp.metrics.modes' },
-    ],
+    metrics: [],
     media: [
       visualProjectMedia('cnp', 'roomOverview', 2560, 1920, 'viewport', 'room-overview'),
       visualProjectMedia('cnp', 'tabletControl', 1920, 2560, 'viewport', 'tablet-control'),
@@ -259,11 +256,7 @@ export const projects: Project[] = [
     schemaType: 'WebSite',
     cover: planesArchMediaPath('landing', LocaleCode.Ru, 'light'),
     ogImage: planesArchMediaPath('landing', LocaleCode.Ru, 'light'),
-    metrics: [
-      { value: '2', labelKey: 'projects.entries.planesArch.metrics.locales' },
-      { value: '3', labelKey: 'projects.entries.planesArch.metrics.themes' },
-      { value: '5', labelKey: 'projects.entries.planesArch.metrics.categories' },
-    ],
+    metrics: [],
     media: [
       {
         id: 'landing',
@@ -323,11 +316,7 @@ export const projects: Project[] = [
     schemaType: 'WebSite',
     cover: '/projects/nordhus/cover.webp',
     ogImage: '/projects/nordhus/og.webp',
-    metrics: [
-      { value: '7', labelKey: 'projects.entries.nordhus.metrics.cabins' },
-      { value: '4', labelKey: 'projects.entries.nordhus.metrics.types' },
-      { value: '3', labelKey: 'projects.entries.nordhus.metrics.actions' },
-    ],
+    metrics: [],
     media: [
       visualProjectMedia('nordhus', 'cover', 2400, 1516, 'viewport'),
       visualProjectMedia('nordhus', 'homeFull', 2000, 16383, 'full-page', 'home-full'),
@@ -357,11 +346,7 @@ export const projects: Project[] = [
     schemaType: 'WebSite',
     cover: '/projects/aerovista/cover.webp',
     ogImage: '/projects/aerovista/og.webp',
-    metrics: [
-      { value: '6', labelKey: 'projects.entries.aerovista.metrics.services' },
-      { value: '3', labelKey: 'projects.entries.aerovista.metrics.cases' },
-      { value: '5', labelKey: 'projects.entries.aerovista.metrics.steps' },
-    ],
+    metrics: [],
     media: [
       visualProjectMedia('aerovista', 'cover', 2400, 1500, 'viewport'),
       visualProjectMedia('aerovista', 'homeFull', 2513, 16383, 'full-page', 'home-full'),
@@ -386,11 +371,7 @@ export const projects: Project[] = [
     schemaType: 'WebSite',
     cover: '/projects/kineo/cover.webp',
     ogImage: '/projects/kineo/og.webp',
-    metrics: [
-      { value: '6', labelKey: 'projects.entries.kineo.metrics.programs' },
-      { value: '4', labelKey: 'projects.entries.kineo.metrics.booking' },
-      { value: '7', labelKey: 'projects.entries.kineo.metrics.faq' },
-    ],
+    metrics: [],
     media: [
       visualProjectMedia('kineo', 'cover', 2400, 1516, 'viewport'),
       visualProjectMedia('kineo', 'homeFull', 2072, 16383, 'full-page', 'home-full'),
@@ -418,14 +399,7 @@ export const projects: Project[] = [
     schemaType: 'WebSite',
     cover: '/projects/forma/cover.webp',
     ogImage: '/projects/forma/og.webp',
-    metrics: [
-      { value: '12', labelKey: 'projects.entries.forma.metrics.products' },
-      { value: '5', labelKey: 'projects.entries.forma.metrics.filters' },
-      {
-        valueKey: 'projects.entries.forma.metrics.cartValue',
-        labelKey: 'projects.entries.forma.metrics.cart',
-      },
-    ],
+    metrics: [],
     media: [
       visualProjectMedia('forma', 'cover', 2400, 1500, 'viewport'),
       visualProjectMedia('forma', 'homeFull', 3972, 16383, 'full-page', 'home-full'),

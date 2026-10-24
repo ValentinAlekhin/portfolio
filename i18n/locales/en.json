@@ -438,12 +438,6 @@
       "planesArch": {
         "eyebrow": "Architecture studio website",
         "scope": "Corporate website / Frontend / CMS (admin panel)",
-        "metrics": {
-          "label": "The website in numbers",
-          "locales": "languages",
-          "themes": "display themes",
-          "categories": "portfolio filters"
-        },
         "summary": "Architecture studio website with a portfolio, galleries and CMS. Two language versions and light and dark themes.",
         "description": "The PLANES architects website puts the studio's work first. Visitors can explore architecture and interior projects, learn about the team's services and process, join an educational program, or send an enquiry.",
         "audience": "The website introduces the studio to future clients and gives architects and designers a way to discover PLANES educational programs.",
@@ -464,7 +458,7 @@
             "description": "Languages switch seamlessly while the visitor stays in the same section or project."
           },
           "themes": {
-            "title": "Three themes",
+            "title": "Light and dark themes",
             "description": "Follow the device setting or choose the light or dark theme manually."
           },
           "cms": {
@@ -525,12 +519,6 @@
         "scope": "Booking website / Frontend / UI",
         "summary": "Country retreat website with a filtered cabin catalogue, photo galleries and a booking form.",
         "role": "Interface design, responsive development, cabin catalogue, galleries, and client-side booking flows.",
-        "metrics": {
-          "label": "Project figures",
-          "cabins": "cabins",
-          "types": "cabin types",
-          "actions": "key actions"
-        },
         "overview": {
           "title": "From first impression to the right cabin",
           "text": "Large photography sets the atmosphere, while the catalogue helps visitors compare cabins and choose the right one."
@@ -612,12 +600,6 @@
         "scope": "Corporate landing / Calculator / Frontend",
         "summary": "Drone inspection services landing page with a savings calculator and enquiry form.",
         "role": "Concept, interface, responsive build, savings calculator, FAQ, and enquiry forms.",
-        "metrics": {
-          "label": "Project contents",
-          "services": "services",
-          "cases": "case studies",
-          "steps": "process steps"
-        },
         "overview": {
           "title": "A technical presentation without clutter",
           "text": "The page combines industrial photography, cost estimates, and evidence-led case studies."
@@ -674,12 +656,6 @@
         "scope": "Service landing / Booking / Frontend",
         "summary": "Movement studio website with programme filters, interactive class matching and four-step booking.",
         "role": "Interface, responsive development, filters, interactive programme matching, and four-step booking.",
-        "metrics": {
-          "label": "Project contents",
-          "programs": "directions",
-          "booking": "booking steps",
-          "faq": "FAQ questions"
-        },
         "overview": {
           "title": "A path from the problem to the right programme",
           "text": "The landing page explains the approach, services, and specialists in a clear sequence."
@@ -751,13 +727,6 @@
         "scope": "E-commerce / Catalogue / Frontend",
         "summary": "Ceramics online store with a filtered catalogue, product pages, a persistent cart and an order form.",
         "role": "Store concept, responsive development, catalogue and filters, product pages, cart, and checkout.",
-        "metrics": {
-          "label": "Project contents",
-          "products": "products",
-          "filters": "search parameters",
-          "cartValue": "IN BROWSER",
-          "cart": "cart persists"
-        },
         "overview": {
           "title": "A catalogue that continues the studio story",
           "text": "Editorial pages and products share one restrained visual system."
@@ -865,12 +834,6 @@
           "task": "Give operators convenient control over different materials on a video wall during meetings and presentations.",
           "solution": "Designed the system architecture and developed the backend, tablet operator console and Electron application for displaying content on the video wall.",
           "result": "Preparation and live display form one workflow: operators choose materials and control the screen from a tablet."
-        },
-        "metrics": {
-          "label": "System contents",
-          "components": "applications in the system",
-          "modes": "content modes",
-          "sources": "materials and data"
         },
         "deployment": {
           "title": "From the operator’s tablet to a government meeting room",
